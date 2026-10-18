@@ -42,6 +42,16 @@ class TranscriptSegmentRecord(Base):
     session: Mapped[SessionRecord] = relationship(back_populates="segments")
 
 
+class NoteDraftRecord(Base):
+    __tablename__ = "note_drafts"
+
+    id: Mapped[str] = mapped_column(String(100), primary_key=True)
+    session_id: Mapped[str] = mapped_column(ForeignKey("sessions.id", ondelete="CASCADE"), nullable=False, unique=True, index=True)
+    fields_json: Mapped[str] = mapped_column(Text, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+
+
 def database_url() -> str:
     return os.getenv("DATABASE_URL", "sqlite:///./data/pshynox.db")
 

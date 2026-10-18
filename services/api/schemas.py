@@ -81,6 +81,32 @@ class NoteField(BaseModel):
     review_status: ReviewStatus = ReviewStatus.PENDING
 
 
+NOTE_SECTIONS = {"subjective", "objective", "assessment", "plan", "functioning"}
+
+
+class NoteDraft(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    id: str = Field(min_length=1)
+    session_id: str = Field(min_length=1)
+    fields: list[NoteField]
+    created_at: datetime
+    updated_at: datetime
+
+
+class NoteDraftUpdate(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    fields: list[NoteField]
+
+    @model_validator(mode="after")
+    def validate_sections(self) -> "NoteDraftUpdate":
+        sections = [field.section for field in self.fields]
+        if len(sections) != len(set(sections)) or not set(sections).issubset(NOTE_SECTIONS):
+            raise ValueError("Note fields must use unique supported sections")
+        return self
+
+
 class Session(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
