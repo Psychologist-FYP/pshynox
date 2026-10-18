@@ -33,15 +33,15 @@ Pshynox is a local modular monolith, not a set of separately deployed microservi
 
 ## 2. Current repository boundary
 
-| Concern | Current location | Rule for module PRs |
-|---|---|---|
-| Pydantic contract definitions | `services/api/schemas.py` | Use the existing models; do not duplicate or change them unilaterally |
-| Fictional JSON fixtures | `packages/contracts/fixtures/` | Add/update fictional fixtures with a clear purpose and stable IDs |
-| FastAPI routes/orchestration | `services/api/main.py` | Module PRs should not bypass validation/persistence or create parallel APIs |
-| Current retrieval seam | `services/api/retrieval.py` | Existing provider contract is `search(query, session_id, segments, k=10) -> list[EvidenceHit]` |
-| SQLite and ORM | `services/api/db.py`, `alembic/` | Module A/B should return data; Module C persists it through the API/service layer |
-| Backend tests | `tests/` | Add focused module tests and keep the full suite green |
-| Frontend | `apps/web/` | Module A/B should not add independent user-facing frontends |
+| Concern                       | Current location                 | Rule for module PRs                                                                            |
+| ----------------------------- | -------------------------------- | ---------------------------------------------------------------------------------------------- |
+| Pydantic contract definitions | `services/api/schemas.py`        | Use the existing models; do not duplicate or change them unilaterally                          |
+| Fictional JSON fixtures       | `packages/contracts/fixtures/`   | Add/update fictional fixtures with a clear purpose and stable IDs                              |
+| FastAPI routes/orchestration  | `services/api/main.py`           | Module PRs should not bypass validation/persistence or create parallel APIs                    |
+| Current retrieval seam        | `services/api/retrieval.py`      | Existing provider contract is `search(query, session_id, segments, k=10) -> list[EvidenceHit]` |
+| SQLite and ORM                | `services/api/db.py`, `alembic/` | Module A/B should return data; Module C persists it through the API/service layer              |
+| Backend tests                 | `tests/`                         | Add focused module tests and keep the full suite green                                         |
+| Frontend                      | `apps/web/`                      | Module A/B should not add independent user-facing frontends                                    |
 
 The repository's current `FixtureRetrievalProvider` is a very simple offline search provider. It is a temporary fallback, not the planned BM25 engine. The new `services/speech/` and `services/retrieval/` packages are integration locations to add if absent; check the latest `main` before creating them.
 
@@ -276,7 +276,6 @@ Then inspect `git status`, confirm no `.env`, local SQLite database, recordings,
 
 ## 9. Immediate next actions
 
-1. Talha: add this guide to `docs/MODULE_INTEGRATION_GUIDE.md` and update the repository README link in the same documentation PR.
-2. Anas and Ayyan: pull the updated `main`, confirm the contracts above, and report any required changes before coding against them.
-3. Each module owner: open a focused feature branch, implement the standalone module plus fixtures/tests/README, then submit a PR.
-4. Talha: integrate each module behind its existing boundary; avoid postponing integration to the final demo day.
+1. Anas and Ayyan: pull the updated `main`, confirm the contracts above, and report any required changes before coding against them.
+2. Each module owner: open a focused feature branch, implement the standalone module plus fixtures/tests/README, then submit a PR.
+3. Talha: integrate each module behind its existing boundary; avoid postponing integration to the final demo day.
