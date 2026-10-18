@@ -71,7 +71,7 @@ async function request<T>(path: string, signal?: AbortSignal, init?: RequestInit
 export const api = {
   health: (signal?: AbortSignal) => request<Health>("/api/v1/health", signal),
   sessions: (signal?: AbortSignal) => request<Session[]>("/api/v1/sessions", signal),
-  createSession: (payload: { pseudonym_id: string; session_type: Session["session_type"]; consent: Record<string, string | boolean> }) =>
+  createSession: (payload: { pseudonym_id?: string; session_type: Session["session_type"]; consent: Record<string, string | boolean> }) =>
     request<Session>("/api/v1/sessions", undefined, { method: "POST", body: JSON.stringify(payload) }),
   session: (id: string, signal?: AbortSignal) => request<Session>(`/api/v1/sessions/${id}`, signal),
   transcript: (id: string, signal?: AbortSignal) =>

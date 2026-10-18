@@ -1,5 +1,6 @@
 import json
 import os
+import re
 import uuid
 from contextlib import asynccontextmanager
 from pathlib import Path
@@ -244,10 +245,16 @@ def list_sessions(db: DbSession = Depends(db_dependency)) -> list[Session]:
 
 @app.post("/api/v1/sessions", response_model=Session, status_code=201)
 def create_session(payload: SessionCreate, db: DbSession = Depends(db_dependency)) -> Session:
-    session_id = f"session-{uuid.uuid4().hex[:12]}"
+    existing_ids = db.scalars(select(SessionRecord.id)).all()
+    sequence = max(
+        (int(match.group(1)) for value in existing_ids if (match := re.fullmatch(r"session-(\d{3})", value))),
+        default=0,
+    ) + 1
+    session_id = f"session-{sequence:03d}"
+    pseudonym_id = payload.pseudonym_id or f"client-{sequence:03d}"
     record = SessionRecord(
         id=session_id,
-        pseudonym_id=payload.pseudonym_id,
+        pseudonym_id=pseudonym_id,
         session_type=payload.session_type.value,
         consent_json=json.dumps(payload.consent),
         workflow_status=WorkflowStatus.DRAFT.value,

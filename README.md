@@ -54,6 +54,11 @@ fictional sessions are stored in SQLite. New demo sessions receive synthetic
 transcript segments so the correction workflow can be exercised; this is not
 audio transcription.
 
+The workspace status label describes this setting: `Local API · demo data`
+means the API is running locally and the built-in fictional sample is enabled;
+`Local API · saved data` means the API is running locally against persisted
+SQLite records. It does not describe a remote service or internet connection.
+
 API operations include:
 
 - `GET /api/v1/sessions`
