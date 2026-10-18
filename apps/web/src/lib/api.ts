@@ -40,7 +40,9 @@ export type NoteField = {
   evidence_ids: string[];
   review_status: "PENDING" | "REVIEWED";
 };
-export type NoteDraft = { id: string; session_id: string; fields: NoteField[]; created_at: string; updated_at: string };
+export type NoteDraft = { id: string; session_id: string; fields: NoteField[]; created_at: string; updated_at: string; workflow_status: "DRAFT" | "APPROVED" | "REJECTED"; risk_review_status: "PENDING" | "COMPLETED"; reviewer_name?: string | null; decision_actor_name?: string | null; };
+export type ReviewState = { session_id: string; note_draft_id: string | null; workflow_status: "DRAFT" | "APPROVED" | "REJECTED"; risk_review_status: "PENDING" | "COMPLETED"; reviewer_name?: string | null; risk_review_completed_at?: string | null; review_note?: string | null; decision_actor_name?: string | null; decision_at?: string | null; rejection_reason?: string | null };
+export type AuditEvent = { id: string; session_id: string; note_draft_id: string | null; event_type: string; actor_name: string; occurred_at: string; metadata: Record<string, string> };
 
 export class ApiError extends Error {
   constructor(
@@ -90,6 +92,14 @@ export const api = {
       method: "PUT",
       body: JSON.stringify({ fields }),
     }),
+  reviewState: (sessionId: string) => request<ReviewState>(`/api/v1/sessions/${sessionId}/review-state`),
+  completeReview: (sessionId: string, payload: { reviewer_name: string; confirmation: boolean; review_note?: string }) =>
+    request<ReviewState>(`/api/v1/sessions/${sessionId}/risk-review/complete`, undefined, { method: "POST", body: JSON.stringify(payload) }),
+  approve: (sessionId: string, actor_name: string) =>
+    request<ReviewState>(`/api/v1/sessions/${sessionId}/approve`, undefined, { method: "POST", body: JSON.stringify({ actor_name }) }),
+  reject: (sessionId: string, actor_name: string, reason: string) =>
+    request<ReviewState>(`/api/v1/sessions/${sessionId}/reject`, undefined, { method: "POST", body: JSON.stringify({ actor_name, reason }) }),
+  auditEvents: (sessionId: string) => request<AuditEvent[]>(`/api/v1/sessions/${sessionId}/audit-events`),
 };
 
 export function formatTimestamp(milliseconds: number): string {
