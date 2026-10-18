@@ -45,7 +45,7 @@ function App() {
   const detailId = path.startsWith("/workspace/sessions/") ? path.split("/").pop() : undefined;
   const detailSession = sessions.find((item) => item.id === detailId) ?? null;
   if (detailId) return <SessionDetailPage health={health} session={detailSession} error={sessionError} />;
-  if (path === "/workspace" || path === "/workspace/") return <WorkspacePage health={health} sessions={sessions} loading={Boolean(!sessions.length && !sessionError)} error={sessionError} onCreated={(created) => setSessions((current) => [created, ...current])} />;
+  if (path === "/workspace" || path === "/workspace/") return <WorkspacePage health={health} sessions={sessions} loading={Boolean(!sessions.length && !sessionError)} error={sessionError} onCreated={(created) => { setSessions((current) => [created, ...current]); window.history.pushState({}, "", `/workspace/sessions/${created.id}`); setPath(`/workspace/sessions/${created.id}`); }} />;
   return <LandingPage health={health} error={healthError} />;
 }
 

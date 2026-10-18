@@ -190,7 +190,7 @@ class Session(BaseModel):
 class SessionCreate(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
-    pseudonym_id: str = Field(min_length=1, max_length=100)
+    pseudonym_id: str | None = Field(default=None, min_length=1, max_length=100)
     session_type: SessionType
     consent: dict[str, str | bool]
 
