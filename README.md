@@ -1,4 +1,4 @@
-# Psychologist-FYP Module C
+# Psychologist-FYP Module 
 
 Offline-first clinical documentation MVP owned by Module C. The application is
 documentation support only; it does not diagnose, assess risk, or recommend
