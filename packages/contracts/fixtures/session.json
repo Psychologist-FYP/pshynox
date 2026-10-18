@@ -1,0 +1,11 @@
+{
+  "id": "session-demo-001",
+  "pseudonym_id": "client-demo-001",
+  "session_type": "INITIAL_ASSESSMENT",
+  "consent": {
+    "recording_consent": true,
+    "fictional_fixture": true
+  },
+  "workflow_status": "IN_PROGRESS",
+  "created_at": "2026-10-19T09:00:00Z"
+}

@@ -1,0 +1,17 @@
+module_c_implementation_plan
+Module_C_Implementation_Plan.md
+.venv/
+__pycache__/
+.eggs/
+*.egg-info/
+.pytest_cache/
+*.py[cod]
+node_modules/
+dist/
+.env
+data/
+*.db
+*.sqlite
+*.sqlite3
+audio/
+models/
