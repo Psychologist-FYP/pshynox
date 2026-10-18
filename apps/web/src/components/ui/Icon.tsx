@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-type IconName = "arrow" | "book" | "check" | "chevron" | "file" | "grid" | "menu" | "search" | "shield" | "wave";
+type IconName = "arrow" | "book" | "check" | "chevron" | "close" | "file" | "grid" | "menu" | "search" | "shield" | "wave";
 
 export function Icon({ name, size = 18 }: { name: IconName; size?: number }) {
   const paths: Record<IconName, ReactNode> = {
@@ -8,6 +8,7 @@ export function Icon({ name, size = 18 }: { name: IconName; size?: number }) {
     book: <><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5v-16Z" /><path d="M4 5.5v16M8 7h8M8 11h8" /></>,
     check: <path d="m5 12 4 4L19 6" />,
     chevron: <path d="m7 10 5 5 5-5" />,
+    close: <><path d="m6 6 12 12M18 6 6 18" /></>,
     file: <><path d="M6 3h8l4 4v14H6z" /><path d="M14 3v5h5M9 13h6M9 17h6" /></>,
     grid: <><rect x="4" y="4" width="6" height="6" rx="1" /><rect x="14" y="4" width="6" height="6" rx="1" /><rect x="4" y="14" width="6" height="6" rx="1" /><rect x="14" y="14" width="6" height="6" rx="1" /></>,
     menu: <><path d="M4 7h16M4 12h16M4 17h16" /></>,

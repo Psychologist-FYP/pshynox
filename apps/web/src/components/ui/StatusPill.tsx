@@ -4,7 +4,7 @@ export function StatusPill({ health, compact = false }: { health: Health | null;
   return (
     <span className={`status-pill ${health ? "is-online" : "is-offline"} ${compact ? "is-compact" : ""}`}>
       <span className="status-dot" />
-      {health ? (health.fixture_mode ? "Local API · demo data" : "Local API · saved data") : "Local API unavailable"}
+      {health ? (health.fixture_mode ? "Example data enabled" : "Saved locally") : "Workspace unavailable"}
     </span>
   );
 }
