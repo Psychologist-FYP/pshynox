@@ -78,6 +78,19 @@ Functioning. Manual edits are stored with `MANUAL` provenance and retrieval
 candidate text, when later supplied by Module B, must remain visibly
 reviewable rather than silently replacing manual content.
 
+Review workflow routes are:
+
+- `GET /api/v1/sessions/{session_id}/review-state`
+- `POST /api/v1/sessions/{session_id}/risk-review/complete`
+- `POST /api/v1/sessions/{session_id}/approve`
+- `POST /api/v1/sessions/{session_id}/reject`
+- `GET /api/v1/sessions/{session_id}/audit-events`
+
+Approval requires a saved draft and completed explicit clinician review.
+Reviewer and decision names are self-reported local-MVP identifiers, not
+authenticated identities. Audit events contain workflow metadata only; note
+and transcript bodies are never copied into the audit record.
+
 ## Contract policy
 
 The API boundary uses `snake_case` JSON and is versioned under `/api/v1`.

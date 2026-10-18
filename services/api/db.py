@@ -50,6 +50,26 @@ class NoteDraftRecord(Base):
     fields_json: Mapped[str] = mapped_column(Text, nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    workflow_status: Mapped[str] = mapped_column(String(20), nullable=False, default="DRAFT")
+    risk_review_status: Mapped[str] = mapped_column(String(20), nullable=False, default="PENDING")
+    reviewer_name: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    risk_review_completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    review_note: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    decision_actor_name: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    decision_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    rejection_reason: Mapped[str | None] = mapped_column(String(500), nullable=True)
+
+
+class AuditEventRecord(Base):
+    __tablename__ = "audit_events"
+
+    id: Mapped[str] = mapped_column(String(100), primary_key=True)
+    session_id: Mapped[str] = mapped_column(ForeignKey("sessions.id", ondelete="CASCADE"), nullable=False, index=True)
+    note_draft_id: Mapped[str | None] = mapped_column(ForeignKey("note_drafts.id", ondelete="SET NULL"), nullable=True)
+    event_type: Mapped[str] = mapped_column(String(50), nullable=False)
+    actor_name: Mapped[str] = mapped_column(String(120), nullable=False)
+    occurred_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, index=True)
+    metadata_json: Mapped[str] = mapped_column(Text, nullable=False)
 
 
 def database_url() -> str:

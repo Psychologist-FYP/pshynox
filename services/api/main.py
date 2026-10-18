@@ -15,6 +15,7 @@ from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from sqlalchemy.orm import Session as DbSession
 
 from services.api.db import (
+    AuditEventRecord,
     NoteDraftRecord,
     SessionRecord,
     TranscriptSegmentRecord,
@@ -32,6 +33,12 @@ from services.api.schemas import (
     NoteDraftUpdate,
     NoteField,
     NOTE_SECTIONS,
+    AuditEvent,
+    DecisionRequest,
+    NoteWorkflowStatus,
+    RiskReviewCompleteRequest,
+    RiskReviewStatus,
+    ReviewState,
     Session,
     SessionCreate,
     TranscriptSegment,
@@ -132,8 +139,50 @@ def _record_to_draft(record: NoteDraftRecord) -> NoteDraft:
             "fields": json.loads(record.fields_json),
             "created_at": record.created_at,
             "updated_at": record.updated_at,
+            "workflow_status": record.workflow_status,
+            "risk_review_status": record.risk_review_status,
+            "reviewer_name": record.reviewer_name,
+            "risk_review_completed_at": record.risk_review_completed_at,
+            "review_note": record.review_note,
+            "decision_actor_name": record.decision_actor_name,
+            "decision_at": record.decision_at,
+            "rejection_reason": record.rejection_reason,
         }
     )
+
+
+def _review_state(record: NoteDraftRecord | None, session_id: str) -> ReviewState:
+    if record is None:
+        return ReviewState(
+            session_id=session_id,
+            note_draft_id=None,
+            workflow_status=NoteWorkflowStatus.DRAFT,
+            risk_review_status=RiskReviewStatus.PENDING,
+        )
+    return ReviewState(
+        session_id=session_id,
+        note_draft_id=record.id,
+        workflow_status=record.workflow_status,
+        risk_review_status=record.risk_review_status,
+        reviewer_name=record.reviewer_name,
+        risk_review_completed_at=record.risk_review_completed_at,
+        review_note=record.review_note,
+        decision_actor_name=record.decision_actor_name,
+        decision_at=record.decision_at,
+        rejection_reason=record.rejection_reason,
+    )
+
+
+def _audit(db: DbSession, session_id: str, draft_id: str | None, event_type: str, actor: str, metadata: dict[str, str]) -> None:
+    db.add(AuditEventRecord(
+        id=f"audit-{uuid.uuid4().hex[:12]}",
+        session_id=session_id,
+        note_draft_id=draft_id,
+        event_type=event_type,
+        actor_name=actor,
+        occurred_at=utc_now(),
+        metadata_json=json.dumps(metadata),
+    ))
 
 
 def _session_segments(db: DbSession, session_id: str) -> list[TranscriptSegment]:
@@ -315,6 +364,8 @@ def get_note_draft(session_id: str, db: DbSession = Depends(db_dependency)) -> N
         fields_json=json.dumps([field.model_dump(mode="json") for field in _default_note_fields()]),
         created_at=now,
         updated_at=now,
+        workflow_status=NoteWorkflowStatus.DRAFT.value,
+        risk_review_status=RiskReviewStatus.PENDING.value,
     )
     db.add(draft)
     try:
@@ -342,6 +393,8 @@ def update_note_draft(session_id: str, payload: NoteDraftUpdate, db: DbSession =
         get_note_draft(session_id, db)
         record = db.scalar(select(NoteDraftRecord).where(NoteDraftRecord.session_id == session_id))
     assert record is not None
+    if record.workflow_status != NoteWorkflowStatus.DRAFT.value:
+        raise HTTPException(status_code=409, detail={"code": "NOTE_TERMINAL", "message": "A decided note draft is read-only."})
     record.fields_json = json.dumps([field.model_dump(mode="json") for field in payload.fields])
     record.updated_at = utc_now()
     try:
@@ -351,6 +404,87 @@ def update_note_draft(session_id: str, payload: NoteDraftUpdate, db: DbSession =
         db.rollback()
         raise HTTPException(status_code=500, detail={"code": "NOTE_PERSISTENCE_FAILED", "message": "The note draft could not be saved."}) from exc
     return _record_to_draft(record)
+
+
+@app.get("/api/v1/sessions/{session_id}/review-state", response_model=ReviewState)
+def get_review_state(session_id: str, db: DbSession = Depends(db_dependency)) -> ReviewState:
+    _ensure_fixture_session(db, session_id)
+    _session_segments(db, session_id)
+    return _review_state(db.scalar(select(NoteDraftRecord).where(NoteDraftRecord.session_id == session_id)), session_id)
+
+
+@app.post("/api/v1/sessions/{session_id}/risk-review/complete", response_model=ReviewState)
+def complete_risk_review(session_id: str, payload: RiskReviewCompleteRequest, db: DbSession = Depends(db_dependency)) -> ReviewState:
+    _ensure_fixture_session(db, session_id)
+    _session_segments(db, session_id)
+    record = db.scalar(select(NoteDraftRecord).where(NoteDraftRecord.session_id == session_id))
+    if record is None:
+        raise HTTPException(status_code=409, detail={"code": "NOTE_DRAFT_REQUIRED", "message": "Save a note draft before completing review."})
+    if record.workflow_status != NoteWorkflowStatus.DRAFT.value or record.risk_review_status != RiskReviewStatus.PENDING.value:
+        raise HTTPException(status_code=409, detail={"code": "INVALID_REVIEW_TRANSITION", "message": "Risk review is already completed or the note is decided."})
+    record.risk_review_status = RiskReviewStatus.COMPLETED.value
+    record.reviewer_name = payload.reviewer_name.strip()
+    record.risk_review_completed_at = utc_now()
+    record.review_note = payload.review_note.strip() if payload.review_note else None
+    _audit(db, session_id, record.id, "RISK_REVIEW_COMPLETED", record.reviewer_name, {"status": "COMPLETED"})
+    db.commit()
+    return _review_state(record, session_id)
+
+
+@app.post("/api/v1/sessions/{session_id}/approve", response_model=ReviewState)
+def approve_note(session_id: str, payload: DecisionRequest, db: DbSession = Depends(db_dependency)) -> ReviewState:
+    _ensure_fixture_session(db, session_id)
+    _session_segments(db, session_id)
+    record = db.scalar(select(NoteDraftRecord).where(NoteDraftRecord.session_id == session_id))
+    if record is None:
+        raise HTTPException(status_code=409, detail={"code": "NOTE_DRAFT_REQUIRED", "message": "Save a note draft before approval."})
+    if record.workflow_status != NoteWorkflowStatus.DRAFT.value:
+        raise HTTPException(status_code=409, detail={"code": "INVALID_DECISION_TRANSITION", "message": "This note draft has already been decided."})
+    if record.risk_review_status != RiskReviewStatus.COMPLETED.value:
+        _audit(db, session_id, record.id, "NOTE_APPROVAL_BLOCKED", payload.actor_name.strip(), {"reason": "RISK_REVIEW_REQUIRED"})
+        db.commit()
+        raise HTTPException(status_code=409, detail={"code": "RISK_REVIEW_REQUIRED", "message": "Complete clinician risk review before approving this session."})
+    record.workflow_status = NoteWorkflowStatus.APPROVED.value
+    record.decision_actor_name = payload.actor_name.strip()
+    record.decision_at = utc_now()
+    _audit(db, session_id, record.id, "NOTE_APPROVED", record.decision_actor_name, {"workflow_status": "APPROVED"})
+    db.commit()
+    return _review_state(record, session_id)
+
+
+@app.post("/api/v1/sessions/{session_id}/reject", response_model=ReviewState)
+def reject_note(session_id: str, payload: DecisionRequest, db: DbSession = Depends(db_dependency)) -> ReviewState:
+    if not payload.reason or not payload.reason.strip():
+        raise HTTPException(status_code=422, detail={"code": "REJECTION_REASON_REQUIRED", "message": "Provide a non-empty rejection reason."})
+    _ensure_fixture_session(db, session_id)
+    _session_segments(db, session_id)
+    record = db.scalar(select(NoteDraftRecord).where(NoteDraftRecord.session_id == session_id))
+    if record is None:
+        raise HTTPException(status_code=409, detail={"code": "NOTE_DRAFT_REQUIRED", "message": "Save a note draft before rejection."})
+    if record.workflow_status != NoteWorkflowStatus.DRAFT.value:
+        raise HTTPException(status_code=409, detail={"code": "INVALID_DECISION_TRANSITION", "message": "This note draft has already been decided."})
+    record.workflow_status = NoteWorkflowStatus.REJECTED.value
+    record.decision_actor_name = payload.actor_name.strip()
+    record.decision_at = utc_now()
+    record.rejection_reason = payload.reason.strip()
+    _audit(db, session_id, record.id, "NOTE_REJECTED", record.decision_actor_name, {"reason": record.rejection_reason})
+    db.commit()
+    return _review_state(record, session_id)
+
+
+@app.get("/api/v1/sessions/{session_id}/audit-events", response_model=list[AuditEvent])
+def audit_events(session_id: str, db: DbSession = Depends(db_dependency)) -> list[AuditEvent]:
+    _ensure_fixture_session(db, session_id)
+    _session_segments(db, session_id)
+    records = db.scalars(select(AuditEventRecord).where(AuditEventRecord.session_id == session_id).order_by(AuditEventRecord.occurred_at, AuditEventRecord.id)).all()
+    return [
+        AuditEvent(
+            id=item.id, session_id=item.session_id, note_draft_id=item.note_draft_id,
+            event_type=item.event_type, actor_name=item.actor_name, occurred_at=item.occurred_at,
+            metadata=json.loads(item.metadata_json),
+        )
+        for item in records
+    ]
 
 
 @app.exception_handler(RequestValidationError)

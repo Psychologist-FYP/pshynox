@@ -28,6 +28,17 @@ class ReviewStatus(StrEnum):
     REVIEWED = "REVIEWED"
 
 
+class RiskReviewStatus(StrEnum):
+    PENDING = "PENDING"
+    COMPLETED = "COMPLETED"
+
+
+class NoteWorkflowStatus(StrEnum):
+    DRAFT = "DRAFT"
+    APPROVED = "APPROVED"
+    REJECTED = "REJECTED"
+
+
 class Provenance(StrEnum):
     MANUAL = "MANUAL"
     RETRIEVAL_CANDIDATE = "RETRIEVAL_CANDIDATE"
@@ -92,6 +103,14 @@ class NoteDraft(BaseModel):
     fields: list[NoteField]
     created_at: datetime
     updated_at: datetime
+    workflow_status: NoteWorkflowStatus = NoteWorkflowStatus.DRAFT
+    risk_review_status: RiskReviewStatus = RiskReviewStatus.PENDING
+    reviewer_name: str | None = None
+    risk_review_completed_at: datetime | None = None
+    review_note: str | None = None
+    decision_actor_name: str | None = None
+    decision_at: datetime | None = None
+    rejection_reason: str | None = None
 
 
 class NoteDraftUpdate(BaseModel):
@@ -105,6 +124,56 @@ class NoteDraftUpdate(BaseModel):
         if len(sections) != len(set(sections)) or not set(sections).issubset(NOTE_SECTIONS):
             raise ValueError("Note fields must use unique supported sections")
         return self
+
+
+class RiskReviewCompleteRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    reviewer_name: str = Field(min_length=1, max_length=120)
+    confirmation: bool
+    review_note: str | None = Field(default=None, max_length=500)
+
+    @model_validator(mode="after")
+    def validate_confirmation(self) -> "RiskReviewCompleteRequest":
+        if not self.reviewer_name.strip() or not self.confirmation:
+            raise ValueError("A reviewer name and explicit confirmation are required")
+        return self
+
+
+class DecisionRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    actor_name: str = Field(min_length=1, max_length=120)
+    reason: str | None = Field(default=None, max_length=500)
+
+    @model_validator(mode="after")
+    def validate_actor(self) -> "DecisionRequest":
+        if not self.actor_name.strip():
+            raise ValueError("An actor name is required")
+        return self
+
+
+class ReviewState(BaseModel):
+    session_id: str
+    note_draft_id: str | None
+    workflow_status: NoteWorkflowStatus
+    risk_review_status: RiskReviewStatus
+    reviewer_name: str | None = None
+    risk_review_completed_at: datetime | None = None
+    review_note: str | None = None
+    decision_actor_name: str | None = None
+    decision_at: datetime | None = None
+    rejection_reason: str | None = None
+
+
+class AuditEvent(BaseModel):
+    id: str
+    session_id: str
+    note_draft_id: str | None
+    event_type: str
+    actor_name: str
+    occurred_at: datetime
+    metadata: dict[str, str]
 
 
 class Session(BaseModel):
