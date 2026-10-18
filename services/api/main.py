@@ -7,6 +7,7 @@ from pathlib import Path
 from alembic import command
 from alembic.config import Config
 from fastapi import Depends, FastAPI, HTTPException
+from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from sqlalchemy import select
@@ -14,6 +15,7 @@ from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from sqlalchemy.orm import Session as DbSession
 
 from services.api.db import (
+    NoteDraftRecord,
     SessionRecord,
     TranscriptSegmentRecord,
     get_db,
@@ -26,12 +28,17 @@ from services.api.schemas import (
     ErrorResponse,
     EvidenceHit,
     HealthResponse,
+    NoteDraft,
+    NoteDraftUpdate,
+    NoteField,
+    NOTE_SECTIONS,
     Session,
     SessionCreate,
     TranscriptSegment,
     TranscriptSegmentUpdate,
     WorkflowStatus,
 )
+from services.api.retrieval import FixtureRetrievalProvider
 
 APP_VERSION = "0.2.0"
 FIXTURE_MODE = os.getenv("FIXTURE_MODE", "true").lower() == "true"
@@ -39,6 +46,7 @@ ROOT = Path(__file__).resolve().parents[2]
 FIXTURE_DIR = ROOT / "packages" / "contracts" / "fixtures"
 engine = make_engine()
 session_factory = make_session_factory(engine)
+retrieval_provider = FixtureRetrievalProvider()
 
 
 def migrate() -> None:
@@ -109,6 +117,68 @@ def _record_to_segment(record: TranscriptSegmentRecord) -> TranscriptSegment:
     )
 
 
+def _default_note_fields() -> list[NoteField]:
+    return [
+        NoteField(section=section, text="", provenance="MANUAL", evidence_ids=[], review_status="PENDING")
+        for section in ("subjective", "objective", "assessment", "plan", "functioning")
+    ]
+
+
+def _record_to_draft(record: NoteDraftRecord) -> NoteDraft:
+    return NoteDraft.model_validate(
+        {
+            "id": record.id,
+            "session_id": record.session_id,
+            "fields": json.loads(record.fields_json),
+            "created_at": record.created_at,
+            "updated_at": record.updated_at,
+        }
+    )
+
+
+def _session_segments(db: DbSession, session_id: str) -> list[TranscriptSegment]:
+    record = db.get(SessionRecord, session_id)
+    if record:
+        rows = db.scalars(
+            select(TranscriptSegmentRecord)
+            .where(TranscriptSegmentRecord.session_id == session_id)
+            .order_by(TranscriptSegmentRecord.start_ms, TranscriptSegmentRecord.id)
+        ).all()
+        return [_record_to_segment(row) for row in rows]
+    if FIXTURE_MODE and session_id == _fixture_session().id:
+        return _fixture_segments()
+    raise HTTPException(status_code=404, detail={"code": "SESSION_NOT_FOUND", "message": "Session was not found."})
+
+
+def _ensure_fixture_session(db: DbSession, session_id: str) -> None:
+    fixture = _fixture_session()
+    if not (FIXTURE_MODE and session_id == fixture.id) or db.get(SessionRecord, session_id):
+        return
+    db.add(
+        SessionRecord(
+            id=fixture.id,
+            pseudonym_id=fixture.pseudonym_id,
+            session_type=fixture.session_type.value,
+            consent_json=json.dumps(fixture.consent),
+            workflow_status=fixture.workflow_status.value,
+            created_at=fixture.created_at,
+        )
+    )
+    for segment in _fixture_segments():
+        db.add(
+            TranscriptSegmentRecord(
+                id=segment.id,
+                session_id=segment.session_id,
+                start_ms=segment.start_ms,
+                end_ms=segment.end_ms,
+                speaker_role=segment.speaker_role.value,
+                text=segment.text,
+                revision=segment.revision,
+            )
+        )
+    db.commit()
+
+
 @app.get("/api/v1/health", response_model=HealthResponse)
 def health() -> HealthResponse:
     return HealthResponse(status="ok", app_version=APP_VERSION, fixture_mode=FIXTURE_MODE)
@@ -177,17 +247,7 @@ def get_session(session_id: str, db: DbSession = Depends(db_dependency)) -> Sess
     responses={404: {"model": ErrorResponse}},
 )
 def get_transcript(session_id: str, db: DbSession = Depends(db_dependency)) -> list[TranscriptSegment]:
-    record = db.get(SessionRecord, session_id)
-    if record:
-        segments = db.scalars(
-            select(TranscriptSegmentRecord)
-            .where(TranscriptSegmentRecord.session_id == session_id)
-            .order_by(TranscriptSegmentRecord.start_ms, TranscriptSegmentRecord.id)
-        ).all()
-        return [_record_to_segment(segment) for segment in segments]
-    if FIXTURE_MODE and session_id == _fixture_session().id:
-        return _fixture_segments()
-    raise HTTPException(status_code=404, detail={"code": "SESSION_NOT_FOUND", "message": "Session was not found."})
+    return _session_segments(db, session_id)
 
 
 @app.patch(
@@ -237,20 +297,67 @@ def update_transcript_segment(
 def get_evidence(session_id: str, query: str = "", db: DbSession = Depends(db_dependency)) -> list[EvidenceHit]:
     if not query.strip():
         return []
-    session_exists = db.get(SessionRecord, session_id) is not None
-    if not session_exists and not (FIXTURE_MODE and session_id == _fixture_session().id):
-        raise HTTPException(status_code=404, detail={"code": "SESSION_NOT_FOUND", "message": "Session was not found."})
-    evidence = _load_fixture("evidence.json", EvidenceHit)
-    if not isinstance(evidence, list):
-        return []
-    return [hit for hit in evidence if hit.session_id == session_id and query.lower() in hit.query.lower()]
+    segments = _session_segments(db, session_id)
+    return retrieval_provider.search(query, session_id, segments)
+
+
+@app.get("/api/v1/sessions/{session_id}/note-draft", response_model=NoteDraft)
+def get_note_draft(session_id: str, db: DbSession = Depends(db_dependency)) -> NoteDraft:
+    _ensure_fixture_session(db, session_id)
+    _session_segments(db, session_id)
+    record = db.scalar(select(NoteDraftRecord).where(NoteDraftRecord.session_id == session_id))
+    if record:
+        return _record_to_draft(record)
+    now = utc_now()
+    draft = NoteDraftRecord(
+        id=f"note-{uuid.uuid4().hex[:12]}",
+        session_id=session_id,
+        fields_json=json.dumps([field.model_dump(mode="json") for field in _default_note_fields()]),
+        created_at=now,
+        updated_at=now,
+    )
+    db.add(draft)
+    try:
+        db.commit()
+        db.refresh(draft)
+    except SQLAlchemyError as exc:
+        db.rollback()
+        raise HTTPException(status_code=500, detail={"code": "NOTE_PERSISTENCE_FAILED", "message": "The note draft could not be created."}) from exc
+    return _record_to_draft(draft)
+
+
+@app.put("/api/v1/sessions/{session_id}/note-draft", response_model=NoteDraft)
+def update_note_draft(session_id: str, payload: NoteDraftUpdate, db: DbSession = Depends(db_dependency)) -> NoteDraft:
+    _ensure_fixture_session(db, session_id)
+    segments = _session_segments(db, session_id)
+    segment_ids = {segment.id for segment in segments}
+    for field in payload.fields:
+        if any(evidence_id not in segment_ids for evidence_id in field.evidence_ids):
+            raise HTTPException(
+                status_code=422,
+                detail={"code": "INVALID_EVIDENCE_REFERENCE", "message": "Every evidence ID must belong to this session."},
+            )
+    record = db.scalar(select(NoteDraftRecord).where(NoteDraftRecord.session_id == session_id))
+    if record is None:
+        get_note_draft(session_id, db)
+        record = db.scalar(select(NoteDraftRecord).where(NoteDraftRecord.session_id == session_id))
+    assert record is not None
+    record.fields_json = json.dumps([field.model_dump(mode="json") for field in payload.fields])
+    record.updated_at = utc_now()
+    try:
+        db.commit()
+        db.refresh(record)
+    except SQLAlchemyError as exc:
+        db.rollback()
+        raise HTTPException(status_code=500, detail={"code": "NOTE_PERSISTENCE_FAILED", "message": "The note draft could not be saved."}) from exc
+    return _record_to_draft(record)
 
 
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(_, exc: RequestValidationError) -> JSONResponse:
     return JSONResponse(
         status_code=422,
-        content={"error": {"code": "VALIDATION_ERROR", "message": "Request validation failed.", "details": exc.errors()}},
+        content={"error": {"code": "VALIDATION_ERROR", "message": "Request validation failed.", "details": jsonable_encoder(exc.errors())}},
     )
 
 

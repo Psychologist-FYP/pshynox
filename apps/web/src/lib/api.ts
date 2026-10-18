@@ -33,6 +33,14 @@ export type EvidenceHit = {
   section: string;
   query: string;
 };
+export type NoteField = {
+  section: "subjective" | "objective" | "assessment" | "plan" | "functioning";
+  text: string;
+  provenance: "MANUAL" | "RETRIEVAL_CANDIDATE" | "TEMPLATE";
+  evidence_ids: string[];
+  review_status: "PENDING" | "REVIEWED";
+};
+export type NoteDraft = { id: string; session_id: string; fields: NoteField[]; created_at: string; updated_at: string };
 
 export class ApiError extends Error {
   constructor(
@@ -75,6 +83,12 @@ export const api = {
     request<TranscriptSegment>(`/api/v1/sessions/${sessionId}/transcript/${segmentId}`, undefined, {
       method: "PATCH",
       body: JSON.stringify(payload),
+    }),
+  noteDraft: (sessionId: string) => request<NoteDraft>(`/api/v1/sessions/${sessionId}/note-draft`),
+  saveNoteDraft: (sessionId: string, fields: NoteField[]) =>
+    request<NoteDraft>(`/api/v1/sessions/${sessionId}/note-draft`, undefined, {
+      method: "PUT",
+      body: JSON.stringify({ fields }),
     }),
 };
 

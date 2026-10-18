@@ -65,6 +65,19 @@ API operations include:
 An edit body is `{"text":"corrected text","speaker_role":"CLIENT"}`. The
 server returns the saved segment and increments `revision` exactly once.
 
+Evidence is exposed through `GET /api/v1/sessions/{session_id}/evidence?query=...`.
+The current offline provider implements the narrow
+`search(query, session_id, segments, k) -> EvidenceHit[]` boundary in
+`services/api/retrieval.py`; Module B can replace that provider without a UI
+route or contract change. Each returned source ID is checked against the
+selected session's stored segments.
+
+Note drafts use `GET` and `PUT /api/v1/sessions/{session_id}/note-draft`.
+Supported sections are Subjective, Objective, Assessment, Plan, and
+Functioning. Manual edits are stored with `MANUAL` provenance and retrieval
+candidate text, when later supplied by Module B, must remain visibly
+reviewable rather than silently replacing manual content.
+
 ## Contract policy
 
 The API boundary uses `snake_case` JSON and is versioned under `/api/v1`.
