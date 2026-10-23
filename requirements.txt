@@ -1,0 +1,17 @@
+# Run from the repository root:
+#   python -m pip install -r requirements.txt
+# Installs this project and ALL Python runtime/test dependencies from pyproject.toml:
+# FastAPI, SQLAlchemy, Alembic, Pydantic, uvicorn[standard], httpx and pytest.
+# Keep version constraints in pyproject.toml as the single source of truth.
+-e .[dev]
+
+# ALSO REQUIRED (not Python packages; pip does NOT install these):
+# - Linux / WSL2 Linux, Python >=3.11, Node.js/npm, Git, curl,
+#   C/C++ compiler, make, CMake, FFmpeg and ffprobe.
+# - Frontend dependencies: npm ci --prefix apps/web
+# - Native whisper.cpp runtime: build pinned v1.8.3 locally.
+# - Local multilingual model: models/ggml-base.bin (download separately).
+#   https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.bin
+#   SHA-256: 60ed5bc3dd14eea856493d334349b405782ddcaf0028d4b5df4088345fba2efe
+# Model files are deliberately excluded from Git. A fresh clone needs this download.
+# See README.md for exact system install, runtime build, model and run commands.

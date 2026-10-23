@@ -1,3 +1,4 @@
+from tests.api.helpers import seed_segment
 from uuid import uuid4
 
 from fastapi.testclient import TestClient
@@ -13,6 +14,7 @@ def test_note_draft_saves_evidence_and_reopens() -> None:
             json={"pseudonym_id": f"note-{uuid4().hex[:8]}", "session_type": "FOLLOW_UP", "consent": {}},
         ).json()
         draft = client.get(f"/api/v1/sessions/{session['id']}/note-draft").json()
+        seed_segment(session["id"])
         segment = client.get(f"/api/v1/sessions/{session['id']}/transcript").json()[0]
         fields = draft["fields"]
         fields[0].update({"text": "Clinician-reviewed fictional note.", "provenance": "MANUAL", "evidence_ids": [segment["id"]]})
@@ -40,6 +42,7 @@ def test_note_rejects_invalid_sections_and_cross_session_evidence() -> None:
         first = client.post("/api/v1/sessions", json={"pseudonym_id": f"a-{uuid4().hex[:6]}", "session_type": "FOLLOW_UP", "consent": {}}).json()
         second = client.post("/api/v1/sessions", json={"pseudonym_id": f"b-{uuid4().hex[:6]}", "session_type": "FOLLOW_UP", "consent": {}}).json()
         first_draft = client.get(f"/api/v1/sessions/{first['id']}/note-draft").json()
+        seed_segment(second["id"])
         other_segment = client.get(f"/api/v1/sessions/{second['id']}/transcript").json()[0]["id"]
         fields = first_draft["fields"]
         fields[0]["section"] = "diagnosis"
