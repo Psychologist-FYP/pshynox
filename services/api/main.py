@@ -47,6 +47,7 @@ from services.api.schemas import (
     WorkflowStatus,
 )
 from services.api.retrieval import FixtureRetrievalProvider
+from services.api.browse import router as browse_router
 
 APP_VERSION = "0.2.0"
 FIXTURE_MODE = os.getenv("FIXTURE_MODE", "true").lower() == "true"
@@ -74,6 +75,7 @@ app = FastAPI(
     description="Offline documentation support API. Not a diagnostic system.",
     lifespan=lifespan,
 )
+app.include_router(browse_router)
 migrate()
 
 

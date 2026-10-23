@@ -1,0 +1,14 @@
+[
+  {
+    "segment_id": "seg-demo-001",
+    "category_id": "everyday-functioning",
+    "category_label": "Everyday functioning",
+    "section": "subjective"
+  },
+  {
+    "segment_id": "seg-demo-002",
+    "category_id": "everyday-functioning",
+    "category_label": "Everyday functioning",
+    "section": "other"
+  }
+]

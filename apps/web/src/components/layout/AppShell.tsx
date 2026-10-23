@@ -34,6 +34,7 @@ export function WorkspaceShell({ health, children, active = "Overview" }: { heal
         <nav className="side-nav" aria-label="Workspace navigation">
           <a className={active === "Overview" ? "active" : ""} href="/workspace"><Icon name="grid" /> Overview</a>
           <a className={active === "Sessions" ? "active" : ""} href="/workspace#sessions"><Icon name="file" /> Sessions</a>
+          <a className={active === "Browse" ? "active" : ""} href="/browse"><Icon name="search" /> Browse</a>
         </nav>
         <div className="sidebar-bottom"><StatusPill health={health} /><p>Local-first documentation support for fictional workflows.</p></div>
       </aside>
