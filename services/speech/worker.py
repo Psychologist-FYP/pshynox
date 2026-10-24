@@ -8,7 +8,7 @@ from pathlib import Path
 
 from sqlalchemy import select, update
 from services.api.db import (make_engine, make_session_factory, database_url, utc_now,
-    TranscriptionJobRecord, RecordingRecord, TranscriptSegmentRecord, SegmentSourceRecord, NoteDraftRecord, SessionRecord)
+    TranscriptionJobRecord, RecordingRecord, TranscriptSegmentRecord, SegmentSourceRecord, NoteDraftRecord, SessionRecord, MeetingChunkRecord)
 from services.speech.audio import SpeechError
 from services.speech.transcriber import transcribe_with_metrics
 
@@ -34,6 +34,8 @@ def process_one(factory, transcriber=transcribe_with_metrics):
             return True
         recording = db.get(RecordingRecord, job.recording_id)
         path, recording_id, duration, expected_hash = recording.path, recording.id, recording.duration_ms, recording.sha256
+        chunk = db.scalar(select(MeetingChunkRecord).where(MeetingChunkRecord.recording_id == recording_id))
+        offset, speaker = (chunk.offset_ms, chunk.speaker_role) if chunk else (0, None)
         db.commit()
     try:
         with open(path, "rb") as source:
@@ -41,10 +43,16 @@ def process_one(factory, transcriber=transcribe_with_metrics):
                 raise SpeechError("AUDIO_CHANGED", "The stored recording has changed; create a new session.")
         segments, metrics = transcriber(path, session_id=session_id)
         # Validate the integration boundary independently of the selected adapter.
-        from services.api.schemas import TranscriptSegment
+        from services.api.schemas import TranscriptSegment, SpeakerRole
         segments = [TranscriptSegment.model_validate(s) for s in segments]
         if any(s.session_id != session_id or s.end_ms > duration + 100 for s in segments):
             raise SpeechError("INVALID_ASR_OUTPUT", "Transcription returned invalid source references.")
+        if speaker:
+            for segment in segments:
+                segment.start_ms += offset
+                segment.end_ms += offset
+                segment.speaker_role = SpeakerRole(speaker)
+            metrics.update(meeting_offset_ms=offset, speaker_role=speaker)
         with factory() as db:
             session = db.get(SessionRecord, session_id)
             if json.loads(session.consent_json).get("recording_consent") is not True:

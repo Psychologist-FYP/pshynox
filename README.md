@@ -327,3 +327,12 @@ See [module integration guide](docs/MODULE_INTEGRATION_GUIDE.md) for module
 boundaries, and [Plan.txt](Plan.txt) for the implementation plan. Work on a feature
 branch and include relevant verification in pull requests. Do not commit personal
 records, model weights or local databases.
+
+## Online meetings on the same Wi-Fi
+
+Run `python scripts/run_lan.py` from the activated project environment to start the
+HTTPS LAN demo. Open the clinician workspace at the printed localhost address;
+share the patient invitation with another device on the same Wi-Fi. Both devices
+must trust the generated public CA certificate before using microphone/camera.
+The session supports two participants, chat, separate speaker recordings, and
+minute-by-minute local transcription. See [setup, testing, and limitations](docs/ONLINE_MEETINGS.md).

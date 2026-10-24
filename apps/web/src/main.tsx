@@ -7,6 +7,7 @@ import { PatientPage } from "./features/patients/PatientPage";
 import { PatientDirectory } from "./features/patients/PatientDirectory";
 import { WorkspaceShell } from "./components/layout/AppShell";
 import { api, type Health, type Session } from "./lib/api";
+import { MeetingRoom } from "./features/meetings/MeetingRoom";
 import "./styles.css";
 import "./katz-theme.css";
 
@@ -46,4 +47,6 @@ function App() {
   else page = <WorkspacePage health={health} />;
   return <PatientDirectory>{page}</PatientDirectory>;
 }
-createRoot(document.getElementById("root")!).render(<StrictMode><App /></StrictMode>);
+const meetingId = /^\/meeting\/(meeting-[a-f0-9]{32})\/?$/.exec(location.pathname)?.[1];
+// Invitation pages never mount the patient directory or fetch clinical records.
+createRoot(document.getElementById("root")!).render(<StrictMode>{meetingId ? <MeetingRoom id={meetingId} /> : <App />}</StrictMode>);
