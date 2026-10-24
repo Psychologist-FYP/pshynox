@@ -81,7 +81,7 @@ export type PatientInput = {
 };
 export type Patient = PatientInput & { id: string; created_at: string; updated_at: string };
 
-export type Recording = { id: string; session_id: string; duration_ms: number; channels: number };
+export type Recording = { id: string; session_id: string; duration_ms: number; channels: number; offset_ms?: number; speaker_role?: string; meeting_id?: string | null };
 export type SpeechJob = { id: string; recording_id: string; status: "QUEUED" | "RUNNING" | "SUCCEEDED" | "FAILED"; error_message: string | null; metrics: Record<string, unknown> };
 
 export const api = {

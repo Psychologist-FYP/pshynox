@@ -28,3 +28,7 @@ models/
 # Private environment overrides; keep the documented example.
 .env.*
 !.env.example
+
+# Browser integration-test artifacts
+apps/web/test-results/
+apps/web/playwright-report/

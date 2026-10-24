@@ -13,7 +13,7 @@ from sqlalchemy.exc import IntegrityError
 from starlette.concurrency import run_in_threadpool
 
 from services.api.db import (SessionRecord, RecordingRecord, TranscriptionJobRecord,
-                            TranscriptSegmentRecord, SegmentSourceRecord, NoteDraftRecord, utc_now)
+                            TranscriptSegmentRecord, SegmentSourceRecord, NoteDraftRecord, MeetingChunkRecord, utc_now)
 from services.speech.audio import MAX_BYTES, SpeechError, decode_audio
 
 
@@ -69,7 +69,13 @@ def build_router(db_dependency):
     @router.get("/sessions/{sid}/recordings")
     def recordings(sid: str, db=Depends(db_dependency)):
         session_record(db, sid)
-        return [recording_view(r) for r in db.scalars(select(RecordingRecord).where(RecordingRecord.session_id == sid).order_by(RecordingRecord.created_at))]
+        result = []
+        for r in db.scalars(select(RecordingRecord).where(RecordingRecord.session_id == sid).order_by(RecordingRecord.created_at)):
+            chunk = db.scalar(select(MeetingChunkRecord).where(MeetingChunkRecord.recording_id == r.id))
+            result.append({**recording_view(r), "offset_ms": chunk.offset_ms if chunk else 0,
+                           "speaker_role": chunk.speaker_role if chunk else "UNKNOWN",
+                           "meeting_id": chunk.meeting_id if chunk else None})
+        return result
 
     @router.post("/sessions/{sid}/recordings", status_code=201)
     async def upload(sid: str, request: Request, db=Depends(db_dependency)):
