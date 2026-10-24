@@ -2,6 +2,9 @@ import json
 import os
 import re
 import uuid
+import subprocess
+import sys
+import signal
 from contextlib import asynccontextmanager
 from pathlib import Path
 
@@ -19,7 +22,11 @@ from services.api.db import (
     AuditEventRecord,
     NoteDraftRecord,
     SessionRecord,
+    PatientRecord,
     TranscriptSegmentRecord,
+    TranscriptionJobRecord,
+    SegmentSourceRecord,
+    RecordingRecord,
     get_db,
     make_engine,
     make_session_factory,
@@ -65,7 +72,15 @@ def migrate() -> None:
 @asynccontextmanager
 async def lifespan(_: FastAPI):
     migrate()
-    yield
+    worker = None
+    if os.getenv("SPEECH_WORKER_ENABLED", "true").lower() == "true" and sys.platform == "linux":
+        worker = subprocess.Popen([sys.executable, "-m", "services.speech.worker"], cwd=ROOT, start_new_session=True)
+    try:
+        yield
+    finally:
+        if worker and worker.poll() is None:
+            os.killpg(worker.pid, signal.SIGTERM)
+            worker.wait(timeout=10)
 
 
 app = FastAPI(
@@ -135,6 +150,7 @@ def _default_note_fields() -> list[NoteField]:
 def _record_to_draft(record: NoteDraftRecord) -> NoteDraft:
     return NoteDraft.model_validate(
         {
+            "sources_stale": record.sources_stale,
             "id": record.id,
             "session_id": record.session_id,
             "fields": json.loads(record.fields_json),
@@ -191,8 +207,10 @@ def _session_segments(db: DbSession, session_id: str) -> list[TranscriptSegment]
     if record:
         rows = db.scalars(
             select(TranscriptSegmentRecord)
+            .outerjoin(SegmentSourceRecord, SegmentSourceRecord.segment_id == TranscriptSegmentRecord.id)
+            .outerjoin(RecordingRecord, RecordingRecord.id == SegmentSourceRecord.recording_id)
             .where(TranscriptSegmentRecord.session_id == session_id)
-            .order_by(TranscriptSegmentRecord.start_ms, TranscriptSegmentRecord.id)
+            .order_by(RecordingRecord.created_at, RecordingRecord.id, TranscriptSegmentRecord.start_ms, TranscriptSegmentRecord.id)
         ).all()
         return [_record_to_segment(row) for row in rows]
     if FIXTURE_MODE and session_id == _fixture_session().id:
@@ -245,15 +263,19 @@ def list_sessions(db: DbSession = Depends(db_dependency)) -> list[Session]:
 
 @app.post("/api/v1/sessions", response_model=Session, status_code=201)
 def create_session(payload: SessionCreate, db: DbSession = Depends(db_dependency)) -> Session:
+    patient = db.get(PatientRecord, payload.patient_id) if payload.patient_id else None
+    if payload.patient_id and patient is None:
+        raise HTTPException(404, detail={"code": "PATIENT_NOT_FOUND", "message": "Patient was not found."})
     existing_ids = db.scalars(select(SessionRecord.id)).all()
     sequence = max(
         (int(match.group(1)) for value in existing_ids if (match := re.fullmatch(r"session-(\d{3})", value))),
         default=0,
     ) + 1
     session_id = f"session-{sequence:03d}"
-    pseudonym_id = payload.pseudonym_id or f"client-{sequence:03d}"
+    pseudonym_id = patient.id if patient else payload.pseudonym_id or f"client-{sequence:03d}"
     record = SessionRecord(
         id=session_id,
+        patient_id=payload.patient_id,
         pseudonym_id=pseudonym_id,
         session_type=payload.session_type.value,
         consent_json=json.dumps(payload.consent),
@@ -261,20 +283,6 @@ def create_session(payload: SessionCreate, db: DbSession = Depends(db_dependency
         created_at=utc_now(),
     )
     db.add(record)
-    # New fictional sessions start with a synthetic transcript so the edit workflow
-    # can be demonstrated without claiming that audio was transcribed.
-    for fixture_segment in _fixture_segments():
-        db.add(
-            TranscriptSegmentRecord(
-                id=f"seg-{uuid.uuid4().hex[:12]}",
-                session_id=session_id,
-                start_ms=fixture_segment.start_ms,
-                end_ms=fixture_segment.end_ms,
-                speaker_role=fixture_segment.speaker_role.value,
-                text=fixture_segment.text,
-                revision=1,
-            )
-        )
     try:
         db.commit()
         db.refresh(record)
@@ -328,6 +336,18 @@ def update_transcript_segment(
             status_code=404,
             detail={"code": "SEGMENT_NOT_FOUND", "message": "Transcript segment was not found for this session."},
         )
+    draft = db.scalar(select(NoteDraftRecord).where(NoteDraftRecord.session_id == session_id))
+    if draft:
+        if draft.workflow_status != "DRAFT":
+            raise HTTPException(409, detail={"code": "NOTE_TERMINAL", "message": "Decided session transcripts are read-only."})
+        fields = json.loads(draft.fields_json)
+        if any(segment_id in f["evidence_ids"] for f in fields):
+            draft.sources_stale = True
+            for field in fields:
+                if segment_id in field["evidence_ids"]:
+                    field["review_status"] = "PENDING"
+            draft.fields_json = json.dumps(fields)
+        reset_review(draft)
     if payload.text is not None:
         record.text = payload.text
     if payload.speaker_role is not None:
@@ -402,7 +422,12 @@ def update_note_draft(session_id: str, payload: NoteDraftUpdate, db: DbSession =
     assert record is not None
     if record.workflow_status != NoteWorkflowStatus.DRAFT.value:
         raise HTTPException(status_code=409, detail={"code": "NOTE_TERMINAL", "message": "A decided note draft is read-only."})
-    record.fields_json = json.dumps([field.model_dump(mode="json") for field in payload.fields])
+    previous = json.loads(record.fields_json)
+    incoming = [field.model_dump(mode="json") for field in payload.fields]
+    if incoming != previous:
+        reset_review(record)
+    # Saving does not silently clear stale evidence; the explicit confirmation route does.
+    record.fields_json = json.dumps(incoming)
     record.updated_at = utc_now()
     try:
         db.commit()
@@ -422,6 +447,7 @@ def get_review_state(session_id: str, db: DbSession = Depends(db_dependency)) ->
 
 @app.post("/api/v1/sessions/{session_id}/risk-review/complete", response_model=ReviewState)
 def complete_risk_review(session_id: str, payload: RiskReviewCompleteRequest, db: DbSession = Depends(db_dependency)) -> ReviewState:
+    ensure_no_active_transcription(db, session_id)
     _ensure_fixture_session(db, session_id)
     _session_segments(db, session_id)
     record = db.scalar(select(NoteDraftRecord).where(NoteDraftRecord.session_id == session_id))
@@ -429,6 +455,8 @@ def complete_risk_review(session_id: str, payload: RiskReviewCompleteRequest, db
         raise HTTPException(status_code=409, detail={"code": "NOTE_DRAFT_REQUIRED", "message": "Save a note draft before completing review."})
     if record.workflow_status != NoteWorkflowStatus.DRAFT.value or record.risk_review_status != RiskReviewStatus.PENDING.value:
         raise HTTPException(status_code=409, detail={"code": "INVALID_REVIEW_TRANSITION", "message": "Risk review is already completed or the note is decided."})
+    if record.sources_stale:
+        raise HTTPException(409, detail={"code": "STALE_SOURCES", "message": "Refresh or confirm changed source excerpts before review."})
     record.risk_review_status = RiskReviewStatus.COMPLETED.value
     record.reviewer_name = payload.reviewer_name.strip()
     record.risk_review_completed_at = utc_now()
@@ -440,6 +468,7 @@ def complete_risk_review(session_id: str, payload: RiskReviewCompleteRequest, db
 
 @app.post("/api/v1/sessions/{session_id}/approve", response_model=ReviewState)
 def approve_note(session_id: str, payload: DecisionRequest, db: DbSession = Depends(db_dependency)) -> ReviewState:
+    ensure_no_active_transcription(db, session_id)
     _ensure_fixture_session(db, session_id)
     _session_segments(db, session_id)
     record = db.scalar(select(NoteDraftRecord).where(NoteDraftRecord.session_id == session_id))
@@ -447,6 +476,8 @@ def approve_note(session_id: str, payload: DecisionRequest, db: DbSession = Depe
         raise HTTPException(status_code=409, detail={"code": "NOTE_DRAFT_REQUIRED", "message": "Save a note draft before approval."})
     if record.workflow_status != NoteWorkflowStatus.DRAFT.value:
         raise HTTPException(status_code=409, detail={"code": "INVALID_DECISION_TRANSITION", "message": "This note draft has already been decided."})
+    if record.sources_stale:
+        raise HTTPException(409, detail={"code": "STALE_SOURCES", "message": "Source excerpts need review."})
     if record.risk_review_status != RiskReviewStatus.COMPLETED.value:
         _audit(db, session_id, record.id, "NOTE_APPROVAL_BLOCKED", payload.actor_name.strip(), {"reason": "RISK_REVIEW_REQUIRED"})
         db.commit()
@@ -463,6 +494,7 @@ def approve_note(session_id: str, payload: DecisionRequest, db: DbSession = Depe
 def reject_note(session_id: str, payload: DecisionRequest, db: DbSession = Depends(db_dependency)) -> ReviewState:
     if not payload.reason or not payload.reason.strip():
         raise HTTPException(status_code=422, detail={"code": "REJECTION_REASON_REQUIRED", "message": "Provide a non-empty rejection reason."})
+    ensure_no_active_transcription(db, session_id)
     _ensure_fixture_session(db, session_id)
     _session_segments(db, session_id)
     record = db.scalar(select(NoteDraftRecord).where(NoteDraftRecord.session_id == session_id))
@@ -508,3 +540,74 @@ async def http_exception_handler(_, exc: HTTPException) -> JSONResponse:
     if not isinstance(detail, dict) or "code" not in detail or "message" not in detail:
         detail = {"code": "HTTP_ERROR", "message": str(exc.detail)}
     return JSONResponse(status_code=exc.status_code, content={"error": detail})
+
+
+def reset_review(record):
+    record.risk_review_status = "PENDING"
+    record.reviewer_name = None
+    record.risk_review_completed_at = None
+    record.review_note = None
+    record.updated_at = utc_now()
+
+
+@app.post("/api/v1/sessions/{session_id}/note-draft/populate", response_model=NoteDraft)
+def populate_note(session_id: str, db: DbSession = Depends(db_dependency)):
+    get_note_draft(session_id, db)
+    record = db.scalar(select(NoteDraftRecord).where(NoteDraftRecord.session_id == session_id))
+    if record.workflow_status != "DRAFT":
+        raise HTTPException(409, detail={"code": "NOTE_TERMINAL", "message": "Decided notes are read-only."})
+    segments = _session_segments(db, session_id)
+    clients = [s for s in segments if s.speaker_role.value == "CLIENT" and s.text.strip()]
+    fields = json.loads(record.fields_json)
+    subject = next((f for f in fields if f["section"] == "subjective"), None)
+    if subject is None:
+        subject = {"section": "subjective", "text": "", "provenance": "TEMPLATE", "evidence_ids": [], "review_status": "PENDING"}
+        fields.append(subject)
+    if subject["text"].strip() and subject["provenance"] != "TEMPLATE":
+        raise HTTPException(409, detail={"code": "MANUAL_CONTENT", "message": "Subjective contains manual content. It will not be replaced."})
+    subject.update(text="\n".join(f"[{s.start_ms / 1000:.1f}s] {s.text}" for s in clients) or "Not documented — speaker review needed",
+                   provenance="TEMPLATE", evidence_ids=[s.id for s in clients], review_status="PENDING")
+    for field in fields:
+        if not field["text"].strip():
+            field.update(text="Not documented", provenance="TEMPLATE", review_status="PENDING")
+    record.fields_json = json.dumps(fields)
+    # Only refreshed subjective sources are acknowledged here; manual fields need confirmation.
+    revisions = json.loads(record.source_revisions_json)
+    revisions.update({s.id: s.revision for s in clients})
+    record.source_revisions_json = json.dumps(revisions)
+    current = {s.id: s.revision for s in segments}
+    record.sources_stale = any(revisions.get(e) != current.get(e) for f in fields for e in f["evidence_ids"])
+    reset_review(record)
+    _audit(db, session_id, record.id, "DRAFT_POPULATED", "local user", {"source_count": str(len(clients))})
+    db.commit()
+    return _record_to_draft(record)
+
+
+@app.post("/api/v1/sessions/{session_id}/note-draft/confirm-sources", response_model=NoteDraft)
+def confirm_sources(session_id: str, payload: RiskReviewCompleteRequest, db: DbSession = Depends(db_dependency)):
+    record = db.scalar(select(NoteDraftRecord).where(NoteDraftRecord.session_id == session_id))
+    if not record or record.workflow_status != "DRAFT":
+        raise HTTPException(409, detail={"code": "NOTE_NOT_EDITABLE", "message": "An editable draft is required."})
+    segments = _session_segments(db, session_id)
+    record.source_revisions_json = json.dumps({s.id: s.revision for s in segments})
+    record.sources_stale = False
+    reset_review(record)
+    _audit(db, session_id, record.id, "SOURCES_CONFIRMED", payload.reviewer_name, {})
+    db.commit()
+    return _record_to_draft(record)
+
+
+from services.api.speech_routes import build_router
+app.include_router(build_router(db_dependency))
+
+
+def ensure_no_active_transcription(db, session_id):
+    job = db.scalar(select(TranscriptionJobRecord).where(
+        TranscriptionJobRecord.session_id == session_id,
+        TranscriptionJobRecord.status.in_(("QUEUED", "RUNNING"))))
+    if job:
+        raise HTTPException(409, detail={"code": "TRANSCRIPTION_PENDING", "message": "Wait for transcription before reviewing or deciding this session."})
+
+
+from services.api.patient_routes import build_patient_router
+app.include_router(build_patient_router(db_dependency))

@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date, datetime
 from enum import StrEnum
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
@@ -96,6 +96,7 @@ NOTE_SECTIONS = {"subjective", "objective", "assessment", "plan", "functioning"}
 
 
 class NoteDraft(BaseModel):
+    sources_stale: bool = False
     model_config = ConfigDict(extra="forbid")
 
     id: str = Field(min_length=1)
@@ -177,6 +178,7 @@ class AuditEvent(BaseModel):
 
 
 class Session(BaseModel):
+    patient_id: str | None = None
     model_config = ConfigDict(extra="forbid")
 
     id: str = Field(min_length=1)
@@ -188,6 +190,7 @@ class Session(BaseModel):
 
 
 class SessionCreate(BaseModel):
+    patient_id: str | None = Field(default=None, min_length=1, max_length=100)
     model_config = ConfigDict(extra="forbid")
 
     pseudonym_id: str | None = Field(default=None, min_length=1, max_length=100)
@@ -221,3 +224,59 @@ class ErrorBody(BaseModel):
 
 class ErrorResponse(BaseModel):
     error: ErrorBody
+
+
+class PatientInput(BaseModel):
+    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+    name: str = Field(min_length=1, max_length=200)
+    preferred_name: str = Field(default="", max_length=200)
+    date_of_birth: date | None = None
+    age: int | None = Field(default=None, ge=0, le=120)
+    sex: str = Field(default="", pattern="^(|Female|Male|Intersex|Prefer not to say|Not recorded)$")
+    gender: str = Field(default="", max_length=100)
+    pronouns: str = Field(default="", max_length=100)
+    phone: str = Field(default="", max_length=80)
+    email: str = Field(default="", max_length=254)
+    address: str = Field(default="", max_length=1000)
+    emergency_contact: str = Field(default="", max_length=200)
+    emergency_relationship: str = Field(default="", max_length=100)
+    emergency_phone: str = Field(default="", max_length=80)
+    guardian: str = Field(default="", max_length=200)
+    occupation: str = Field(default="", max_length=200)
+    education: str = Field(default="", max_length=200)
+    marital_status: str = Field(default="", max_length=100)
+    language: str = Field(default="", max_length=100)
+    referred_by: str = Field(default="", max_length=200)
+    presenting_concerns: str = Field(default="", max_length=5000)
+    previous_care: str = Field(default="", max_length=5000)
+    medical_history: str = Field(default="", max_length=5000)
+    medications: str = Field(default="", max_length=3000)
+    allergies: str = Field(default="", max_length=2000)
+    family_social_history: str = Field(default="", max_length=5000)
+    substance_use: str = Field(default="", max_length=3000)
+    goals: str = Field(default="", max_length=3000)
+    additional_notes: str = Field(default="", max_length=5000)
+
+    @model_validator(mode="after")
+    def validate_demographics(self):
+        if self.date_of_birth:
+            today = date.today()
+            if self.date_of_birth > today:
+                raise ValueError("Date of birth cannot be in the future")
+            calculated = today.year - self.date_of_birth.year - ((today.month, today.day) < (self.date_of_birth.month, self.date_of_birth.day))
+            if calculated > 120:
+                raise ValueError("Date of birth must be within the last 120 years")
+            if self.age is not None and self.age != calculated:
+                raise ValueError("Enter date of birth or age, or ensure they agree")
+            self.age = None  # Derive current age from DOB instead of storing a stale age.
+        return self
+
+
+class Patient(PatientInput):
+    id: str
+    created_at: datetime
+    updated_at: datetime
+
+
+class PatientAssignment(BaseModel):
+    patient_id: str = Field(min_length=1, max_length=100)

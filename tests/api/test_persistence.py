@@ -1,3 +1,4 @@
+from tests.api.helpers import seed_segment
 from uuid import uuid4
 
 from fastapi.testclient import TestClient
@@ -24,6 +25,7 @@ def test_create_list_edit_and_reopen_persisted_session() -> None:
         listed = test_client.get("/api/v1/sessions")
         assert any(item["id"] == session["id"] for item in listed.json())
 
+        seed_segment(session["id"])
         transcript = test_client.get(f"/api/v1/sessions/{session['id']}/transcript")
         assert transcript.status_code == 200
         segment = transcript.json()[0]
@@ -59,6 +61,7 @@ def test_invalid_role_and_cross_session_segment_edit_are_rejected() -> None:
             "/api/v1/sessions",
             json={"pseudonym_id": f"client-{uuid4().hex[:8]}", "session_type": "FOLLOW_UP", "consent": {}},
         ).json()
+        seed_segment(first["id"])
         segment = test_client.get(f"/api/v1/sessions/{first['id']}/transcript").json()[0]
 
         invalid = test_client.patch(

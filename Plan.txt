@@ -1,0 +1,339 @@
+PSHYNOX — MODULE A: FIRST TWO-WEEK MVP PLAN
+Revised: 23 October 2026 | Status: proposed plan; implementation has not started
+
+1. OUTCOME AND SOURCE DECISIONS
+
+Deliver this complete offline workflow on the laptop:
+
+Create session + consent -> select microphone -> record/stop (or import WAV)
+-> save original audio -> local transcription job -> SQLite transcript
+-> review/correct text and speakers -> evidence-linked editable note draft
+-> save -> restart application -> reopen the same audio, transcript and draft.
+
+The first gate uses 2–5 minute fictional conversations. Recording finishes before
+transcription starts. Live transcription, model training, automatic diarization,
+LLM summaries and long-session optimization are outside this two-week scope.
+
+Reviewed: the previous Plan.txt, FYP_Implementation_plan.pdf (six pages),
+FYP_progresss1.pdf (sixteen PDF pages), README.md, the module integration guide,
+and the existing API, schemas and SQLite models.
+
+Use the five-month PDF's Week 2 working-MVP gate and the repository's module
+boundaries: A = speech; B = retrieval; C = application/API/persistence. The older
+proposal has a nine-month schedule and the PDFs assign some owners differently.
+A standalone transcription CLI alone does not satisfy this revised MVP: the
+Module C integration work below is required within the same sprint.
+
+Treat Week 1/2 as ten working days from implementation kickoff. The PDF's original
+19 October–1 November dates are historical targets, not ten remaining workdays.
+
+2. HARDWARE DECISION — NANO AND ORIN NANO ARE DIFFERENT
+
+Both PDFs explicitly target Jetson Orin Nano Super 8GB. The latest request says
+Jetson Nano; exact model/RAM is still unconfirmed. Do not silently substitute
+Orin specifications for the original Nano.
+
+Planning profiles:
+- Laptop now: built-in microphone or a connected wired headset/handsfree.
+  Start with CPU inference; GPU configuration must not block the MVP.
+- Original Nano: conservative CPU-first tiny/base experiment; one inference job
+  at a time. Treat a 2GB board as a separate, higher-risk feasibility case.
+- Orin Nano Super 8GB: benchmark base first; consider small if measured quality,
+  latency and whole-system memory justify it. Enable GPU only after validation.
+
+NVIDIA identifies JetPack 4.6.6 as the final JetPack 4 release for the original
+Nano [2]. The JetPack 4.6 line includes CUDA 10.2 and an Ubuntu 18.04-based system
+[3]. Current faster-whisper GPU dependencies require CUDA 12/cuDNN 9 [4]. Thus a
+modern laptop GPU installation cannot simply be copied to the original Nano.
+
+The repository requires Python >=3.11. On an original Nano, validate a separately
+installed compatible Python environment and ARM64 dependencies, as well as the
+C++ compiler/CMake/runtime build. Do not replace its system Python or assume a
+container upgrades the host GPU driver. Build frontend assets on the laptop;
+serve the built assets on the board rather than running a development toolchain.
+
+Portability is a design objective, NOT a verified deployment result. Before
+claiming “runs on Jetson”, the exact board must install the app, run the selected
+ASR binary, capture audio, persist results and pass an offline restart test.
+If hardware is unavailable, mark this gate UNVERIFIED and retain the laptop MVP.
+If the board fails quality or runtime requirements, report that incompatibility;
+do not silently switch to remote inference or claim the target was met.
+
+3. LOCAL MODEL AND RUNTIME
+
+Primary runtime: whisper.cpp, called through a small Python subprocess adapter.
+It supports CPU execution and quantized models [1]. Build a native binary per
+architecture; share the adapter and model configuration, not x86 executables.
+
+Candidate order (multilingual weights; never .en for this language requirement):
+- base: initial baseline, then compare a Q5_0 quantized variant.
+- tiny: constrained-device fallback, accepted only after language-quality checks.
+- small: quality comparison; promote only if measured resources are acceptable.
+
+Upstream approximate model memory: tiny 273 MB, base 388 MB, small 852 MB [1].
+These are NOT whole-app or Jetson peak-memory measurements. OS, browser, decoding,
+worker buffers and shared GPU memory also consume capacity. Quantization must be
+benchmarked rather than assumed to preserve Urdu quality or ensure speed.
+
+Keep runtime binary, model path/hash, quantization, language, CPU threads and
+acceleration configurable. Pin the tested runtime commit and dependencies during
+implementation. Use transcription, not translation. Evaluate automatic language
+selection and explicit Urdu/English settings; sentence-level code-switching is
+not guaranteed. Retain Urdu script; document normalization for evaluation.
+
+faster-whisper is an optional later laptop comparison, not a sprint dependency.
+No local LLM, embeddings model, vector database, PyTorch diarization pipeline or
+cloud API is required for the first MVP. Draft population uses exact excerpts.
+
+4. AUDIO NOW AND TWO MICROPHONES LATER
+
+Laptop capture:
+- Add device selection, input-level check, visible recording state, start/stop,
+  elapsed time and clear permission/device errors to the existing web app.
+- Capture with browser MediaRecorder on localhost. Detect the actual supported
+  MIME type; recordings may be WebM/Opus rather than WAV. Preserve that original
+  and decode server-side with FFmpeg. Also support WAV import as a fallback.
+- Request consent before recording. Stop tracks when recording ends. Surface
+  device disconnection, empty recording and upload failure without fake success.
+- Limit this MVP to five minutes and bounded upload size (initial cap 100 MB).
+  Validate decoded duration too. Reject corrupt/unsupported media explicitly.
+- A headset close to one person may miss the other speaker. Test placement using
+  both voices before recording; a headset is not automatically a room microphone.
+
+Processing representation:
+- Keep original media and its channel layout; derive 16 kHz signed 16-bit PCM
+  WAV for ASR. Keep preparation deterministic and preserve recording duration.
+- For a single mixed channel, speaker_role starts UNKNOWN. Users label patient
+  as CLIENT and psychologist as CLINICIAN after listening. Do not infer roles
+  from pitch, gender, turn order or the spoken content.
+- Baseline processes the full short clip without concatenating speech regions.
+  Add VAD only if silence tests require it, with explicit source-time mapping.
+  Empty/silent input must never populate a note with hallucinated statements.
+- Timestamps always refer to original recording time. Preserve silence for later
+  pause analysis. Validate 0 <= start_ms <= end_ms <= duration within documented
+  rounding tolerance. Split mixed-speaker segments manually where necessary.
+
+Future Jetson capture:
+- Prefer two microphones through one Linux-compatible two-input USB interface
+  sharing a clock, with patient on channel 0 and psychologist on channel 1.
+- Validate microphone connectors, power, gain and Linux channel exposure before
+  buying. Two independent USB microphones need synchronization/drift handling.
+- Use a device-side recorder that preserves both channels; do not assume browser
+  capture preserves channel separation or disables speech-processing effects.
+- Preserve stereo original. Extract channels separately and transcribe them
+  sequentially with the same loaded-model policy; merge by shared timestamps.
+  Do not downmix the future two-microphone recording before speaker processing.
+- Store channel-to-role mapping as a suggestion. Cross-talk can put the same
+  words on both channels; overlaps and uncertain attribution need review.
+  Channel identity is not proof of who spoke. Do not blindly concatenate both
+  transcripts and call the result diarized.
+- Week 1 includes a synthetic two-channel routing/timestamp test. Full dual-mic
+  capture, cross-talk handling and speaker evaluation remain a later milestone.
+
+5. ARCHITECTURE AND CONTRACTS
+
+Existing React UI -> existing FastAPI orchestrator -> one local ASR worker
+                                              -> SQLite + local audio files
+
+Module A owns validation/decode, ASR adapter, source timestamps, CLI and metrics.
+Module C owns capture controls, sessions, durable jobs, validated DB writes,
+transcript corrections and draft population. Module B consumes saved segments;
+real BM25 integration is not required to prove audio-to-database persistence.
+
+Proposed callable (coordinate with existing integration contract):
+transcribe(audio_path, *, session_id, config) -> list[TranscriptSegment]
+
+Keep existing segment fields: id, session_id, start_ms, end_ms, speaker_role,
+text, revision. Start revision at 1; keep IDs stable on edits and increment
+revision. Keep source recording/channel/model metadata in separate records,
+since the shared schema rejects extra fields. Validate all results in Module C.
+
+Proposed API additions, not currently implemented:
+- POST /api/v1/sessions/{session_id}/recordings : upload; return recording_id.
+- POST /api/v1/sessions/{session_id}/transcribe : recording_id + idempotency key;
+  return 202 and job_id.
+- GET /api/v1/jobs/{job_id} : QUEUED/RUNNING/SUCCEEDED/FAILED and useful errors.
+- Session-scoped audio playback route for timestamp review.
+Reuse existing transcript GET/PATCH and note-draft GET/PUT routes.
+
+Use one sequential local worker process and a persisted SQLite job queue; no
+Redis/Celery service is needed. Keep ASR out of the request handler. Claim jobs
+atomically, use short DB transactions, and mark interrupted RUNNING jobs failed
+on restart with an explicit retry option. A success status requires committed
+results. Capture and job errors must be visible in the existing UI.
+
+6. DATABASE POPULATION — REQUIRED, NOT OPTIONAL
+
+Existing storage: data/pshynox.db via SQLAlchemy/Alembic, with sessions,
+transcript_segments, note_drafts and audit_events. Audio stays in local files;
+the database stores references and metadata, not large audio blobs.
+
+IMPORTANT EXISTING BEHAVIOR: create_session currently copies synthetic fixture
+segments into every new session, even when FIXTURE_MODE is false. Change this
+for real recording sessions: start with an empty transcript. Keep demo fixtures
+explicitly separate. Switching FIXTURE_MODE alone is insufficient.
+
+Proposed additive migrations:
+- recordings: ID, session FK, generated relative path, hash, MIME, duration,
+  sample rate, channel count, source/device description and channel-role map.
+- transcription_jobs: ID, recording/session FKs, status, idempotency key,
+  runtime/model/config identity, timings, attempt and error details.
+- segment_sources: segment FK, recording/job FK and source channel.
+- draft source-revision tracking: allow edits to invalidate dependent excerpts
+  without changing the public TranscriptSegment contract.
+
+End-to-end write behavior:
+1. Create real session with pseudonym and consent, no sample transcript.
+2. Save upload under a generated local name, validate it, then register recording.
+   Clean up orphan temporary files after failures; never trust supplied paths.
+3. Persist job; worker generates a complete validated result for that session.
+4. Atomically insert segments + source links and mark job successful. On failure,
+   roll back the result transaction and record a failed job separately.
+5. Retrying the same successful request returns the existing result, not duplicate
+   rows. For this MVP allow one successful transcript per session. Reprocessing
+   must not overwrite edited transcripts; use a new session until versioned
+   replacement is implemented.
+6. Reopen transcript through the normal DB read path. No fallback fixture text
+   may appear for a real session. Text and role corrections persist with revision.
+7. Refresh/invalidate retrieval state after changes; searches use current saved
+   segments. Test patient/session isolation.
+
+Draft population from voice:
+- Save all recognized utterances as transcript rows automatically, regardless of
+  whether their role is known. This is the immediate database-population step.
+- After speaker review, “Populate draft from transcript” deterministically copies
+  the confirmed CLIENT excerpts into subjective, with timestamp/source links and
+  evidence_ids pointing to those exact segment IDs. Use provenance=TEMPLATE and
+  review_status=PENDING. Label this as an unreviewed excerpt draft.
+- No CLIENT labels yet: keep subjective “Not documented — speaker review needed”.
+  Keep other unavailable sections “Not documented”. Do not infer diagnoses,
+  objective observations, severity scores or treatment plans from raw ASR.
+- Example: confirmed CLIENT segment “I slept about four hours last night” becomes
+  that same quoted subjective excerpt, linked to its source; it does not become
+  an insomnia diagnosis or a numerical symptom rating.
+- Never replace manually entered note content automatically. Generation fills
+  empty template fields; explicit refresh handles previously generated fields.
+- Source edits mark dependent excerpts stale/PENDING and reset completed review;
+  require refresh or confirmation before approval. Preserve existing terminal
+  note protections; reject source edits affecting decided notes until an
+  amendment workflow exists. Missing evidence cannot become an approved claim.
+- Save drafts in SQLite and reopen after restart. Risk review stays PENDING;
+  transcription/drafting never triggers approval. Preserve existing review guards.
+
+7. TWO-WEEK DELIVERY SCHEDULE (TEN WORKING DAYS)
+
+WEEK 1 — RECORDING AND REAL LOCAL TRANSCRIPTION
+Day 1: Freeze scope/contracts; check laptop devices and dependencies; identify
+       board model if available. Create six fictional 2–5 minute clips: two each
+       English, Urdu and mixed speech. Reserve one per language for final testing.
+       Write reference transcripts/speaker labels and consent metadata.
+Day 2: Build/pin whisper.cpp CPU binary; obtain multilingual base and tiny weights.
+       Run first offline CLI transcription. Compare quantized base; optionally
+       small. Record load time, processing time, memory and obvious errors.
+Day 3: Implement recording selection/start/stop plus WAV import in existing UI;
+       validate/decode audio; retain originals and recording metadata.
+Day 4: Implement ASR adapter, timestamp conversion, contract validation and useful
+       errors. Test mono and synthetic two-channel routing without role inference.
+Day 5: Add migrations and durable sequential job integration; persist the first
+       real transcript. Remove synthetic seeding from real sessions. Demo record
+       -> transcribe -> saved transcript. Run early Nano build/runtime check if
+       board access exists; otherwise record feasibility as unverified.
+
+WEEK 2 — REVIEW, DRAFT POPULATION AND RELIABILITY
+Day 6: Wire job status/errors, audio playback and text/speaker corrections; verify
+       saved IDs/revisions and cross-session isolation.
+Day 7: Populate source-linked subjective excerpts; preserve manual note fields;
+       save/reopen drafts and implement stale-source/review handling.
+Day 8: Test corrupt/silent media, microphone denial/disconnection, absent model,
+       worker failure/restart, retry deduplication and persistence failure.
+Day 9: Run held-out language clips offline. Measure WER/CER, manual corrections,
+       timestamp error, load/inference time, real-time factor and peak system RAM.
+       If available, repeat a short end-to-end run on the exact Jetson profile.
+Day 10: Run restart/offline demo, relevant backend tests and frontend build;
+        deliver setup instructions, dependency/model manifest, benchmark report,
+        known limitations and handoff. Reserve this day for integration fixes.
+
+8. ACCEPTANCE AND HARDWARE GATES
+
+Laptop MVP passes only when:
+- Both selected microphone recording and WAV import produce real persisted text.
+- A 2–5 minute fictional clip works with networking disabled after setup.
+- Timestamp playback, manual speaker/text edits and source-linked draft work.
+- Restart preserves recordings, transcript revisions and note edits in SQLite.
+- Invalid input and missing models fail visibly, with no fabricated results.
+- Retries do not duplicate rows; unrelated sessions and manual notes are intact.
+- All-silence test does not populate invented transcript/note content.
+- Existing approval protections still pass and generated content stays unreviewed.
+- Metrics are measured and limitations listed, rather than assumed accurate.
+
+Benchmark each tested model/configuration on the same clips. Report results by
+language, including omitted/changed negations, numbers and speaker errors. Define
+Urdu punctuation/script normalization before calculating WER/CER. Record timestamp
+error against manually marked utterances. Real-time factor = processing seconds /
+audio seconds; report model load separately. Do not claim real-time performance.
+Choose a provisional acceptable wait time and quality threshold after Day 2 pilot,
+before the held-out test; record them explicitly in the benchmark report.
+
+Jetson gate additionally requires exact board/RAM/OS/JetPack identification,
+native binary + Python dependency installation, successful end-to-end offline
+execution, measured peak whole-system memory with headroom, and an acceptable
+agreed processing time. Record whether swap is used; a swapping system is not a
+performance pass. Keep a single loaded model and sequential channel processing.
+Actual dual-mic capture stability/cross-talk and 45–60 minute performance are
+separate later gates. Laptop tests cannot validate these on the board's behalf.
+
+9. SOURCES AND STATUS
+
+Local references: FYP_Implementation_plan.pdf sections 2, 4 and 6;
+FYP_progresss1.pdf sections 10–13; README.md; docs/MODULE_INTEGRATION_GUIDE.md;
+services/api/{main,schemas,db}.py; pyproject.toml.
+
+Official technical references checked on 23 October 2026:
+[1] whisper.cpp runtime, quantization and approximate model memory:
+    https://github.com/ggml-org/whisper.cpp
+[2] NVIDIA JetPack 4 final release and supported original Nano family:
+    https://forums.developer.nvidia.com/t/announcing-end-of-life-for-nvidia-jetpack-4-with-the-release-of-jetpack-4-6-6/314409
+[3] NVIDIA JetPack 4.6 software stack:
+    https://developer.nvidia.com/jetpack-sdk-464
+[4] faster-whisper GPU requirements:
+    https://github.com/SYSTRAN/faster-whisper
+[5] Orin Nano Super hardware (the device named by the PDFs):
+    https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/nano-super-developer-kit/
+
+The selected model/runtime is a proposed engineering baseline, not a measured
+accuracy or Jetson compatibility claim. No models were installed, no benchmarks
+were run and no application/database changes were made while revising this plan.
+
+10. THINGS YOU WILL NEED
+
+Needed now:
+[ ] Existing laptop, built-in mic or working wired headset/handsfree; browser mic
+    permission and a short two-person audibility check.
+[ ] Python 3.11+ virtual environment and existing project dependencies; Node/npm
+    for the existing frontend; Git, C/C++ build tools and compatible CMake.
+[ ] FFmpeg/ffprobe for local decoding and media inspection.
+[ ] Tested whisper.cpp binary plus multilingual ggml-base.bin; create or obtain
+    its compatible Q5_0 variant for comparison. ggml-tiny.bin is the lightweight
+    comparison/fallback; ggml-small.bin is optional if quality needs comparison.
+    Keep model files outside Git under a configurable local models directory.
+[ ] Setup internet access for dependencies/model downloads only. Record source,
+    license, version/commit and SHA-256 hashes; cache required assets for offline use.
+[ ] SQLite (already used), Alembic migrations and local space for audio, models,
+    temporary decode files and backups. Suggested initial free-space allowance:
+    5–10 GB for this short-clip sprint, checked against actual downloads.
+[ ] Six fictional recordings with checked transcripts/roles; language evaluation
+    conventions and expected source excerpts. No training dataset is necessary.
+[ ] Module C integration work in the same sprint; a CLI-only delivery will not
+    populate the application's database or satisfy the requested demo.
+
+Needed later for Jetson:
+[ ] Exact board identity and RAM capacity before choosing its software image.
+[ ] Board-compatible storage, regulated power supply and active cooling; use
+    NVMe only where the selected hardware supports it, not by Nano-name assumption.
+[ ] Two suitable speech microphones plus one Linux-compatible two-input USB
+    audio interface, cables and any required microphone power.
+[ ] ARM64 runtime build and reproducible Python/app environment tested on-board.
+[ ] Dual-channel capture/calibration, cross-talk review and sustained benchmarks.
+
+Not needed for this MVP: a paid API key, local chat LLM, vector database,
+automatic speaker-recognition model, GPU upgrade or model fine-tuning.

@@ -3,50 +3,46 @@ import { createRoot } from "react-dom/client";
 import { LandingPage } from "./features/landing/LandingPage";
 import { SessionDetailPage } from "./features/sessions/SessionDetailPage";
 import { WorkspacePage } from "./features/sessions/WorkspacePage";
+import { PatientPage } from "./features/patients/PatientPage";
+import { PatientDirectory } from "./features/patients/PatientDirectory";
+import { WorkspaceShell } from "./components/layout/AppShell";
 import { api, type Health, type Session } from "./lib/api";
 import "./styles.css";
+
+function SessionRoute({ id, health }: { id: string; health: Health | null }) {
+  const [session, setSession] = useState<Session | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const controller = new AbortController();
+    api.session(id, controller.signal).then(setSession).catch(e => { if (e.name !== "AbortError") setError(e.message); }).finally(() => { if (!controller.signal.aborted) setLoading(false); });
+    return () => controller.abort();
+  }, [id]);
+  if (loading) return <WorkspaceShell health={health} active="Session"><main className="section-wrap"><div className="state-panel" role="status">Loading session…</div></main></WorkspaceShell>;
+  return <SessionDetailPage health={health} session={session} error={error} />;
+}
 
 function App() {
   const [health, setHealth] = useState<Health | null>(null);
   const [healthError, setHealthError] = useState<string | null>(null);
-  const [sessions, setSessions] = useState<Session[]>([]);
-  const [sessionError, setSessionError] = useState<string | null>(null);
   const [path, setPath] = useState(window.location.pathname);
-
   useEffect(() => {
     const controller = new AbortController();
-    api.health(controller.signal).then(setHealth).catch((reason: Error) => { if (reason.name !== "AbortError") setHealthError(reason.message); });
+    api.health(controller.signal).then(setHealth).catch(e => { if (e.name !== "AbortError") setHealthError(e.message); });
     return () => controller.abort();
   }, []);
-
   useEffect(() => {
-    const onPopState = () => setPath(window.location.pathname);
-    window.addEventListener("popstate", onPopState);
-    return () => window.removeEventListener("popstate", onPopState);
+    const pop = () => setPath(window.location.pathname);
+    window.addEventListener("popstate", pop);
+    return () => window.removeEventListener("popstate", pop);
   }, []);
-
-  useEffect(() => {
-    if (!path.startsWith("/workspace")) return;
-    const controller = new AbortController();
-    api.sessions(controller.signal).then(setSessions).catch((reason: Error) => { if (reason.name !== "AbortError") setSessionError(reason.message); });
-    return () => controller.abort();
-  }, [path]);
-
-  useEffect(() => {
-    const id = path.startsWith("/workspace/sessions/") ? path.split("/").pop() : undefined;
-    if (!id || sessions.some((item) => item.id === id)) return;
-    const controller = new AbortController();
-    api.session(id, controller.signal).then((item) => setSessions((current) => [item, ...current])).catch((reason: Error) => {
-      if (reason.name !== "AbortError") setSessionError(reason.message);
-    });
-    return () => controller.abort();
-  }, [path, sessions]);
-
-  const detailId = path.startsWith("/workspace/sessions/") ? path.split("/").pop() : undefined;
-  const detailSession = sessions.find((item) => item.id === detailId) ?? null;
-  if (detailId) return <SessionDetailPage health={health} session={detailSession} error={sessionError} />;
-  if (path === "/workspace" || path === "/workspace/") return <WorkspacePage health={health} sessions={sessions} loading={Boolean(!sessions.length && !sessionError)} error={sessionError} onCreated={(created) => { setSessions((current) => [created, ...current]); window.history.pushState({}, "", `/workspace/sessions/${created.id}`); setPath(`/workspace/sessions/${created.id}`); }} />;
-  return <LandingPage health={health} error={healthError} />;
+  if (!path.startsWith("/workspace")) return <LandingPage health={health} error={healthError} />;
+  const parts = path.split("/").filter(Boolean);
+  let page;
+  if (parts[1] === "sessions" && parts[2]) page = <SessionRoute key={parts[2]} id={parts[2]} health={health} />;
+  else if (parts[1] === "patients" && parts[2] === "new") page = <PatientPage health={health} />;
+  else if (parts[1] === "patients" && parts[2]) page = <PatientPage key={path} health={health} patientId={parts[2]} editing={parts[3] === "edit"} />;
+  else page = <WorkspacePage health={health} />;
+  return <PatientDirectory>{page}</PatientDirectory>;
 }
-
 createRoot(document.getElementById("root")!).render(<StrictMode><App /></StrictMode>);

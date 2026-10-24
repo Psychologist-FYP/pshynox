@@ -5,6 +5,7 @@ export type Health = {
 };
 
 export type Session = {
+  patient_id: string | null;
   id: string;
   pseudonym_id: string;
   session_type: "INITIAL_ASSESSMENT" | "FOLLOW_UP";
@@ -40,7 +41,7 @@ export type NoteField = {
   evidence_ids: string[];
   review_status: "PENDING" | "REVIEWED";
 };
-export type NoteDraft = { id: string; session_id: string; fields: NoteField[]; created_at: string; updated_at: string; workflow_status: "DRAFT" | "APPROVED" | "REJECTED"; risk_review_status: "PENDING" | "COMPLETED"; reviewer_name?: string | null; decision_actor_name?: string | null; };
+export type NoteDraft = { sources_stale: boolean; id: string; session_id: string; fields: NoteField[]; created_at: string; updated_at: string; workflow_status: "DRAFT" | "APPROVED" | "REJECTED"; risk_review_status: "PENDING" | "COMPLETED"; reviewer_name?: string | null; decision_actor_name?: string | null; };
 export type ReviewState = { session_id: string; note_draft_id: string | null; workflow_status: "DRAFT" | "APPROVED" | "REJECTED"; risk_review_status: "PENDING" | "COMPLETED"; reviewer_name?: string | null; risk_review_completed_at?: string | null; review_note?: string | null; decision_actor_name?: string | null; decision_at?: string | null; rejection_reason?: string | null };
 export type AuditEvent = { id: string; session_id: string; note_draft_id: string | null; event_type: string; actor_name: string; occurred_at: string; metadata: Record<string, string> };
 
@@ -68,10 +69,41 @@ async function request<T>(path: string, signal?: AbortSignal, init?: RequestInit
   return (await response.json()) as T;
 }
 
+export type PatientInput = {
+  name: string; date_of_birth: string | null; age: number | null;
+  preferred_name: string; sex: string; gender: string; pronouns: string;
+  phone: string; email: string; address: string; emergency_contact: string;
+  emergency_relationship: string; emergency_phone: string; guardian: string;
+  occupation: string; education: string; marital_status: string; language: string;
+  referred_by: string; presenting_concerns: string; previous_care: string;
+  medical_history: string; medications: string; allergies: string;
+  family_social_history: string; substance_use: string; goals: string; additional_notes: string;
+};
+export type Patient = PatientInput & { id: string; created_at: string; updated_at: string };
+
+export type Recording = { id: string; session_id: string; duration_ms: number; channels: number };
+export type SpeechJob = { id: string; recording_id: string; status: "QUEUED" | "RUNNING" | "SUCCEEDED" | "FAILED"; error_message: string | null; metrics: Record<string, unknown> };
+
 export const api = {
+  patients: () => request<Patient[]>("/api/v1/patients"),
+  patient: (id: string) => request<Patient>(`/api/v1/patients/${id}`),
+  createPatient: (payload: PatientInput) => request<Patient>("/api/v1/patients", undefined, { method: "POST", body: JSON.stringify(payload) }),
+  savePatient: (id: string, payload: PatientInput) => request<Patient>(`/api/v1/patients/${id}`, undefined, { method: "PUT", body: JSON.stringify(payload) }),
+  patientSessions: (id: string) => request<Session[]>(`/api/v1/patients/${id}/sessions`),
+  assignPatient: (sid: string, patient_id: string) => request<Session>(`/api/v1/sessions/${sid}/patient`, undefined, { method: "PATCH", body: JSON.stringify({ patient_id }) }),
+  recordingConsent: (sid: string, value: boolean) => request(`/api/v1/sessions/${sid}/recording-consent`, undefined, { method: "PATCH", body: JSON.stringify({ recording_consent: value }) }),
+  recordings: (sid: string) => request<Recording[]>(`/api/v1/sessions/${sid}/recordings`),
+  upload: (sid: string, blob: Blob) => request<Recording>(`/api/v1/sessions/${sid}/recordings`, undefined, { method: "POST", headers: { "Content-Type": blob.type || "audio/wav" }, body: blob }),
+  transcribe: (sid: string, rid: string, key: string) => request<SpeechJob>(`/api/v1/sessions/${sid}/transcribe`, undefined, { method: "POST", body: JSON.stringify({ recording_id: rid, idempotency_key: key }) }),
+  speechJobs: (sid: string) => request<SpeechJob[]>(`/api/v1/sessions/${sid}/transcription-jobs`),
+  transcriptSources: (sid: string) => request<Record<string, string>>(`/api/v1/sessions/${sid}/transcript-sources`),
+  speechJob: (sid: string) => request<SpeechJob | null>(`/api/v1/sessions/${sid}/transcription-job`),
+  job: (id: string) => request<SpeechJob>(`/api/v1/jobs/${id}`),
+  populateDraft: (sid: string) => request<NoteDraft>(`/api/v1/sessions/${sid}/note-draft/populate`, undefined, { method: "POST" }),
+  confirmSources: (sid: string, name: string) => request<NoteDraft>(`/api/v1/sessions/${sid}/note-draft/confirm-sources`, undefined, { method: "POST", body: JSON.stringify({ confirmation: true, reviewer_name: name }) }),
   health: (signal?: AbortSignal) => request<Health>("/api/v1/health", signal),
   sessions: (signal?: AbortSignal) => request<Session[]>("/api/v1/sessions", signal),
-  createSession: (payload: { pseudonym_id?: string; session_type: Session["session_type"]; consent: Record<string, string | boolean> }) =>
+  createSession: (payload: { patient_id?: string; pseudonym_id?: string; session_type: Session["session_type"]; consent: Record<string, string | boolean> }) =>
     request<Session>("/api/v1/sessions", undefined, { method: "POST", body: JSON.stringify(payload) }),
   session: (id: string, signal?: AbortSignal) => request<Session>(`/api/v1/sessions/${id}`, signal),
   transcript: (id: string, signal?: AbortSignal) =>
