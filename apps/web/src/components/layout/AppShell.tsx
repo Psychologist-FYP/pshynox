@@ -5,7 +5,7 @@ import { StatusPill } from "../ui/StatusPill";
 import type { Health } from "../../lib/api";
 
 export function Brand() {
-  return <a className="brand" href="/" aria-label="Dr. Katz home"><span className="brand-mark"><Icon name="wave" size={19} /></span><span>Dr. Katz</span></a>;
+  return <a className="brand" href="/" aria-label="Dr. Katz home"><img className="brand-logo" src="/images/logo.png" alt="Dr. Katz — Professional Therapist" /></a>;
 }
 
 export function TopBar({ health, workspace = false }: { health: Health | null; workspace?: boolean }) {
@@ -47,7 +47,7 @@ export function WorkspaceShell({ health, children, active = "Patients", patientI
           {!loading && !patients.length && <p className="sidebar-hint">Add your first patient to get started.</p>}
           {!!patients.length && !patients.some(p => `${p.name} ${p.preferred_name}`.toLowerCase().includes(search.toLowerCase())) && <p className="sidebar-hint">No matching patients.</p>}
         </nav>
-        <div className="sidebar-bottom"><StatusPill health={health} /><p>Patient details and session records, together in one workspace.</p></div>
+        <div className="sidebar-bottom"><div className="office-sign">The listening room<span>The notebook is listening.</span></div><StatusPill health={health} /><p>Everything filed. A small victory for the office.</p></div>
       </aside>
       <div className="workspace-content">
         <header className="workspace-header">

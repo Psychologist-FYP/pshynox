@@ -8,6 +8,7 @@ import { PatientDirectory } from "./features/patients/PatientDirectory";
 import { WorkspaceShell } from "./components/layout/AppShell";
 import { api, type Health, type Session } from "./lib/api";
 import "./styles.css";
+import "./katz-theme.css";
 
 function SessionRoute({ id, health }: { id: string; health: Health | null }) {
   const [session, setSession] = useState<Session | null>(null);
