@@ -161,3 +161,26 @@ class SegmentSourceRecord(Base):
     recording_id: Mapped[str] = mapped_column(ForeignKey("recordings.id"))
     job_id: Mapped[str] = mapped_column(ForeignKey("transcription_jobs.id"))
     channel: Mapped[int] = mapped_column(Integer, default=0)
+
+
+class MeetingRecord(Base):
+    __tablename__ = "meetings"
+    id: Mapped[str] = mapped_column(String(100), primary_key=True)
+    session_id: Mapped[str] = mapped_column(ForeignKey("sessions.id"), index=True)
+    host_hash: Mapped[str] = mapped_column(String(64))
+    guest_hash: Mapped[str] = mapped_column(String(64))
+    status: Mapped[str] = mapped_column(String(20), default="OPEN")
+    created_ms: Mapped[int] = mapped_column(Integer)
+    expires_ms: Mapped[int] = mapped_column(Integer)
+    started_ms: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    guest_consented: Mapped[bool] = mapped_column(Boolean, default=False)
+
+
+class MeetingChunkRecord(Base):
+    __tablename__ = "meeting_chunks"
+    # Client-generated UUID makes retries idempotent, including after a lost response.
+    id: Mapped[str] = mapped_column(String(100), primary_key=True)
+    meeting_id: Mapped[str] = mapped_column(ForeignKey("meetings.id"), index=True)
+    recording_id: Mapped[str] = mapped_column(ForeignKey("recordings.id"), unique=True)
+    speaker_role: Mapped[str] = mapped_column(String(20))
+    offset_ms: Mapped[int] = mapped_column(Integer)

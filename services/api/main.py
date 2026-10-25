@@ -14,7 +14,7 @@ from fastapi import Depends, FastAPI, HTTPException
 from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
-from sqlalchemy import select
+from sqlalchemy import select, func, cast, Integer
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from sqlalchemy.orm import Session as DbSession
 
@@ -27,6 +27,8 @@ from services.api.db import (
     TranscriptionJobRecord,
     SegmentSourceRecord,
     RecordingRecord,
+    MeetingRecord,
+    MeetingChunkRecord,
     get_db,
     make_engine,
     make_session_factory,
@@ -209,8 +211,11 @@ def _session_segments(db: DbSession, session_id: str) -> list[TranscriptSegment]
             select(TranscriptSegmentRecord)
             .outerjoin(SegmentSourceRecord, SegmentSourceRecord.segment_id == TranscriptSegmentRecord.id)
             .outerjoin(RecordingRecord, RecordingRecord.id == SegmentSourceRecord.recording_id)
+            .outerjoin(MeetingChunkRecord, MeetingChunkRecord.recording_id == RecordingRecord.id)
+            .outerjoin(MeetingRecord, MeetingRecord.id == MeetingChunkRecord.meeting_id)
             .where(TranscriptSegmentRecord.session_id == session_id)
-            .order_by(RecordingRecord.created_at, RecordingRecord.id, TranscriptSegmentRecord.start_ms, TranscriptSegmentRecord.id)
+            .order_by(func.coalesce(MeetingRecord.created_ms / 1000, cast(func.strftime('%s', RecordingRecord.created_at), Integer)),
+                      func.coalesce(MeetingRecord.id, RecordingRecord.id), TranscriptSegmentRecord.start_ms, TranscriptSegmentRecord.id)
         ).all()
         return [_record_to_segment(row) for row in rows]
     if FIXTURE_MODE and session_id == _fixture_session().id:
@@ -602,6 +607,11 @@ app.include_router(build_router(db_dependency))
 
 
 def ensure_no_active_transcription(db, session_id):
+    from services.api.meeting_routes import now_ms
+    meeting = db.scalar(select(MeetingRecord).where(MeetingRecord.session_id == session_id,
+        MeetingRecord.status == "OPEN", MeetingRecord.expires_ms > now_ms()))
+    if meeting:
+        raise HTTPException(409, detail={"code": "MEETING_ACTIVE", "message": "End the online meeting and finish saving audio before review."})
     job = db.scalar(select(TranscriptionJobRecord).where(
         TranscriptionJobRecord.session_id == session_id,
         TranscriptionJobRecord.status.in_(("QUEUED", "RUNNING"))))
@@ -611,3 +621,37 @@ def ensure_no_active_transcription(db, session_id):
 
 from services.api.patient_routes import build_patient_router
 app.include_router(build_patient_router(db_dependency))
+
+
+from services.api.meeting_routes import build_meeting_router
+app.include_router(build_meeting_router(db_dependency, session_factory))
+
+
+@app.middleware("http")
+async def protect_lan_workspace(request, call_next):
+    """LAN invitees get capability-scoped meeting access, never patient records.
+
+    Vite overwrites X-Pshynox-Client-IP with its socket peer before proxying.
+    Trust that header only from loopback (the local development proxy).
+    """
+    import ipaddress
+    host = request.client.host if request.client else ""
+    try:
+        address = ipaddress.ip_address(host)
+        local = (address.ipv4_mapped or address).is_loopback if isinstance(address, ipaddress.IPv6Address) else address.is_loopback
+    except ValueError:
+        local = host == "testclient" and os.getenv("APP_ENV") == "test"
+    forwarded = request.headers.get("x-pshynox-client-ip") if local else None
+    if forwarded:
+        try:
+            address = ipaddress.ip_address(forwarded)
+            local = (address.ipv4_mapped or address).is_loopback if isinstance(address, ipaddress.IPv6Address) else address.is_loopback
+        except ValueError:
+            local = False
+    path = request.url.path
+    if not local and not re.fullmatch(r"/api/v1/meetings/meeting-[a-f0-9]{32}(?:/(?:end|chunks/[a-f0-9-]{36}))?", path):
+        return JSONResponse(status_code=403, content={"error": {"code": "LOCAL_WORKSPACE_ONLY", "message": "The clinician workspace is available only on the hosting computer. Use your meeting invitation to join."}})
+    response = await call_next(request)
+    response.headers["Cache-Control"] = "no-store"
+    response.headers["Referrer-Policy"] = "no-referrer"
+    return response

@@ -106,8 +106,8 @@ export function RecordingPanel({ session, onTranscribed }: { session: Session; o
       const job = jobs.find(j => j.recording_id === file.id);
       const pending = job?.status === "QUEUED" || job?.status === "RUNNING";
       return <div className="saved-recording" key={file.id}>
-        <span>Recording {index + 1} · {formatTimestamp(file.duration_ms)} · {file.channels} channel(s)</span>
-        <audio id={`audio-${file.id}`} controls preload="metadata" src={`/api/v1/sessions/${session.id}/recordings/${file.id}/audio`} />
+        <span>{file.meeting_id ? `${file.speaker_role === "CLIENT" ? "Patient" : "Clinician"} · meeting ${formatTimestamp(file.offset_ms ?? 0)}` : `Recording ${index + 1}`} · {formatTimestamp(file.duration_ms)} · {file.channels} channel(s)</span>
+        <audio id={`audio-${file.id}`} data-offset-ms={file.offset_ms ?? 0} controls preload="none" src={`/api/v1/sessions/${session.id}/recordings/${file.id}/audio`} />
         <button className="button button-secondary small-button" disabled={!consent || busy || recording || pending || job?.status === "SUCCEEDED"} onClick={async () => {
           setError(""); setBusy(true);
           try {
