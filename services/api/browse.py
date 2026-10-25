@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 import os
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy import select
@@ -11,8 +11,9 @@ from sqlalchemy.orm import Session as DbSession
 
 from services.api.db import SessionRecord, TranscriptSegmentRecord
 from services.api.db import get_db, make_engine, make_session_factory
-from services.api.schemas import TranscriptSegment
+from services.api.schemas import FuzzyEvidenceHit, TranscriptSegment
 from services.retrieval.browse import CATEGORY_DEFINITIONS, breadcrumb, children, documents, graph, node_documents, node_info, related, search
+from services.retrieval.fuzzy import fuzzy_search
 
 ROOT = Path(__file__).resolve().parents[2]
 FIXTURE_DIR = ROOT / "packages" / "contracts" / "fixtures"
@@ -96,6 +97,30 @@ def browse_search(q: str = "", scope: str | None = None, k: int = Query(10, ge=1
     if scope:
         _require_node(scope, docs)
     return {"query": q, "scope": scope, "results": search(q, docs, scope, k)}
+
+
+@router.get("/fuzzy", response_model=list[FuzzyEvidenceHit])
+def browse_fuzzy(
+    q: str = "",
+    scope: str | None = None,
+    k: int = Query(10, ge=1, le=100),
+    not_mode: Literal["fuzzy", "strict-exclude"] = "fuzzy",
+    window: int = Query(0, ge=0, le=10),
+    db: DbSession = Depends(_db),
+) -> list[FuzzyEvidenceHit]:
+    docs = _docs(db)
+    if scope:
+        _require_node(scope, docs)
+    selected = node_documents(scope, docs) if scope else docs
+    if not q.strip():
+        return []
+    if not_mode == "strict-exclude" and any(doc.get("category_id") == "risk-related-language" for doc in selected):
+        raise HTTPException(status_code=422, detail={"code": "RISK_NOT_MODE_FORBIDDEN", "message": "NOT/exclude mode is unavailable for risk-related search candidates."})
+    try:
+        results = fuzzy_search(q, selected, k=k, not_mode=not_mode, window=window)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail={"code": "INVALID_FUZZY_QUERY", "message": str(exc)}) from exc
+    return [FuzzyEvidenceHit.model_validate(result.__dict__) for result in results]
 
 
 @router.get("/segment/{segment_id}")

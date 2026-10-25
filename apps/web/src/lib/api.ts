@@ -33,6 +33,7 @@ export type EvidenceHit = {
   section: string;
   query: string;
 };
+export type FuzzyEvidenceHit = EvidenceHit & { memberships: Record<string, number>; parsed_query: { tree: Record<string, unknown>; terms: string[] } };
 export type NoteField = {
   section: "subjective" | "objective" | "assessment" | "plan" | "functioning";
   text: string;
@@ -111,6 +112,7 @@ export const api = {
   browseNode: (nodeId: string, signal?: AbortSignal) => request<BrowseNodeResponse>(`/api/browse/node/${encodeURIComponent(nodeId)}`, signal),
   browseDocuments: (nodeId?: string, signal?: AbortSignal) => request<{ documents: BrowseDocument[] }>(`/api/browse/documents${nodeId ? `?node_id=${encodeURIComponent(nodeId)}` : ""}`, signal),
   browseSearch: (query: string, scope?: string, signal?: AbortSignal) => request<{ results: BrowseDocument[] }>(`/api/browse/search?q=${encodeURIComponent(query)}${scope ? `&scope=${encodeURIComponent(scope)}` : ""}`, signal),
+  browseFuzzy: (query: string, scope?: string, signal?: AbortSignal) => request<FuzzyEvidenceHit[]>(`/api/browse/fuzzy?q=${encodeURIComponent(query)}${scope ? `&scope=${encodeURIComponent(scope)}` : ""}`, signal),
   browsePreview: (segmentId: string, signal?: AbortSignal) => request<BrowsePreview>(`/api/browse/segment/${encodeURIComponent(segmentId)}`, signal),
 };
 

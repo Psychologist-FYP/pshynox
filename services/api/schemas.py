@@ -1,5 +1,6 @@
 from datetime import datetime
 from enum import StrEnum
+from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
@@ -79,6 +80,31 @@ class EvidenceHit(BaseModel):
     def validate_time_range(self) -> "EvidenceHit":
         if self.end_ms < self.start_ms:
             raise ValueError("end_ms must be greater than or equal to start_ms")
+        return self
+
+
+class FuzzyEvidenceHit(BaseModel):
+    """EvidenceHit plus fuzzy retrieval diagnostics; EvidenceHit stays unchanged."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    segment_id: str = Field(min_length=1)
+    session_id: str = Field(min_length=1)
+    start_ms: int = Field(ge=0)
+    end_ms: int = Field(ge=0)
+    excerpt: str
+    score: float = Field(ge=0, le=1)
+    section: str = Field(min_length=1)
+    query: str = Field(min_length=1)
+    memberships: dict[str, float]
+    parsed_query: dict[str, Any]
+
+    @model_validator(mode="after")
+    def validate_time_range(self) -> "FuzzyEvidenceHit":
+        if self.end_ms < self.start_ms:
+            raise ValueError("end_ms must be greater than or equal to start_ms")
+        if any(value < 0 or value > 1 for value in self.memberships.values()):
+            raise ValueError("membership values must be between 0 and 1")
         return self
 
 

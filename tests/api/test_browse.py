@@ -44,6 +44,24 @@ def test_browse_documents_and_scoped_search_use_same_document_shape() -> None:
     assert empty.json()["results"] == []
 
 
+def test_fuzzy_search_returns_additive_memberships_and_parsed_query() -> None:
+    response = client.get("/api/browse/fuzzy", params={"q": "sleep OR worry"})
+
+    assert response.status_code == 200
+    result = response.json()[0]
+    assert {"segment_id", "session_id", "score", "section", "query", "memberships", "parsed_query"} <= result.keys()
+    assert 0 <= result["score"] <= 1
+    assert result["parsed_query"]["tree"]["operator"] == "OR"
+    assert all(0 <= value <= 1 for value in result["memberships"].values())
+
+
+def test_fuzzy_search_does_not_enable_strict_not_for_risk_candidates() -> None:
+    response = client.get("/api/browse/fuzzy", params={"q": "risk NOT absent", "scope": "category:risk-related-language", "not_mode": "strict-exclude"})
+
+    assert response.status_code == 200
+    assert response.json() == []
+
+
 def test_preview_related_links_and_graph_have_resolvable_ids() -> None:
     preview = client.get("/api/browse/segment/seg-demo-001")
     assert preview.status_code == 200
