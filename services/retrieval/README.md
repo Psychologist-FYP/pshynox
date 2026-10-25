@@ -29,8 +29,10 @@ Category and section labels live in `packages/contracts/fixtures/browse_metadata
 | `GET /api/browse/node/{id}` | Breadcrumb, children, and documents |
 | `GET /api/browse/documents` | Flat or scoped document list |
 | `GET /api/browse/search?q=&scope=&k=` | Offline lexical search with optional node scope |
+| `GET /api/browse/fuzzy?q=&scope=&k=&not_mode=&window=` | Offline fuzzy lexical search with memberships and context |
+| `GET /api/browse/soap-preview/{session_id}` | Non-persisting deterministic SOAP preview |
 | `GET /api/browse/segment/{id}` | Full document preview |
 | `GET /api/browse/related/{id}` | Typed related-document links |
 | `GET /api/browse/graph` | Nodes and links for graph validation/visualization |
 
-The current adapter uses a small deterministic BM25-style lexical scorer. It is intentionally isolated so the full Module B BM25/Boolean engine can replace the scorer without changing the browse API.
+The current adapter uses deterministic lexical BM25-style and fuzzy set-theoretic scorers. Paraphrases can be missed; semantic or hybrid retrieval is future work. Risk-related results remain search candidates, not a risk assessment.

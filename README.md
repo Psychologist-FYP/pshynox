@@ -10,7 +10,7 @@ Pshynox is a university Final Year Project prototype for reviewing a session tra
 
 The current repository contains the Module C application foundation: React/Vite UI, FastAPI orchestration, SQLite persistence, editable session transcripts, a fixture-backed evidence provider, saved note drafts, and a clinician review/approval workflow.
 
-Real local speech processing (Module A) and the real BM25/Boolean retrieval engine (Module B) still need to be integrated and validated. The current retrieval provider is a simple offline fallback, not the finished retrieval engine. New fictional sessions may contain synthetic transcript segments for testing; this is not audio transcription.
+Real local speech processing (Module A) still needs to be integrated and validated. Module B now includes deterministic lexical BM25-style browsing, fuzzy set-theoretic search, context windows, and a SOAP preview over fictional fixtures. Retrieval is lexical: paraphrases can be missed, and semantic or hybrid retrieval is future work. New fictional sessions may contain synthetic transcript segments for testing; this is not audio transcription.
 
 This is an MVP prototype. Local SQLite persistence does not by itself provide production encryption, authentication, or clinical-compliance guarantees.
 
@@ -133,6 +133,8 @@ All endpoints are versioned under `/api/v1`; request/response JSON uses `snake_c
 | Sessions | `GET /sessions`, `POST /sessions`, `GET /sessions/{session_id}` |
 | Transcript | `GET /sessions/{session_id}/transcript`, `PATCH /sessions/{session_id}/transcript/{segment_id}` |
 | Evidence | `GET /sessions/{session_id}/evidence?query=...` |
+| Browse retrieval | `GET /api/browse/search`, `GET /api/browse/fuzzy`, `GET /api/browse/segment/{segment_id}` |
+| SOAP preview | `GET /api/browse/soap-preview/session-soap-demo-001` |
 | Notes | `GET` and `PUT /sessions/{session_id}/note-draft` |
 | Review and audit | `GET /sessions/{session_id}/review-state`, `POST /sessions/{session_id}/risk-review/complete`, `POST /sessions/{session_id}/approve`, `POST /sessions/{session_id}/reject`, `GET /sessions/{session_id}/audit-events` |
 
@@ -148,6 +150,8 @@ The current canonical Pydantic models are in `services/api/schemas.py`; fictiona
 - **`NoteField`**: `section`, `text`, `provenance`, `evidence_ids`, `review_status`. Provenance: `MANUAL`, `RETRIEVAL_CANDIDATE`, `TEMPLATE`. Supported sections: `subjective`, `objective`, `assessment`, `plan`, `functioning`.
 
 Evidence references must resolve to source segments from the same session. Retrieval suggestions must not silently overwrite clinician-entered content. Risk review starts as `PENDING`; approval requires a saved note and explicit completed review. Contract changes require a reviewed PR before dependent module code is merged.
+
+Browse and fuzzy retrieval are lexical. Exact terms, prefixes, simple stems, and limited substrings are supported; paraphrases may be missed. Semantic or hybrid retrieval is future work and is not required for the current offline MVP.
 
 ## End-to-end milestone target
 

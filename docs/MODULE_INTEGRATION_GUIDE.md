@@ -43,7 +43,7 @@ Pshynox is a local modular monolith, not a set of separately deployed microservi
 | Backend tests                 | `tests/`                         | Add focused module tests and keep the full suite green                                         |
 | Frontend                      | `apps/web/`                      | Module A/B should not add independent user-facing frontends                                    |
 
-The repository's current `FixtureRetrievalProvider` is a very simple offline search provider. It is a temporary fallback, not the planned BM25 engine. The new `services/speech/` and `services/retrieval/` packages are integration locations to add if absent; check the latest `main` before creating them.
+The repository includes a deterministic offline lexical browse scorer, fuzzy retrieval under `services/retrieval/fuzzy.py`, and a fixture-backed SOAP preview. Paraphrases can be missed; semantic or hybrid retrieval is future work. `FixtureRetrievalProvider` remains the separate `/api/v1` fallback seam for the existing session evidence route.
 
 ## 3. Shared contract definitions
 
