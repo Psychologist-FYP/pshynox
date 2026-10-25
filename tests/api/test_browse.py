@@ -38,6 +38,7 @@ def test_browse_documents_and_scoped_search_use_same_document_shape() -> None:
     assert results
     assert results[0]["segment_id"] == "seg-demo-001"
     assert results[0]["category_id"] == "everyday-functioning"
+    assert results[0]["context"][0]["segment_id"] == "seg-demo-001"
 
     empty = client.get("/api/browse/search", params={"q": "zzzz-nonexistent-term"})
     assert empty.status_code == 200
@@ -66,6 +67,7 @@ def test_preview_related_links_and_graph_have_resolvable_ids() -> None:
     preview = client.get("/api/browse/segment/seg-demo-001")
     assert preview.status_code == 200
     assert preview.json()["document"]["text"]
+    assert [item["segment_id"] for item in preview.json()["context"]] == ["seg-demo-001", "seg-demo-002"]
 
     related = client.get("/api/browse/related/seg-demo-001")
     assert related.status_code == 200

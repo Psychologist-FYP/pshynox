@@ -11,7 +11,7 @@ import json
 import math
 import re
 from collections import Counter, defaultdict
-from collections.abc import Iterable, Sequence
+from collections.abc import Iterable, Mapping, Sequence
 from pathlib import Path
 from typing import Any
 
@@ -188,13 +188,40 @@ def search(query: str, docs: Sequence[dict[str, Any]], scope: str | None = None,
     return sorted(ranked, key=lambda item: (-item["score"], item["start_ms"], item["id"]))[:k]
 
 
+def _session_order(segment_id: str, docs: Sequence[dict[str, Any]]) -> tuple[list[dict[str, Any]], int] | None:
+    def value(doc: Any, key: str) -> Any:
+        return doc.get(key) if isinstance(doc, Mapping) else getattr(doc, key, None)
+
+    source = next((doc for doc in docs if value(doc, "segment_id") == segment_id or value(doc, "id") == segment_id), None)
+    if source is None:
+        return None
+    same_session = sorted(
+        (doc for doc in docs if value(doc, "session_id") == value(source, "session_id")),
+        key=lambda doc: (value(doc, "start_ms"), value(doc, "segment_id") or value(doc, "id")),
+    )
+    return same_session, next(index for index, doc in enumerate(same_session) if value(doc, "segment_id") == segment_id or value(doc, "id") == segment_id)
+
+
+def context_window(segment_id: str, docs: Sequence[dict[str, Any]], radius: int = 2) -> list[dict[str, Any]]:
+    """Return up to radius neighbouring segments on either side in one session."""
+
+    if radius < 0:
+        raise ValueError("radius must be non-negative")
+    ordered = _session_order(segment_id, docs)
+    if ordered is None:
+        return []
+    same_session, position = ordered
+    return same_session[max(0, position - radius) : position + radius + 1]
+
+
 def related(segment_id: str, docs: Sequence[dict[str, Any]], limit: int = 3) -> list[dict[str, Any]]:
     source = next((doc for doc in docs if doc["segment_id"] == segment_id), None)
     if source is None:
         return []
     links: list[dict[str, Any]] = []
-    same_session = [doc for doc in docs if doc["session_id"] == source["session_id"]]
-    position = next(index for index, doc in enumerate(same_session) if doc["segment_id"] == segment_id)
+    ordered = _session_order(segment_id, docs)
+    assert ordered is not None
+    same_session, position = ordered
     for offset, link_type in ((-1, "previous_segment"), (1, "next_segment")):
         target_index = position + offset
         if 0 <= target_index < len(same_session):

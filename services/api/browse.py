@@ -12,7 +12,7 @@ from sqlalchemy.orm import Session as DbSession
 from services.api.db import SessionRecord, TranscriptSegmentRecord
 from services.api.db import get_db, make_engine, make_session_factory
 from services.api.schemas import DraftComposition, FuzzyEvidenceHit, TranscriptSegment
-from services.retrieval.browse import CATEGORY_DEFINITIONS, breadcrumb, children, documents, graph, node_documents, node_info, related, search
+from services.retrieval.browse import CATEGORY_DEFINITIONS, breadcrumb, children, context_window, documents, graph, node_documents, node_info, related, search
 from services.retrieval.compose import compose_draft
 from services.retrieval.fuzzy import fuzzy_search
 
@@ -97,7 +97,8 @@ def browse_search(q: str = "", scope: str | None = None, k: int = Query(10, ge=1
     docs = _docs(db)
     if scope:
         _require_node(scope, docs)
-    return {"query": q, "scope": scope, "results": search(q, docs, scope, k)}
+    results = search(q, docs, scope, k)
+    return {"query": q, "scope": scope, "results": [{**result, "context": context_window(result["segment_id"], docs)} for result in results]}
 
 
 @router.get("/fuzzy", response_model=list[FuzzyEvidenceHit])
@@ -121,7 +122,7 @@ def browse_fuzzy(
         results = fuzzy_search(q, selected, k=k, not_mode=not_mode, window=window)
     except ValueError as exc:
         raise HTTPException(status_code=422, detail={"code": "INVALID_FUZZY_QUERY", "message": str(exc)}) from exc
-    return [FuzzyEvidenceHit.model_validate(result.__dict__) for result in results]
+    return [FuzzyEvidenceHit.model_validate({**result.__dict__, "context": context_window(result.segment_id, docs)}) for result in results]
 
 
 @router.get("/soap-preview/{session_id}", response_model=DraftComposition)
@@ -139,7 +140,7 @@ def segment_preview(segment_id: str, db: DbSession = Depends(_db)) -> dict[str, 
     if document is None:
         raise HTTPException(status_code=404, detail={"code": "BROWSE_SEGMENT_NOT_FOUND", "message": "Browse segment was not found."})
     node_id = f"segment:{segment_id}"
-    return {"document": document, "breadcrumb": breadcrumb(node_id, docs), "related": related(segment_id, docs)}
+    return {"document": document, "breadcrumb": breadcrumb(node_id, docs), "related": related(segment_id, docs), "context": context_window(segment_id, docs)}
 
 
 @router.get("/related/{segment_id}")

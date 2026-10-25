@@ -33,7 +33,7 @@ export type EvidenceHit = {
   section: string;
   query: string;
 };
-export type FuzzyEvidenceHit = EvidenceHit & { memberships: Record<string, number>; parsed_query: { tree: Record<string, unknown>; terms: string[] } };
+export type FuzzyEvidenceHit = EvidenceHit & { memberships: Record<string, number>; parsed_query: { tree: Record<string, unknown>; terms: string[] }; context: BrowseDocument[] };
 export type SoapPreview = { preview_only: boolean; draft: { id: string; session_id: string; fields: NoteField[]; workflow_status: string; risk_review_status: string }; source_segments: TranscriptSegment[]; traces: { section: string; seed_queries: string[]; matched_evidence_ids: string[]; generated_text: string }[]; risk_review: { status: string; candidates: { segment_id: string; excerpt: string; label: string }[] } };
 export type NoteField = {
   section: "subjective" | "objective" | "assessment" | "plan" | "functioning";
@@ -46,12 +46,12 @@ export type NoteDraft = { id: string; session_id: string; fields: NoteField[]; c
 export type ReviewState = { session_id: string; note_draft_id: string | null; workflow_status: "DRAFT" | "APPROVED" | "REJECTED"; risk_review_status: "PENDING" | "COMPLETED"; reviewer_name?: string | null; risk_review_completed_at?: string | null; review_note?: string | null; decision_actor_name?: string | null; decision_at?: string | null; rejection_reason?: string | null };
 export type AuditEvent = { id: string; session_id: string; note_draft_id: string | null; event_type: string; actor_name: string; occurred_at: string; metadata: Record<string, string> };
 export type BrowseCategory = { id: string; label: string; description: string; count: number };
-export type BrowseDocument = { id: string; segment_id: string; session_id: string; title: string; excerpt: string; text: string; speaker_role: TranscriptSegment["speaker_role"]; start_ms: number; end_ms: number; revision: number; category_id: string; category_label: string; section: string; section_label: string; score?: number; query?: string };
+export type BrowseDocument = { id: string; segment_id: string; session_id: string; title: string; excerpt: string; text: string; speaker_role: TranscriptSegment["speaker_role"]; start_ms: number; end_ms: number; revision: number; category_id: string; category_label: string; section: string; section_label: string; score?: number; query?: string; context?: BrowseDocument[] };
 export type BrowseNode = { id: string; type: string; title?: string; label: string; count?: number; session_id?: string };
 export type BrowseHome = { node_id: string; title: string; hint: string; categories: BrowseCategory[]; session_count: number; segment_count: number };
 export type BrowseNodeResponse = BrowseNode & { node_id: string; breadcrumb: BrowseNode[]; children: BrowseNode[]; documents: BrowseDocument[] };
 export type BrowseLink = { source_id: string; target_id: string; link_type: string; label: string; document: BrowseDocument };
-export type BrowsePreview = { document: BrowseDocument; breadcrumb: BrowseNode[]; related: BrowseLink[] };
+export type BrowsePreview = { document: BrowseDocument; breadcrumb: BrowseNode[]; related: BrowseLink[]; context?: BrowseDocument[] };
 
 export class ApiError extends Error {
   constructor(

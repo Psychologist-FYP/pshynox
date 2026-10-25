@@ -12,7 +12,7 @@ import re
 from dataclasses import dataclass
 from typing import Any, Literal, Mapping, Sequence
 
-from services.retrieval.browse import _tokens
+from services.retrieval.browse import _tokens, context_window
 
 
 class FuzzyQueryError(ValueError):
@@ -215,21 +215,6 @@ def membership(term: str, document: Any, corpus: Sequence[Any] | None = None) ->
     frequency = sum(1 for token in document_tokens if any(_similarity(query, token) > 0 for query in query_tokens))
     tf = 1 - math.exp(-frequency)
     return round(min(1.0, min(similarities) * tf * _idf(term, corpus)), 6)
-
-
-def context_window(segment_id: str, documents: Sequence[Any], radius: int = 2) -> list[Any]:
-    """Return the segment and neighbouring segments in the same session."""
-
-    if radius < 0:
-        raise ValueError("radius must be non-negative")
-    ordered = sorted(documents, key=lambda item: (_value(item, "session_id", ""), _value(item, "start_ms", 0), _value(item, "id", "")))
-    index = next((i for i, item in enumerate(ordered) if _value(item, "id", _value(item, "segment_id")) == segment_id), None)
-    if index is None:
-        return []
-    session_id = _value(ordered[index], "session_id")
-    same_session = [item for item in ordered if _value(item, "session_id") == session_id]
-    center = next(i for i, item in enumerate(same_session) if _value(item, "id", _value(item, "segment_id")) == segment_id)
-    return same_session[max(0, center - radius) : center + radius + 1]
 
 
 def _evaluate(node: QueryNode, document: Any, corpus: Sequence[Any], not_mode: NotMode, threshold: float) -> float:

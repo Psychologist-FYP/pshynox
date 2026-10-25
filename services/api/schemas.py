@@ -98,6 +98,7 @@ class FuzzyEvidenceHit(BaseModel):
     query: str = Field(min_length=1)
     memberships: dict[str, float]
     parsed_query: dict[str, Any]
+    context: list[dict[str, Any]] = []
 
     @model_validator(mode="after")
     def validate_time_range(self) -> "FuzzyEvidenceHit":
