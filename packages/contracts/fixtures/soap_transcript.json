@@ -1,0 +1,47 @@
+[
+  {
+    "id": "seg-soap-001",
+    "session_id": "session-soap-demo-001",
+    "start_ms": 0,
+    "end_ms": 2400,
+    "speaker_role": "CLIENT",
+    "text": "I have been worrying most days, and it is hard to switch my thoughts off.",
+    "revision": 1
+  },
+  {
+    "id": "seg-soap-002",
+    "session_id": "session-soap-demo-001",
+    "start_ms": 2600,
+    "end_ms": 4800,
+    "speaker_role": "CLINICIAN",
+    "text": "How has your sleep been during the last week?",
+    "revision": 1
+  },
+  {
+    "id": "seg-soap-003",
+    "session_id": "session-soap-demo-001",
+    "start_ms": 5000,
+    "end_ms": 7600,
+    "speaker_role": "CLIENT",
+    "text": "Sleep has been difficult; I lie awake for a long time before work.",
+    "revision": 1
+  },
+  {
+    "id": "seg-soap-004",
+    "session_id": "session-soap-demo-001",
+    "start_ms": 7800,
+    "end_ms": 9600,
+    "speaker_role": "CLIENT",
+    "text": "When I am busy, I sometimes skip meals and only notice later in the day.",
+    "revision": 1
+  },
+  {
+    "id": "seg-soap-005",
+    "session_id": "session-soap-demo-001",
+    "start_ms": 9800,
+    "end_ms": 12000,
+    "speaker_role": "CLIENT",
+    "text": "A long time ago I had thoughts about harming myself, but I do not have those thoughts now.",
+    "revision": 1
+  }
+]

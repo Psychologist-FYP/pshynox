@@ -139,6 +139,34 @@ class NoteDraft(BaseModel):
     rejection_reason: str | None = None
 
 
+class SectionTrace(BaseModel):
+    section: str
+    seed_queries: list[str]
+    matched_evidence_ids: list[str]
+    generated_text: str
+
+
+class RiskCandidate(BaseModel):
+    segment_id: str
+    excerpt: str
+    label: str = "search candidates, not a risk assessment"
+
+
+class RiskReviewPreview(BaseModel):
+    status: RiskReviewStatus = RiskReviewStatus.PENDING
+    candidates: list[RiskCandidate]
+
+
+class DraftComposition(BaseModel):
+    """Ephemeral note preview; the embedded NoteDraft is never persisted here."""
+
+    preview_only: bool = True
+    draft: NoteDraft
+    source_segments: list[TranscriptSegment]
+    traces: list[SectionTrace]
+    risk_review: RiskReviewPreview
+
+
 class NoteDraftUpdate(BaseModel):
     model_config = ConfigDict(extra="forbid")
 

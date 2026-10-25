@@ -33,8 +33,8 @@ def _tokens(value: str) -> list[str]:
     return TOKEN_RE.findall(value.lower())
 
 
-def _metadata() -> dict[str, dict[str, str]]:
-    with METADATA_PATH.open(encoding="utf-8") as handle:
+def _metadata(path: Path = METADATA_PATH) -> dict[str, dict[str, str]]:
+    with path.open(encoding="utf-8") as handle:
         return {item["segment_id"]: item for item in json.load(handle)}
 
 
@@ -42,8 +42,8 @@ def _section_label(section: str) -> str:
     return {"subjective": "Subjective", "functioning": "Functioning", "other": "Other"}.get(section, section.title())
 
 
-def documents(segments: Sequence[TranscriptSegment]) -> list[dict[str, Any]]:
-    metadata = _metadata()
+def documents(segments: Sequence[TranscriptSegment], metadata_path: Path = METADATA_PATH) -> list[dict[str, Any]]:
+    metadata = _metadata(metadata_path)
     result: list[dict[str, Any]] = []
     for segment in segments:
         item = metadata.get(segment.id, {})

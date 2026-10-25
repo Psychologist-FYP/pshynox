@@ -4,6 +4,7 @@ import { LandingPage } from "./features/landing/LandingPage";
 import { SessionDetailPage } from "./features/sessions/SessionDetailPage";
 import { WorkspacePage } from "./features/sessions/WorkspacePage";
 import { BrowsePage } from "./features/browse/BrowsePage";
+import { SoapPreviewPage } from "./features/soap/SoapPreviewPage";
 import { api, type Health, type Session } from "./lib/api";
 import "./styles.css";
 
@@ -46,6 +47,7 @@ function App() {
   const detailId = path.startsWith("/workspace/sessions/") ? path.split("/").pop() : undefined;
   const detailSession = sessions.find((item) => item.id === detailId) ?? null;
   if (path === "/browse" || path === "/browse/") return <BrowsePage health={health} />;
+  if (path === "/soap-preview" || path === "/soap-preview/") return <SoapPreviewPage health={health} />;
   if (detailId) return <SessionDetailPage health={health} session={detailSession} error={sessionError} />;
   if (path === "/workspace" || path === "/workspace/") return <WorkspacePage health={health} sessions={sessions} loading={Boolean(!sessions.length && !sessionError)} error={sessionError} onCreated={(created) => { setSessions((current) => [created, ...current]); window.history.pushState({}, "", `/workspace/sessions/${created.id}`); setPath(`/workspace/sessions/${created.id}`); }} />;
   return <LandingPage health={health} error={healthError} />;

@@ -11,8 +11,9 @@ from sqlalchemy.orm import Session as DbSession
 
 from services.api.db import SessionRecord, TranscriptSegmentRecord
 from services.api.db import get_db, make_engine, make_session_factory
-from services.api.schemas import FuzzyEvidenceHit, TranscriptSegment
+from services.api.schemas import DraftComposition, FuzzyEvidenceHit, TranscriptSegment
 from services.retrieval.browse import CATEGORY_DEFINITIONS, breadcrumb, children, documents, graph, node_documents, node_info, related, search
+from services.retrieval.compose import compose_draft
 from services.retrieval.fuzzy import fuzzy_search
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -121,6 +122,14 @@ def browse_fuzzy(
     except ValueError as exc:
         raise HTTPException(status_code=422, detail={"code": "INVALID_FUZZY_QUERY", "message": str(exc)}) from exc
     return [FuzzyEvidenceHit.model_validate(result.__dict__) for result in results]
+
+
+@router.get("/soap-preview/{session_id}", response_model=DraftComposition)
+def soap_preview(session_id: str) -> DraftComposition:
+    try:
+        return compose_draft(session_id)
+    except ValueError as exc:
+        raise HTTPException(status_code=404, detail={"code": "SOAP_PREVIEW_NOT_FOUND", "message": str(exc)}) from exc
 
 
 @router.get("/segment/{segment_id}")

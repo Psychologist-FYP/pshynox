@@ -1,0 +1,32 @@
+[
+  {
+    "segment_id": "seg-soap-001",
+    "category_id": "gad-like-worry",
+    "category_label": "GAD-like worry",
+    "section": "subjective"
+  },
+  {
+    "segment_id": "seg-soap-002",
+    "category_id": "everyday-functioning",
+    "category_label": "Everyday functioning",
+    "section": "objective"
+  },
+  {
+    "segment_id": "seg-soap-003",
+    "category_id": "everyday-functioning",
+    "category_label": "Everyday functioning",
+    "section": "functioning"
+  },
+  {
+    "segment_id": "seg-soap-004",
+    "category_id": "everyday-functioning",
+    "category_label": "Everyday functioning",
+    "section": "functioning"
+  },
+  {
+    "segment_id": "seg-soap-005",
+    "category_id": "risk-related-language",
+    "category_label": "Risk-related excerpts (search candidates, not a risk assessment)",
+    "section": "risk-candidate"
+  }
+]

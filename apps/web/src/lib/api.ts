@@ -34,6 +34,7 @@ export type EvidenceHit = {
   query: string;
 };
 export type FuzzyEvidenceHit = EvidenceHit & { memberships: Record<string, number>; parsed_query: { tree: Record<string, unknown>; terms: string[] } };
+export type SoapPreview = { preview_only: boolean; draft: { id: string; session_id: string; fields: NoteField[]; workflow_status: string; risk_review_status: string }; source_segments: TranscriptSegment[]; traces: { section: string; seed_queries: string[]; matched_evidence_ids: string[]; generated_text: string }[]; risk_review: { status: string; candidates: { segment_id: string; excerpt: string; label: string }[] } };
 export type NoteField = {
   section: "subjective" | "objective" | "assessment" | "plan" | "functioning";
   text: string;
@@ -113,6 +114,7 @@ export const api = {
   browseDocuments: (nodeId?: string, signal?: AbortSignal) => request<{ documents: BrowseDocument[] }>(`/api/browse/documents${nodeId ? `?node_id=${encodeURIComponent(nodeId)}` : ""}`, signal),
   browseSearch: (query: string, scope?: string, signal?: AbortSignal) => request<{ results: BrowseDocument[] }>(`/api/browse/search?q=${encodeURIComponent(query)}${scope ? `&scope=${encodeURIComponent(scope)}` : ""}`, signal),
   browseFuzzy: (query: string, scope?: string, signal?: AbortSignal) => request<FuzzyEvidenceHit[]>(`/api/browse/fuzzy?q=${encodeURIComponent(query)}${scope ? `&scope=${encodeURIComponent(scope)}` : ""}`, signal),
+  soapPreview: (sessionId: string, signal?: AbortSignal) => request<SoapPreview>(`/api/browse/soap-preview/${encodeURIComponent(sessionId)}`, signal),
   browsePreview: (segmentId: string, signal?: AbortSignal) => request<BrowsePreview>(`/api/browse/segment/${encodeURIComponent(segmentId)}`, signal),
 };
 
