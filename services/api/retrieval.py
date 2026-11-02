@@ -1,6 +1,8 @@
 from collections.abc import Sequence
 
 from services.api.schemas import EvidenceHit, TranscriptSegment
+from services.retrieval.config import RetrievalSettings
+from services.retrieval.engine import EvidenceRetrievalProvider
 
 
 class RetrievalProvider:
@@ -33,3 +35,7 @@ class FixtureRetrievalProvider(RetrievalProvider):
                     )
                 )
         return sorted(results, key=lambda hit: (-hit.score, hit.start_ms))[:k]
+
+
+def create_retrieval_provider(settings: RetrievalSettings | None = None) -> EvidenceRetrievalProvider:
+    return EvidenceRetrievalProvider(settings)

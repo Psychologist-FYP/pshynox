@@ -63,6 +63,11 @@ class TranscriptSegment(BaseModel):
         return self
 
 
+class EvidenceSource(TranscriptSegment):
+    recording_id: str | None = None
+    matched: bool = False
+
+
 class EvidenceHit(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -74,6 +79,18 @@ class EvidenceHit(BaseModel):
     score: float
     section: str = Field(min_length=1)
     query: str = Field(min_length=1)
+    # Additive metadata; the original segment link/excerpt remain the central turn.
+    window_id: str | None = None
+    patient_id: str | None = None
+    recording_id: str | None = None
+    transcript_revision: str | None = None
+    source_segment_ids: list[str] = Field(default_factory=list)
+    matched_source_segment_ids: list[str] = Field(default_factory=list)
+    sources: list[EvidenceSource] = Field(default_factory=list)
+    speaker_role: SpeakerRole | None = None
+    rank: int | None = None
+    method: str | None = None
+    retrieval_diagnostics: dict = Field(default_factory=dict)
 
     @model_validator(mode="after")
     def validate_time_range(self) -> "EvidenceHit":

@@ -8,6 +8,9 @@ transcripts, source-linked excerpt drafts and clinician review.
 This is an FYP prototype for documentation support. It does not diagnose or
 recommend treatment. Use fictional data for development and demonstrations.
 
+For a dated assessment of implemented features, module progress, remaining work,
+and verification results, see [Current project status](docs/PROJECT_STATUS.md).
+
 ## What you need
 
 | Requirement | Purpose |
@@ -158,27 +161,23 @@ paths created above. `.env` is private and ignored by Git.
 
 ## Run the application
 
-Open **two terminals**. Replace `/path/to/pshynox` with your checkout path. Run the
-backend from the repository root so its relative paths resolve correctly.
-
-**Terminal 1 — backend and automatic transcription worker:**
+Start the whole project in **one terminal**:
 
 ```bash
-cd /path/to/pshynox
-source .venv/bin/activate
-python -m uvicorn services.api.main:app --env-file .env --reload --host 127.0.0.1 --port 8000
+./scripts/run.py
 ```
 
-SQLite migrations run automatically at startup. The backend also starts one local
-speech worker; a third terminal is not needed. Restart this terminal after changing
-model settings or installing a new runtime. Press `Ctrl+C` to stop it.
+The launcher uses `.venv/bin/python` automatically, creates a missing `.env` from
+`.env.example`, and preserves an existing `.env`. It checks launch dependencies and
+ports, then starts the backend and frontend with automatic reload. SQLite migrations
+run at backend startup, and the backend manages the local speech worker according
+to `.env`. Logs from both servers appear in the same terminal. **Ctrl+C stops both**;
+if either server exits, the launcher stops the other and reports the failure.
 
-**Terminal 2 — frontend:**
-
-```bash
-cd /path/to/pshynox/apps/web
-npm run dev -- --host 127.0.0.1 --port 5173 --strictPort
-```
+You can also use `python3 scripts/run.py`, or invoke the script by its absolute
+path from another directory. Restart it after changing `.env` or model settings.
+To choose different ports, use `./scripts/run.py --api-port 8001 --web-port 5174`;
+the frontend API proxy follows the selected backend port automatically.
 
 Open **<http://127.0.0.1:5173/workspace>** in your browser.
 
@@ -186,8 +185,18 @@ Open **<http://127.0.0.1:5173/workspace>** in your browser.
 - API documentation: <http://127.0.0.1:8000/docs>
 - The frontend proxies `/api` requests to backend port `8000`.
 
-On later runs, use just these two terminal commands; dependency installation,
-runtime builds and model downloads do not need repeating.
+On later runs, use just `./scripts/run.py`; dependency installation, runtime builds
+and model downloads do not need repeating. For HTTPS Wi-Fi meetings, continue to
+use the separate `scripts/run_lan.py` launcher described in [the meeting guide](docs/ONLINE_MEETINGS.md).
+
+## Research evaluation
+
+Open **<http://127.0.0.1:5173/workspace/research>** for dataset browsing, human
+relevance annotation, development exploration and benchmark results. The supplied
+AnnoMI/PriMock datasets are separate from clinical records. Reproduce their verified
+imports with `.venv/bin/python -m services.retrieval.prepare`; no downloads or
+automatic patient creation occur. See [the research walkthrough](docs/RESEARCH_EVALUATION.md)
+for the pilot, keyboard controls, evaluation, exports and PriMock audio clips.
 
 ## Use the workspace
 
@@ -311,9 +320,11 @@ React / TypeScript / Vite (apps/web)
 
 Module A provides audio preparation and local speech transcription. Module C owns
 patient records, sessions, persistence, UI, review and orchestration. The current
-evidence provider is still a simple local fallback; the full Module B BM25/Boolean
-retrieval engine remains to be integrated. Draft population uses exact excerpts,
-so a chat LLM or vector database is not required.
+evidence provider now uses local BM25 with Boolean/phrase search, metadata filters,
+revision invalidation, and source-linked conversation context. Module B also provides
+TF-IDF, optional local multilingual E5, experimental hybrid RRF, and a benchmark
+command. See [retrieval setup and evaluation](docs/RETRIEVAL.md). Draft population
+uses exact excerpts, so a chat LLM or vector database is not required.
 
 | Owner | Module |
 |---|---|

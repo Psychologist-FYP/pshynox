@@ -11,6 +11,7 @@ if (!process.env.MEETING_TEST_LAN_IP) {
   try { lanIP = JSON.parse(execFileSync('ip', ['-j', 'route', 'get', '1.1.1.1'], { encoding: 'utf8' }))[0].prefsrc || lanIP; } catch { /* loopback alias fallback */ }
 }
 execFileSync(`${root}/.venv/bin/python`, ['-c', 'from scripts.run_lan import certificates; from pathlib import Path; import sys; certificates(Path(sys.argv[1]), sys.argv[2])', data, lanIP], { cwd: root });
+execFileSync(`${root}/.venv/bin/python`, ['-c', 'from services.retrieval.prepare import prepare; from tests.retrieval.test_workspace import create_research_fixture; from pathlib import Path; import sys; p=Path(sys.argv[1]); prepare(output=p); create_research_fixture(p)', `${data}/research`], { cwd: root });
 process.env.MEETING_TEST_GUEST_ORIGIN = `https://${lanIP}:5179`;
 console.log(`Meeting browser test: clinician localhost, patient ${process.env.MEETING_TEST_GUEST_ORIGIN}`);
 export default defineConfig({
@@ -23,7 +24,7 @@ export default defineConfig({
   },
   webServer: [
     { command: `${root}/.venv/bin/python -m uvicorn services.api.main:app --host 127.0.0.1 --port 8011`, cwd: root,
-      env: { DATABASE_URL: `sqlite:///${data}/test.db`, LOCAL_DATA_DIR: data, FIXTURE_MODE: 'false', SPEECH_WORKER_ENABLED: 'false', MEETING_PUBLIC_ORIGIN: `https://${lanIP}:5179` },
+      env: { DATABASE_URL: `sqlite:///${data}/test.db`, LOCAL_DATA_DIR: data, RESEARCH_DATA_DIR: `${data}/research`, FIXTURE_MODE: 'false', SPEECH_WORKER_ENABLED: 'false', MEETING_PUBLIC_ORIGIN: `https://${lanIP}:5179` },
       url: 'http://127.0.0.1:8011/api/v1/health', reuseExistingServer: false },
     { command: 'npm run dev -- --host 0.0.0.0 --port 5179 --strictPort',
       env: { VITE_API_TARGET: 'http://127.0.0.1:8011', VITE_HTTPS_CERT: `${data}/meeting.pem`, VITE_HTTPS_KEY: `${data}/meeting-key.pem` },

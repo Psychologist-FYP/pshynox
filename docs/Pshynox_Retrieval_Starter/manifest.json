@@ -1,0 +1,90 @@
+{
+  "download_date": "2026-11-01",
+  "files": [
+    {
+      "path": "START_HERE.md",
+      "bytes": 15402,
+      "sha256": "457aa5156f1fa48533b40f1502bf0d7f3a74cf363ea0af317c563e426e52525c"
+    },
+    {
+      "path": "data/annomi/AnnoMI-simple.csv",
+      "bytes": 2386609,
+      "sha256": "b178db3b0b9858a0fa4ed670dabeccd63e975ba67e141d7ae16f2e8214f78e61"
+    },
+    {
+      "path": "data/annomi/README.md",
+      "bytes": 6637,
+      "sha256": "45fd4a9e30e3cf0f727f120159a8042eefc0dacdf1c4fe576859a4bfd815948c"
+    },
+    {
+      "path": "data/primock57/LICENSE.md",
+      "bytes": 17067,
+      "sha256": "c4077139f0479418e8ce544f45f409fd3192a315f23071b4d41083e4a28357a1"
+    },
+    {
+      "path": "data/primock57/README.md",
+      "bytes": 2426,
+      "sha256": "531d01051c5efe52aea2cf68432478bc73cf8b4e57041fc2a871fb4551808941"
+    },
+    {
+      "path": "data/primock57/day1_consultation01_doctor.TextGrid",
+      "bytes": 18434,
+      "sha256": "a727b4f53fd0c21750405fa683a0079585d9cf3cf763d3ced51bde9673a3eb04"
+    },
+    {
+      "path": "data/primock57/day1_consultation01_doctor.wav",
+      "bytes": 14653484,
+      "sha256": "a93ca69f49da821b2d10b03f3189fd0d82200a697805c18f316719ba328ff96b"
+    },
+    {
+      "path": "data/primock57/day1_consultation01_note.json",
+      "bytes": 1001,
+      "sha256": "ebab4d30f5b31f5a68261840c39461a52a8eeeec55fd7312dbb18ff51e223c33"
+    },
+    {
+      "path": "data/primock57/day1_consultation01_patient.TextGrid",
+      "bytes": 17513,
+      "sha256": "7082e1abf185b30a82d57d585b999d4f11263e006359249aeffbad1061bfd0bd"
+    },
+    {
+      "path": "data/primock57/day1_consultation01_patient.wav",
+      "bytes": 14651564,
+      "sha256": "12b0c5c12018cff8399cf95b713eba4b7d2bb9d6581281844057ecab2ea3a414"
+    },
+    {
+      "path": "data/primock57/day1_consultation01_transcript.csv",
+      "bytes": 23383,
+      "sha256": "22777009f6015bccf59a2ed4e6ebcb3f97472182cefc76e634af4decb0c20609"
+    },
+    {
+      "path": "data/primock57/day1_consultation02_doctor.TextGrid",
+      "bytes": 17093,
+      "sha256": "4a33e030a4670936754821469855e63cb3263b1575da098cacd1158b48684277"
+    },
+    {
+      "path": "data/primock57/day1_consultation02_doctor.wav",
+      "bytes": 17894444,
+      "sha256": "39800525bbb34834aa19a6bb24dea514b093ae3417c6f22d49e585e9743a2ae6"
+    },
+    {
+      "path": "data/primock57/day1_consultation02_note.json",
+      "bytes": 958,
+      "sha256": "074cb1826b76feeb9f632ef1e4667704ce89d73c01ce1677686b2c81cd61cfc5"
+    },
+    {
+      "path": "data/primock57/day1_consultation02_patient.TextGrid",
+      "bytes": 12903,
+      "sha256": "61ae00734844852f9fd70df574b02aa79b3da4b654464bd0d70191266a5f78fa"
+    },
+    {
+      "path": "data/primock57/day1_consultation02_patient.wav",
+      "bytes": 17894444,
+      "sha256": "594383d70f8724740f39dc46258a01cd5762c42c46db4c6631ea205ddf66a7c2"
+    },
+    {
+      "path": "data/primock57/day1_consultation02_transcript.csv",
+      "bytes": 26037,
+      "sha256": "c67c2fa11dff53628ed19d74fdae67565afa34626c581a9f9f6355c3ab00a808"
+    }
+  ]
+}

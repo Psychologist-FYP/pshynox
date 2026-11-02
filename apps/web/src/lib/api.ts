@@ -33,6 +33,17 @@ export type EvidenceHit = {
   score: number;
   section: string;
   query: string;
+  window_id?: string | null;
+  patient_id?: string | null;
+  recording_id?: string | null;
+  transcript_revision?: string | null;
+  source_segment_ids?: string[];
+  matched_source_segment_ids?: string[];
+  sources?: (TranscriptSegment & { recording_id: string | null; matched: boolean })[];
+  speaker_role?: TranscriptSegment["speaker_role"] | null;
+  rank?: number | null;
+  method?: string | null;
+  retrieval_diagnostics?: Record<string, unknown>;
 };
 export type NoteField = {
   section: "subjective" | "objective" | "assessment" | "plan" | "functioning";
@@ -54,7 +65,7 @@ export class ApiError extends Error {
   }
 }
 
-async function request<T>(path: string, signal?: AbortSignal, init?: RequestInit): Promise<T> {
+export async function request<T>(path: string, signal?: AbortSignal, init?: RequestInit): Promise<T> {
   const response = await fetch(path, { ...init, signal, headers: { "Content-Type": "application/json", ...init?.headers } });
   if (!response.ok) {
     let message = "The local API could not complete that request.";
