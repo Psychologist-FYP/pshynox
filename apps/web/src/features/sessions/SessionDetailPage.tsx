@@ -17,6 +17,8 @@ export function SessionDetailPage({ health, session, error }: { health: Health |
   const [query, setQuery] = useState("sleep difficulty");
   const [searching, setSearching] = useState(false);
   const [detailError, setDetailError] = useState<string | null>(error);
+  const [searchError, setSearchError] = useState<string | null>(null);
+  const [searchRevision, setSearchRevision] = useState(0);
   const [selectedSegment, setSelectedSegment] = useState<string | null>(null);
   const [draft, setDraft] = useState<NoteDraft | null>(null);
   const [noteFields, setNoteFields] = useState<NoteField[]>([]);
@@ -29,6 +31,8 @@ export function SessionDetailPage({ health, session, error }: { health: Health |
     try {
       const [segments, value, state, events] = await Promise.all([api.transcript(session.id), api.noteDraft(session.id), api.reviewState(session.id), api.auditEvents(session.id)]);
       setTranscript(segments); setDraft(value); setReview(state); setAudit(events);
+      setEvidence([]);
+      setSearchRevision(current => current + 1);
       setSources(await api.transcriptSources(session.id));
     } catch (e) { setDetailError(e instanceof Error ? e.message : "Refresh failed"); }
   }
@@ -37,11 +41,24 @@ export function SessionDetailPage({ health, session, error }: { health: Health |
     if (!session) return;
     const controller = new AbortController();
     api.transcriptSources(session.id).then(setSources).catch(() => {});
-    Promise.all([api.transcript(session.id, controller.signal), api.evidence(session.id, query, controller.signal)])
-      .then(([segments, hits]) => { setTranscript(segments); setEvidence(hits); setLoading(false); })
+    setLoading(true); setDetailError(null); setEvidence([]);
+    api.transcript(session.id, controller.signal)
+      .then((segments) => { setTranscript(segments); setLoading(false); })
       .catch((reason: Error) => { if (reason.name !== "AbortError") { setDetailError(reason.message); setLoading(false); } });
     return () => controller.abort();
-  }, [session, query]);
+  }, [session]);
+  useEffect(() => {
+    if (!session) return;
+    const controller = new AbortController();
+    setSearching(true); setSearchError(null); setEvidence([]);
+    const timer = window.setTimeout(() => {
+      api.evidence(session.id, query, controller.signal)
+        .then((hits) => { if (!controller.signal.aborted) setEvidence(hits); })
+        .catch((reason: Error) => { if (reason.name !== "AbortError") setSearchError(reason.message); })
+        .finally(() => { if (!controller.signal.aborted) setSearching(false); });
+    }, 250);
+    return () => { window.clearTimeout(timer); controller.abort(); };
+  }, [session, query, searchRevision]);
   useEffect(() => {
     if (!session) return;
     Promise.all([api.noteDraft(session.id), api.reviewState(session.id), api.auditEvents(session.id)]).then(([value, state, events]) => { setDraft(value); setNoteFields(value.fields); setNoteState("Saved"); setReview(state); setAudit(events); }).catch((reason: Error) => setNoteState(reason.message));
@@ -54,7 +71,7 @@ export function SessionDetailPage({ health, session, error }: { health: Health |
     {!session.patient_id && <AssignPatient sessionId={session.id} />}
     <MeetingEntry sessionId={session.id} />
     <RecordingPanel key={session.id} session={session} onTranscribed={() => void refreshSaved()} />
-    <div className="detail-grid"><section className="transcript-panel panel"><div className="panel-heading"><div><p className="eyebrow">Source transcript</p><h3>Conversation editor</h3></div><span className="small-note">{transcript.length} segments · saved revisions</span></div>{loading && <div className="state-inline"><span className="loader" /> Loading transcript…</div>}{detailError && <div className="state-inline state-error">{detailError}</div>}{!loading && !detailError && (transcript.length ? transcript.map((segment) => <TranscriptRow key={segment.id} recordingId={sources[segment.id]} segment={segment} sessionId={session.id} selected={selectedSegment === segment.id} onSaved={(saved) => { setTranscript((current) => current.map((item) => item.id === saved.id ? saved : item)); void refreshSaved(); }} />) : <div className="empty-inline">No transcript segments returned.</div>)}</section><aside className="evidence-panel panel"><div className="panel-heading"><div><p className="eyebrow">Source excerpts · example search</p><h3>Source-linked excerpts</h3></div><Icon name="search" /></div><form className="search-form" onSubmit={(event) => { event.preventDefault(); setSearching(true); api.evidence(session.id, query).then(setEvidence).catch((reason: Error) => setDetailError(reason.message)).finally(() => setSearching(false)); }}><label htmlFor="evidence-query">Search this session</label><div className="search-control"><Icon name="search" size={16} /><input id="evidence-query" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Try a source query" /><button type="submit" aria-label="Search evidence"><Icon name="arrow" size={16} /></button></div></form>{searching && <div className="state-inline"><span className="loader" /> Searching…</div>}{!searching && (evidence.length ? evidence.map((hit) => <EvidenceCard key={hit.segment_id} hit={hit} onSelect={() => { setSelectedSegment(hit.segment_id); document.getElementById(`segment-${hit.segment_id}`)?.scrollIntoView({ behavior: "smooth", block: "center" }); }} />) : <div className="empty-inline">No matching excerpts. A zero-hit search is not a safety conclusion.</div>)}</aside></div>
+    <div className="detail-grid"><section className="transcript-panel panel"><div className="panel-heading"><div><p className="eyebrow">Source transcript</p><h3>Conversation editor</h3></div><span className="small-note">{transcript.length} segments · saved revisions</span></div>{loading && <div className="state-inline"><span className="loader" /> Loading transcript…</div>}{detailError && <div className="state-inline state-error">{detailError}</div>}{!loading && !detailError && (transcript.length ? transcript.map((segment) => <TranscriptRow key={segment.id} recordingId={sources[segment.id]} segment={segment} sessionId={session.id} selected={selectedSegment === segment.id} onSaved={(saved) => { setTranscript((current) => current.map((item) => item.id === saved.id ? saved : item)); void refreshSaved(); }} />) : <div className="empty-inline">No transcript segments returned.</div>)}</section><aside className="evidence-panel panel"><div className="panel-heading"><div><p className="eyebrow">Source excerpts</p><h3>Source-linked excerpts</h3></div><Icon name="search" /></div><form className="search-form" onSubmit={(event) => { event.preventDefault(); setSearchRevision(current => current + 1); }}><label htmlFor="evidence-query">Search this session</label><div className="search-control"><Icon name="search" size={16} /><input id="evidence-query" value={query} onChange={(event) => setQuery(event.target.value)} placeholder='sleep AND NOT medication' /><button type="submit" aria-label="Search evidence"><Icon name="arrow" size={16} /></button></div><p className="small-note">Use AND, OR, NOT, parentheses, or &quot;quoted phrases&quot;. Results preserve denials and speaker context.</p></form>{searchError && <div className="state-inline state-error" role="alert">{searchError}</div>}{searching && <div className="state-inline"><span className="loader" /> Searching…</div>}{!searching && !searchError && (evidence.length ? evidence.map((hit) => <EvidenceCard key={hit.segment_id} hit={hit} onSelect={() => { setSelectedSegment(hit.segment_id); document.getElementById(`segment-${hit.segment_id}`)?.scrollIntoView({ behavior: "smooth", block: "center" }); }} />) : <div className="empty-inline">No matching excerpts. A zero-hit search is not a safety conclusion.</div>)}</aside></div>
     <div className="draft-tools">
       <button className="button button-secondary small-button" disabled={!draft || draft.workflow_status !== "DRAFT" || noteState === "Unsaved changes"} onClick={async () => { try { const saved = await api.populateDraft(session.id); setDraft(saved); setNoteFields(saved.fields); setNoteState("Saved excerpt draft — review required"); await refreshSaved(); } catch (e) { setNoteState(e instanceof Error ? e.message : "Draft population failed"); } }}>Populate / refresh patient excerpts</button>
       {draft?.sources_stale && <div role="alert"><p>Source text changed. Review the saved draft against the transcript, then refresh excerpts or confirm your manual corrections.</p><input aria-label="Source reviewer" placeholder="Reviewer name" value={sourceReviewer} onChange={e => setSourceReviewer(e.target.value)} /><button disabled={!sourceReviewer.trim() || noteState === "Unsaved changes"} onClick={async () => { try { const saved = await api.confirmSources(session.id, sourceReviewer); setDraft(saved); setNoteFields(saved.fields); await refreshSaved(); } catch (e) { setNoteState(e instanceof Error ? e.message : "Confirmation failed"); } }}>Confirm I checked the changed sources</button></div>}
@@ -80,7 +97,15 @@ function TranscriptRow({ segment, recordingId, sessionId, selected, onSaved }: {
   function cancel() { setText(segment.text); setRole(segment.speaker_role); setEditing(false); setMessage(null); }
   return <article id={`segment-${segment.id}`} className={`transcript-row ${selected ? "source-focused" : ""}`}><div className="transcript-meta"><button className="text-button" onClick={() => { const audio = (recordingId ? document.getElementById(`audio-${recordingId}`) as HTMLAudioElement | null : null); if (audio) { audio.currentTime = Math.max(0, segment.start_ms - Number(audio.dataset.offsetMs || 0)) / 1000; void audio.play().catch(() => {}); } }}>{formatTimestamp(segment.start_ms)}</button>{editing ? <label className="sr-only" htmlFor={`role-${segment.id}`}>Speaker role</label> : null}{editing ? <select id={`role-${segment.id}`} value={role} onChange={(event) => setRole(event.target.value as TranscriptSegment["speaker_role"])}><option>CLIENT</option><option>CLINICIAN</option><option>UNKNOWN</option></select> : <span className={`speaker speaker-${segment.speaker_role.toLowerCase()}`}>{segment.speaker_role}</span>}<span className="revision-label">Revision {segment.revision}</span></div>{editing ? <textarea value={text} onChange={(event) => setText(event.target.value)} aria-label={`Edit transcript segment ${segment.id}`} /> : <p>{segment.text}</p>}{editing ? <div className="edit-actions"><button className="button button-secondary small-button" onClick={cancel} disabled={saving}>Cancel</button><button className="button button-primary small-button" onClick={save} disabled={saving || !text.trim()}>{saving ? "Saving…" : "Save edit"}</button></div> : <button className="text-button" onClick={() => setEditing(true)}>Edit segment</button>}{message && <span className={message.startsWith("Saved") ? "save-message" : "form-error"} role="status">{message}</span>}</article>;
 }
-function EvidenceCard({ hit, onSelect }: { hit: EvidenceHit; onSelect: () => void }) { return <button className="evidence-card evidence-button" onClick={onSelect}><div><span className="evidence-section">{hit.section}</span><span className="evidence-time">{formatTimestamp(hit.start_ms)} – {formatTimestamp(hit.end_ms)} · score {hit.score.toFixed(2)}</span></div><p>{hit.excerpt}</p><span className="source-link"><Icon name="file" size={14} /> {hit.segment_id} · jump to source</span></button>; }
+function EvidenceCard({ hit, onSelect }: { hit: EvidenceHit; onSelect: () => void }) {
+  return <article className="evidence-card">
+    <button className="evidence-button" onClick={onSelect}>
+      <div><span className="evidence-section">{hit.section} · {hit.speaker_role ?? "UNKNOWN"}</span><span className="evidence-time">{formatTimestamp(hit.start_ms)} – {formatTimestamp(hit.end_ms)} · relevance {hit.score.toFixed(2)}</span></div>
+      <p>{hit.excerpt}</p><span className="source-link"><Icon name="file" size={14} /> {hit.segment_id} · jump to source</span>
+    </button>
+    {!!hit.sources?.some(source => !source.matched) && <details><summary>Surrounding conversation</summary>{hit.sources.map(source => <p key={source.id}><strong>{source.matched ? "Matched turn" : "Context"} · {source.speaker_role} · {formatTimestamp(source.start_ms)}</strong><br />{source.text}</p>)}</details>}
+  </article>;
+}
 
 function NoteComposer({ draft, fields, state, onChange, onSave }: { draft: NoteDraft | null; fields: NoteField[]; state: string; onChange: (fields: NoteField[]) => void; onSave: () => void }) {
   const terminal = draft?.workflow_status !== "DRAFT";

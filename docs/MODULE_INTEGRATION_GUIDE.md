@@ -43,7 +43,12 @@ Pshynox is a local modular monolith, not a set of separately deployed microservi
 | Backend tests                 | `tests/`                         | Add focused module tests and keep the full suite green                                         |
 | Frontend                      | `apps/web/`                      | Module A/B should not add independent user-facing frontends                                    |
 
-The repository's current `FixtureRetrievalProvider` is a very simple offline search provider. It is a temporary fallback, not the planned BM25 engine. The new `services/speech/` and `services/retrieval/` packages are integration locations to add if absent; check the latest `main` before creating them.
+Module B is implemented in `services/retrieval/` behind `services/api/retrieval.py`.
+The default is BM25; the original `FixtureRetrievalProvider` remains a comparison
+baseline. See [the retrieval guide](RETRIEVAL.md) for the implemented providers,
+additive evidence metadata, filters, index invalidation and benchmark command.
+Descriptions below of proposed Module B work are historical integration guidance;
+the code and retrieval guide describe the implemented interface.
 
 ## 3. Shared contract definitions
 

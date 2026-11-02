@@ -1,0 +1,631 @@
+{
+  "description": "Fictional engineering fixtures authored from the implementation brief. Expected literal matches specified before running rankings. No dataset excerpts, clinical review, or clinical validation.",
+  "conversations": [
+    {
+      "conversation_id": "fictional-engineering-test",
+      "split": "test",
+      "participant_ids": [
+        "fictional-client-1",
+        "fictional-clinician-1"
+      ],
+      "segments": [
+        {
+          "id": "turn-1",
+          "session_id": "fictional-engineering-test",
+          "speaker_role": "CLINICIAN",
+          "start_ms": 1000,
+          "end_ms": 1900,
+          "revision": 1,
+          "text": "Have you been sleeping less?"
+        },
+        {
+          "id": "turn-2",
+          "session_id": "fictional-engineering-test",
+          "speaker_role": "CLIENT",
+          "start_ms": 2000,
+          "end_ms": 2900,
+          "revision": 1,
+          "text": "No. I sleep four hours because of night shifts."
+        },
+        {
+          "id": "turn-3",
+          "session_id": "fictional-engineering-test",
+          "speaker_role": "CLIENT",
+          "start_ms": 3000,
+          "end_ms": 3900,
+          "revision": 1,
+          "text": "I don't feel anxious anymore."
+        },
+        {
+          "id": "turn-4",
+          "session_id": "fictional-engineering-test",
+          "speaker_role": "CLIENT",
+          "start_ms": 4000,
+          "end_ms": 4900,
+          "revision": 1,
+          "text": "My sister has depression."
+        },
+        {
+          "id": "turn-5",
+          "session_id": "fictional-engineering-test",
+          "speaker_role": "CLINICIAN",
+          "start_ms": 5000,
+          "end_ms": 5900,
+          "revision": 1,
+          "text": "We agreed to follow up next week."
+        },
+        {
+          "id": "turn-6",
+          "session_id": "fictional-engineering-test",
+          "speaker_role": "CLIENT",
+          "start_ms": 6000,
+          "end_ms": 6900,
+          "revision": 1,
+          "text": "Neend nahi aati. نیند نہیں آتی۔"
+        },
+        {
+          "id": "turn-7",
+          "session_id": "fictional-engineering-test",
+          "speaker_role": "CLIENT",
+          "start_ms": 7000,
+          "end_ms": 7900,
+          "revision": 1,
+          "text": "I drink water after exercise."
+        }
+      ]
+    }
+  ],
+  "queries": [
+    {
+      "query_id": "sleep",
+      "conversation_id": "fictional-engineering-test",
+      "text": "sleep"
+    },
+    {
+      "query_id": "negated-anxiety",
+      "conversation_id": "fictional-engineering-test",
+      "text": "anxious"
+    },
+    {
+      "query_id": "other-person",
+      "conversation_id": "fictional-engineering-test",
+      "text": "depression"
+    },
+    {
+      "query_id": "plan",
+      "conversation_id": "fictional-engineering-test",
+      "text": "\"follow up\""
+    },
+    {
+      "query_id": "roman-urdu",
+      "conversation_id": "fictional-engineering-test",
+      "text": "neend nahi"
+    },
+    {
+      "query_id": "urdu",
+      "conversation_id": "fictional-engineering-test",
+      "text": "نیند"
+    },
+    {
+      "query_id": "no-answer",
+      "conversation_id": "fictional-engineering-test",
+      "text": "hallucinations"
+    },
+    {
+      "query_id": "substring-no-answer",
+      "conversation_id": "fictional-engineering-test",
+      "text": "ink"
+    },
+    {
+      "query_id": "boolean",
+      "conversation_id": "fictional-engineering-test",
+      "text": "(sleep OR anxious) AND NOT anymore"
+    }
+  ],
+  "judgments": [
+    {
+      "query_id": "sleep",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-1",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "sleep",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-2",
+      "grade": 2,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "Exact patient mention of sleep duration, with explanatory context."
+    },
+    {
+      "query_id": "sleep",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-3",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "sleep",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-4",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "sleep",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-5",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "sleep",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-6",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "sleep",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-7",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "negated-anxiety",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-1",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "negated-anxiety",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-2",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "negated-anxiety",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-3",
+      "grade": 2,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "Retrieval of a negated mention; no positive symptom assertion."
+    },
+    {
+      "query_id": "negated-anxiety",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-4",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "negated-anxiety",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-5",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "negated-anxiety",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-6",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "negated-anxiety",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-7",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "other-person",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-1",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "other-person",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-2",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "other-person",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-3",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "other-person",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-4",
+      "grade": 2,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "Other-person mention, not a patient diagnosis."
+    },
+    {
+      "query_id": "other-person",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-5",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "other-person",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-6",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "other-person",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-7",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "plan",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-1",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "plan",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-2",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "plan",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-3",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "plan",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-4",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "plan",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-5",
+      "grade": 2,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "Agreed clinician follow-up text."
+    },
+    {
+      "query_id": "plan",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-6",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "plan",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-7",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "roman-urdu",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-1",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "roman-urdu",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-2",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "roman-urdu",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-3",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "roman-urdu",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-4",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "roman-urdu",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-5",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "roman-urdu",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-6",
+      "grade": 2,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "Fictional Roman-Urdu literal query; not language-quality validation."
+    },
+    {
+      "query_id": "roman-urdu",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-7",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "urdu",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-1",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "urdu",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-2",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "urdu",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-3",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "urdu",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-4",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "urdu",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-5",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "urdu",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-6",
+      "grade": 2,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "Fictional Urdu literal query."
+    },
+    {
+      "query_id": "urdu",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-7",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "no-answer",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-1",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "no-answer",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-2",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "no-answer",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-3",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "no-answer",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-4",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "no-answer",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-5",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "no-answer",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-6",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "no-answer",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-7",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "substring-no-answer",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-1",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "substring-no-answer",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-2",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "substring-no-answer",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-3",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "substring-no-answer",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-4",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "substring-no-answer",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-5",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "substring-no-answer",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-6",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "substring-no-answer",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-7",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "boolean",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-1",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "boolean",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-2",
+      "grade": 2,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "Only the sleep turn satisfies this literal Boolean expression."
+    },
+    {
+      "query_id": "boolean",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-3",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "boolean",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-4",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "boolean",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-5",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "boolean",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-6",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    },
+    {
+      "query_id": "boolean",
+      "conversation_id": "fictional-engineering-test",
+      "source_segment_id": "turn-7",
+      "grade": 0,
+      "reviewer": "engineering-fixture-author (not clinical review)",
+      "rationale": "No literal match for this fictional query under its stated token/phrase/Boolean semantics."
+    }
+  ]
+}

@@ -8,6 +8,7 @@ import { PatientDirectory } from "./features/patients/PatientDirectory";
 import { WorkspaceShell } from "./components/layout/AppShell";
 import { api, type Health, type Session } from "./lib/api";
 import { MeetingRoom } from "./features/meetings/MeetingRoom";
+import { ResearchPage } from "./features/research/ResearchPage";
 import "./styles.css";
 import "./katz-theme.css";
 
@@ -40,6 +41,7 @@ function App() {
   }, []);
   if (!path.startsWith("/workspace")) return <LandingPage health={health} error={healthError} />;
   const parts = path.split("/").filter(Boolean);
+  if (parts[1] === "research") return <ResearchPage health={health} />;
   let page;
   if (parts[1] === "sessions" && parts[2]) page = <SessionRoute key={parts[2]} id={parts[2]} health={health} />;
   else if (parts[1] === "patients" && parts[2] === "new") page = <PatientPage health={health} />;

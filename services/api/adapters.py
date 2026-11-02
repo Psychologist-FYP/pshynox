@@ -11,7 +11,11 @@ class SpeechAdapter:
 
 
 class RetrievalAdapter:
-    """Boundary for Module B; fixture mode keeps the app usable offline."""
+    """Legacy index/search sketch. The implemented, stateless API seam is
+    services.api.retrieval.create_retrieval_provider().search(query, session_id,
+    current_segments, k, scope=...). Module C supplies current source metadata;
+    the provider owns its revision-keyed cache and never reads the database.
+    """
 
     def index(self, session_id: str, segments: Sequence[TranscriptSegment]) -> None:
         raise NotImplementedError("Module B retrieval adapter is not configured")

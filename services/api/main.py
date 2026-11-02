@@ -7,10 +7,11 @@ import sys
 import signal
 from contextlib import asynccontextmanager
 from pathlib import Path
+from typing import Literal
 
 from alembic import command
 from alembic.config import Config
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException, Query
 from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
@@ -55,7 +56,11 @@ from services.api.schemas import (
     TranscriptSegmentUpdate,
     WorkflowStatus,
 )
-from services.api.retrieval import FixtureRetrievalProvider
+from services.api.retrieval import create_retrieval_provider
+from services.retrieval.engine import RetrievalUnavailable, SearchScope
+from services.retrieval.query import QuerySyntaxError
+from services.retrieval.workspace import ResearchError
+from services.api.research_routes import build_research_router, shutdown_research
 
 APP_VERSION = "0.2.0"
 FIXTURE_MODE = os.getenv("FIXTURE_MODE", "true").lower() == "true"
@@ -63,7 +68,7 @@ ROOT = Path(__file__).resolve().parents[2]
 FIXTURE_DIR = ROOT / "packages" / "contracts" / "fixtures"
 engine = make_engine()
 session_factory = make_session_factory(engine)
-retrieval_provider = FixtureRetrievalProvider()
+retrieval_provider = create_retrieval_provider()
 
 
 def migrate() -> None:
@@ -80,6 +85,7 @@ async def lifespan(_: FastAPI):
     try:
         yield
     finally:
+        shutdown_research()
         if worker and worker.poll() is None:
             os.killpg(worker.pid, signal.SIGTERM)
             worker.wait(timeout=10)
@@ -91,6 +97,14 @@ app = FastAPI(
     description="Offline documentation support API. Not a diagnostic system.",
     lifespan=lifespan,
 )
+app.include_router(build_research_router())
+
+
+@app.exception_handler(ResearchError)
+async def research_error_handler(_request, exc):
+    return JSONResponse(status_code=exc.status, content={"error": {"code": "RESEARCH_VALIDATION", "message": str(exc)}})
+
+
 migrate()
 
 
@@ -367,6 +381,7 @@ def update_transcript_segment(
             status_code=500,
             detail={"code": "SEGMENT_PERSISTENCE_FAILED", "message": "The transcript edit could not be saved."},
         ) from exc
+    retrieval_provider.invalidate(session_id)
     return _record_to_segment(record)
 
 
@@ -375,11 +390,44 @@ def update_transcript_segment(
     response_model=list[EvidenceHit],
     responses={404: {"model": ErrorResponse}},
 )
-def get_evidence(session_id: str, query: str = "", db: DbSession = Depends(db_dependency)) -> list[EvidenceHit]:
+def get_evidence(
+    session_id: str,
+    query: str = Query(default="", max_length=2000),
+    k: int = Query(default=10, ge=1, le=100),
+    patient_id: str | None = None,
+    speaker_role: Literal["CLIENT", "CLINICIAN", "UNKNOWN"] | None = None,
+    recording_id: str | None = None,
+    start_ms: int | None = Query(default=None, ge=0),
+    end_ms: int | None = Query(default=None, ge=0),
+    section: Literal["subjective", "objective", "assessment", "plan", "functioning"] = "subjective",
+    db: DbSession = Depends(db_dependency),
+) -> list[EvidenceHit]:
+    segments = _session_segments(db, session_id)
+    session = db.get(SessionRecord, session_id)
+    owner = session.patient_id if session else _fixture_session().patient_id
+    if patient_id is not None and owner != patient_id:
+        raise HTTPException(404, detail={"code": "SESSION_NOT_FOUND", "message": "Session was not found for this patient."})
+    if start_ms is not None and end_ms is not None and end_ms < start_ms:
+        raise HTTPException(422, detail={"code": "INVALID_TIME_RANGE", "message": "end_ms must be at least start_ms."})
     if not query.strip():
         return []
-    segments = _session_segments(db, session_id)
-    return retrieval_provider.search(query, session_id, segments)
+    sources = db.execute(
+        select(SegmentSourceRecord.segment_id, SegmentSourceRecord.recording_id, MeetingChunkRecord.meeting_id)
+        .join(TranscriptSegmentRecord, TranscriptSegmentRecord.id == SegmentSourceRecord.segment_id)
+        .outerjoin(MeetingChunkRecord, MeetingChunkRecord.recording_id == SegmentSourceRecord.recording_id)
+        .where(TranscriptSegmentRecord.session_id == session_id)
+    ).all()
+    scope = SearchScope(
+        patient_id=owner, recording_ids={sid: rid for sid, rid, _ in sources},
+        timeline_ids={sid: f"meeting:{mid}" if mid else f"recording:{rid}" for sid, rid, mid in sources},
+        speaker_role=speaker_role, recording_id=recording_id, start_ms=start_ms, end_ms=end_ms, section=section,
+    )
+    try:
+        return retrieval_provider.search(query, session_id, segments, k, scope=scope)
+    except QuerySyntaxError as exc:
+        raise HTTPException(422, detail={"code": "INVALID_SEARCH_QUERY", "message": str(exc)}) from exc
+    except RetrievalUnavailable as exc:
+        raise HTTPException(503, detail={"code": "RETRIEVAL_UNAVAILABLE", "message": str(exc)}) from exc
 
 
 @app.get("/api/v1/sessions/{session_id}/note-draft", response_model=NoteDraft)
