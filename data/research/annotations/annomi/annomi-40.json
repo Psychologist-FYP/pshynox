@@ -1,0 +1,48 @@
+{
+  "dataset_version": "46db33abc04a2d80912d9c63a72a242021f3eb8edfd286db89512edebaa083a0",
+  "conversation_id": "annomi-40",
+  "pilot_extra": false,
+  "explored": false,
+  "queries": [
+    {
+      "query_id": "draft-annomi-40-1",
+      "conversation_id": "annomi-40",
+      "text": "\"Right. It's been three months,\"",
+      "intent": "Find the statement beginning \"Right. It's been three months, and I've been doing pretty well.\"; check other relevant turns too.",
+      "kind": "literal",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    },
+    {
+      "query_id": "draft-annomi-40-2",
+      "conversation_id": "annomi-40",
+      "text": "What is the client explaining in this statement: Right. It's been three months, and I've been doing pretty well.?",
+      "intent": "Draft prompt: rewrite in your own words as a paraphrase of this source before approving; do not copy its wording.",
+      "kind": "paraphrase",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    },
+    {
+      "query_id": "draft-annomi-40-3",
+      "conversation_id": "annomi-40",
+      "text": "What does the client mean by \"Right.\"?",
+      "intent": "Interpret the short reply at annomi-40-utterance-4 using surrounding conversation; review all turns for evidence.",
+      "kind": "context",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    },
+    {
+      "query_id": "draft-annomi-40-4",
+      "conversation_id": "annomi-40",
+      "text": "What does the client say about taking a scuba-diving certification course?",
+      "intent": "Draft absent-topic candidate. Read the FULL conversation to verify absence, or replace the query. Absence is not pre-labelled.",
+      "kind": "no-answer-candidate",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    }
+  ]
+}

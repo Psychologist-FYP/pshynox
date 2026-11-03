@@ -197,6 +197,9 @@ AnnoMI/PriMock datasets are separate from clinical records. Reproduce their veri
 imports with `.venv/bin/python -m services.retrieval.prepare`; no downloads or
 automatic patient creation occur. See [the research walkthrough](docs/RESEARCH_EVALUATION.md)
 for the pilot, keyboard controls, evaluation, exports and PriMock audio clips.
+For collaborating on the `annotation` branch, see the
+[team annotation workflow](docs/TEAM_ANNOTATION.md): prepared transcripts and
+conversation-level annotation files are shared through Git, including partial progress.
 
 ## Use the workspace
 

@@ -47,11 +47,64 @@ class ResearchStore:
 
     def state(self, name):
         dataset = self.dataset(name)
+        folder = self.root / "annotations" / identifier(name)
+        if folder.is_dir():
+            value = {"dataset_version": dataset["version"], "pilot_extra": [], "explored": [], "queries": []}
+            seen = set()
+            conversation_ids = {c["conversation_id"] for c in dataset["conversations"]}
+            for path in sorted(folder.glob("*.json")):
+                part = json.loads(path.read_text())
+                cid = path.stem
+                if part["dataset_version"] != dataset["version"]:
+                    raise ResearchError("Dataset changed; annotations must be migrated explicitly.", 409)
+                if part["conversation_id"] != cid or cid not in conversation_ids:
+                    raise ResearchError(f"Invalid annotation conversation in {path.name}", 409)
+                if part["pilot_extra"]:
+                    value["pilot_extra"].append(cid)
+                if part["explored"]:
+                    value["explored"].append(cid)
+                for query in part["queries"]:
+                    if query["conversation_id"] != cid or query["query_id"] in seen:
+                        raise ResearchError(f"Invalid or duplicate annotation query in {path.name}", 409)
+                    seen.add(query["query_id"])
+                    value["queries"].append(query)
+            # Content-based revisions detect pulled changes as well as other tabs.
+            # Twelve hex digits remain exact in JavaScript's Number representation.
+            value["revision"] = int(digest(value)[:12], 16)
+            return value
         path = self.root / "annotations" / f"{identifier(name)}.json"
         value = json.loads(path.read_text())
         if value["dataset_version"] != dataset["version"]:
             raise ResearchError("Dataset changed; annotations must be migrated explicitly.", 409)
         return value
+
+    def _write_conversations(self, folder, state):
+        ids = {q["conversation_id"] for q in state["queries"]} | set(state["pilot_extra"]) | set(state["explored"])
+        ids.update(p.stem for p in folder.glob("*.json"))
+        for cid in sorted(ids):
+            path = folder / f"{identifier(cid)}.json"
+            part = {"dataset_version": state["dataset_version"], "conversation_id": cid,
+                    "pilot_extra": cid in state["pilot_extra"], "explored": cid in state["explored"],
+                    "queries": [q for q in state["queries"] if q["conversation_id"] == cid]}
+            if not path.exists() or json.loads(path.read_text()) != part:
+                write_json(path, part)
+
+    def share_annotations(self, name):
+        """Convert legacy progress without deleting the original local backup."""
+        folder = self.root / "annotations" / identifier(name)
+        if folder.is_dir():
+            return self.state(name)
+        with (self.root / "annotations" / f"{name}.lock").open("a") as lock:
+            fcntl.flock(lock, fcntl.LOCK_EX)
+            if folder.is_dir():
+                return self.state(name)
+            state = self.state(name)
+            # Build elsewhere and rename so readers never see a partial migration.
+            staging = folder.with_name(f".{name}-{uuid4().hex}")
+            staging.mkdir()
+            self._write_conversations(staging, state)
+            staging.rename(folder)
+        return self.state(name)
 
     @contextmanager
     def edit(self, name, revision):
@@ -63,8 +116,11 @@ class ResearchStore:
             if revision != state["revision"]:
                 raise ResearchError("Progress changed in another tab. Reload before saving again.", 409)
             yield state
-            state["revision"] += 1
-            write_json(folder / f"{name}.json", state)
+            if (folder / name).is_dir():
+                self._write_conversations(folder / name, state)
+            else:
+                state["revision"] += 1
+                write_json(folder / f"{name}.json", state)
 
     def conversation(self, name, cid):
         dataset = self.dataset(name)

@@ -1,0 +1,48 @@
+{
+  "dataset_version": "a64141a2e609057e25bd0c51c45f36efd9a1803032d2c678c1b555f123570377",
+  "conversation_id": "day1_consultation02",
+  "pilot_extra": false,
+  "explored": false,
+  "queries": [
+    {
+      "query_id": "draft-day1_consultation02-1",
+      "conversation_id": "day1_consultation02",
+      "text": "\"Yes. So, it's been a\"",
+      "intent": "Find the statement beginning \"Yes. So, it's been a few days now. I have like a\"; check other relevant turns too.",
+      "kind": "literal",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    },
+    {
+      "query_id": "draft-day1_consultation02-2",
+      "conversation_id": "day1_consultation02",
+      "text": "What is the client explaining in this statement: Yes. So, it's been a few days now. I have like a?",
+      "intent": "Draft prompt: rewrite in your own words as a paraphrase of this source before approving; do not copy its wording.",
+      "kind": "paraphrase",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    },
+    {
+      "query_id": "draft-day1_consultation02-3",
+      "conversation_id": "day1_consultation02",
+      "text": "What does the client mean by \"OK.\"?",
+      "intent": "Interpret the short reply at day1_consultation02_patient_4 using surrounding conversation; review all turns for evidence.",
+      "kind": "context",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    },
+    {
+      "query_id": "draft-day1_consultation02-4",
+      "conversation_id": "day1_consultation02",
+      "text": "What does the client say about taking a scuba-diving certification course?",
+      "intent": "Draft absent-topic candidate. Read the FULL conversation to verify absence, or replace the query. Absence is not pre-labelled.",
+      "kind": "no-answer-candidate",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    }
+  ]
+}

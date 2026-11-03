@@ -1,0 +1,48 @@
+{
+  "dataset_version": "46db33abc04a2d80912d9c63a72a242021f3eb8edfd286db89512edebaa083a0",
+  "conversation_id": "annomi-50",
+  "pilot_extra": false,
+  "explored": false,
+  "queries": [
+    {
+      "query_id": "draft-annomi-50-1",
+      "conversation_id": "annomi-50",
+      "text": "\"So, uh, I guess the\"",
+      "intent": "Find the statement beginning 'So, uh, I guess the issue is that, um, you know, my'; check other relevant turns too.",
+      "kind": "literal",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    },
+    {
+      "query_id": "draft-annomi-50-2",
+      "conversation_id": "annomi-50",
+      "text": "What is the client explaining in this statement: So, uh, I guess the issue is that, um, you know, my?",
+      "intent": "Draft prompt: rewrite in your own words as a paraphrase of this source before approving; do not copy its wording.",
+      "kind": "paraphrase",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    },
+    {
+      "query_id": "draft-annomi-50-3",
+      "conversation_id": "annomi-50",
+      "text": "What does the client mean by \"Mm-hmm.\"?",
+      "intent": "Interpret the short reply at annomi-50-utterance-6 using surrounding conversation; review all turns for evidence.",
+      "kind": "context",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    },
+    {
+      "query_id": "draft-annomi-50-4",
+      "conversation_id": "annomi-50",
+      "text": "What does the client say about taking a scuba-diving certification course?",
+      "intent": "Draft absent-topic candidate. Read the FULL conversation to verify absence, or replace the query. Absence is not pre-labelled.",
+      "kind": "no-answer-candidate",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    }
+  ]
+}

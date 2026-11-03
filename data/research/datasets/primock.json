@@ -1,0 +1,2527 @@
+{
+  "description": "Two supplied PriMock consultations; awaiting human annotation.",
+  "conversations": [
+    {
+      "conversation_id": "day1_consultation01",
+      "split": "test",
+      "source_files": {
+        "day1_consultation01_doctor_2": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_2": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_patient_4": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_4": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_6": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_6": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_doctor_8": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_8": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_10": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_10": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_12": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_12": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_patient_14": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_14": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_16": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_16": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_18": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_18": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_20": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_20": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_22": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_22": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_24": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_patient_26": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_24": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_doctor_26": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_28": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_28": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_30": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_patient_32": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_30": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_34": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_31": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_36": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_33": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_doctor_35": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_38": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_patient_40": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_37": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_42": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_patient_44": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_39": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_doctor_41": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_46": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_43": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_48": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_45": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_50": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_47": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_52": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_49": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_54": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_51": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_56": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_53": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_58": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_patient_60": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_55": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_doctor_57": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_doctor_59": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_62": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_61": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_doctor_63": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_64": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_65": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_doctor_67": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_66": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_69": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_68": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_71": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_70": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_73": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_72": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_patient_74": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_patient_76": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_74": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_78": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_75": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_80": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_patient_82": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_77": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_84": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_patient_86": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_79": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_88": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_80": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_90": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_81": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_92": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_82": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_94": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_patient_96": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_83": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_98": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_84": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_100": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_85": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_102": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_86": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_104": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_88": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_106": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_90": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_108": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_92": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_110": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_94": "day1_consultation01_doctor.TextGrid",
+        "day1_consultation01_patient_112": "day1_consultation01_patient.TextGrid",
+        "day1_consultation01_doctor_96": "day1_consultation01_doctor.TextGrid"
+      },
+      "segments": [
+        {
+          "id": "day1_consultation01_doctor_2",
+          "session_id": "day1_consultation01",
+          "start_ms": 2533,
+          "end_ms": 12499,
+          "speaker_role": "CLINICIAN",
+          "text": "Hello? Hi. Um, should we start? Yeah, okay. <UNSURE>Hello how</UNSURE> um. Good morning sir, how can I help you this morning?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_2",
+          "session_id": "day1_consultation01",
+          "start_ms": 3907,
+          "end_ms": 4907,
+          "speaker_role": "CLIENT",
+          "text": "Hello, how are you?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_4",
+          "session_id": "day1_consultation01",
+          "start_ms": 12596,
+          "end_ms": 25633,
+          "speaker_role": "CLIENT",
+          "text": "<UNSURE>Oh</UNSURE> <UNSURE>hey</UNSURE>, um, I've just had some diarrhea for the last three days, um, and it's been affecting me I need to stay close to the toilet. And, um, yeah, it's been affecting my day-to-day activities.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_4",
+          "session_id": "day1_consultation01",
+          "start_ms": 25665,
+          "end_ms": 34965,
+          "speaker_role": "CLINICIAN",
+          "text": "<UNIN/> Sorry to hear that. Um, and and when you say diarrhea, what'd you mean by diarrhea? Do you mean you're going to the toilet more often? Or are your stools more loose?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_6",
+          "session_id": "day1_consultation01",
+          "start_ms": 34357,
+          "end_ms": 44283,
+          "speaker_role": "CLIENT",
+          "text": "Yeah, so it's like loose and watery stool, going to the toilet quite often, uh and like some pain in my, like, lower stomach?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_6",
+          "session_id": "day1_consultation01",
+          "start_ms": 39365,
+          "end_ms": 40150,
+          "speaker_role": "CLINICIAN",
+          "text": "<UNIN/>",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_8",
+          "session_id": "day1_consultation01",
+          "start_ms": 43698,
+          "end_ms": 48016,
+          "speaker_role": "CLINICIAN",
+          "text": "Okay. And how many times a day are you going, let's say, in the last couple of days?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_8",
+          "session_id": "day1_consultation01",
+          "start_ms": 47760,
+          "end_ms": 52667,
+          "speaker_role": "CLIENT",
+          "text": "<UNSURE>Um</UNSURE>, probably like six or seven times a day? Yeah.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_10",
+          "session_id": "day1_consultation01",
+          "start_ms": 50512,
+          "end_ms": 56357,
+          "speaker_role": "CLINICIAN",
+          "text": "Six, seven times a day. And you <UNIN/> mention it's mainly watery. Have you noticed any other things, like blood in your stools?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_10",
+          "session_id": "day1_consultation01",
+          "start_ms": 56260,
+          "end_ms": 59575,
+          "speaker_role": "CLIENT",
+          "text": "No, no blood, yeah, just watery and loose stool.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_12",
+          "session_id": "day1_consultation01",
+          "start_ms": 59372,
+          "end_ms": 65596,
+          "speaker_role": "CLINICIAN",
+          "text": "Okay. And you mentioned you've had some pain in your tummy as well. <UNIN/> Whereabouts is the pain, exactly?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_12",
+          "session_id": "day1_consultation01",
+          "start_ms": 62519,
+          "end_ms": 63519,
+          "speaker_role": "CLIENT",
+          "text": "Yep.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_14",
+          "session_id": "day1_consultation01",
+          "start_ms": 64737,
+          "end_ms": 71371,
+          "speaker_role": "CLIENT",
+          "text": "So <UNIN/> in my lower abdomen, so, uh, like, um...yeah, just to one side.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_14",
+          "session_id": "day1_consultation01",
+          "start_ms": 71239,
+          "end_ms": 73189,
+          "speaker_role": "CLINICIAN",
+          "text": "One side. <UNSURE>And</UNSURE> what side is that?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_16",
+          "session_id": "day1_consultation01",
+          "start_ms": 72964,
+          "end_ms": 74575,
+          "speaker_role": "CLIENT",
+          "text": "Uh, on the left side.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_16",
+          "session_id": "day1_consultation01",
+          "start_ms": 74357,
+          "end_ms": 78064,
+          "speaker_role": "CLINICIAN",
+          "text": "Left side. Okay, and can you describe the pain to me?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_18",
+          "session_id": "day1_consultation01",
+          "start_ms": 78186,
+          "end_ms": 86908,
+          "speaker_role": "CLIENT",
+          "text": "Yeah, it feels, um, like a cramp, like a muscular cramp, and, um, yeah i feel a bit uh weak and shaky.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_18",
+          "session_id": "day1_consultation01",
+          "start_ms": 86803,
+          "end_ms": 91158,
+          "speaker_role": "CLINICIAN",
+          "text": "Okay. And is the pain, is that, is it there all the time, or does it come and go?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_20",
+          "session_id": "day1_consultation01",
+          "start_ms": 90685,
+          "end_ms": 92417,
+          "speaker_role": "CLIENT",
+          "text": "Uh, it comes and goes.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_20",
+          "session_id": "day1_consultation01",
+          "start_ms": 92177,
+          "end_ms": 95884,
+          "speaker_role": "CLINICIAN",
+          "text": "<UNSURE>Come</UNSURE> and go. Does the pain move anywhere else, for example towards your back?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_22",
+          "session_id": "day1_consultation01",
+          "start_ms": 95798,
+          "end_ms": 99020,
+          "speaker_role": "CLIENT",
+          "text": "Uh...no, just maybe my stomach.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_22",
+          "session_id": "day1_consultation01",
+          "start_ms": 99045,
+          "end_ms": 106857,
+          "speaker_role": "CLINICIAN",
+          "text": "Okay, fine. And you mentioned you've been feeling quite weak and shaky as well. What do you mean by shaky? Do you mean you've been having, uh have you been feeling feverish, for example?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_24",
+          "session_id": "day1_consultation01",
+          "start_ms": 99909,
+          "end_ms": 100779,
+          "speaker_role": "CLIENT",
+          "text": "<UNSURE>Yeah</UNSURE>.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_26",
+          "session_id": "day1_consultation01",
+          "start_ms": 106612,
+          "end_ms": 121058,
+          "speaker_role": "CLIENT",
+          "text": "Um, yeah, it doesn't feel like -- yeah, it just <UNSURE>makes</UNSURE> me feel weak. I haven't had a fever, um, at the moment, but I did notice um a temperature when the symptoms started, so, um, yeah around about three or four days ago.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_24",
+          "session_id": "day1_consultation01",
+          "start_ms": 117913,
+          "end_ms": 118677,
+          "speaker_role": "CLINICIAN",
+          "text": "<UNIN/>",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_26",
+          "session_id": "day1_consultation01",
+          "start_ms": 120885,
+          "end_ms": 122923,
+          "speaker_role": "CLINICIAN",
+          "text": "<UNSURE>You</UNSURE> measure your temperature then?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_28",
+          "session_id": "day1_consultation01",
+          "start_ms": 122564,
+          "end_ms": 128861,
+          "speaker_role": "CLIENT",
+          "text": "Yeah, I <UNSURE>uh</UNSURE> I didn't mention my temperature, no, but I felt, um, just a bit hot. <UNSURE>And</UNSURE>, <UNSURE>y'know</UNSURE>.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_28",
+          "session_id": "day1_consultation01",
+          "start_ms": 127216,
+          "end_ms": 135706,
+          "speaker_role": "CLINICIAN",
+          "text": "Okay. Okay. Any other symptoms like sweating, or um, night <UNSURE>sweats</UNSURE>? No? And, uh, any vomiting at all?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_30",
+          "session_id": "day1_consultation01",
+          "start_ms": 131609,
+          "end_ms": 132888,
+          "speaker_role": "CLIENT",
+          "text": "Uh, no.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_32",
+          "session_id": "day1_consultation01",
+          "start_ms": 135567,
+          "end_ms": 142646,
+          "speaker_role": "CLIENT",
+          "text": "Yeah, so um, I vomited at the start of the symptoms but now um I've stopped vomiting.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_30",
+          "session_id": "day1_consultation01",
+          "start_ms": 142838,
+          "end_ms": 154224,
+          "speaker_role": "CLINICIAN",
+          "text": "<UNSURE>You</UNSURE> stopped vomiting, okay. And was your vomit, I know it's not <UNSURE>a nice thing</UNSURE> to talk about, but was it just normal food colour <UNIN/> Yeah. And there was no blood in your vomit, is that right?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_34",
+          "session_id": "day1_consultation01",
+          "start_ms": 149273,
+          "end_ms": 156567,
+          "speaker_role": "CLIENT",
+          "text": "Yeah, yeah, just normal vomit, yeah. No no <UNSURE>blood</UNSURE>, no. Yeah.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_31",
+          "session_id": "day1_consultation01",
+          "start_ms": 154224,
+          "end_ms": 164328,
+          "speaker_role": "CLINICIAN",
+          "text": "No, okay. Um, and um, any any other symptoms at all? So you mentioned tummy pain, you mentioned diarrhea, you mentioned your vomiting, uh, anything else that comes to mind?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_36",
+          "session_id": "day1_consultation01",
+          "start_ms": 161999,
+          "end_ms": 172783,
+          "speaker_role": "CLIENT",
+          "text": "Yep. Um, I had a loss of appetite, um, so I haven't been eating as much, but I've been able to hold down fluids.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_33",
+          "session_id": "day1_consultation01",
+          "start_ms": 167139,
+          "end_ms": 169762,
+          "speaker_role": "CLINICIAN",
+          "text": "<UNIN/> Okay.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_35",
+          "session_id": "day1_consultation01",
+          "start_ms": 173205,
+          "end_ms": 178205,
+          "speaker_role": "CLINICIAN",
+          "text": "Okay, so you're drinking fluids. Um, what kind of foods have you managed to eat, <UNSURE>if</UNSURE> anything?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_38",
+          "session_id": "day1_consultation01",
+          "start_ms": 174861,
+          "end_ms": 175861,
+          "speaker_role": "CLIENT",
+          "text": "Yep.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_40",
+          "session_id": "day1_consultation01",
+          "start_ms": 178783,
+          "end_ms": 187469,
+          "speaker_role": "CLIENT",
+          "text": "Um, just soups, and, uh, yeah, light foods. Like smoothies and, yeah, liquid foods mainly.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_37",
+          "session_id": "day1_consultation01",
+          "start_ms": 186812,
+          "end_ms": 202002,
+          "speaker_role": "CLINICIAN",
+          "text": "Okay. Fine. Um, and sir <UNIN/> <UNSURE>these</UNSURE> started three days ago the symptoms. <UNSURE>Are you</UNSURE> aware of any triggers which may have caused the <UNSURE>symptoms</UNSURE> uh to kick on. So <UNSURE>for</UNSURE> example, <UNSURE>think like</UNSURE> takeaway foods or eating out or <UNSURE>being</UNSURE> around other people <UNSURE>with</UNSURE> similar symptoms.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_42",
+          "session_id": "day1_consultation01",
+          "start_ms": 196410,
+          "end_ms": 197410,
+          "speaker_role": "CLIENT",
+          "text": "<UNIN/>",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_44",
+          "session_id": "day1_consultation01",
+          "start_ms": 201967,
+          "end_ms": 213881,
+          "speaker_role": "CLIENT",
+          "text": "Yeah, so I had takeaway about four days ago, um, <UNSURE>uh</UNSURE>, but other than that I've, yeah, been, uh, eating normally. Nothing unusual here.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_39",
+          "session_id": "day1_consultation01",
+          "start_ms": 211552,
+          "end_ms": 212552,
+          "speaker_role": "CLINICIAN",
+          "text": "<UNSURE>Okay</UNSURE>.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_41",
+          "session_id": "day1_consultation01",
+          "start_ms": 213788,
+          "end_ms": 215078,
+          "speaker_role": "CLINICIAN",
+          "text": "Do you remember <UNSURE>where</UNSURE> you ate?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_46",
+          "session_id": "day1_consultation01",
+          "start_ms": 215439,
+          "end_ms": 221135,
+          "speaker_role": "CLIENT",
+          "text": "Um, yeah, I <UNIN/> ate at a Chinese restaurant with friends. Yeah.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_43",
+          "session_id": "day1_consultation01",
+          "start_ms": 219552,
+          "end_ms": 223052,
+          "speaker_role": "CLINICIAN",
+          "text": "Okay. Anyone else unwell with similar <UNSURE>symptoms</UNSURE>?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_48",
+          "session_id": "day1_consultation01",
+          "start_ms": 223057,
+          "end_ms": 233959,
+          "speaker_role": "CLIENT",
+          "text": "Um, so no one else in the family, so <UNIN/> a wife and two kids and one, um, child was vomiting, but they haven't got diarrhea. There's no one with the same symptoms.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_45",
+          "session_id": "day1_consultation01",
+          "start_ms": 233797,
+          "end_ms": 244740,
+          "speaker_role": "CLINICIAN",
+          "text": "Okay, okay. Fine. Um, alright. And uh, in terms of your <UNIN/>, your overall health, are you normally <UNSURE>fit and</UNSURE> well? Or, uh",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_50",
+          "session_id": "day1_consultation01",
+          "start_ms": 243018,
+          "end_ms": 250174,
+          "speaker_role": "CLIENT",
+          "text": "Um, yeah, I mean, other than um athsma, um I use an inhaler, everything uh else is fine.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_47",
+          "session_id": "day1_consultation01",
+          "start_ms": 250653,
+          "end_ms": 253101,
+          "speaker_role": "CLINICIAN",
+          "text": "Okay. And, is your asthma well-controlled?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_52",
+          "session_id": "day1_consultation01",
+          "start_ms": 253508,
+          "end_ms": 258959,
+          "speaker_role": "CLIENT",
+          "text": "Uh, yeah, that's fine. I just, yeah, use an inhaler, and uh that's under control.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_49",
+          "session_id": "day1_consultation01",
+          "start_ms": 258773,
+          "end_ms": 262997,
+          "speaker_role": "CLINICIAN",
+          "text": "Fine. And you don't have any other tummy problem, bowel problems I should be aware of?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_54",
+          "session_id": "day1_consultation01",
+          "start_ms": 262919,
+          "end_ms": 263919,
+          "speaker_role": "CLIENT",
+          "text": "No.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_51",
+          "session_id": "day1_consultation01",
+          "start_ms": 263832,
+          "end_ms": 268444,
+          "speaker_role": "CLINICIAN",
+          "text": "No, okay. Um, and <UNIN/> apart from the inhalers, do you take any other medications?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_56",
+          "session_id": "day1_consultation01",
+          "start_ms": 268900,
+          "end_ms": 271586,
+          "speaker_role": "CLIENT",
+          "text": "Uh, no, no other medications.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_53",
+          "session_id": "day1_consultation01",
+          "start_ms": 271011,
+          "end_ms": 279235,
+          "speaker_role": "CLINICIAN",
+          "text": "<UNSURE>Okay</UNSURE>, fine. And in terms of just your day to day life, you said it's been affecting your life, um, in what way has it been affecting your life?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_58",
+          "session_id": "day1_consultation01",
+          "start_ms": 276069,
+          "end_ms": 277069,
+          "speaker_role": "CLIENT",
+          "text": "Yeah.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_60",
+          "session_id": "day1_consultation01",
+          "start_ms": 279135,
+          "end_ms": 290174,
+          "speaker_role": "CLIENT",
+          "text": "Uh, so, I need to stay close to the toilet 'cause I go quite frequently during the these past three days. Um, yeah, other than that, it's uh, yeah, the main concern.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_55",
+          "session_id": "day1_consultation01",
+          "start_ms": 285071,
+          "end_ms": 286071,
+          "speaker_role": "CLINICIAN",
+          "text": "Okay.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_57",
+          "session_id": "day1_consultation01",
+          "start_ms": 288563,
+          "end_ms": 289563,
+          "speaker_role": "CLINICIAN",
+          "text": "Yeah.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_59",
+          "session_id": "day1_consultation01",
+          "start_ms": 290369,
+          "end_ms": 293339,
+          "speaker_role": "CLINICIAN",
+          "text": "And have you, are you currently working at the moment? <UNIN/>",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_62",
+          "session_id": "day1_consultation01",
+          "start_ms": 292762,
+          "end_ms": 298390,
+          "speaker_role": "CLIENT",
+          "text": "Uh, <UNSURE>yes</UNSURE>, yeah. I I work, er. Um, I'm an accountant.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_61",
+          "session_id": "day1_consultation01",
+          "start_ms": 295220,
+          "end_ms": 296359,
+          "speaker_role": "CLINICIAN",
+          "text": "<UNSURE>Would, would</UNSURE> work.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_63",
+          "session_id": "day1_consultation01",
+          "start_ms": 298309,
+          "end_ms": 301190,
+          "speaker_role": "CLINICIAN",
+          "text": "Okay. Have you been going into work the last three days, or <UNSURE>have you</UNSURE> been at home?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_64",
+          "session_id": "day1_consultation01",
+          "start_ms": 301351,
+          "end_ms": 307527,
+          "speaker_role": "CLIENT",
+          "text": "Uh, yeah, I've been going to work. Yeah. Yeah, it's been quite difficult.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_65",
+          "session_id": "day1_consultation01",
+          "start_ms": 303265,
+          "end_ms": 305623,
+          "speaker_role": "CLINICIAN",
+          "text": "<UNIN/> <UNSURE>okay</UNSURE>. That must be difficult for you then.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_67",
+          "session_id": "day1_consultation01",
+          "start_ms": 307100,
+          "end_ms": 311190,
+          "speaker_role": "CLINICIAN",
+          "text": "<UNIN/> <UNSURE>fine</UNSURE>. And you said, you mentioned you live with your wife and two children, is that right?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_66",
+          "session_id": "day1_consultation01",
+          "start_ms": 311213,
+          "end_ms": 312213,
+          "speaker_role": "CLIENT",
+          "text": "Yes, yeah.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_69",
+          "session_id": "day1_consultation01",
+          "start_ms": 311757,
+          "end_ms": 316325,
+          "speaker_role": "CLINICIAN",
+          "text": "<UNSURE>Right</UNSURE>, alright. Um, just <UNSURE>a</UNSURE> couple of other question we need to ask, <UNSURE>sir</UNSURE>. Um, do you smoke at all?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_68",
+          "session_id": "day1_consultation01",
+          "start_ms": 316664,
+          "end_ms": 318154,
+          "speaker_role": "CLIENT",
+          "text": "Uh, no, I don't smoke.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_71",
+          "session_id": "day1_consultation01",
+          "start_ms": 318011,
+          "end_ms": 319981,
+          "speaker_role": "CLINICIAN",
+          "text": "And do you drink much in the way of alcohol?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_70",
+          "session_id": "day1_consultation01",
+          "start_ms": 320292,
+          "end_ms": 324351,
+          "speaker_role": "CLIENT",
+          "text": "Uh, no, I I don't drink alcohol, no. <UNIN/>",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_73",
+          "session_id": "day1_consultation01",
+          "start_ms": 322649,
+          "end_ms": 348913,
+          "speaker_role": "CLINICIAN",
+          "text": "Okay. <UNIN/> so um, er normally at this stage I like to um, examine you if that's okay, but um, um, but but having listened to your story, sir, I think uh, um, just to recap <UNIN/> for the last three days you've been having loose stool, diarrhea, a bit of tummy pain uh mainly on the left-hand side, um and <UNIN/> vomiting and <UNSURE>fever and</UNSURE> you're quite weak and lethargic um, you mentioned you had this Chinese takeaway as <UNSURE>little as</UNSURE> three days ago and I wondered whether that might be the cause of your problems.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_72",
+          "session_id": "day1_consultation01",
+          "start_ms": 330076,
+          "end_ms": 331076,
+          "speaker_role": "CLIENT",
+          "text": "Yeah.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_74",
+          "session_id": "day1_consultation01",
+          "start_ms": 343076,
+          "end_ms": 344076,
+          "speaker_role": "CLIENT",
+          "text": "<UNIN/>",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_76",
+          "session_id": "day1_consultation01",
+          "start_ms": 348429,
+          "end_ms": 349429,
+          "speaker_role": "CLIENT",
+          "text": "Okay.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_74",
+          "session_id": "day1_consultation01",
+          "start_ms": 348913,
+          "end_ms": 358647,
+          "speaker_role": "CLINICIAN",
+          "text": "Um, it seems like you may have something, uh, called gastroenteritis, which essentially just a tummy bug or infection of your <UNSURE>uh</UNSURE> of your tummy.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_78",
+          "session_id": "day1_consultation01",
+          "start_ms": 352939,
+          "end_ms": 353939,
+          "speaker_role": "CLIENT",
+          "text": "<UNIN/>",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_75",
+          "session_id": "day1_consultation01",
+          "start_ms": 358647,
+          "end_ms": 367969,
+          "speaker_role": "CLINICIAN",
+          "text": "Uh, mainly caused by viruses but there can be a possibility of bacteria uh causing <UNSURE>its</UNSURE> symptoms. Um.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_80",
+          "session_id": "day1_consultation01",
+          "start_ms": 358664,
+          "end_ms": 359664,
+          "speaker_role": "CLIENT",
+          "text": "Yeah.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_82",
+          "session_id": "day1_consultation01",
+          "start_ms": 366703,
+          "end_ms": 367703,
+          "speaker_role": "CLIENT",
+          "text": "Yeah.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_77",
+          "session_id": "day1_consultation01",
+          "start_ms": 368837,
+          "end_ms": 381080,
+          "speaker_role": "CLINICIAN",
+          "text": "At this stage, uh, what, what we'd recommend is just what we <UNSURE>say</UNSURE> conservative management. So, um, I don't think you need anything like antibiotics. It's really just, um, making sure you're well hydrated, so drinking fluids.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_84",
+          "session_id": "day1_consultation01",
+          "start_ms": 373507,
+          "end_ms": 374507,
+          "speaker_role": "CLIENT",
+          "text": "<UNIN/>",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_86",
+          "session_id": "day1_consultation01",
+          "start_ms": 379703,
+          "end_ms": 380703,
+          "speaker_role": "CLIENT",
+          "text": "Mm-hmm.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_79",
+          "session_id": "day1_consultation01",
+          "start_ms": 381581,
+          "end_ms": 392061,
+          "speaker_role": "CLINICIAN",
+          "text": "Um, <UNIN/> there are things like Dioralyte you can get from the pharmacy, which uh it's um it helps helps replenish your minerals and vitamins.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_88",
+          "session_id": "day1_consultation01",
+          "start_ms": 391762,
+          "end_ms": 392762,
+          "speaker_role": "CLIENT",
+          "text": "Okay.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_80",
+          "session_id": "day1_consultation01",
+          "start_ms": 392061,
+          "end_ms": 397346,
+          "speaker_role": "CLINICIAN",
+          "text": "Um, and if you are having vomiting diarrhea I <UNSURE>would say</UNSURE> recommend <UNSURE>that</UNSURE> in the first, you know, first couple of days.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_90",
+          "session_id": "day1_consultation01",
+          "start_ms": 397154,
+          "end_ms": 398154,
+          "speaker_role": "CLIENT",
+          "text": "Yep.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_81",
+          "session_id": "day1_consultation01",
+          "start_ms": 397346,
+          "end_ms": 406327,
+          "speaker_role": "CLINICIAN",
+          "text": "<UNIN/> If you are feeling feverish and weak, <UNSURE>eh</UNSURE> taking some paracetamol, uh, <UNIN/> two tablets up to four times a day for the first few days can also help.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_92",
+          "session_id": "day1_consultation01",
+          "start_ms": 402389,
+          "end_ms": 403389,
+          "speaker_role": "CLIENT",
+          "text": "<UNSURE>Yep</UNSURE>.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_82",
+          "session_id": "day1_consultation01",
+          "start_ms": 406327,
+          "end_ms": 417779,
+          "speaker_role": "CLINICIAN",
+          "text": "I <UNSURE>will</UNSURE> certainly advise you to take some time <UNSURE>off</UNSURE> work, <UNSURE>actually</UNSURE> I know you're quite keen to work but I would say the next two, two to three days as <UNSURE>the infection</UNSURE> clears from your system to take some time off and rest.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_94",
+          "session_id": "day1_consultation01",
+          "start_ms": 409507,
+          "end_ms": 410507,
+          "speaker_role": "CLIENT",
+          "text": "Okay.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_96",
+          "session_id": "day1_consultation01",
+          "start_ms": 413585,
+          "end_ms": 414585,
+          "speaker_role": "CLIENT",
+          "text": "Yeah.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_83",
+          "session_id": "day1_consultation01",
+          "start_ms": 417779,
+          "end_ms": 425301,
+          "speaker_role": "CLINICIAN",
+          "text": "Um, <UNSURE>I'll admit</UNSURE> if your symptoms haven't got better, you know, in in three to four days, <UNSURE>I'd</UNSURE> like to come and see you again. <UNIN/>",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_98",
+          "session_id": "day1_consultation01",
+          "start_ms": 424703,
+          "end_ms": 425703,
+          "speaker_role": "CLIENT",
+          "text": "Okay, <UNSURE>sure</UNSURE>.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_84",
+          "session_id": "day1_consultation01",
+          "start_ms": 425301,
+          "end_ms": 429270,
+          "speaker_role": "CLINICIAN",
+          "text": "Because if it is ongoing then we have to wonder whether something else <UNSURE>caused</UNSURE> your symptoms.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_100",
+          "session_id": "day1_consultation01",
+          "start_ms": 429193,
+          "end_ms": 430193,
+          "speaker_role": "CLIENT",
+          "text": "Yep.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_85",
+          "session_id": "day1_consultation01",
+          "start_ms": 429270,
+          "end_ms": 435388,
+          "speaker_role": "CLINICIAN",
+          "text": "<UNSURE>Uh</UNSURE>, and we may need to do further <UNSURE>tests</UNSURE> like um taking a sample of your stool so we can test that.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_102",
+          "session_id": "day1_consultation01",
+          "start_ms": 434428,
+          "end_ms": 435428,
+          "speaker_role": "CLIENT",
+          "text": "<UNIN/>",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_86",
+          "session_id": "day1_consultation01",
+          "start_ms": 435388,
+          "end_ms": 437806,
+          "speaker_role": "CLINICIAN",
+          "text": "Um, etcetera etcetera.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_104",
+          "session_id": "day1_consultation01",
+          "start_ms": 437879,
+          "end_ms": 438879,
+          "speaker_role": "CLIENT",
+          "text": "Yep, sure, yep.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_88",
+          "session_id": "day1_consultation01",
+          "start_ms": 439126,
+          "end_ms": 440126,
+          "speaker_role": "CLINICIAN",
+          "text": "How's that sound?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_106",
+          "session_id": "day1_consultation01",
+          "start_ms": 440369,
+          "end_ms": 442095,
+          "speaker_role": "CLIENT",
+          "text": "That sounds great, yeah. Yeah.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_90",
+          "session_id": "day1_consultation01",
+          "start_ms": 441569,
+          "end_ms": 443383,
+          "speaker_role": "CLINICIAN",
+          "text": "<UNIN/> Do you have any questions for me?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_108",
+          "session_id": "day1_consultation01",
+          "start_ms": 443801,
+          "end_ms": 446820,
+          "speaker_role": "CLIENT",
+          "text": "Um, no, no further questions, <UNSURE>no</UNSURE>.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_92",
+          "session_id": "day1_consultation01",
+          "start_ms": 446452,
+          "end_ms": 448981,
+          "speaker_role": "CLINICIAN",
+          "text": "Okay, and is uh is the treatment plan clear?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_110",
+          "session_id": "day1_consultation01",
+          "start_ms": 449394,
+          "end_ms": 452075,
+          "speaker_role": "CLIENT",
+          "text": "Uh, <UNSURE>yes</UNSURE>, yeah, that's that's very clear. Thank you.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_94",
+          "session_id": "day1_consultation01",
+          "start_ms": 452064,
+          "end_ms": 453525,
+          "speaker_role": "CLINICIAN",
+          "text": "Great. Well, I wish you all the best.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_patient_112",
+          "session_id": "day1_consultation01",
+          "start_ms": 453467,
+          "end_ms": 456173,
+          "speaker_role": "CLIENT",
+          "text": "Okay, thank you. Bye.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation01_doctor_96",
+          "session_id": "day1_consultation01",
+          "start_ms": 454256,
+          "end_ms": 456891,
+          "speaker_role": "CLINICIAN",
+          "text": "<UNIN/> Thank you. <UNSURE>Bye bye</UNSURE>.",
+          "revision": 1
+        }
+      ]
+    },
+    {
+      "conversation_id": "day1_consultation02",
+      "split": "dev",
+      "source_files": {
+        "day1_consultation02_doctor_1": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_2": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_3": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_4": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_5": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_6": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_7": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_doctor_9": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_8": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_patient_9": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_11": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_doctor_13": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_doctor_15": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_11": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_17": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_12": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_19": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_doctor_21": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_14": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_patient_15": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_23": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_doctor_25": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_doctor_27": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_17": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_29": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_19": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_patient_21": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_31": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_22": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_33": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_23": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_35": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_doctor_37": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_25": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_38": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_27": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_patient_29": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_40": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_doctor_42": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_31": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_44": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_doctor_46": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_33": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_47": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_doctor_48": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_35": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_50": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_doctor_52": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_doctor_53": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_37": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_patient_39": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_55": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_doctor_57": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_41": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_59": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_43": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_61": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_45": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_63": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_doctor_64": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_47": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_66": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_49": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_68": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_doctor_70": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_51": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_72": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_53": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_74": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_doctor_76": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_doctor_77": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_doctor_78": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_55": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_80": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_doctor_81": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_doctor_82": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_57": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_84": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_59": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_86": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_61": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_88": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_doctor_90": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_doctor_92": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_63": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_94": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_65": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_96": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_67": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_98": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_69": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_patient_70": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_100": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_72": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_102": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_74": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_patient_76": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_104": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_doctor_105": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_78": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_106": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_doctor_107": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_80": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_108": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_doctor_109": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_82": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_patient_84": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_110": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_86": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_111": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_88": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_112": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_doctor_113": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_90": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_114": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_doctor_115": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_92": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_117": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_94": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_119": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_doctor_121": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_doctor_122": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_96": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_123": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_doctor_124": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_98": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_126": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_patient_100": "day1_consultation02_patient.TextGrid",
+        "day1_consultation02_doctor_128": "day1_consultation02_doctor.TextGrid",
+        "day1_consultation02_doctor_130": "day1_consultation02_doctor.TextGrid"
+      },
+      "segments": [
+        {
+          "id": "day1_consultation02_doctor_1",
+          "session_id": "day1_consultation02",
+          "start_ms": 0,
+          "end_ms": 2644,
+          "speaker_role": "CLINICIAN",
+          "text": "Hello?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_2",
+          "session_id": "day1_consultation02",
+          "start_ms": 3451,
+          "end_ms": 5422,
+          "speaker_role": "CLIENT",
+          "text": "Hello. Can you hear me well?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_3",
+          "session_id": "day1_consultation02",
+          "start_ms": 4369,
+          "end_ms": 12334,
+          "speaker_role": "CLINICIAN",
+          "text": "Uh uh yes. I think. It's a bit better. It's a bit, it's a bit, it's not very clear. But <UNIN/> let's continue anyway.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_4",
+          "session_id": "day1_consultation02",
+          "start_ms": 12668,
+          "end_ms": 13683,
+          "speaker_role": "CLIENT",
+          "text": "OK.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_5",
+          "session_id": "day1_consultation02",
+          "start_ms": 12910,
+          "end_ms": 15619,
+          "speaker_role": "CLINICIAN",
+          "text": "Uh, OK. Let's start again. So how can I help you sir?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_6",
+          "session_id": "day1_consultation02",
+          "start_ms": 16581,
+          "end_ms": 27958,
+          "speaker_role": "CLIENT",
+          "text": "Yes. So, it's been a few days now. I have like a sore, and a red skin. It's kind of, it's really itchy, and it's like super annoying. So I'd like to find something quick to solve it.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_7",
+          "session_id": "day1_consultation02",
+          "start_ms": 24959,
+          "end_ms": 25570,
+          "speaker_role": "CLINICIAN",
+          "text": "OK.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_9",
+          "session_id": "day1_consultation02",
+          "start_ms": 27813,
+          "end_ms": 31987,
+          "speaker_role": "CLINICIAN",
+          "text": "No, no problem. I'm happy to help. Um whereabouts in your skin is it affected?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_8",
+          "session_id": "day1_consultation02",
+          "start_ms": 32436,
+          "end_ms": 41526,
+          "speaker_role": "CLIENT",
+          "text": "Uh, mostly like my chest, my, my hands, my arms. Like, like really, it's it's super annoying. Like it's itching a lot, like all the time. And",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_9",
+          "session_id": "day1_consultation02",
+          "start_ms": 41526,
+          "end_ms": 61337,
+          "speaker_role": "CLIENT",
+          "text": "I can't even sleep at night. <UNIN/> I really need something quickly to, to solve it. Because even at work I, I can, when I'm in a meeting and I have to, like uh think about my work, I can't focus, I can't actually focus on my work. It's really annoying because I can't actually think about, uh, what I have to say. I'm always like, uh, disturbed by this disease.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_11",
+          "session_id": "day1_consultation02",
+          "start_ms": 53285,
+          "end_ms": 53813,
+          "speaker_role": "CLINICIAN",
+          "text": "Yeah.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_13",
+          "session_id": "day1_consultation02",
+          "start_ms": 56285,
+          "end_ms": 56646,
+          "speaker_role": "CLINICIAN",
+          "text": "<INAUDIBLE_SPEECH/>",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_15",
+          "session_id": "day1_consultation02",
+          "start_ms": 60959,
+          "end_ms": 69750,
+          "speaker_role": "CLINICIAN",
+          "text": "No no, OK. <INAUDIBLE_SPEECH/> I'm <UNSURE>certain </UNSURE> this is obviously affecting you. And uh we'll try our very best to get get this sorted out for you. Um, have you had anything like this before in the past?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_11",
+          "session_id": "day1_consultation02",
+          "start_ms": 70977,
+          "end_ms": 75803,
+          "speaker_role": "CLIENT",
+          "text": "Um so yes. Uh earlier I was like prescribed for my eczema.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_17",
+          "session_id": "day1_consultation02",
+          "start_ms": 75646,
+          "end_ms": 76271,
+          "speaker_role": "CLINICIAN",
+          "text": "OK.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_12",
+          "session_id": "day1_consultation02",
+          "start_ms": 75803,
+          "end_ms": 86431,
+          "speaker_role": "CLIENT",
+          "text": "And <INAUDIBLE_SPEECH/> they gave me like some cream, and something to, uh when I like <UNIN/> shower, when I was in the shower, had to put something. But um",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_19",
+          "session_id": "day1_consultation02",
+          "start_ms": 84466,
+          "end_ms": 85118,
+          "speaker_role": "CLINICIAN",
+          "text": "OK.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_21",
+          "session_id": "day1_consultation02",
+          "start_ms": 86646,
+          "end_ms": 87549,
+          "speaker_role": "CLINICIAN",
+          "text": "Did it help?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_14",
+          "session_id": "day1_consultation02",
+          "start_ms": 88856,
+          "end_ms": 97239,
+          "speaker_role": "CLIENT",
+          "text": "Um I mean, at that time yes. That's, those symptoms, like these symptoms appear like, when the symptoms appeared again, I tried those and it didn't work.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_15",
+          "session_id": "day1_consultation02",
+          "start_ms": 97239,
+          "end_ms": 107407,
+          "speaker_role": "CLIENT",
+          "text": "I've tried a few things. Like I bought a, a steroid cream at the pharmacy last night. But it apparently didn't help, because it's still itching a lot today. Uh, yeah.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_23",
+          "session_id": "day1_consultation02",
+          "start_ms": 104070,
+          "end_ms": 104730,
+          "speaker_role": "CLINICIAN",
+          "text": "<UNSURE>OK</UNSURE>.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_25",
+          "session_id": "day1_consultation02",
+          "start_ms": 105577,
+          "end_ms": 106236,
+          "speaker_role": "CLINICIAN",
+          "text": "OK.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_27",
+          "session_id": "day1_consultation02",
+          "start_ms": 107118,
+          "end_ms": 109014,
+          "speaker_role": "CLINICIAN",
+          "text": "Do you remember the name of the cream you bought?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_17",
+          "session_id": "day1_consultation02",
+          "start_ms": 109740,
+          "end_ms": 111276,
+          "speaker_role": "CLIENT",
+          "text": "A steroid cream.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_29",
+          "session_id": "day1_consultation02",
+          "start_ms": 111098,
+          "end_ms": 118743,
+          "speaker_role": "CLINICIAN",
+          "text": "OK, steroid, OK. <UNIN/> um <UNIN/> would you say these symptoms are very similar to your eczema symptoms, or different?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_19",
+          "session_id": "day1_consultation02",
+          "start_ms": 119465,
+          "end_ms": 120740,
+          "speaker_role": "CLIENT",
+          "text": "Um",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_21",
+          "session_id": "day1_consultation02",
+          "start_ms": 121305,
+          "end_ms": 130133,
+          "speaker_role": "CLIENT",
+          "text": "<UNIN/> it's much more like itchy. And my eczema was more like only in the arm. But now it's <UNIN/> also on the chest. And in the on the, on the hands as well.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_31",
+          "session_id": "day1_consultation02",
+          "start_ms": 129889,
+          "end_ms": 130598,
+          "speaker_role": "CLINICIAN",
+          "text": "OK.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_22",
+          "session_id": "day1_consultation02",
+          "start_ms": 130133,
+          "end_ms": 134870,
+          "speaker_role": "CLIENT",
+          "text": "Like <UNSURE>pretty</UNSURE>, yeah when, like I like, for instance hiking, during the weekend. And",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_33",
+          "session_id": "day1_consultation02",
+          "start_ms": 133604,
+          "end_ms": 134056,
+          "speaker_role": "CLINICIAN",
+          "text": "<INAUDIBLE_SPEECH/>",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_23",
+          "session_id": "day1_consultation02",
+          "start_ms": 134870,
+          "end_ms": 151131,
+          "speaker_role": "CLIENT",
+          "text": "I am, I can't really do it anymore, because it's like very <UNIN/> like I wanted to do that last weekend. And because super painful, and I I have to take like showers every day to be able to, cannot uh ease this itching part, which is very very annoying.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_35",
+          "session_id": "day1_consultation02",
+          "start_ms": 143153,
+          "end_ms": 143688,
+          "speaker_role": "CLINICIAN",
+          "text": "Yes.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_37",
+          "session_id": "day1_consultation02",
+          "start_ms": 149952,
+          "end_ms": 156417,
+          "speaker_role": "CLINICIAN",
+          "text": "No. <UNIN/> Well OK. That's <UNIN/> so you mentioned the itchiness. Um you also mentioned it's been quite sore.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_25",
+          "session_id": "day1_consultation02",
+          "start_ms": 154131,
+          "end_ms": 154792,
+          "speaker_role": "CLIENT",
+          "text": "Yeah.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_38",
+          "session_id": "day1_consultation02",
+          "start_ms": 156417,
+          "end_ms": 162410,
+          "speaker_role": "CLINICIAN",
+          "text": "Um have you, have you noticed any uh bleeding or discharge from your skins?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_27",
+          "session_id": "day1_consultation02",
+          "start_ms": 156884,
+          "end_ms": 157986,
+          "speaker_role": "CLIENT",
+          "text": "<UNIN/>. OK.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_29",
+          "session_id": "day1_consultation02",
+          "start_ms": 163160,
+          "end_ms": 171595,
+          "speaker_role": "CLIENT",
+          "text": "No. Um so my skin is a bit cracked in some parts, like kind of cracked, if you see what I mean. But uh, yeah.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_40",
+          "session_id": "day1_consultation02",
+          "start_ms": 169889,
+          "end_ms": 170507,
+          "speaker_role": "CLINICIAN",
+          "text": "OK.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_42",
+          "session_id": "day1_consultation02",
+          "start_ms": 171674,
+          "end_ms": 176146,
+          "speaker_role": "CLINICIAN",
+          "text": "You've not, haven't uh seen any other uh pus or blood, coming out of your skin.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_31",
+          "session_id": "day1_consultation02",
+          "start_ms": 176812,
+          "end_ms": 177812,
+          "speaker_role": "CLIENT",
+          "text": "No.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_44",
+          "session_id": "day1_consultation02",
+          "start_ms": 177507,
+          "end_ms": 180222,
+          "speaker_role": "CLINICIAN",
+          "text": "No. And you mentioned it all started three days ago.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_46",
+          "session_id": "day1_consultation02",
+          "start_ms": 180910,
+          "end_ms": 188027,
+          "speaker_role": "CLINICIAN",
+          "text": "Are you, four days ago. Are you aware of any triggers, or anything that you may have done, that may have caused your symptoms to start?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_33",
+          "session_id": "day1_consultation02",
+          "start_ms": 180957,
+          "end_ms": 181928,
+          "speaker_role": "CLIENT",
+          "text": "Four days ago.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_47",
+          "session_id": "day1_consultation02",
+          "start_ms": 188027,
+          "end_ms": 194389,
+          "speaker_role": "CLINICIAN",
+          "text": "So for example, have you changed your uh shower gel, any clothing?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_48",
+          "session_id": "day1_consultation02",
+          "start_ms": 194389,
+          "end_ms": 196167,
+          "speaker_role": "CLINICIAN",
+          "text": "Have you been around anyone else?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_35",
+          "session_id": "day1_consultation02",
+          "start_ms": 195417,
+          "end_ms": 215174,
+          "speaker_role": "CLIENT",
+          "text": "No I <UNIN/>. It's actually like, it's really annoying, because I'm thinking about, <UNIN/> maybe I should change something. Because I I haven't, and I don't understand <UNIN/> I cannot, um afraid of asking people around me because it's cannot you know um, I don't feel really comfortable asking about these questions. It's kind of intimate that. So I <INAUDIBLE_SPEECH/> your help now.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_50",
+          "session_id": "day1_consultation02",
+          "start_ms": 213139,
+          "end_ms": 213854,
+          "speaker_role": "CLINICIAN",
+          "text": "Mm.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_52",
+          "session_id": "day1_consultation02",
+          "start_ms": 215153,
+          "end_ms": 218044,
+          "speaker_role": "CLINICIAN",
+          "text": "Mm. No no, OK. That's OK. Um",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_53",
+          "session_id": "day1_consultation02",
+          "start_ms": 218044,
+          "end_ms": 228111,
+          "speaker_role": "CLINICIAN",
+          "text": "Fine, so just to resummarize. For the last four days, you've had very itchy skin, very sore skin all over your body, mainly your chest. And did you also mention your arms and legs as well?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_37",
+          "session_id": "day1_consultation02",
+          "start_ms": 225913,
+          "end_ms": 226611,
+          "speaker_role": "CLIENT",
+          "text": "<UNSURE>Yeah</UNSURE>.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_39",
+          "session_id": "day1_consultation02",
+          "start_ms": 229600,
+          "end_ms": 235566,
+          "speaker_role": "CLIENT",
+          "text": "Uh, no. Just the chest, hands and like, like inside the elbows. Yeah.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_55",
+          "session_id": "day1_consultation02",
+          "start_ms": 231577,
+          "end_ms": 232181,
+          "speaker_role": "CLINICIAN",
+          "text": "<INAUDIBLE_SPEECH/>",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_57",
+          "session_id": "day1_consultation02",
+          "start_ms": 234493,
+          "end_ms": 236625,
+          "speaker_role": "CLINICIAN",
+          "text": "OK. <UNIN/> anything on your face at all?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_41",
+          "session_id": "day1_consultation02",
+          "start_ms": 238058,
+          "end_ms": 238975,
+          "speaker_role": "CLIENT",
+          "text": "Am I what?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_59",
+          "session_id": "day1_consultation02",
+          "start_ms": 238715,
+          "end_ms": 239861,
+          "speaker_role": "CLINICIAN",
+          "text": "On your face?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_43",
+          "session_id": "day1_consultation02",
+          "start_ms": 240686,
+          "end_ms": 241884,
+          "speaker_role": "CLIENT",
+          "text": "On my face? No.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_61",
+          "session_id": "day1_consultation02",
+          "start_ms": 241639,
+          "end_ms": 247376,
+          "speaker_role": "CLINICIAN",
+          "text": "No, OK. And apart from this, any other symptoms have you noticed? For example, have you noticed any temperature or fevers?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_45",
+          "session_id": "day1_consultation02",
+          "start_ms": 248824,
+          "end_ms": 251797,
+          "speaker_role": "CLIENT",
+          "text": "No. <UNIN/> just very itchy. Nothing else.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_63",
+          "session_id": "day1_consultation02",
+          "start_ms": 250418,
+          "end_ms": 254585,
+          "speaker_role": "CLINICIAN",
+          "text": "Itchy. OK. So your, your bowels are working OK?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_64",
+          "session_id": "day1_consultation02",
+          "start_ms": 254585,
+          "end_ms": 259050,
+          "speaker_role": "CLINICIAN",
+          "text": "Your chest is OK? No cough, no breathing difficulties?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_47",
+          "session_id": "day1_consultation02",
+          "start_ms": 259996,
+          "end_ms": 260640,
+          "speaker_role": "CLIENT",
+          "text": "No.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_66",
+          "session_id": "day1_consultation02",
+          "start_ms": 261140,
+          "end_ms": 262849,
+          "speaker_role": "CLINICIAN",
+          "text": "You're passing urine OK.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_49",
+          "session_id": "day1_consultation02",
+          "start_ms": 264402,
+          "end_ms": 265575,
+          "speaker_role": "CLIENT",
+          "text": "I I think so.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_68",
+          "session_id": "day1_consultation02",
+          "start_ms": 265522,
+          "end_ms": 267918,
+          "speaker_role": "CLINICIAN",
+          "text": "OK, alright. Um",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_70",
+          "session_id": "day1_consultation02",
+          "start_ms": 269099,
+          "end_ms": 273731,
+          "speaker_role": "CLINICIAN",
+          "text": "It's always good to know. So, I mean, do you have any ideas as to what could be causing your symptoms?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_51",
+          "session_id": "day1_consultation02",
+          "start_ms": 275181,
+          "end_ms": 276029,
+          "speaker_role": "CLIENT",
+          "text": "Any what?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_72",
+          "session_id": "day1_consultation02",
+          "start_ms": 275932,
+          "end_ms": 278939,
+          "speaker_role": "CLINICIAN",
+          "text": "Any ideas, as to what could be causing your symptoms?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_53",
+          "session_id": "day1_consultation02",
+          "start_ms": 279406,
+          "end_ms": 289986,
+          "speaker_role": "CLIENT",
+          "text": "Um <UNIN/> so I had eczema before. So maybe it's <UNSURE>disease</UNSURE>, but it seems like more uh, like uh my eczema was only on the arms. So, I'm I'm not sure. I I really have no idea.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_74",
+          "session_id": "day1_consultation02",
+          "start_ms": 288647,
+          "end_ms": 289168,
+          "speaker_role": "CLINICIAN",
+          "text": "<INAUDIBLE_SPEECH/>",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_76",
+          "session_id": "day1_consultation02",
+          "start_ms": 289790,
+          "end_ms": 294965,
+          "speaker_role": "CLINICIAN",
+          "text": "OK. That's OK. So um, normally at this stage I like to examine you. Um",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_77",
+          "session_id": "day1_consultation02",
+          "start_ms": 294965,
+          "end_ms": 304168,
+          "speaker_role": "CLINICIAN",
+          "text": "To see the rash itself, to see exactly what type of rash it is. But from what you've told me, you mentioned it's, you've got some dry skin and some, uh cracked skin as well.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_78",
+          "session_id": "day1_consultation02",
+          "start_ms": 304168,
+          "end_ms": 308106,
+          "speaker_role": "CLINICIAN",
+          "text": "Uh and has been very itchy. And so would your um",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_55",
+          "session_id": "day1_consultation02",
+          "start_ms": 304704,
+          "end_ms": 305221,
+          "speaker_role": "CLIENT",
+          "text": "Yeah.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_80",
+          "session_id": "day1_consultation02",
+          "start_ms": 308925,
+          "end_ms": 312464,
+          "speaker_role": "CLINICIAN",
+          "text": "Uh your your background of eczema. Um",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_81",
+          "session_id": "day1_consultation02",
+          "start_ms": 312464,
+          "end_ms": 312831,
+          "speaker_role": "CLINICIAN",
+          "text": "<UNSURE>So</UNSURE>",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_82",
+          "session_id": "day1_consultation02",
+          "start_ms": 312831,
+          "end_ms": 320000,
+          "speaker_role": "CLINICIAN",
+          "text": "Sorry to say, there's a couple of questions I wanted to ask you, which I completely forgot, my apologies. Um, apart from the eczema, do you have any other medical problems I should be aware of?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_57",
+          "session_id": "day1_consultation02",
+          "start_ms": 320493,
+          "end_ms": 325130,
+          "speaker_role": "CLIENT",
+          "text": "Uh, no. I just had asthma in the past. But not anymore.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_84",
+          "session_id": "day1_consultation02",
+          "start_ms": 324196,
+          "end_ms": 328724,
+          "speaker_role": "CLINICIAN",
+          "text": "OK. Not anymore, OK. And do you take any regular medications at the moment?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_59",
+          "session_id": "day1_consultation02",
+          "start_ms": 329507,
+          "end_ms": 331066,
+          "speaker_role": "CLIENT",
+          "text": "Uh no.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_86",
+          "session_id": "day1_consultation02",
+          "start_ms": 331036,
+          "end_ms": 333439,
+          "speaker_role": "CLINICIAN",
+          "text": "No, OK. Do you have any allergies to anything?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_61",
+          "session_id": "day1_consultation02",
+          "start_ms": 332992,
+          "end_ms": 335623,
+          "speaker_role": "CLIENT",
+          "text": "I <UNIN/> like some <UNIN/>, sorry? Yeah?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_88",
+          "session_id": "day1_consultation02",
+          "start_ms": 336446,
+          "end_ms": 339767,
+          "speaker_role": "CLINICIAN",
+          "text": "<UNIN/> sorry I said do you have any allergies to anything?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_90",
+          "session_id": "day1_consultation02",
+          "start_ms": 345703,
+          "end_ms": 346168,
+          "speaker_role": "CLINICIAN",
+          "text": "<INAUDIBLE_SPEECH/>",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_92",
+          "session_id": "day1_consultation02",
+          "start_ms": 346869,
+          "end_ms": 347536,
+          "speaker_role": "CLINICIAN",
+          "text": "Hello?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_63",
+          "session_id": "day1_consultation02",
+          "start_ms": 347580,
+          "end_ms": 349045,
+          "speaker_role": "CLIENT",
+          "text": "Hello? Yes.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_94",
+          "session_id": "day1_consultation02",
+          "start_ms": 348536,
+          "end_ms": 352925,
+          "speaker_role": "CLINICIAN",
+          "text": "<UNIN/> can you hear me? That's alright I think it <UNIN/>. Uh do you have any allergies at all?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_65",
+          "session_id": "day1_consultation02",
+          "start_ms": 353054,
+          "end_ms": 354840,
+          "speaker_role": "CLIENT",
+          "text": "Ohh, allergies. Uh, no.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_96",
+          "session_id": "day1_consultation02",
+          "start_ms": 354974,
+          "end_ms": 361647,
+          "speaker_role": "CLINICIAN",
+          "text": "No, OK. Um and tell me about your um uh your situation at home. Who do you live with?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_67",
+          "session_id": "day1_consultation02",
+          "start_ms": 362913,
+          "end_ms": 374159,
+          "speaker_role": "CLIENT",
+          "text": "Uh so, I live with a few flatmates. I'm a, so you know I'm thirty one. Uh I, yeah I'm I have a full time job. And so I'm living with a few people to save money.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_98",
+          "session_id": "day1_consultation02",
+          "start_ms": 375140,
+          "end_ms": 376876,
+          "speaker_role": "CLINICIAN",
+          "text": "OK. And what do you do for work?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_69",
+          "session_id": "day1_consultation02",
+          "start_ms": 377652,
+          "end_ms": 381272,
+          "speaker_role": "CLIENT",
+          "text": "Uh I work uh at a pharmaceutical company.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_70",
+          "session_id": "day1_consultation02",
+          "start_ms": 381272,
+          "end_ms": 392768,
+          "speaker_role": "CLIENT",
+          "text": "So it's been a, it's been a few years now. Uh it's uh, it's kind of interesting. We're working I'm a, like a kind of project manager. Uh I mean, do you want to, to know more about it?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_100",
+          "session_id": "day1_consultation02",
+          "start_ms": 392703,
+          "end_ms": 401821,
+          "speaker_role": "CLINICIAN",
+          "text": "OK. Uh no no no that's <UNIN/>, that's absolutely fine. Um just a couple of questions I want to ask you, which can sometimes affect your symptoms, is, do you smoke at all?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_72",
+          "session_id": "day1_consultation02",
+          "start_ms": 402884,
+          "end_ms": 403596,
+          "speaker_role": "CLIENT",
+          "text": "No.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_102",
+          "session_id": "day1_consultation02",
+          "start_ms": 403494,
+          "end_ms": 406071,
+          "speaker_role": "CLINICIAN",
+          "text": "No. And do you drink much in the way of alcohol?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_74",
+          "session_id": "day1_consultation02",
+          "start_ms": 404847,
+          "end_ms": 405521,
+          "speaker_role": "CLIENT",
+          "text": "<INAUDIBLE_SPEECH/>",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_76",
+          "session_id": "day1_consultation02",
+          "start_ms": 407072,
+          "end_ms": 420260,
+          "speaker_role": "CLIENT",
+          "text": "Uh you know, <UNIN/> once in a while I can, I like hanging out with people once in a while. So yeah I'd say a few, a few beers per week. Something like this. Nothing, nothing crazy. I used to drink a lot more when I was younger. But it's been, it's been a while. <UNIN/>",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_104",
+          "session_id": "day1_consultation02",
+          "start_ms": 418501,
+          "end_ms": 427419,
+          "speaker_role": "CLINICIAN",
+          "text": "OK. OK. OK I've got to say, at this stage I've got to say <UNIN/> this sound quality is not uh great. But I will continue because we've come this far. Um",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_105",
+          "session_id": "day1_consultation02",
+          "start_ms": 427419,
+          "end_ms": 433872,
+          "speaker_role": "CLINICIAN",
+          "text": "So um, based on everything you mentioned <UNSURE>Sarah </UNSURE>, <UNIN/> I do wonder whether this is a flare-up of your eczema. Um",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_78",
+          "session_id": "day1_consultation02",
+          "start_ms": 427536,
+          "end_ms": 427937,
+          "speaker_role": "CLIENT",
+          "text": "<INAUDIBLE_SPEECH/>",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_106",
+          "session_id": "day1_consultation02",
+          "start_ms": 433872,
+          "end_ms": 439524,
+          "speaker_role": "CLINICIAN",
+          "text": "The reason being that you said it was quite itchy. Um it's mainly affecting your chest and your back.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_107",
+          "session_id": "day1_consultation02",
+          "start_ms": 439524,
+          "end_ms": 451093,
+          "speaker_role": "CLINICIAN",
+          "text": "Um and uh, having looked at your skin, uh the the the rash does appear quite familiar. Um you mentioned <UNIN/> using steroid creams, yesterday.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_80",
+          "session_id": "day1_consultation02",
+          "start_ms": 441507,
+          "end_ms": 442270,
+          "speaker_role": "CLIENT",
+          "text": "<INAUDIBLE_SPEECH/>",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_108",
+          "session_id": "day1_consultation02",
+          "start_ms": 451093,
+          "end_ms": 458987,
+          "speaker_role": "CLINICIAN",
+          "text": "Um from the pharmacy. I wonder whether giving you a stronger prescription of a <UNIN/> of a steroid may be beneficial.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_109",
+          "session_id": "day1_consultation02",
+          "start_ms": 458987,
+          "end_ms": 465967,
+          "speaker_role": "CLINICIAN",
+          "text": "Uh, which I'm happy to prescribe to you today. As well as, I'm going to give you something, some emollients, which helps to moisturize the skin.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_82",
+          "session_id": "day1_consultation02",
+          "start_ms": 459086,
+          "end_ms": 459941,
+          "speaker_role": "CLIENT",
+          "text": "OK.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_84",
+          "session_id": "day1_consultation02",
+          "start_ms": 462072,
+          "end_ms": 462854,
+          "speaker_role": "CLIENT",
+          "text": "OK.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_110",
+          "session_id": "day1_consultation02",
+          "start_ms": 465967,
+          "end_ms": 473206,
+          "speaker_role": "CLINICIAN",
+          "text": "Um which <UNIN/> use in the bath and shower. And it's definitely worth um using that for the first seven to ten days.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_86",
+          "session_id": "day1_consultation02",
+          "start_ms": 466202,
+          "end_ms": 467202,
+          "speaker_role": "CLIENT",
+          "text": "OK.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_111",
+          "session_id": "day1_consultation02",
+          "start_ms": 473206,
+          "end_ms": 476795,
+          "speaker_role": "CLINICIAN",
+          "text": "Uh before we make the decision on whether it's working or not.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_88",
+          "session_id": "day1_consultation02",
+          "start_ms": 473478,
+          "end_ms": 474246,
+          "speaker_role": "CLIENT",
+          "text": "OK.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_112",
+          "session_id": "day1_consultation02",
+          "start_ms": 476795,
+          "end_ms": 483232,
+          "speaker_role": "CLINICIAN",
+          "text": "Um it's also worth um using antihistamines, which you can sometimes buy over counter.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_113",
+          "session_id": "day1_consultation02",
+          "start_ms": 483232,
+          "end_ms": 489386,
+          "speaker_role": "CLINICIAN",
+          "text": "Things like Loratadine or Piriton, which can help the itchiness of your skin.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_90",
+          "session_id": "day1_consultation02",
+          "start_ms": 487854,
+          "end_ms": 488854,
+          "speaker_role": "CLIENT",
+          "text": "OK.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_114",
+          "session_id": "day1_consultation02",
+          "start_ms": 489386,
+          "end_ms": 499471,
+          "speaker_role": "CLINICIAN",
+          "text": "And uh, um it's also worth keeping a diary of any triggers which are affecting your symptoms, anything you wear or anything you use, in terms of shower gels or soap.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_115",
+          "session_id": "day1_consultation02",
+          "start_ms": 499471,
+          "end_ms": 503797,
+          "speaker_role": "CLINICIAN",
+          "text": "Because if that's causing your symptoms, then we need to have a discussion about an eczema CU.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_92",
+          "session_id": "day1_consultation02",
+          "start_ms": 504014,
+          "end_ms": 509347,
+          "speaker_role": "CLIENT",
+          "text": "OK. Yes, I have tried antihistamines, uh lately, but it didn't really help.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_117",
+          "session_id": "day1_consultation02",
+          "start_ms": 510418,
+          "end_ms": 512040,
+          "speaker_role": "CLINICIAN",
+          "text": "Ohh, could you say that again, sorry?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_94",
+          "session_id": "day1_consultation02",
+          "start_ms": 512318,
+          "end_ms": 516753,
+          "speaker_role": "CLIENT",
+          "text": "I have tried uh antihistamines, but uh but it didn't really help.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_119",
+          "session_id": "day1_consultation02",
+          "start_ms": 514239,
+          "end_ms": 514875,
+          "speaker_role": "CLINICIAN",
+          "text": "OK.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_121",
+          "session_id": "day1_consultation02",
+          "start_ms": 516668,
+          "end_ms": 523292,
+          "speaker_role": "CLINICIAN",
+          "text": "<UNIN/> OK. So it's something for you to think about. <UNIN/> you can get different types of antihistamines. I can give you something a little bit stronger today as well.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_122",
+          "session_id": "day1_consultation02",
+          "start_ms": 523292,
+          "end_ms": 529617,
+          "speaker_role": "CLINICIAN",
+          "text": "Um, something like Fexofenadine, which I can give to you today. It's definitely worth trying, and it's not going to do you any harm.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_96",
+          "session_id": "day1_consultation02",
+          "start_ms": 523767,
+          "end_ms": 524364,
+          "speaker_role": "CLIENT",
+          "text": "OK.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_123",
+          "session_id": "day1_consultation02",
+          "start_ms": 529617,
+          "end_ms": 535034,
+          "speaker_role": "CLINICIAN",
+          "text": "Um but I <UNIN/> think using the steroids and the emollients, um on a regular basis",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_124",
+          "session_id": "day1_consultation02",
+          "start_ms": 535034,
+          "end_ms": 542901,
+          "speaker_role": "CLINICIAN",
+          "text": "Uh over the next week to ten days, should hopefully <UNIN/> control your symptoms. But do come back and see me next week, if things don't get better.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_98",
+          "session_id": "day1_consultation02",
+          "start_ms": 543593,
+          "end_ms": 544709,
+          "speaker_role": "CLIENT",
+          "text": "That sounds good.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_126",
+          "session_id": "day1_consultation02",
+          "start_ms": 544703,
+          "end_ms": 547259,
+          "speaker_role": "CLINICIAN",
+          "text": "OK? Um do you have any questions for me?",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_patient_100",
+          "session_id": "day1_consultation02",
+          "start_ms": 547843,
+          "end_ms": 555811,
+          "speaker_role": "CLIENT",
+          "text": "Uh, no that's it. Thank you very much. Bye. Thank you as well. Bye.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_128",
+          "session_id": "day1_consultation02",
+          "start_ms": 549504,
+          "end_ms": 551232,
+          "speaker_role": "CLINICIAN",
+          "text": "OK. Well I wish you all the best.",
+          "revision": 1
+        },
+        {
+          "id": "day1_consultation02_doctor_130",
+          "session_id": "day1_consultation02",
+          "start_ms": 552663,
+          "end_ms": 553762,
+          "speaker_role": "CLINICIAN",
+          "text": "Thank you. Have a good day.",
+          "revision": 1
+        }
+      ]
+    }
+  ],
+  "queries": [],
+  "judgments": [],
+  "source": [
+    {
+      "file": "day1_consultation01_transcript.csv",
+      "sha256": "22777009f6015bccf59a2ed4e6ebcb3f97472182cefc76e634af4decb0c20609",
+      "attribution": "Retain publisher README, citations and usage terms.",
+      "end_timestamp_policy": "AnnoMI point timestamps; PriMock supplied intervals"
+    },
+    {
+      "file": "day1_consultation02_transcript.csv",
+      "sha256": "c67c2fa11dff53628ed19d74fdae67565afa34626c581a9f9f6355c3ab00a808",
+      "attribution": "Retain publisher README, citations and usage terms.",
+      "end_timestamp_policy": "AnnoMI point timestamps; PriMock supplied intervals"
+    }
+  ],
+  "selection": {
+    "seed": 20261102,
+    "requested_conversations": 2,
+    "pilot_ids": [
+      "day1_consultation02",
+      "day1_consultation01"
+    ],
+    "groups": [
+      [
+        "day1_consultation02"
+      ],
+      [
+        "day1_consultation01"
+      ]
+    ],
+    "splits": {
+      "day1_consultation02": "dev",
+      "day1_consultation01": "test"
+    },
+    "identity_limit": "Participant identities unavailable in supplied CSVs. Shared video sources grouped; speaker independence is not established.",
+    "target_queries": 8
+  },
+  "dataset_id": "primock",
+  "schema_version": 1,
+  "verification": {
+    "manifest_sha256": "f02c5ad37b19c89c25b6c0d391f7a275607cd31a90c2fc036b4176f572efae59",
+    "files": [
+      {
+        "path": "START_HERE.md",
+        "valid": true
+      },
+      {
+        "path": "data/annomi/AnnoMI-simple.csv",
+        "valid": true
+      },
+      {
+        "path": "data/annomi/README.md",
+        "valid": true
+      },
+      {
+        "path": "data/primock57/LICENSE.md",
+        "valid": true
+      },
+      {
+        "path": "data/primock57/README.md",
+        "valid": true
+      },
+      {
+        "path": "data/primock57/day1_consultation01_doctor.TextGrid",
+        "valid": true
+      },
+      {
+        "path": "data/primock57/day1_consultation01_doctor.wav",
+        "valid": true
+      },
+      {
+        "path": "data/primock57/day1_consultation01_note.json",
+        "valid": true
+      },
+      {
+        "path": "data/primock57/day1_consultation01_patient.TextGrid",
+        "valid": true
+      },
+      {
+        "path": "data/primock57/day1_consultation01_patient.wav",
+        "valid": true
+      },
+      {
+        "path": "data/primock57/day1_consultation01_transcript.csv",
+        "valid": true
+      },
+      {
+        "path": "data/primock57/day1_consultation02_doctor.TextGrid",
+        "valid": true
+      },
+      {
+        "path": "data/primock57/day1_consultation02_doctor.wav",
+        "valid": true
+      },
+      {
+        "path": "data/primock57/day1_consultation02_note.json",
+        "valid": true
+      },
+      {
+        "path": "data/primock57/day1_consultation02_patient.TextGrid",
+        "valid": true
+      },
+      {
+        "path": "data/primock57/day1_consultation02_patient.wav",
+        "valid": true
+      },
+      {
+        "path": "data/primock57/day1_consultation02_transcript.csv",
+        "valid": true
+      }
+    ]
+  },
+  "kind": "dataset",
+  "annotation_status": "awaiting human annotation",
+  "version": "a64141a2e609057e25bd0c51c45f36efd9a1803032d2c678c1b555f123570377"
+}

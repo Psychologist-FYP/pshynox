@@ -1,0 +1,3 @@
+# Preserve publisher README bytes, including whitespace checked by the manifest.
+docs/Pshynox_Retrieval_Starter/data/annomi/README.md -text -whitespace
+docs/Pshynox_Retrieval_Starter/data/primock57/README.md -text -whitespace

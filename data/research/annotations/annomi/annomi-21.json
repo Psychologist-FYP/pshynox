@@ -1,0 +1,48 @@
+{
+  "dataset_version": "46db33abc04a2d80912d9c63a72a242021f3eb8edfd286db89512edebaa083a0",
+  "conversation_id": "annomi-21",
+  "pilot_extra": false,
+  "explored": false,
+  "queries": [
+    {
+      "query_id": "draft-annomi-21-1",
+      "conversation_id": "annomi-21",
+      "text": "\"Well, my name is Laura.\"",
+      "intent": "Find the statement beginning \"Well, my name is Laura. I'm 17 years old, and I'm a\"; check other relevant turns too.",
+      "kind": "literal",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    },
+    {
+      "query_id": "draft-annomi-21-2",
+      "conversation_id": "annomi-21",
+      "text": "What is the client explaining in this statement: Well, my name is Laura. I'm 17 years old, and I'm a?",
+      "intent": "Draft prompt: rewrite in your own words as a paraphrase of this source before approving; do not copy its wording.",
+      "kind": "paraphrase",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    },
+    {
+      "query_id": "draft-annomi-21-3",
+      "conversation_id": "annomi-21",
+      "text": "What does the client mean by \"Hi.\"?",
+      "intent": "Interpret the short reply at annomi-21-utterance-1 using surrounding conversation; review all turns for evidence.",
+      "kind": "context",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    },
+    {
+      "query_id": "draft-annomi-21-4",
+      "conversation_id": "annomi-21",
+      "text": "What does the client say about taking a scuba-diving certification course?",
+      "intent": "Draft absent-topic candidate. Read the FULL conversation to verify absence, or replace the query. Absence is not pre-labelled.",
+      "kind": "no-answer-candidate",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    }
+  ]
+}

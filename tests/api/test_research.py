@@ -9,10 +9,12 @@ from services.api.db import PatientRecord, SessionRecord, TranscriptSegmentRecor
 from tests.retrieval.test_workspace import add_query, create_research_fixture, grade_all
 
 
-@pytest.fixture
-def research_client(tmp_path, monkeypatch):
+@pytest.fixture(params=['legacy', 'shared'])
+def research_client(tmp_path, monkeypatch, request):
     monkeypatch.setenv('RESEARCH_DATA_DIR', str(tmp_path))
     store = create_research_fixture(tmp_path)
+    if request.param == 'shared':
+        store.share_annotations('synthetic')
     with TestClient(main.app) as client:
         yield client, store
 
@@ -38,7 +40,7 @@ def test_research_annotations_never_modify_clinical_records_and_zero_is_explicit
     original_records = clinical_snapshot()
     assert client.get('/api/v1/research/datasets').json()[0]['dataset_id'] == 'synthetic'
     base = '/api/v1/research/datasets/synthetic/conversations/example'
-    detail = client.put(base + '/queries', json={'revision': 0, 'text': 'sleep', 'intent': 'Fictional sleep evidence', 'draft': False}).json()
+    detail = client.put(base + '/queries', json={'revision': store.state('synthetic')['revision'], 'text': 'sleep', 'intent': 'Fictional sleep evidence', 'draft': False}).json()
     qid = detail['queries'][0]['query_id']
     assert detail['queries'][0]['judgments'] == {}
     response = client.put(base + f'/queries/{qid}/turns/example-0', json={'revision': detail['revision'], 'grade': 0, 'reviewer': 'test fixture author', 'rationale': 'Fictional irrelevant turn'})
@@ -89,7 +91,7 @@ def test_threshold_and_exploration_do_not_tune_heldout_data(research_client):
     assert client.post('/api/v1/research/datasets/synthetic/runs', json={'split': 'test', 'methods': ['bm25'], 'min_score': .5}).status_code == 422
     assert client.post('/api/v1/research/datasets/synthetic/runs', json={'split': 'dev', 'methods': ['bm25', 'e5'], 'min_score': .5}).status_code == 422
     assert client.post('/api/v1/research/datasets/synthetic/conversations/heldout/explore', json={'revision': 0, 'text': 'sleep'}).status_code == 422
-    response = client.post('/api/v1/research/datasets/synthetic/conversations/example/explore', json={'revision': 0, 'text': 'sleep'})
+    response = client.post('/api/v1/research/datasets/synthetic/conversations/example/explore', json={'revision': store.state('synthetic')['revision'], 'text': 'sleep'})
     assert response.status_code == 200
     assert response.json()['hits']
     assert 'judgments' not in response.json()
