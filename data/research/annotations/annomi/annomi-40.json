@@ -43,6 +43,1370 @@
       "draft": true,
       "no_answer_confirmed": false,
       "judgments": {}
+    },
+    {
+      "query_id": "ai-v1-annomi-40-1",
+      "conversation_id": "annomi-40",
+      "text": "How long does the client report going without methamphetamine use?",
+      "intent": "Retrieve the three-month interval and clarification that it refers to last meth use, not an independently verified abstinence measure.",
+      "kind": "factual",
+      "draft": false,
+      "annotation_origin": "ai",
+      "human_review_status": "reviewed",
+      "no_answer_confirmed": false,
+      "substitution_reason": null,
+      "query_revision": "dca081efdfece8a125585608d5c006c2d84de05681ecf691a178a4bd48f70c8a",
+      "judgments": {
+        "annomi-40-utterance-0": {
+          "grade": 2,
+          "rationale": "Client reports three months, with its meaning clarified as time since last meth use later. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-1",
+            "source_segment_id": "annomi-40-utterance-0",
+            "query_revision": "dca081efdfece8a125585608d5c006c2d84de05681ecf691a178a4bd48f70c8a",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-1": {
+          "grade": 0,
+          "rationale": "Clinician praise adds no interval or coping detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-1",
+            "source_segment_id": "annomi-40-utterance-1",
+            "query_revision": "dca081efdfece8a125585608d5c006c2d84de05681ecf691a178a4bd48f70c8a",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-2": {
+          "grade": 0,
+          "rationale": "Client hesitation adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-1",
+            "source_segment_id": "annomi-40-utterance-2",
+            "query_revision": "dca081efdfece8a125585608d5c006c2d84de05681ecf691a178a4bd48f70c8a",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-3": {
+          "grade": 1,
+          "rationale": "Clinician explicitly clarifies that the interval refers to last meth use. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-1",
+            "source_segment_id": "annomi-40-utterance-3",
+            "query_revision": "dca081efdfece8a125585608d5c006c2d84de05681ecf691a178a4bd48f70c8a",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-4": {
+          "grade": 2,
+          "rationale": "Client affirms the meth-use clarification, anchoring the reported interval. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-1",
+            "source_segment_id": "annomi-40-utterance-4",
+            "query_revision": "dca081efdfece8a125585608d5c006c2d84de05681ecf691a178a4bd48f70c8a",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-5": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no interval detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-1",
+            "source_segment_id": "annomi-40-utterance-5",
+            "query_revision": "dca081efdfece8a125585608d5c006c2d84de05681ecf691a178a4bd48f70c8a",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-6": {
+          "grade": 2,
+          "rationale": "Client reiterates three months and reports doing well. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-1",
+            "source_segment_id": "annomi-40-utterance-6",
+            "query_revision": "dca081efdfece8a125585608d5c006c2d84de05681ecf691a178a4bd48f70c8a",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-7": {
+          "grade": 0,
+          "rationale": "Clinician praise adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-1",
+            "source_segment_id": "annomi-40-utterance-7",
+            "query_revision": "dca081efdfece8a125585608d5c006c2d84de05681ecf691a178a4bd48f70c8a",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-8": {
+          "grade": 0,
+          "rationale": "Client reports meeting new friends. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-1",
+            "source_segment_id": "annomi-40-utterance-8",
+            "query_revision": "dca081efdfece8a125585608d5c006c2d84de05681ecf691a178a4bd48f70c8a",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-9": {
+          "grade": 0,
+          "rationale": "Clinician praise adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-1",
+            "source_segment_id": "annomi-40-utterance-9",
+            "query_revision": "dca081efdfece8a125585608d5c006c2d84de05681ecf691a178a4bd48f70c8a",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-10": {
+          "grade": 0,
+          "rationale": "Client transition adds no substantive information. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-1",
+            "source_segment_id": "annomi-40-utterance-10",
+            "query_revision": "dca081efdfece8a125585608d5c006c2d84de05681ecf691a178a4bd48f70c8a",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-11": {
+          "grade": 0,
+          "rationale": "Clinician recalls distancing from the ex-boyfriend and identifies him as the dealer; client confirmation follows. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-1",
+            "source_segment_id": "annomi-40-utterance-11",
+            "query_revision": "dca081efdfece8a125585608d5c006c2d84de05681ecf691a178a4bd48f70c8a",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-12": {
+          "grade": 0,
+          "rationale": "Client confirms the preceding account about the ex-boyfriend. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-1",
+            "source_segment_id": "annomi-40-utterance-12",
+            "query_revision": "dca081efdfece8a125585608d5c006c2d84de05681ecf691a178a4bd48f70c8a",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-13": {
+          "grade": 0,
+          "rationale": "Clinician asks how distancing is going but supplies no outcome. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-1",
+            "source_segment_id": "annomi-40-utterance-13",
+            "query_revision": "dca081efdfece8a125585608d5c006c2d84de05681ecf691a178a4bd48f70c8a",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-14": {
+          "grade": 0,
+          "rationale": "Client reports not answering the ex-boyfriend’s calls and says it has been good. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-1",
+            "source_segment_id": "annomi-40-utterance-14",
+            "query_revision": "dca081efdfece8a125585608d5c006c2d84de05681ecf691a178a4bd48f70c8a",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-15": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no contact detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-1",
+            "source_segment_id": "annomi-40-utterance-15",
+            "query_revision": "dca081efdfece8a125585608d5c006c2d84de05681ecf691a178a4bd48f70c8a",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-16": {
+          "grade": 0,
+          "rationale": "Client reports avoiding some other friends’ calls and reaching new people in the neighborhood. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-1",
+            "source_segment_id": "annomi-40-utterance-16",
+            "query_revision": "dca081efdfece8a125585608d5c006c2d84de05681ecf691a178a4bd48f70c8a",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-17": {
+          "grade": 0,
+          "rationale": "Clinician summarizes environmental, behavioral and friendship changes without detailing stress coping. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-1",
+            "source_segment_id": "annomi-40-utterance-17",
+            "query_revision": "dca081efdfece8a125585608d5c006c2d84de05681ecf691a178a4bd48f70c8a",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-18": {
+          "grade": 0,
+          "rationale": "Client confirms new friends and reports using learned breathing exercises and walking to calm stress. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-1",
+            "source_segment_id": "annomi-40-utterance-18",
+            "query_revision": "dca081efdfece8a125585608d5c006c2d84de05681ecf691a178a4bd48f70c8a",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-19": {
+          "grade": 0,
+          "rationale": "Clinician’s unfinished reflection contains no substantive claim. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-1",
+            "source_segment_id": "annomi-40-utterance-19",
+            "query_revision": "dca081efdfece8a125585608d5c006c2d84de05681ecf691a178a4bd48f70c8a",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        }
+      },
+      "query_review": {
+        "reviewer": "Anas",
+        "at": "2026-11-03T13:10:30.372796+00:00",
+        "action": "bulk-accepted-wording",
+        "review_basis": "User explicitly authorized bulk acceptance after inspecting a sample; not individual inspection of every label"
+      }
+    },
+    {
+      "query_id": "ai-v1-annomi-40-2",
+      "conversation_id": "annomi-40",
+      "text": "What changes has the client made in their social contacts?",
+      "intent": "Retrieve avoiding calls from the ex-boyfriend and some friends, and meeting new neighborhood people; do not label every old friend a dealer.",
+      "kind": "paraphrase",
+      "draft": false,
+      "annotation_origin": "ai",
+      "human_review_status": "reviewed",
+      "no_answer_confirmed": false,
+      "substitution_reason": null,
+      "query_revision": "e7840cc304d03a776dcda7eed765d8968bdbfc20077d428336444d71dc2ca3e7",
+      "judgments": {
+        "annomi-40-utterance-0": {
+          "grade": 0,
+          "rationale": "Client reports three months, with its meaning clarified as time since last meth use later. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-2",
+            "source_segment_id": "annomi-40-utterance-0",
+            "query_revision": "e7840cc304d03a776dcda7eed765d8968bdbfc20077d428336444d71dc2ca3e7",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-1": {
+          "grade": 0,
+          "rationale": "Clinician praise adds no interval or coping detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-2",
+            "source_segment_id": "annomi-40-utterance-1",
+            "query_revision": "e7840cc304d03a776dcda7eed765d8968bdbfc20077d428336444d71dc2ca3e7",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-2": {
+          "grade": 0,
+          "rationale": "Client hesitation adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-2",
+            "source_segment_id": "annomi-40-utterance-2",
+            "query_revision": "e7840cc304d03a776dcda7eed765d8968bdbfc20077d428336444d71dc2ca3e7",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-3": {
+          "grade": 0,
+          "rationale": "Clinician explicitly clarifies that the interval refers to last meth use. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-2",
+            "source_segment_id": "annomi-40-utterance-3",
+            "query_revision": "e7840cc304d03a776dcda7eed765d8968bdbfc20077d428336444d71dc2ca3e7",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-4": {
+          "grade": 0,
+          "rationale": "Client affirms the meth-use clarification, anchoring the reported interval. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-2",
+            "source_segment_id": "annomi-40-utterance-4",
+            "query_revision": "e7840cc304d03a776dcda7eed765d8968bdbfc20077d428336444d71dc2ca3e7",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-5": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no interval detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-2",
+            "source_segment_id": "annomi-40-utterance-5",
+            "query_revision": "e7840cc304d03a776dcda7eed765d8968bdbfc20077d428336444d71dc2ca3e7",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-6": {
+          "grade": 0,
+          "rationale": "Client reiterates three months and reports doing well. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-2",
+            "source_segment_id": "annomi-40-utterance-6",
+            "query_revision": "e7840cc304d03a776dcda7eed765d8968bdbfc20077d428336444d71dc2ca3e7",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-7": {
+          "grade": 0,
+          "rationale": "Clinician praise adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-2",
+            "source_segment_id": "annomi-40-utterance-7",
+            "query_revision": "e7840cc304d03a776dcda7eed765d8968bdbfc20077d428336444d71dc2ca3e7",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-8": {
+          "grade": 2,
+          "rationale": "Client reports meeting new friends. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-2",
+            "source_segment_id": "annomi-40-utterance-8",
+            "query_revision": "e7840cc304d03a776dcda7eed765d8968bdbfc20077d428336444d71dc2ca3e7",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-9": {
+          "grade": 0,
+          "rationale": "Clinician praise adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-2",
+            "source_segment_id": "annomi-40-utterance-9",
+            "query_revision": "e7840cc304d03a776dcda7eed765d8968bdbfc20077d428336444d71dc2ca3e7",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-10": {
+          "grade": 0,
+          "rationale": "Client transition adds no substantive information. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-2",
+            "source_segment_id": "annomi-40-utterance-10",
+            "query_revision": "e7840cc304d03a776dcda7eed765d8968bdbfc20077d428336444d71dc2ca3e7",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-11": {
+          "grade": 1,
+          "rationale": "Clinician recalls distancing from the ex-boyfriend and identifies him as the dealer; client confirmation follows. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-2",
+            "source_segment_id": "annomi-40-utterance-11",
+            "query_revision": "e7840cc304d03a776dcda7eed765d8968bdbfc20077d428336444d71dc2ca3e7",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-12": {
+          "grade": 2,
+          "rationale": "Client confirms the preceding account about the ex-boyfriend. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-2",
+            "source_segment_id": "annomi-40-utterance-12",
+            "query_revision": "e7840cc304d03a776dcda7eed765d8968bdbfc20077d428336444d71dc2ca3e7",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-13": {
+          "grade": 1,
+          "rationale": "Clinician asks how distancing is going but supplies no outcome. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-2",
+            "source_segment_id": "annomi-40-utterance-13",
+            "query_revision": "e7840cc304d03a776dcda7eed765d8968bdbfc20077d428336444d71dc2ca3e7",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-14": {
+          "grade": 2,
+          "rationale": "Client reports not answering the ex-boyfriend’s calls and says it has been good. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-2",
+            "source_segment_id": "annomi-40-utterance-14",
+            "query_revision": "e7840cc304d03a776dcda7eed765d8968bdbfc20077d428336444d71dc2ca3e7",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-15": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no contact detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-2",
+            "source_segment_id": "annomi-40-utterance-15",
+            "query_revision": "e7840cc304d03a776dcda7eed765d8968bdbfc20077d428336444d71dc2ca3e7",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-16": {
+          "grade": 2,
+          "rationale": "Client reports avoiding some other friends’ calls and reaching new people in the neighborhood. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-2",
+            "source_segment_id": "annomi-40-utterance-16",
+            "query_revision": "e7840cc304d03a776dcda7eed765d8968bdbfc20077d428336444d71dc2ca3e7",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-17": {
+          "grade": 1,
+          "rationale": "Clinician summarizes environmental, behavioral and friendship changes without detailing stress coping. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-2",
+            "source_segment_id": "annomi-40-utterance-17",
+            "query_revision": "e7840cc304d03a776dcda7eed765d8968bdbfc20077d428336444d71dc2ca3e7",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-18": {
+          "grade": 2,
+          "rationale": "Client confirms new friends and reports using learned breathing exercises and walking to calm stress. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-2",
+            "source_segment_id": "annomi-40-utterance-18",
+            "query_revision": "e7840cc304d03a776dcda7eed765d8968bdbfc20077d428336444d71dc2ca3e7",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-19": {
+          "grade": 0,
+          "rationale": "Clinician’s unfinished reflection contains no substantive claim. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-2",
+            "source_segment_id": "annomi-40-utterance-19",
+            "query_revision": "e7840cc304d03a776dcda7eed765d8968bdbfc20077d428336444d71dc2ca3e7",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        }
+      },
+      "query_review": {
+        "reviewer": "Anas",
+        "at": "2026-11-03T13:10:30.372796+00:00",
+        "action": "bulk-accepted-wording",
+        "review_basis": "User explicitly authorized bulk acceptance after inspecting a sample; not individual inspection of every label"
+      }
+    },
+    {
+      "query_id": "ai-v1-annomi-40-3",
+      "conversation_id": "annomi-40",
+      "text": "What does the client do when stress starts, and how do they describe its effect?",
+      "intent": "Retrieve learned breathing exercises and walking, reportedly calming and helping through the stressful period; exclude unreported treatment outcomes.",
+      "kind": "context",
+      "draft": false,
+      "annotation_origin": "ai",
+      "human_review_status": "reviewed",
+      "no_answer_confirmed": false,
+      "substitution_reason": null,
+      "query_revision": "d77d504b13987f9ae910f399fa6808bf2e505f85253c70b94a3ef9d22d30075d",
+      "judgments": {
+        "annomi-40-utterance-0": {
+          "grade": 0,
+          "rationale": "Client reports three months, with its meaning clarified as time since last meth use later. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-3",
+            "source_segment_id": "annomi-40-utterance-0",
+            "query_revision": "d77d504b13987f9ae910f399fa6808bf2e505f85253c70b94a3ef9d22d30075d",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-1": {
+          "grade": 0,
+          "rationale": "Clinician praise adds no interval or coping detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-3",
+            "source_segment_id": "annomi-40-utterance-1",
+            "query_revision": "d77d504b13987f9ae910f399fa6808bf2e505f85253c70b94a3ef9d22d30075d",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-2": {
+          "grade": 0,
+          "rationale": "Client hesitation adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-3",
+            "source_segment_id": "annomi-40-utterance-2",
+            "query_revision": "d77d504b13987f9ae910f399fa6808bf2e505f85253c70b94a3ef9d22d30075d",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-3": {
+          "grade": 0,
+          "rationale": "Clinician explicitly clarifies that the interval refers to last meth use. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-3",
+            "source_segment_id": "annomi-40-utterance-3",
+            "query_revision": "d77d504b13987f9ae910f399fa6808bf2e505f85253c70b94a3ef9d22d30075d",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-4": {
+          "grade": 0,
+          "rationale": "Client affirms the meth-use clarification, anchoring the reported interval. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-3",
+            "source_segment_id": "annomi-40-utterance-4",
+            "query_revision": "d77d504b13987f9ae910f399fa6808bf2e505f85253c70b94a3ef9d22d30075d",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-5": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no interval detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-3",
+            "source_segment_id": "annomi-40-utterance-5",
+            "query_revision": "d77d504b13987f9ae910f399fa6808bf2e505f85253c70b94a3ef9d22d30075d",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-6": {
+          "grade": 0,
+          "rationale": "Client reiterates three months and reports doing well. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-3",
+            "source_segment_id": "annomi-40-utterance-6",
+            "query_revision": "d77d504b13987f9ae910f399fa6808bf2e505f85253c70b94a3ef9d22d30075d",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-7": {
+          "grade": 0,
+          "rationale": "Clinician praise adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-3",
+            "source_segment_id": "annomi-40-utterance-7",
+            "query_revision": "d77d504b13987f9ae910f399fa6808bf2e505f85253c70b94a3ef9d22d30075d",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-8": {
+          "grade": 0,
+          "rationale": "Client reports meeting new friends. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-3",
+            "source_segment_id": "annomi-40-utterance-8",
+            "query_revision": "d77d504b13987f9ae910f399fa6808bf2e505f85253c70b94a3ef9d22d30075d",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-9": {
+          "grade": 0,
+          "rationale": "Clinician praise adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-3",
+            "source_segment_id": "annomi-40-utterance-9",
+            "query_revision": "d77d504b13987f9ae910f399fa6808bf2e505f85253c70b94a3ef9d22d30075d",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-10": {
+          "grade": 0,
+          "rationale": "Client transition adds no substantive information. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-3",
+            "source_segment_id": "annomi-40-utterance-10",
+            "query_revision": "d77d504b13987f9ae910f399fa6808bf2e505f85253c70b94a3ef9d22d30075d",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-11": {
+          "grade": 0,
+          "rationale": "Clinician recalls distancing from the ex-boyfriend and identifies him as the dealer; client confirmation follows. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-3",
+            "source_segment_id": "annomi-40-utterance-11",
+            "query_revision": "d77d504b13987f9ae910f399fa6808bf2e505f85253c70b94a3ef9d22d30075d",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-12": {
+          "grade": 0,
+          "rationale": "Client confirms the preceding account about the ex-boyfriend. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-3",
+            "source_segment_id": "annomi-40-utterance-12",
+            "query_revision": "d77d504b13987f9ae910f399fa6808bf2e505f85253c70b94a3ef9d22d30075d",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-13": {
+          "grade": 0,
+          "rationale": "Clinician asks how distancing is going but supplies no outcome. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-3",
+            "source_segment_id": "annomi-40-utterance-13",
+            "query_revision": "d77d504b13987f9ae910f399fa6808bf2e505f85253c70b94a3ef9d22d30075d",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-14": {
+          "grade": 0,
+          "rationale": "Client reports not answering the ex-boyfriend’s calls and says it has been good. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-3",
+            "source_segment_id": "annomi-40-utterance-14",
+            "query_revision": "d77d504b13987f9ae910f399fa6808bf2e505f85253c70b94a3ef9d22d30075d",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-15": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no contact detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-3",
+            "source_segment_id": "annomi-40-utterance-15",
+            "query_revision": "d77d504b13987f9ae910f399fa6808bf2e505f85253c70b94a3ef9d22d30075d",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-16": {
+          "grade": 0,
+          "rationale": "Client reports avoiding some other friends’ calls and reaching new people in the neighborhood. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-3",
+            "source_segment_id": "annomi-40-utterance-16",
+            "query_revision": "d77d504b13987f9ae910f399fa6808bf2e505f85253c70b94a3ef9d22d30075d",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-17": {
+          "grade": 0,
+          "rationale": "Clinician summarizes environmental, behavioral and friendship changes without detailing stress coping. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-3",
+            "source_segment_id": "annomi-40-utterance-17",
+            "query_revision": "d77d504b13987f9ae910f399fa6808bf2e505f85253c70b94a3ef9d22d30075d",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-18": {
+          "grade": 2,
+          "rationale": "Client confirms new friends and reports using learned breathing exercises and walking to calm stress. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-3",
+            "source_segment_id": "annomi-40-utterance-18",
+            "query_revision": "d77d504b13987f9ae910f399fa6808bf2e505f85253c70b94a3ef9d22d30075d",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-19": {
+          "grade": 0,
+          "rationale": "Clinician’s unfinished reflection contains no substantive claim. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-3",
+            "source_segment_id": "annomi-40-utterance-19",
+            "query_revision": "d77d504b13987f9ae910f399fa6808bf2e505f85253c70b94a3ef9d22d30075d",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        }
+      },
+      "query_review": {
+        "reviewer": "Anas",
+        "at": "2026-11-03T13:10:30.372796+00:00",
+        "action": "bulk-accepted-wording",
+        "review_basis": "User explicitly authorized bulk acceptance after inspecting a sample; not individual inspection of every label"
+      }
+    },
+    {
+      "query_id": "ai-v1-annomi-40-4",
+      "conversation_id": "annomi-40",
+      "text": "What medication dose is the client taking for cravings?",
+      "intent": "Require a stated medication and dose for cravings; neither appears.",
+      "kind": "no-answer",
+      "draft": false,
+      "annotation_origin": "ai",
+      "human_review_status": "reviewed",
+      "no_answer_confirmed": false,
+      "substitution_reason": null,
+      "query_revision": "df5a504829ac9a6fe7c46f24ba0c1c54c00777ba2de407100f82a0f46908a635",
+      "judgments": {
+        "annomi-40-utterance-0": {
+          "grade": 0,
+          "rationale": "Client reports three months, with its meaning clarified as time since last meth use later. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-4",
+            "source_segment_id": "annomi-40-utterance-0",
+            "query_revision": "df5a504829ac9a6fe7c46f24ba0c1c54c00777ba2de407100f82a0f46908a635",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-1": {
+          "grade": 0,
+          "rationale": "Clinician praise adds no interval or coping detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-4",
+            "source_segment_id": "annomi-40-utterance-1",
+            "query_revision": "df5a504829ac9a6fe7c46f24ba0c1c54c00777ba2de407100f82a0f46908a635",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-2": {
+          "grade": 0,
+          "rationale": "Client hesitation adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-4",
+            "source_segment_id": "annomi-40-utterance-2",
+            "query_revision": "df5a504829ac9a6fe7c46f24ba0c1c54c00777ba2de407100f82a0f46908a635",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-3": {
+          "grade": 0,
+          "rationale": "Clinician explicitly clarifies that the interval refers to last meth use. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-4",
+            "source_segment_id": "annomi-40-utterance-3",
+            "query_revision": "df5a504829ac9a6fe7c46f24ba0c1c54c00777ba2de407100f82a0f46908a635",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-4": {
+          "grade": 0,
+          "rationale": "Client affirms the meth-use clarification, anchoring the reported interval. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-4",
+            "source_segment_id": "annomi-40-utterance-4",
+            "query_revision": "df5a504829ac9a6fe7c46f24ba0c1c54c00777ba2de407100f82a0f46908a635",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-5": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no interval detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-4",
+            "source_segment_id": "annomi-40-utterance-5",
+            "query_revision": "df5a504829ac9a6fe7c46f24ba0c1c54c00777ba2de407100f82a0f46908a635",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-6": {
+          "grade": 0,
+          "rationale": "Client reiterates three months and reports doing well. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-4",
+            "source_segment_id": "annomi-40-utterance-6",
+            "query_revision": "df5a504829ac9a6fe7c46f24ba0c1c54c00777ba2de407100f82a0f46908a635",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-7": {
+          "grade": 0,
+          "rationale": "Clinician praise adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-4",
+            "source_segment_id": "annomi-40-utterance-7",
+            "query_revision": "df5a504829ac9a6fe7c46f24ba0c1c54c00777ba2de407100f82a0f46908a635",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-8": {
+          "grade": 0,
+          "rationale": "Client reports meeting new friends. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-4",
+            "source_segment_id": "annomi-40-utterance-8",
+            "query_revision": "df5a504829ac9a6fe7c46f24ba0c1c54c00777ba2de407100f82a0f46908a635",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-9": {
+          "grade": 0,
+          "rationale": "Clinician praise adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-4",
+            "source_segment_id": "annomi-40-utterance-9",
+            "query_revision": "df5a504829ac9a6fe7c46f24ba0c1c54c00777ba2de407100f82a0f46908a635",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-10": {
+          "grade": 0,
+          "rationale": "Client transition adds no substantive information. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-4",
+            "source_segment_id": "annomi-40-utterance-10",
+            "query_revision": "df5a504829ac9a6fe7c46f24ba0c1c54c00777ba2de407100f82a0f46908a635",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-11": {
+          "grade": 0,
+          "rationale": "Clinician recalls distancing from the ex-boyfriend and identifies him as the dealer; client confirmation follows. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-4",
+            "source_segment_id": "annomi-40-utterance-11",
+            "query_revision": "df5a504829ac9a6fe7c46f24ba0c1c54c00777ba2de407100f82a0f46908a635",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-12": {
+          "grade": 0,
+          "rationale": "Client confirms the preceding account about the ex-boyfriend. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-4",
+            "source_segment_id": "annomi-40-utterance-12",
+            "query_revision": "df5a504829ac9a6fe7c46f24ba0c1c54c00777ba2de407100f82a0f46908a635",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-13": {
+          "grade": 0,
+          "rationale": "Clinician asks how distancing is going but supplies no outcome. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-4",
+            "source_segment_id": "annomi-40-utterance-13",
+            "query_revision": "df5a504829ac9a6fe7c46f24ba0c1c54c00777ba2de407100f82a0f46908a635",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-14": {
+          "grade": 0,
+          "rationale": "Client reports not answering the ex-boyfriend’s calls and says it has been good. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-4",
+            "source_segment_id": "annomi-40-utterance-14",
+            "query_revision": "df5a504829ac9a6fe7c46f24ba0c1c54c00777ba2de407100f82a0f46908a635",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-15": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no contact detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-4",
+            "source_segment_id": "annomi-40-utterance-15",
+            "query_revision": "df5a504829ac9a6fe7c46f24ba0c1c54c00777ba2de407100f82a0f46908a635",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-16": {
+          "grade": 0,
+          "rationale": "Client reports avoiding some other friends’ calls and reaching new people in the neighborhood. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-4",
+            "source_segment_id": "annomi-40-utterance-16",
+            "query_revision": "df5a504829ac9a6fe7c46f24ba0c1c54c00777ba2de407100f82a0f46908a635",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-17": {
+          "grade": 0,
+          "rationale": "Clinician summarizes environmental, behavioral and friendship changes without detailing stress coping. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-4",
+            "source_segment_id": "annomi-40-utterance-17",
+            "query_revision": "df5a504829ac9a6fe7c46f24ba0c1c54c00777ba2de407100f82a0f46908a635",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-18": {
+          "grade": 0,
+          "rationale": "Client confirms new friends and reports using learned breathing exercises and walking to calm stress. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-4",
+            "source_segment_id": "annomi-40-utterance-18",
+            "query_revision": "df5a504829ac9a6fe7c46f24ba0c1c54c00777ba2de407100f82a0f46908a635",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        },
+        "annomi-40-utterance-19": {
+          "grade": 0,
+          "rationale": "Clinician’s unfinished reflection contains no substantive claim. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-40-4",
+            "source_segment_id": "annomi-40-utterance-19",
+            "query_revision": "df5a504829ac9a6fe7c46f24ba0c1c54c00777ba2de407100f82a0f46908a635",
+            "transcript_hash": "9c0bb9169c95859c4ddfd053d3fa1ba30ce639b0fefeeb0f8181d7dff190530e"
+          }
+        }
+      },
+      "query_review": {
+        "reviewer": "Anas",
+        "at": "2026-11-03T13:10:30.372796+00:00",
+        "action": "bulk-accepted-wording",
+        "review_basis": "User explicitly authorized bulk acceptance after inspecting a sample; not individual inspection of every label"
+      }
     }
   ]
 }

@@ -150,3 +150,15 @@ def test_frozen_development_configuration_can_be_applied_to_same_method_on_test(
     assert result['report']['settings']['min_score'] == .3
     assert result['report']['calibration'] == dev['report']['calibration']
     assert result['report']['split'] == 'test'
+
+
+def test_blind_final_form_uses_only_the_research_workspace(research_client):
+    client, store = research_client
+    assert client.get('/api/v1/research/independent-final').status_code == 404
+    path = store.root / 'review-experiments/independent-final/review.html'
+    path.parent.mkdir(parents=True)
+    path.write_text('<!doctype html><h1>Fictional blind packet test</h1>')
+    response = client.get('/api/v1/research/independent-final')
+    assert response.status_code == 200
+    assert response.headers['content-type'].startswith('text/html')
+    assert 'Fictional blind packet test' in response.text

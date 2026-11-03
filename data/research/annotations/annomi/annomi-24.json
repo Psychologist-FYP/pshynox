@@ -327,6 +327,1498 @@
       "intent": "willingness to quit from 1 to 10 scale",
       "draft": false,
       "no_answer_confirmed": false
+    },
+    {
+      "query_id": "ai-v1-annomi-24-1",
+      "conversation_id": "annomi-24",
+      "text": "What brought the client in today?",
+      "intent": "Retrieve the smoke-free workplace change and request for help getting through work; exclude a presumed decision to quit.",
+      "kind": "factual",
+      "draft": false,
+      "annotation_origin": "ai",
+      "human_review_status": "reviewed",
+      "no_answer_confirmed": false,
+      "substitution_reason": null,
+      "query_revision": "43369117d6207c86389816e007c669bc843018331ecfed00cb8e01a7fca9f53f",
+      "judgments": {
+        "annomi-24-utterance-0": {
+          "grade": 0,
+          "rationale": "Opening offer of help contains no reason for attendance or cessation discussion. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-1",
+            "source_segment_id": "annomi-24-utterance-0",
+            "query_revision": "43369117d6207c86389816e007c669bc843018331ecfed00cb8e01a7fca9f53f",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-1": {
+          "grade": 2,
+          "rationale": "Client reports the workplace ban, dissatisfaction and request to cope through the day while continuing smoking. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-1",
+            "source_segment_id": "annomi-24-utterance-1",
+            "query_revision": "43369117d6207c86389816e007c669bc843018331ecfed00cb8e01a7fca9f53f",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-2": {
+          "grade": 1,
+          "rationale": "Clinician reflects the workplace ban and dissatisfaction rather than adding a client report. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-1",
+            "source_segment_id": "annomi-24-utterance-2",
+            "query_revision": "43369117d6207c86389816e007c669bc843018331ecfed00cb8e01a7fca9f53f",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-3": {
+          "grade": 0,
+          "rationale": "Client says smoking is enjoyable and relaxing and explicitly refuses to quit. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-1",
+            "source_segment_id": "annomi-24-utterance-3",
+            "query_revision": "43369117d6207c86389816e007c669bc843018331ecfed00cb8e01a7fca9f53f",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-4": {
+          "grade": 0,
+          "rationale": "Clinician asks about the smoking routine but supplies no answer. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-1",
+            "source_segment_id": "annomi-24-utterance-4",
+            "query_revision": "43369117d6207c86389816e007c669bc843018331ecfed00cb8e01a7fca9f53f",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-5": {
+          "grade": 0,
+          "rationale": "Client reports amount and duration and says they do not want to quit now. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-1",
+            "source_segment_id": "annomi-24-utterance-5",
+            "query_revision": "43369117d6207c86389816e007c669bc843018331ecfed00cb8e01a7fca9f53f",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-6": {
+          "grade": 0,
+          "rationale": "Clinician distinguishes confidence from readiness and reflects reluctance to change. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-1",
+            "source_segment_id": "annomi-24-utterance-6",
+            "query_revision": "43369117d6207c86389816e007c669bc843018331ecfed00cb8e01a7fca9f53f",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-7": {
+          "grade": 0,
+          "rationale": "Client affirms ability to quit, not willingness or a plan. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-1",
+            "source_segment_id": "annomi-24-utterance-7",
+            "query_revision": "43369117d6207c86389816e007c669bc843018331ecfed00cb8e01a7fca9f53f",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-8": {
+          "grade": 0,
+          "rationale": "Clinician asks for the basis of confidence without supplying it. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-1",
+            "source_segment_id": "annomi-24-utterance-8",
+            "query_revision": "43369117d6207c86389816e007c669bc843018331ecfed00cb8e01a7fca9f53f",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-9": {
+          "grade": 0,
+          "rationale": "Client describes smoking for fun and never having attempted cessation. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-1",
+            "source_segment_id": "annomi-24-utterance-9",
+            "query_revision": "43369117d6207c86389816e007c669bc843018331ecfed00cb8e01a7fca9f53f",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-10": {
+          "grade": 0,
+          "rationale": "Readiness-scale question frames the distinction between ability and willingness. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-1",
+            "source_segment_id": "annomi-24-utterance-10",
+            "query_revision": "43369117d6207c86389816e007c669bc843018331ecfed00cb8e01a7fca9f53f",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-11": {
+          "grade": 0,
+          "rationale": "Client rates readiness two and rejects quitting despite the workplace announcement. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-1",
+            "source_segment_id": "annomi-24-utterance-11",
+            "query_revision": "43369117d6207c86389816e007c669bc843018331ecfed00cb8e01a7fca9f53f",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-12": {
+          "grade": 0,
+          "rationale": "Clinician asks why readiness is above the minimum, inviting possibilities for change. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-1",
+            "source_segment_id": "annomi-24-utterance-12",
+            "query_revision": "43369117d6207c86389816e007c669bc843018331ecfed00cb8e01a7fca9f53f",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-13": {
+          "grade": 0,
+          "rationale": "Client allows possible persuasion and asks about aids that could increase willingness. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-1",
+            "source_segment_id": "annomi-24-utterance-13",
+            "query_revision": "43369117d6207c86389816e007c669bc843018331ecfed00cb8e01a7fca9f53f",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-14": {
+          "grade": 0,
+          "rationale": "Clinician describes nicotine replacement and prescribed medicines as available options. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-1",
+            "source_segment_id": "annomi-24-utterance-14",
+            "query_revision": "43369117d6207c86389816e007c669bc843018331ecfed00cb8e01a7fca9f53f",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-15": {
+          "grade": 0,
+          "rationale": "Client says they will do nothing today and views cessation tools as conditional future help. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-1",
+            "source_segment_id": "annomi-24-utterance-15",
+            "query_revision": "43369117d6207c86389816e007c669bc843018331ecfed00cb8e01a7fca9f53f",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-16": {
+          "grade": 0,
+          "rationale": "Clinician asks what could increase readiness rather than claiming a plan exists. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-1",
+            "source_segment_id": "annomi-24-utterance-16",
+            "query_revision": "43369117d6207c86389816e007c669bc843018331ecfed00cb8e01a7fca9f53f",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-17": {
+          "grade": 0,
+          "rationale": "Client says a friend quitting together might help but considers it unlikely soon. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-1",
+            "source_segment_id": "annomi-24-utterance-17",
+            "query_revision": "43369117d6207c86389816e007c669bc843018331ecfed00cb8e01a7fca9f53f",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-18": {
+          "grade": 0,
+          "rationale": "Clinician suggests coworkers may consider quitting after the workplace change; this is a possibility. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-1",
+            "source_segment_id": "annomi-24-utterance-18",
+            "query_revision": "43369117d6207c86389816e007c669bc843018331ecfed00cb8e01a7fca9f53f",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-19": {
+          "grade": 0,
+          "rationale": "Client welcomes considering coworkers but makes no explicit quit commitment. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-1",
+            "source_segment_id": "annomi-24-utterance-19",
+            "query_revision": "43369117d6207c86389816e007c669bc843018331ecfed00cb8e01a7fca9f53f",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-20": {
+          "grade": 1,
+          "rationale": "Clinician summarizes information-seeking and offers help only when the client decides. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-1",
+            "source_segment_id": "annomi-24-utterance-20",
+            "query_revision": "43369117d6207c86389816e007c669bc843018331ecfed00cb8e01a7fca9f53f",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-21": {
+          "grade": 0,
+          "rationale": "Closing thanks adds no cessation detail or commitment. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-1",
+            "source_segment_id": "annomi-24-utterance-21",
+            "query_revision": "43369117d6207c86389816e007c669bc843018331ecfed00cb8e01a7fca9f53f",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        }
+      },
+      "query_review": {
+        "reviewer": "Anas",
+        "at": "2026-11-03T13:10:30.372796+00:00",
+        "action": "bulk-accepted-wording",
+        "review_basis": "User explicitly authorized bulk acceptance after inspecting a sample; not individual inspection of every label"
+      }
+    },
+    {
+      "query_id": "ai-v1-annomi-24-2",
+      "conversation_id": "annomi-24",
+      "text": "What makes stopping smoking unattractive to the client right now?",
+      "intent": "Retrieve enjoyment, relaxation and reluctance to stop; distinguish confidence in ability from readiness.",
+      "kind": "paraphrase",
+      "draft": false,
+      "annotation_origin": "ai",
+      "human_review_status": "reviewed",
+      "no_answer_confirmed": false,
+      "substitution_reason": null,
+      "query_revision": "1568b9cb65f9ee51a040b98987eab549b0d38f35b8730d08017e401e965fb89e",
+      "judgments": {
+        "annomi-24-utterance-0": {
+          "grade": 0,
+          "rationale": "Opening offer of help contains no reason for attendance or cessation discussion. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-2",
+            "source_segment_id": "annomi-24-utterance-0",
+            "query_revision": "1568b9cb65f9ee51a040b98987eab549b0d38f35b8730d08017e401e965fb89e",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-1": {
+          "grade": 2,
+          "rationale": "Client reports the workplace ban, dissatisfaction and request to cope through the day while continuing smoking. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-2",
+            "source_segment_id": "annomi-24-utterance-1",
+            "query_revision": "1568b9cb65f9ee51a040b98987eab549b0d38f35b8730d08017e401e965fb89e",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-2": {
+          "grade": 1,
+          "rationale": "Clinician reflects the workplace ban and dissatisfaction rather than adding a client report. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-2",
+            "source_segment_id": "annomi-24-utterance-2",
+            "query_revision": "1568b9cb65f9ee51a040b98987eab549b0d38f35b8730d08017e401e965fb89e",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-3": {
+          "grade": 2,
+          "rationale": "Client says smoking is enjoyable and relaxing and explicitly refuses to quit. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-2",
+            "source_segment_id": "annomi-24-utterance-3",
+            "query_revision": "1568b9cb65f9ee51a040b98987eab549b0d38f35b8730d08017e401e965fb89e",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-4": {
+          "grade": 0,
+          "rationale": "Clinician asks about the smoking routine but supplies no answer. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-2",
+            "source_segment_id": "annomi-24-utterance-4",
+            "query_revision": "1568b9cb65f9ee51a040b98987eab549b0d38f35b8730d08017e401e965fb89e",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-5": {
+          "grade": 2,
+          "rationale": "Client reports amount and duration and says they do not want to quit now. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-2",
+            "source_segment_id": "annomi-24-utterance-5",
+            "query_revision": "1568b9cb65f9ee51a040b98987eab549b0d38f35b8730d08017e401e965fb89e",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-6": {
+          "grade": 1,
+          "rationale": "Clinician distinguishes confidence from readiness and reflects reluctance to change. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-2",
+            "source_segment_id": "annomi-24-utterance-6",
+            "query_revision": "1568b9cb65f9ee51a040b98987eab549b0d38f35b8730d08017e401e965fb89e",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-7": {
+          "grade": 1,
+          "rationale": "Client affirms ability to quit, not willingness or a plan. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-2",
+            "source_segment_id": "annomi-24-utterance-7",
+            "query_revision": "1568b9cb65f9ee51a040b98987eab549b0d38f35b8730d08017e401e965fb89e",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-8": {
+          "grade": 0,
+          "rationale": "Clinician asks for the basis of confidence without supplying it. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-2",
+            "source_segment_id": "annomi-24-utterance-8",
+            "query_revision": "1568b9cb65f9ee51a040b98987eab549b0d38f35b8730d08017e401e965fb89e",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-9": {
+          "grade": 2,
+          "rationale": "Client describes smoking for fun and never having attempted cessation. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-2",
+            "source_segment_id": "annomi-24-utterance-9",
+            "query_revision": "1568b9cb65f9ee51a040b98987eab549b0d38f35b8730d08017e401e965fb89e",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-10": {
+          "grade": 1,
+          "rationale": "Readiness-scale question frames the distinction between ability and willingness. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-2",
+            "source_segment_id": "annomi-24-utterance-10",
+            "query_revision": "1568b9cb65f9ee51a040b98987eab549b0d38f35b8730d08017e401e965fb89e",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-11": {
+          "grade": 2,
+          "rationale": "Client rates readiness two and rejects quitting despite the workplace announcement. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-2",
+            "source_segment_id": "annomi-24-utterance-11",
+            "query_revision": "1568b9cb65f9ee51a040b98987eab549b0d38f35b8730d08017e401e965fb89e",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-12": {
+          "grade": 0,
+          "rationale": "Clinician asks why readiness is above the minimum, inviting possibilities for change. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-2",
+            "source_segment_id": "annomi-24-utterance-12",
+            "query_revision": "1568b9cb65f9ee51a040b98987eab549b0d38f35b8730d08017e401e965fb89e",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-13": {
+          "grade": 0,
+          "rationale": "Client allows possible persuasion and asks about aids that could increase willingness. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-2",
+            "source_segment_id": "annomi-24-utterance-13",
+            "query_revision": "1568b9cb65f9ee51a040b98987eab549b0d38f35b8730d08017e401e965fb89e",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-14": {
+          "grade": 0,
+          "rationale": "Clinician describes nicotine replacement and prescribed medicines as available options. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-2",
+            "source_segment_id": "annomi-24-utterance-14",
+            "query_revision": "1568b9cb65f9ee51a040b98987eab549b0d38f35b8730d08017e401e965fb89e",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-15": {
+          "grade": 1,
+          "rationale": "Client says they will do nothing today and views cessation tools as conditional future help. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-2",
+            "source_segment_id": "annomi-24-utterance-15",
+            "query_revision": "1568b9cb65f9ee51a040b98987eab549b0d38f35b8730d08017e401e965fb89e",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-16": {
+          "grade": 0,
+          "rationale": "Clinician asks what could increase readiness rather than claiming a plan exists. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-2",
+            "source_segment_id": "annomi-24-utterance-16",
+            "query_revision": "1568b9cb65f9ee51a040b98987eab549b0d38f35b8730d08017e401e965fb89e",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-17": {
+          "grade": 1,
+          "rationale": "Client says a friend quitting together might help but considers it unlikely soon. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-2",
+            "source_segment_id": "annomi-24-utterance-17",
+            "query_revision": "1568b9cb65f9ee51a040b98987eab549b0d38f35b8730d08017e401e965fb89e",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-18": {
+          "grade": 0,
+          "rationale": "Clinician suggests coworkers may consider quitting after the workplace change; this is a possibility. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-2",
+            "source_segment_id": "annomi-24-utterance-18",
+            "query_revision": "1568b9cb65f9ee51a040b98987eab549b0d38f35b8730d08017e401e965fb89e",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-19": {
+          "grade": 0,
+          "rationale": "Client welcomes considering coworkers but makes no explicit quit commitment. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-2",
+            "source_segment_id": "annomi-24-utterance-19",
+            "query_revision": "1568b9cb65f9ee51a040b98987eab549b0d38f35b8730d08017e401e965fb89e",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-20": {
+          "grade": 0,
+          "rationale": "Clinician summarizes information-seeking and offers help only when the client decides. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-2",
+            "source_segment_id": "annomi-24-utterance-20",
+            "query_revision": "1568b9cb65f9ee51a040b98987eab549b0d38f35b8730d08017e401e965fb89e",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-21": {
+          "grade": 0,
+          "rationale": "Closing thanks adds no cessation detail or commitment. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-2",
+            "source_segment_id": "annomi-24-utterance-21",
+            "query_revision": "1568b9cb65f9ee51a040b98987eab549b0d38f35b8730d08017e401e965fb89e",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        }
+      },
+      "query_review": {
+        "reviewer": "Anas",
+        "at": "2026-11-03T13:10:30.372796+00:00",
+        "action": "bulk-accepted-wording",
+        "review_basis": "User explicitly authorized bulk acceptance after inspecting a sample; not individual inspection of every label"
+      }
+    },
+    {
+      "query_id": "ai-v1-annomi-24-3",
+      "conversation_id": "annomi-24",
+      "text": "What support might make quitting more appealing, and has the client committed to it?",
+      "intent": "Retrieve nicotine/medication information, peer support and conditional reactions; exclude treating possibilities as agreed cessation plans.",
+      "kind": "context",
+      "draft": false,
+      "annotation_origin": "ai",
+      "human_review_status": "reviewed",
+      "no_answer_confirmed": false,
+      "substitution_reason": null,
+      "query_revision": "ec5ee18b3bcfc14b8b87c5de06e261630e7228f0582f699f615797efc826a976",
+      "judgments": {
+        "annomi-24-utterance-0": {
+          "grade": 0,
+          "rationale": "Opening offer of help contains no reason for attendance or cessation discussion. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-3",
+            "source_segment_id": "annomi-24-utterance-0",
+            "query_revision": "ec5ee18b3bcfc14b8b87c5de06e261630e7228f0582f699f615797efc826a976",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-1": {
+          "grade": 0,
+          "rationale": "Client reports the workplace ban, dissatisfaction and request to cope through the day while continuing smoking. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-3",
+            "source_segment_id": "annomi-24-utterance-1",
+            "query_revision": "ec5ee18b3bcfc14b8b87c5de06e261630e7228f0582f699f615797efc826a976",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-2": {
+          "grade": 0,
+          "rationale": "Clinician reflects the workplace ban and dissatisfaction rather than adding a client report. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-3",
+            "source_segment_id": "annomi-24-utterance-2",
+            "query_revision": "ec5ee18b3bcfc14b8b87c5de06e261630e7228f0582f699f615797efc826a976",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-3": {
+          "grade": 0,
+          "rationale": "Client says smoking is enjoyable and relaxing and explicitly refuses to quit. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-3",
+            "source_segment_id": "annomi-24-utterance-3",
+            "query_revision": "ec5ee18b3bcfc14b8b87c5de06e261630e7228f0582f699f615797efc826a976",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-4": {
+          "grade": 0,
+          "rationale": "Clinician asks about the smoking routine but supplies no answer. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-3",
+            "source_segment_id": "annomi-24-utterance-4",
+            "query_revision": "ec5ee18b3bcfc14b8b87c5de06e261630e7228f0582f699f615797efc826a976",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-5": {
+          "grade": 0,
+          "rationale": "Client reports amount and duration and says they do not want to quit now. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-3",
+            "source_segment_id": "annomi-24-utterance-5",
+            "query_revision": "ec5ee18b3bcfc14b8b87c5de06e261630e7228f0582f699f615797efc826a976",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-6": {
+          "grade": 1,
+          "rationale": "Clinician distinguishes confidence from readiness and reflects reluctance to change. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-3",
+            "source_segment_id": "annomi-24-utterance-6",
+            "query_revision": "ec5ee18b3bcfc14b8b87c5de06e261630e7228f0582f699f615797efc826a976",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-7": {
+          "grade": 0,
+          "rationale": "Client affirms ability to quit, not willingness or a plan. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-3",
+            "source_segment_id": "annomi-24-utterance-7",
+            "query_revision": "ec5ee18b3bcfc14b8b87c5de06e261630e7228f0582f699f615797efc826a976",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-8": {
+          "grade": 0,
+          "rationale": "Clinician asks for the basis of confidence without supplying it. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-3",
+            "source_segment_id": "annomi-24-utterance-8",
+            "query_revision": "ec5ee18b3bcfc14b8b87c5de06e261630e7228f0582f699f615797efc826a976",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-9": {
+          "grade": 0,
+          "rationale": "Client describes smoking for fun and never having attempted cessation. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-3",
+            "source_segment_id": "annomi-24-utterance-9",
+            "query_revision": "ec5ee18b3bcfc14b8b87c5de06e261630e7228f0582f699f615797efc826a976",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-10": {
+          "grade": 0,
+          "rationale": "Readiness-scale question frames the distinction between ability and willingness. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-3",
+            "source_segment_id": "annomi-24-utterance-10",
+            "query_revision": "ec5ee18b3bcfc14b8b87c5de06e261630e7228f0582f699f615797efc826a976",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-11": {
+          "grade": 0,
+          "rationale": "Client rates readiness two and rejects quitting despite the workplace announcement. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-3",
+            "source_segment_id": "annomi-24-utterance-11",
+            "query_revision": "ec5ee18b3bcfc14b8b87c5de06e261630e7228f0582f699f615797efc826a976",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-12": {
+          "grade": 1,
+          "rationale": "Clinician asks why readiness is above the minimum, inviting possibilities for change. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-3",
+            "source_segment_id": "annomi-24-utterance-12",
+            "query_revision": "ec5ee18b3bcfc14b8b87c5de06e261630e7228f0582f699f615797efc826a976",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-13": {
+          "grade": 2,
+          "rationale": "Client allows possible persuasion and asks about aids that could increase willingness. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-3",
+            "source_segment_id": "annomi-24-utterance-13",
+            "query_revision": "ec5ee18b3bcfc14b8b87c5de06e261630e7228f0582f699f615797efc826a976",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-14": {
+          "grade": 2,
+          "rationale": "Clinician describes nicotine replacement and prescribed medicines as available options. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-3",
+            "source_segment_id": "annomi-24-utterance-14",
+            "query_revision": "ec5ee18b3bcfc14b8b87c5de06e261630e7228f0582f699f615797efc826a976",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-15": {
+          "grade": 2,
+          "rationale": "Client says they will do nothing today and views cessation tools as conditional future help. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-3",
+            "source_segment_id": "annomi-24-utterance-15",
+            "query_revision": "ec5ee18b3bcfc14b8b87c5de06e261630e7228f0582f699f615797efc826a976",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-16": {
+          "grade": 1,
+          "rationale": "Clinician asks what could increase readiness rather than claiming a plan exists. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-3",
+            "source_segment_id": "annomi-24-utterance-16",
+            "query_revision": "ec5ee18b3bcfc14b8b87c5de06e261630e7228f0582f699f615797efc826a976",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-17": {
+          "grade": 2,
+          "rationale": "Client says a friend quitting together might help but considers it unlikely soon. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-3",
+            "source_segment_id": "annomi-24-utterance-17",
+            "query_revision": "ec5ee18b3bcfc14b8b87c5de06e261630e7228f0582f699f615797efc826a976",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-18": {
+          "grade": 2,
+          "rationale": "Clinician suggests coworkers may consider quitting after the workplace change; this is a possibility. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-3",
+            "source_segment_id": "annomi-24-utterance-18",
+            "query_revision": "ec5ee18b3bcfc14b8b87c5de06e261630e7228f0582f699f615797efc826a976",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-19": {
+          "grade": 2,
+          "rationale": "Client welcomes considering coworkers but makes no explicit quit commitment. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-3",
+            "source_segment_id": "annomi-24-utterance-19",
+            "query_revision": "ec5ee18b3bcfc14b8b87c5de06e261630e7228f0582f699f615797efc826a976",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-20": {
+          "grade": 1,
+          "rationale": "Clinician summarizes information-seeking and offers help only when the client decides. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-3",
+            "source_segment_id": "annomi-24-utterance-20",
+            "query_revision": "ec5ee18b3bcfc14b8b87c5de06e261630e7228f0582f699f615797efc826a976",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-21": {
+          "grade": 0,
+          "rationale": "Closing thanks adds no cessation detail or commitment. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-3",
+            "source_segment_id": "annomi-24-utterance-21",
+            "query_revision": "ec5ee18b3bcfc14b8b87c5de06e261630e7228f0582f699f615797efc826a976",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        }
+      },
+      "query_review": {
+        "reviewer": "Anas",
+        "at": "2026-11-03T13:10:30.372796+00:00",
+        "action": "bulk-accepted-wording",
+        "review_basis": "User explicitly authorized bulk acceptance after inspecting a sample; not individual inspection of every label"
+      }
+    },
+    {
+      "query_id": "ai-v1-annomi-24-4",
+      "conversation_id": "annomi-24",
+      "text": "What quit date did the client set?",
+      "intent": "Retrieve an explicit agreed cessation date; no date is stated anywhere. Refusal to act today is not a quit date.",
+      "kind": "no-answer",
+      "draft": false,
+      "annotation_origin": "ai",
+      "human_review_status": "reviewed",
+      "no_answer_confirmed": false,
+      "substitution_reason": null,
+      "query_revision": "e689c93e7b6a4b3a916a7cfbec59f13e9ddd78df080023e51dfcb859ce35bffd",
+      "judgments": {
+        "annomi-24-utterance-0": {
+          "grade": 0,
+          "rationale": "Opening offer of help contains no reason for attendance or cessation discussion. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-4",
+            "source_segment_id": "annomi-24-utterance-0",
+            "query_revision": "e689c93e7b6a4b3a916a7cfbec59f13e9ddd78df080023e51dfcb859ce35bffd",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-1": {
+          "grade": 0,
+          "rationale": "Client reports the workplace ban, dissatisfaction and request to cope through the day while continuing smoking. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-4",
+            "source_segment_id": "annomi-24-utterance-1",
+            "query_revision": "e689c93e7b6a4b3a916a7cfbec59f13e9ddd78df080023e51dfcb859ce35bffd",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-2": {
+          "grade": 0,
+          "rationale": "Clinician reflects the workplace ban and dissatisfaction rather than adding a client report. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-4",
+            "source_segment_id": "annomi-24-utterance-2",
+            "query_revision": "e689c93e7b6a4b3a916a7cfbec59f13e9ddd78df080023e51dfcb859ce35bffd",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-3": {
+          "grade": 0,
+          "rationale": "Client says smoking is enjoyable and relaxing and explicitly refuses to quit. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-4",
+            "source_segment_id": "annomi-24-utterance-3",
+            "query_revision": "e689c93e7b6a4b3a916a7cfbec59f13e9ddd78df080023e51dfcb859ce35bffd",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-4": {
+          "grade": 0,
+          "rationale": "Clinician asks about the smoking routine but supplies no answer. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-4",
+            "source_segment_id": "annomi-24-utterance-4",
+            "query_revision": "e689c93e7b6a4b3a916a7cfbec59f13e9ddd78df080023e51dfcb859ce35bffd",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-5": {
+          "grade": 0,
+          "rationale": "Client reports amount and duration and says they do not want to quit now. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-4",
+            "source_segment_id": "annomi-24-utterance-5",
+            "query_revision": "e689c93e7b6a4b3a916a7cfbec59f13e9ddd78df080023e51dfcb859ce35bffd",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-6": {
+          "grade": 0,
+          "rationale": "Clinician distinguishes confidence from readiness and reflects reluctance to change. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-4",
+            "source_segment_id": "annomi-24-utterance-6",
+            "query_revision": "e689c93e7b6a4b3a916a7cfbec59f13e9ddd78df080023e51dfcb859ce35bffd",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-7": {
+          "grade": 0,
+          "rationale": "Client affirms ability to quit, not willingness or a plan. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-4",
+            "source_segment_id": "annomi-24-utterance-7",
+            "query_revision": "e689c93e7b6a4b3a916a7cfbec59f13e9ddd78df080023e51dfcb859ce35bffd",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-8": {
+          "grade": 0,
+          "rationale": "Clinician asks for the basis of confidence without supplying it. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-4",
+            "source_segment_id": "annomi-24-utterance-8",
+            "query_revision": "e689c93e7b6a4b3a916a7cfbec59f13e9ddd78df080023e51dfcb859ce35bffd",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-9": {
+          "grade": 0,
+          "rationale": "Client describes smoking for fun and never having attempted cessation. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-4",
+            "source_segment_id": "annomi-24-utterance-9",
+            "query_revision": "e689c93e7b6a4b3a916a7cfbec59f13e9ddd78df080023e51dfcb859ce35bffd",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-10": {
+          "grade": 0,
+          "rationale": "Readiness-scale question frames the distinction between ability and willingness. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-4",
+            "source_segment_id": "annomi-24-utterance-10",
+            "query_revision": "e689c93e7b6a4b3a916a7cfbec59f13e9ddd78df080023e51dfcb859ce35bffd",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-11": {
+          "grade": 0,
+          "rationale": "Client rates readiness two and rejects quitting despite the workplace announcement. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-4",
+            "source_segment_id": "annomi-24-utterance-11",
+            "query_revision": "e689c93e7b6a4b3a916a7cfbec59f13e9ddd78df080023e51dfcb859ce35bffd",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-12": {
+          "grade": 0,
+          "rationale": "Clinician asks why readiness is above the minimum, inviting possibilities for change. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-4",
+            "source_segment_id": "annomi-24-utterance-12",
+            "query_revision": "e689c93e7b6a4b3a916a7cfbec59f13e9ddd78df080023e51dfcb859ce35bffd",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-13": {
+          "grade": 0,
+          "rationale": "Client allows possible persuasion and asks about aids that could increase willingness. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-4",
+            "source_segment_id": "annomi-24-utterance-13",
+            "query_revision": "e689c93e7b6a4b3a916a7cfbec59f13e9ddd78df080023e51dfcb859ce35bffd",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-14": {
+          "grade": 0,
+          "rationale": "Clinician describes nicotine replacement and prescribed medicines as available options. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-4",
+            "source_segment_id": "annomi-24-utterance-14",
+            "query_revision": "e689c93e7b6a4b3a916a7cfbec59f13e9ddd78df080023e51dfcb859ce35bffd",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-15": {
+          "grade": 0,
+          "rationale": "Client says they will do nothing today and views cessation tools as conditional future help. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-4",
+            "source_segment_id": "annomi-24-utterance-15",
+            "query_revision": "e689c93e7b6a4b3a916a7cfbec59f13e9ddd78df080023e51dfcb859ce35bffd",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-16": {
+          "grade": 0,
+          "rationale": "Clinician asks what could increase readiness rather than claiming a plan exists. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-4",
+            "source_segment_id": "annomi-24-utterance-16",
+            "query_revision": "e689c93e7b6a4b3a916a7cfbec59f13e9ddd78df080023e51dfcb859ce35bffd",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-17": {
+          "grade": 0,
+          "rationale": "Client says a friend quitting together might help but considers it unlikely soon. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-4",
+            "source_segment_id": "annomi-24-utterance-17",
+            "query_revision": "e689c93e7b6a4b3a916a7cfbec59f13e9ddd78df080023e51dfcb859ce35bffd",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-18": {
+          "grade": 0,
+          "rationale": "Clinician suggests coworkers may consider quitting after the workplace change; this is a possibility. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-4",
+            "source_segment_id": "annomi-24-utterance-18",
+            "query_revision": "e689c93e7b6a4b3a916a7cfbec59f13e9ddd78df080023e51dfcb859ce35bffd",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-19": {
+          "grade": 0,
+          "rationale": "Client welcomes considering coworkers but makes no explicit quit commitment. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-4",
+            "source_segment_id": "annomi-24-utterance-19",
+            "query_revision": "e689c93e7b6a4b3a916a7cfbec59f13e9ddd78df080023e51dfcb859ce35bffd",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-20": {
+          "grade": 0,
+          "rationale": "Clinician summarizes information-seeking and offers help only when the client decides. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-4",
+            "source_segment_id": "annomi-24-utterance-20",
+            "query_revision": "e689c93e7b6a4b3a916a7cfbec59f13e9ddd78df080023e51dfcb859ce35bffd",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        },
+        "annomi-24-utterance-21": {
+          "grade": 0,
+          "rationale": "Closing thanks adds no cessation detail or commitment. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-24-4",
+            "source_segment_id": "annomi-24-utterance-21",
+            "query_revision": "e689c93e7b6a4b3a916a7cfbec59f13e9ddd78df080023e51dfcb859ce35bffd",
+            "transcript_hash": "0ec65463e5af71cb5f205f34bf4bca5989271465b37c4b358e97748ad45addfd"
+          }
+        }
+      },
+      "query_review": {
+        "reviewer": "Anas",
+        "at": "2026-11-03T13:10:30.372796+00:00",
+        "action": "bulk-accepted-wording",
+        "review_basis": "User explicitly authorized bulk acceptance after inspecting a sample; not individual inspection of every label"
+      }
     }
   ]
 }

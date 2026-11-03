@@ -200,6 +200,8 @@ for the pilot, keyboard controls, evaluation, exports and PriMock audio clips.
 For collaborating on the `annotation` branch, see the
 [team annotation workflow](docs/TEAM_ANNOTATION.md): prepared transcripts and
 conversation-level annotation files are shared through Git, including partial progress.
+For AI-label review, direct-evidence metrics, method-specific threshold experiments,
+and the independent human final packet, see [review experiments](docs/RETRIEVAL_REVIEW_EXPERIMENTS.md).
 
 ## Use the workspace
 

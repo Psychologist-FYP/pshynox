@@ -43,6 +43,3354 @@
       "draft": true,
       "no_answer_confirmed": false,
       "judgments": {}
+    },
+    {
+      "query_id": "ai-v1-annomi-50-1",
+      "conversation_id": "annomi-50",
+      "text": "How much coffee does the client say they drink each day?",
+      "intent": "Retrieve the client’s four-cup daily baseline; coworkers’ carafes and any proposed reduction are not the client’s measured intake.",
+      "kind": "factual",
+      "draft": false,
+      "annotation_origin": "ai",
+      "human_review_status": "reviewed",
+      "no_answer_confirmed": false,
+      "substitution_reason": null,
+      "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+      "judgments": {
+        "annomi-50-utterance-0": {
+          "grade": 0,
+          "rationale": "Client reports a doctor’s blood pressure concern and advice to watch caffeine, while personally denying a problem. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-0",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-1": {
+          "grade": 0,
+          "rationale": "Clinician recalls agitation and asks about it; this frames later client reports rather than establishing symptoms. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-1",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-2": {
+          "grade": 0,
+          "rationale": "Client reports jitteriness and bathroom trips alongside wakefulness, awareness and better job performance. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-2",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-3": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-3",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-4": {
+          "grade": 0,
+          "rationale": "Client tentatively concedes high blood pressure without giving a caffeine effect or measurement. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-4",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-5": {
+          "grade": 0,
+          "rationale": "Clinician reflects perceived awareness and performance benefits. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-5",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-6": {
+          "grade": 0,
+          "rationale": "Client affirms the preceding awareness and performance reflection. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-6",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-7": {
+          "grade": 0,
+          "rationale": "Clinician begins reflecting workplace problems with frequent absences from duties. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-7",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-8": {
+          "grade": 0,
+          "rationale": "Client affirms the workplace concern under discussion. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-8",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-9": {
+          "grade": 0,
+          "rationale": "Clinician completes the workplace bathroom-break reflection. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-9",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-10": {
+          "grade": 0,
+          "rationale": "Client says they must remain on duty, explaining why bathroom trips matter. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-10",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-11": {
+          "grade": 0,
+          "rationale": "Clinician includes blood pressure in the summary and checks accuracy. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-11",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-12": {
+          "grade": 0,
+          "rationale": "Client reports jitteriness, reduced happiness and relaxation, yet enjoyment and increased observance. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-12",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-13": {
+          "grade": 1,
+          "rationale": "Clinician asks about coffee frequency, setting up the amount report. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-13",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-14": {
+          "grade": 2,
+          "rationale": "Client explicitly states about four cups a day. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-14",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-15": {
+          "grade": 1,
+          "rationale": "Clinician checks satisfaction with the stated intake, rather than a new measurement. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-15",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-16": {
+          "grade": 0,
+          "rationale": "Client compares night coworkers’ carafes, a relative justification rather than their own intake amount. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-16",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-17": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-17",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-18": {
+          "grade": 0,
+          "rationale": "Client begins speculation about coworkers without giving a personal caffeine effect. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-18",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-19": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-19",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-20": {
+          "grade": 0,
+          "rationale": "Client speculates about coworkers’ bodies, not their own experience. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-20",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-21": {
+          "grade": 0,
+          "rationale": "Clinician suggests reducing intake to address possible problems, not an accomplished reduction. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-21",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-22": {
+          "grade": 0,
+          "rationale": "Client asks what reducing would mean before any commitment. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-22",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-23": {
+          "grade": 0,
+          "rationale": "Clinician clarifies reduction refers to the number of cups. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-23",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-24": {
+          "grade": 0,
+          "rationale": "Client asks how much reduction is being proposed. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-24",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-25": {
+          "grade": 1,
+          "rationale": "Clinician recalls the four-cup baseline and invites the client to choose a reduction. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-25",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-26": {
+          "grade": 1,
+          "rationale": "Client acknowledges the four-cup baseline without choosing a cup yet. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-26",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-27": {
+          "grade": 0,
+          "rationale": "Clinician hesitation adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-27",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-28": {
+          "grade": 0,
+          "rationale": "Client values the morning coffee and preparation ritual, explaining why it should remain. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-28",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-29": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-29",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-30": {
+          "grade": 0,
+          "rationale": "Client enjoys coffee flavor, further qualifying reluctance to drop the morning cup. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-30",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-31": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-31",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-32": {
+          "grade": 0,
+          "rationale": "Client explicitly does not want to give up the morning cup. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-32",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-33": {
+          "grade": 0,
+          "rationale": "Clinician acknowledges the morning-cup preference. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-33",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-34": {
+          "grade": 0,
+          "rationale": "Client hesitation adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-34",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-35": {
+          "grade": 0,
+          "rationale": "Clinician reflects the importance of that cup. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-35",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-36": {
+          "grade": 0,
+          "rationale": "Client affirms the morning cup’s importance. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-36",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-37": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-37",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-38": {
+          "grade": 0,
+          "rationale": "Client values afternoon coffee for sustaining a twelve-hour shift and wants to retain it. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-38",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-39": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-39",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-40": {
+          "grade": 0,
+          "rationale": "Client’s mid-morning statement appears to identify a cup to give up, but wording says get up and needs checking. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-40",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-41": {
+          "grade": 0,
+          "rationale": "Clinician welcomes the preceding proposal without naming the cup again. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-41",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-42": {
+          "grade": 0,
+          "rationale": "Client acknowledges clinician encouragement rather than naming a new plan. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-42",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-43": {
+          "grade": 0,
+          "rationale": "Clinician frames one of four cups as a tentative trial reduction. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-43",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-44": {
+          "grade": 0,
+          "rationale": "Client assents to the tentative one-cup trial in the surrounding exchange. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-44",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-45": {
+          "grade": 0,
+          "rationale": "Clinician clarifies trying to let a cup go for a while and checks agreement. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-45",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-46": {
+          "grade": 0,
+          "rationale": "Client says the proposed trial sounds acceptable. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-46",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-47": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no plan detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-47",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-48": {
+          "grade": 0,
+          "rationale": "Client acknowledges the immediately preceding trial agreement. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-48",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-49": {
+          "grade": 0,
+          "rationale": "Clinician praise adds no plan detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-49",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-50": {
+          "grade": 0,
+          "rationale": "Client expresses ability to try the reduction, not evidence that it has already occurred. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-1",
+            "source_segment_id": "annomi-50-utterance-50",
+            "query_revision": "18941e7dc79f061e43ad412dd2f0f7522e21b37a8576793c7db95ed3bf459914",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        }
+      },
+      "query_review": {
+        "reviewer": "Anas",
+        "at": "2026-11-03T13:10:30.372796+00:00",
+        "action": "bulk-accepted-wording",
+        "review_basis": "User explicitly authorized bulk acceptance after inspecting a sample; not individual inspection of every label"
+      }
+    },
+    {
+      "query_id": "ai-v1-annomi-50-2",
+      "conversation_id": "annomi-50",
+      "text": "What benefits and drawbacks does the client report from coffee?",
+      "intent": "Retrieve alertness, work performance, enjoyment and ritual versus jitteriness, reduced relaxation and bathroom trips; blood pressure is a reported concern, not proven caffeine causation.",
+      "kind": "paraphrase",
+      "draft": false,
+      "annotation_origin": "ai",
+      "human_review_status": "reviewed",
+      "no_answer_confirmed": false,
+      "substitution_reason": null,
+      "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+      "judgments": {
+        "annomi-50-utterance-0": {
+          "grade": 1,
+          "rationale": "Client reports a doctor’s blood pressure concern and advice to watch caffeine, while personally denying a problem. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-0",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-1": {
+          "grade": 1,
+          "rationale": "Clinician recalls agitation and asks about it; this frames later client reports rather than establishing symptoms. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-1",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-2": {
+          "grade": 2,
+          "rationale": "Client reports jitteriness and bathroom trips alongside wakefulness, awareness and better job performance. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-2",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-3": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-3",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-4": {
+          "grade": 1,
+          "rationale": "Client tentatively concedes high blood pressure without giving a caffeine effect or measurement. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-4",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-5": {
+          "grade": 1,
+          "rationale": "Clinician reflects perceived awareness and performance benefits. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-5",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-6": {
+          "grade": 2,
+          "rationale": "Client affirms the preceding awareness and performance reflection. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-6",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-7": {
+          "grade": 1,
+          "rationale": "Clinician begins reflecting workplace problems with frequent absences from duties. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-7",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-8": {
+          "grade": 1,
+          "rationale": "Client affirms the workplace concern under discussion. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-8",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-9": {
+          "grade": 1,
+          "rationale": "Clinician completes the workplace bathroom-break reflection. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-9",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-10": {
+          "grade": 2,
+          "rationale": "Client says they must remain on duty, explaining why bathroom trips matter. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-10",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-11": {
+          "grade": 1,
+          "rationale": "Clinician includes blood pressure in the summary and checks accuracy. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-11",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-12": {
+          "grade": 2,
+          "rationale": "Client reports jitteriness, reduced happiness and relaxation, yet enjoyment and increased observance. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-12",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-13": {
+          "grade": 0,
+          "rationale": "Clinician asks about coffee frequency, setting up the amount report. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-13",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-14": {
+          "grade": 0,
+          "rationale": "Client explicitly states about four cups a day. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-14",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-15": {
+          "grade": 0,
+          "rationale": "Clinician checks satisfaction with the stated intake, rather than a new measurement. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-15",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-16": {
+          "grade": 1,
+          "rationale": "Client compares night coworkers’ carafes, a relative justification rather than their own intake amount. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-16",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-17": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-17",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-18": {
+          "grade": 0,
+          "rationale": "Client begins speculation about coworkers without giving a personal caffeine effect. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-18",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-19": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-19",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-20": {
+          "grade": 0,
+          "rationale": "Client speculates about coworkers’ bodies, not their own experience. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-20",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-21": {
+          "grade": 1,
+          "rationale": "Clinician suggests reducing intake to address possible problems, not an accomplished reduction. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-21",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-22": {
+          "grade": 0,
+          "rationale": "Client asks what reducing would mean before any commitment. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-22",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-23": {
+          "grade": 0,
+          "rationale": "Clinician clarifies reduction refers to the number of cups. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-23",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-24": {
+          "grade": 0,
+          "rationale": "Client asks how much reduction is being proposed. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-24",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-25": {
+          "grade": 0,
+          "rationale": "Clinician recalls the four-cup baseline and invites the client to choose a reduction. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-25",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-26": {
+          "grade": 0,
+          "rationale": "Client acknowledges the four-cup baseline without choosing a cup yet. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-26",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-27": {
+          "grade": 0,
+          "rationale": "Clinician hesitation adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-27",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-28": {
+          "grade": 2,
+          "rationale": "Client values the morning coffee and preparation ritual, explaining why it should remain. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-28",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-29": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-29",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-30": {
+          "grade": 2,
+          "rationale": "Client enjoys coffee flavor, further qualifying reluctance to drop the morning cup. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-30",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-31": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-31",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-32": {
+          "grade": 1,
+          "rationale": "Client explicitly does not want to give up the morning cup. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-32",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-33": {
+          "grade": 0,
+          "rationale": "Clinician acknowledges the morning-cup preference. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-33",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-34": {
+          "grade": 0,
+          "rationale": "Client hesitation adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-34",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-35": {
+          "grade": 1,
+          "rationale": "Clinician reflects the importance of that cup. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-35",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-36": {
+          "grade": 1,
+          "rationale": "Client affirms the morning cup’s importance. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-36",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-37": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-37",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-38": {
+          "grade": 2,
+          "rationale": "Client values afternoon coffee for sustaining a twelve-hour shift and wants to retain it. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-38",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-39": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-39",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-40": {
+          "grade": 0,
+          "rationale": "Client’s mid-morning statement appears to identify a cup to give up, but wording says get up and needs checking. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-40",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-41": {
+          "grade": 0,
+          "rationale": "Clinician welcomes the preceding proposal without naming the cup again. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-41",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-42": {
+          "grade": 0,
+          "rationale": "Client acknowledges clinician encouragement rather than naming a new plan. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-42",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-43": {
+          "grade": 0,
+          "rationale": "Clinician frames one of four cups as a tentative trial reduction. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-43",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-44": {
+          "grade": 0,
+          "rationale": "Client assents to the tentative one-cup trial in the surrounding exchange. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-44",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-45": {
+          "grade": 0,
+          "rationale": "Clinician clarifies trying to let a cup go for a while and checks agreement. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-45",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-46": {
+          "grade": 0,
+          "rationale": "Client says the proposed trial sounds acceptable. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-46",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-47": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no plan detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-47",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-48": {
+          "grade": 0,
+          "rationale": "Client acknowledges the immediately preceding trial agreement. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-48",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-49": {
+          "grade": 0,
+          "rationale": "Clinician praise adds no plan detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-49",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-50": {
+          "grade": 0,
+          "rationale": "Client expresses ability to try the reduction, not evidence that it has already occurred. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-2",
+            "source_segment_id": "annomi-50-utterance-50",
+            "query_revision": "3051b01a5587b25ebebb5972936dfcbbe0655b6b964cb2bfb52b5182e96cc32d",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        }
+      },
+      "query_review": {
+        "reviewer": "Anas",
+        "at": "2026-11-03T13:10:30.372796+00:00",
+        "action": "bulk-accepted-wording",
+        "review_basis": "User explicitly authorized bulk acceptance after inspecting a sample; not individual inspection of every label"
+      }
+    },
+    {
+      "query_id": "ai-v1-annomi-50-3",
+      "conversation_id": "annomi-50",
+      "text": "Which coffee is the client willing to try giving up, and which do they want to keep?",
+      "intent": "Retrieve mid-morning reduction versus morning ritual and afternoon shift support; flag the possibly mistranscribed mid-morning sentence and distinguish trial from completed change.",
+      "kind": "context",
+      "draft": false,
+      "annotation_origin": "ai",
+      "human_review_status": "reviewed",
+      "no_answer_confirmed": false,
+      "substitution_reason": null,
+      "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+      "judgments": {
+        "annomi-50-utterance-0": {
+          "grade": 0,
+          "rationale": "Client reports a doctor’s blood pressure concern and advice to watch caffeine, while personally denying a problem. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-0",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-1": {
+          "grade": 0,
+          "rationale": "Clinician recalls agitation and asks about it; this frames later client reports rather than establishing symptoms. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-1",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-2": {
+          "grade": 0,
+          "rationale": "Client reports jitteriness and bathroom trips alongside wakefulness, awareness and better job performance. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-2",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-3": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-3",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-4": {
+          "grade": 0,
+          "rationale": "Client tentatively concedes high blood pressure without giving a caffeine effect or measurement. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-4",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-5": {
+          "grade": 0,
+          "rationale": "Clinician reflects perceived awareness and performance benefits. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-5",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-6": {
+          "grade": 0,
+          "rationale": "Client affirms the preceding awareness and performance reflection. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-6",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-7": {
+          "grade": 0,
+          "rationale": "Clinician begins reflecting workplace problems with frequent absences from duties. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-7",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-8": {
+          "grade": 0,
+          "rationale": "Client affirms the workplace concern under discussion. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-8",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-9": {
+          "grade": 0,
+          "rationale": "Clinician completes the workplace bathroom-break reflection. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-9",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-10": {
+          "grade": 0,
+          "rationale": "Client says they must remain on duty, explaining why bathroom trips matter. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-10",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-11": {
+          "grade": 0,
+          "rationale": "Clinician includes blood pressure in the summary and checks accuracy. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-11",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-12": {
+          "grade": 0,
+          "rationale": "Client reports jitteriness, reduced happiness and relaxation, yet enjoyment and increased observance. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-12",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-13": {
+          "grade": 0,
+          "rationale": "Clinician asks about coffee frequency, setting up the amount report. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-13",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-14": {
+          "grade": 0,
+          "rationale": "Client explicitly states about four cups a day. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-14",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-15": {
+          "grade": 0,
+          "rationale": "Clinician checks satisfaction with the stated intake, rather than a new measurement. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-15",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-16": {
+          "grade": 0,
+          "rationale": "Client compares night coworkers’ carafes, a relative justification rather than their own intake amount. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-16",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-17": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-17",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-18": {
+          "grade": 0,
+          "rationale": "Client begins speculation about coworkers without giving a personal caffeine effect. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-18",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-19": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-19",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-20": {
+          "grade": 0,
+          "rationale": "Client speculates about coworkers’ bodies, not their own experience. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-20",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-21": {
+          "grade": 1,
+          "rationale": "Clinician suggests reducing intake to address possible problems, not an accomplished reduction. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-21",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-22": {
+          "grade": 1,
+          "rationale": "Client asks what reducing would mean before any commitment. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-22",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-23": {
+          "grade": 1,
+          "rationale": "Clinician clarifies reduction refers to the number of cups. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-23",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-24": {
+          "grade": 1,
+          "rationale": "Client asks how much reduction is being proposed. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-24",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-25": {
+          "grade": 1,
+          "rationale": "Clinician recalls the four-cup baseline and invites the client to choose a reduction. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-25",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-26": {
+          "grade": 0,
+          "rationale": "Client acknowledges the four-cup baseline without choosing a cup yet. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-26",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-27": {
+          "grade": 0,
+          "rationale": "Clinician hesitation adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-27",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-28": {
+          "grade": 2,
+          "rationale": "Client values the morning coffee and preparation ritual, explaining why it should remain. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-28",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-29": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-29",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-30": {
+          "grade": 1,
+          "rationale": "Client enjoys coffee flavor, further qualifying reluctance to drop the morning cup. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-30",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-31": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-31",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-32": {
+          "grade": 2,
+          "rationale": "Client explicitly does not want to give up the morning cup. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-32",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-33": {
+          "grade": 1,
+          "rationale": "Clinician acknowledges the morning-cup preference. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-33",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-34": {
+          "grade": 0,
+          "rationale": "Client hesitation adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-34",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-35": {
+          "grade": 1,
+          "rationale": "Clinician reflects the importance of that cup. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-35",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-36": {
+          "grade": 1,
+          "rationale": "Client affirms the morning cup’s importance. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-36",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-37": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-37",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-38": {
+          "grade": 2,
+          "rationale": "Client values afternoon coffee for sustaining a twelve-hour shift and wants to retain it. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-38",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-39": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-39",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-40": {
+          "grade": 2,
+          "rationale": "Client’s mid-morning statement appears to identify a cup to give up, but wording says get up and needs checking. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-40",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-41": {
+          "grade": 1,
+          "rationale": "Clinician welcomes the preceding proposal without naming the cup again. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-41",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-42": {
+          "grade": 1,
+          "rationale": "Client acknowledges clinician encouragement rather than naming a new plan. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-42",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-43": {
+          "grade": 1,
+          "rationale": "Clinician frames one of four cups as a tentative trial reduction. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-43",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-44": {
+          "grade": 2,
+          "rationale": "Client assents to the tentative one-cup trial in the surrounding exchange. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-44",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-45": {
+          "grade": 1,
+          "rationale": "Clinician clarifies trying to let a cup go for a while and checks agreement. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-45",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-46": {
+          "grade": 2,
+          "rationale": "Client says the proposed trial sounds acceptable. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-46",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-47": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no plan detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-47",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-48": {
+          "grade": 1,
+          "rationale": "Client acknowledges the immediately preceding trial agreement. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-48",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-49": {
+          "grade": 0,
+          "rationale": "Clinician praise adds no plan detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-49",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-50": {
+          "grade": 2,
+          "rationale": "Client expresses ability to try the reduction, not evidence that it has already occurred. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-3",
+            "source_segment_id": "annomi-50-utterance-50",
+            "query_revision": "4b870b2e29aa5e6a10dc380f26fcc3ffe28676dbcd5cb17f8857c123456a146b",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        }
+      },
+      "query_review": {
+        "reviewer": "Anas",
+        "at": "2026-11-03T13:10:30.372796+00:00",
+        "action": "bulk-accepted-wording",
+        "review_basis": "User explicitly authorized bulk acceptance after inspecting a sample; not individual inspection of every label"
+      }
+    },
+    {
+      "query_id": "ai-v1-annomi-50-4",
+      "conversation_id": "annomi-50",
+      "text": "How did the client’s measured blood pressure change after reducing coffee?",
+      "intent": "Require before-and-after measurements following an actual reduction; none are provided.",
+      "kind": "no-answer",
+      "draft": false,
+      "annotation_origin": "ai",
+      "human_review_status": "reviewed",
+      "no_answer_confirmed": false,
+      "substitution_reason": null,
+      "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+      "judgments": {
+        "annomi-50-utterance-0": {
+          "grade": 0,
+          "rationale": "Client reports a doctor’s blood pressure concern and advice to watch caffeine, while personally denying a problem. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-0",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-1": {
+          "grade": 0,
+          "rationale": "Clinician recalls agitation and asks about it; this frames later client reports rather than establishing symptoms. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-1",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-2": {
+          "grade": 0,
+          "rationale": "Client reports jitteriness and bathroom trips alongside wakefulness, awareness and better job performance. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-2",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-3": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-3",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-4": {
+          "grade": 0,
+          "rationale": "Client tentatively concedes high blood pressure without giving a caffeine effect or measurement. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-4",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-5": {
+          "grade": 0,
+          "rationale": "Clinician reflects perceived awareness and performance benefits. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-5",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-6": {
+          "grade": 0,
+          "rationale": "Client affirms the preceding awareness and performance reflection. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-6",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-7": {
+          "grade": 0,
+          "rationale": "Clinician begins reflecting workplace problems with frequent absences from duties. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-7",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-8": {
+          "grade": 0,
+          "rationale": "Client affirms the workplace concern under discussion. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-8",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-9": {
+          "grade": 0,
+          "rationale": "Clinician completes the workplace bathroom-break reflection. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-9",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-10": {
+          "grade": 0,
+          "rationale": "Client says they must remain on duty, explaining why bathroom trips matter. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-10",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-11": {
+          "grade": 0,
+          "rationale": "Clinician includes blood pressure in the summary and checks accuracy. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-11",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-12": {
+          "grade": 0,
+          "rationale": "Client reports jitteriness, reduced happiness and relaxation, yet enjoyment and increased observance. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-12",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-13": {
+          "grade": 0,
+          "rationale": "Clinician asks about coffee frequency, setting up the amount report. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-13",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-14": {
+          "grade": 0,
+          "rationale": "Client explicitly states about four cups a day. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-14",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-15": {
+          "grade": 0,
+          "rationale": "Clinician checks satisfaction with the stated intake, rather than a new measurement. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-15",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-16": {
+          "grade": 0,
+          "rationale": "Client compares night coworkers’ carafes, a relative justification rather than their own intake amount. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-16",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-17": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-17",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-18": {
+          "grade": 0,
+          "rationale": "Client begins speculation about coworkers without giving a personal caffeine effect. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-18",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-19": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-19",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-20": {
+          "grade": 0,
+          "rationale": "Client speculates about coworkers’ bodies, not their own experience. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-20",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-21": {
+          "grade": 0,
+          "rationale": "Clinician suggests reducing intake to address possible problems, not an accomplished reduction. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-21",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-22": {
+          "grade": 0,
+          "rationale": "Client asks what reducing would mean before any commitment. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-22",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-23": {
+          "grade": 0,
+          "rationale": "Clinician clarifies reduction refers to the number of cups. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-23",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-24": {
+          "grade": 0,
+          "rationale": "Client asks how much reduction is being proposed. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-24",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-25": {
+          "grade": 0,
+          "rationale": "Clinician recalls the four-cup baseline and invites the client to choose a reduction. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-25",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-26": {
+          "grade": 0,
+          "rationale": "Client acknowledges the four-cup baseline without choosing a cup yet. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-26",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-27": {
+          "grade": 0,
+          "rationale": "Clinician hesitation adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-27",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-28": {
+          "grade": 0,
+          "rationale": "Client values the morning coffee and preparation ritual, explaining why it should remain. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-28",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-29": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-29",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-30": {
+          "grade": 0,
+          "rationale": "Client enjoys coffee flavor, further qualifying reluctance to drop the morning cup. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-30",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-31": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-31",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-32": {
+          "grade": 0,
+          "rationale": "Client explicitly does not want to give up the morning cup. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-32",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-33": {
+          "grade": 0,
+          "rationale": "Clinician acknowledges the morning-cup preference. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-33",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-34": {
+          "grade": 0,
+          "rationale": "Client hesitation adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-34",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-35": {
+          "grade": 0,
+          "rationale": "Clinician reflects the importance of that cup. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-35",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-36": {
+          "grade": 0,
+          "rationale": "Client affirms the morning cup’s importance. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-36",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-37": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-37",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-38": {
+          "grade": 0,
+          "rationale": "Client values afternoon coffee for sustaining a twelve-hour shift and wants to retain it. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-38",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-39": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-39",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-40": {
+          "grade": 0,
+          "rationale": "Client’s mid-morning statement appears to identify a cup to give up, but wording says get up and needs checking. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-40",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-41": {
+          "grade": 0,
+          "rationale": "Clinician welcomes the preceding proposal without naming the cup again. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-41",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-42": {
+          "grade": 0,
+          "rationale": "Client acknowledges clinician encouragement rather than naming a new plan. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-42",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-43": {
+          "grade": 0,
+          "rationale": "Clinician frames one of four cups as a tentative trial reduction. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-43",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-44": {
+          "grade": 0,
+          "rationale": "Client assents to the tentative one-cup trial in the surrounding exchange. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-44",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-45": {
+          "grade": 0,
+          "rationale": "Clinician clarifies trying to let a cup go for a while and checks agreement. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-45",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-46": {
+          "grade": 0,
+          "rationale": "Client says the proposed trial sounds acceptable. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-46",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-47": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no plan detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-47",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-48": {
+          "grade": 0,
+          "rationale": "Client acknowledges the immediately preceding trial agreement. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-48",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-49": {
+          "grade": 0,
+          "rationale": "Clinician praise adds no plan detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-49",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        },
+        "annomi-50-utterance-50": {
+          "grade": 0,
+          "rationale": "Client expresses ability to try the reduction, not evidence that it has already occurred. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-50-4",
+            "source_segment_id": "annomi-50-utterance-50",
+            "query_revision": "ba2dec531495eb326352916b4a127f3c99a401f9f3610f3bbbcdc33a22802afc",
+            "transcript_hash": "1fe908958d891d67b6a8d03863d03671eb4795a45b9c020e9d87551be084e332"
+          }
+        }
+      },
+      "query_review": {
+        "reviewer": "Anas",
+        "at": "2026-11-03T13:10:30.372796+00:00",
+        "action": "bulk-accepted-wording",
+        "review_basis": "User explicitly authorized bulk acceptance after inspecting a sample; not individual inspection of every label"
+      }
     }
   ]
 }

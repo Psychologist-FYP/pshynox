@@ -147,7 +147,17 @@ class ResearchStore:
         conversation, state = self.conversation(name, cid), self.state(name)
         return {"conversation": conversation, "revision": state["revision"],
                 "queries": [{**q, "progress": progress(q, conversation)} for q in state["queries"] if q["conversation_id"] == cid],
-                "explored": cid in state["explored"]}
+                "explored": cid in state["explored"], "ai_drafts": self.ai_drafts(name, cid), "ai_audit": self.ai_audit(name, cid)}
+
+    def ai_audit(self, name, cid):
+        path = self.root / "review-experiments/audit-results.json"
+        if name != "annomi" or not path.exists():
+            return []
+        return [p for p in json.loads(path.read_text())["correction_proposals"] if p["conversation_id"] == cid]
+
+    def ai_drafts(self, name, cid):
+        from services.retrieval.ai_suggestions import suggestions
+        return suggestions(self, name, cid)
 
     def save_query(self, name, cid, payload):
         conversation = self.conversation(name, cid)
@@ -168,6 +178,14 @@ class ResearchStore:
                 query["judgments"] = {}
                 query["no_answer_confirmed"] = False
             query.update(text=payload["text"], intent=payload["intent"], draft=payload["draft"])
+            if query.get("annotation_origin") == "ai":
+                if not payload["draft"] and not payload.get("reviewer", "").strip():
+                    raise ResearchError("A human reviewer is required to approve AI query wording")
+                query["human_review_status"] = "pending" if payload["draft"] else "query-approved"
+                if not payload["draft"]:
+                    query["query_review"] = {"reviewer": payload["reviewer"], "action": "approved-wording",
+                                            "at": datetime.now(timezone.utc).isoformat()}
+
             if payload.get("no_answer_confirmed"):
                 grades = query["judgments"]
                 if len(grades) != len(conversation["segments"]) or any(j["grade"] != 0 for j in grades.values()):
@@ -200,8 +218,15 @@ class ResearchStore:
                     raise ResearchError("Grade must be 0, 1, 2 or unreviewed")
                 if not payload["reviewer"].strip() or not payload["rationale"].strip():
                     raise ResearchError("Reviewer and rationale are required for each reviewed turn")
-                query["judgments"][sid] = {"grade": payload["grade"], "reviewer": payload["reviewer"],
-                                          "rationale": payload["rationale"], "at": datetime.now(timezone.utc).isoformat()}
+                previous = query["judgments"].get(sid)
+                judgment = {"grade": payload["grade"], "reviewer": payload["reviewer"],
+                            "rationale": payload["rationale"], "at": datetime.now(timezone.utc).isoformat(),
+                            "annotation_origin": "human", "human_review_status": "reviewed", "review_action": "edited" if previous else "individually-labelled"}
+                if previous:
+                    judgment["review_history"] = previous.get("review_history", []) + [{k: v for k, v in previous.items() if k != "review_history"}]
+                    if "ai_reference" in previous:
+                        judgment["ai_reference"] = previous["ai_reference"]
+                query["judgments"][sid] = judgment
             query["no_answer_confirmed"] = False
             query.pop("no_answer_review", None)
         return self.detail(name, cid)
