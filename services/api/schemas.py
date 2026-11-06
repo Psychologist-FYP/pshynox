@@ -1,5 +1,6 @@
 from datetime import date, datetime
 from enum import StrEnum
+from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
@@ -40,6 +41,7 @@ class NoteWorkflowStatus(StrEnum):
 
 
 class Provenance(StrEnum):
+    AI_GENERATED = "AI_GENERATED"
     MANUAL = "MANUAL"
     RETRIEVAL_CANDIDATE = "RETRIEVAL_CANDIDATE"
     TEMPLATE = "TEMPLATE"
@@ -99,6 +101,31 @@ class EvidenceHit(BaseModel):
         return self
 
 
+class GeneratedNoteItem(BaseModel):
+    model_config = ConfigDict(extra='forbid')
+    id: str
+    text: str
+    type: Literal['client_report', 'clinician_observation', 'documented_clinician_assessment', 'ai_proposed_formulation', 'intervention_delivered_or_discussed', 'proposed_plan', 'agreed_plan', 'unknown_or_unresolved']
+    source_ids: list[str]
+    status: Literal['supported','explicit_denial','conflicting']
+    attribution: str
+    timeframe: str
+    uncertainty: str
+    basis: str = ''
+    missing_information: list[str] = Field(default_factory=list)
+    review_status: Literal['pending', 'accepted', 'edited', 'rejected'] = 'pending'
+    review_text: str | None = None
+    review_history: list[dict] = Field(default_factory=list)
+
+
+class FormulationReview(BaseModel):
+    model_config = ConfigDict(extra='forbid', str_strip_whitespace=True)
+    actor: str = Field(min_length=1, max_length=120)
+    action: Literal['accept', 'edit', 'reject']
+    text: str = ''
+    expected_updated_at: datetime
+
+
 class NoteField(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -107,9 +134,10 @@ class NoteField(BaseModel):
     provenance: Provenance
     evidence_ids: list[str]
     review_status: ReviewStatus = ReviewStatus.PENDING
+    generated_items: list[GeneratedNoteItem] = Field(default_factory=list)
 
 
-NOTE_SECTIONS = {"subjective", "objective", "assessment", "plan", "functioning"}
+NOTE_SECTIONS = {"subjective", "objective", "assessment", "plan", "functioning", "progress", "interventions"}
 
 
 class NoteDraft(BaseModel):

@@ -15,7 +15,7 @@ from fastapi import Depends, FastAPI, HTTPException, Query
 from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
-from sqlalchemy import select, func, cast, Integer
+from sqlalchemy import select, func, cast, Integer, update
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from sqlalchemy.orm import Session as DbSession
 
@@ -42,6 +42,7 @@ from services.api.schemas import (
     HealthResponse,
     NoteDraft,
     NoteDraftUpdate,
+    FormulationReview,
     NoteField,
     NOTE_SECTIONS,
     AuditEvent,
@@ -85,6 +86,8 @@ async def lifespan(_: FastAPI):
     try:
         yield
     finally:
+        from services.api.note_generation_routes import shutdown_notes
+        shutdown_notes()
         shutdown_research()
         if worker and worker.poll() is None:
             os.killpg(worker.pid, signal.SIGTERM)
@@ -98,6 +101,8 @@ app = FastAPI(
     lifespan=lifespan,
 )
 app.include_router(build_research_router())
+from services.api.note_generation_routes import router as note_router
+app.include_router(note_router())
 
 
 @app.exception_handler(ResearchError)
@@ -477,6 +482,10 @@ def update_note_draft(session_id: str, payload: NoteDraftUpdate, db: DbSession =
         raise HTTPException(status_code=409, detail={"code": "NOTE_TERMINAL", "message": "A decided note draft is read-only."})
     previous = json.loads(record.fields_json)
     incoming = [field.model_dump(mode="json") for field in payload.fields]
+    old_items = {f['section']: f.get('generated_items',[]) for f in previous if f.get('generated_items')}
+    new_items = {f['section']: f.get('generated_items',[]) for f in incoming if f.get('generated_items')}
+    if old_items != new_items:
+        raise HTTPException(409, detail={'code':'IMMUTABLE_AI_ITEMS','message':'Generated evidence and review history cannot be changed by saving note text. Use the formulation review controls.'})
     if incoming != previous:
         reset_review(record)
     # Saving does not silently clear stale evidence; the explicit confirmation route does.
@@ -488,6 +497,37 @@ def update_note_draft(session_id: str, payload: NoteDraftUpdate, db: DbSession =
     except SQLAlchemyError as exc:
         db.rollback()
         raise HTTPException(status_code=500, detail={"code": "NOTE_PERSISTENCE_FAILED", "message": "The note draft could not be saved."}) from exc
+    return _record_to_draft(record)
+
+
+@app.post('/api/v1/sessions/{session_id}/note-draft/formulations/{item_id}', response_model=NoteDraft)
+def review_formulation(session_id: str, item_id: str, payload: FormulationReview, db: DbSession = Depends(db_dependency)):
+    ensure_no_active_transcription(db,session_id)
+    record=db.scalar(select(NoteDraftRecord).where(NoteDraftRecord.session_id==session_id))
+    if record is None or record.workflow_status!='DRAFT' or record.sources_stale:
+        raise HTTPException(409, detail={'code':'NOTE_NOT_EDITABLE','message':'A current, undecided note is required for formulation review.'})
+    if record.updated_at.replace(tzinfo=None)!=payload.expected_updated_at.replace(tzinfo=None):
+        raise HTTPException(409, detail={'code':'NOTE_CHANGED','message':'The note changed. Reload before reviewing.'})
+    old_json, old_time = record.fields_json, record.updated_at
+    fields=json.loads(old_json)
+    pair=next(((f,i) for f in fields for i in f.get('generated_items',[]) if i['id']==item_id and i['type']=='ai_proposed_formulation'),None)
+    if pair is None: raise HTTPException(404,detail='Proposed formulation not found')
+    field,item=pair
+    if item['review_status']!='pending': raise HTTPException(409,detail='This proposal was already reviewed. Edit the adopted note text instead.')
+    if payload.action=='edit' and not payload.text.strip():raise HTTPException(422,detail='Enter the revised formulation')
+    adopted = payload.text if payload.action=='edit' else item['text'] if payload.action=='accept' else None
+    item['review_status']={'accept':'accepted','edit':'edited','reject':'rejected'}[payload.action]
+    item['review_text']=adopted
+    item['review_history'].append({'actor':payload.actor,'action':payload.action,'at':utc_now().isoformat(),'text':adopted})
+    if adopted:
+        field['text']='\n'.join(v for v in [field['text'].strip(),adopted] if v)
+    field['review_status']='PENDING'
+    now=utc_now()
+    result=db.execute(update(NoteDraftRecord).where(NoteDraftRecord.id==record.id,NoteDraftRecord.updated_at==old_time,NoteDraftRecord.fields_json==old_json,NoteDraftRecord.workflow_status=='DRAFT',NoteDraftRecord.sources_stale==False).values(fields_json=json.dumps(fields),updated_at=now,risk_review_status='PENDING',reviewer_name=None,risk_review_completed_at=None,review_note=None),execution_options={'synchronize_session':False})
+    if result.rowcount!=1:
+        db.rollback();raise HTTPException(409,detail='The note changed during review; reload')
+    _audit(db,session_id,record.id,'FORMULATION_REVIEWED',payload.actor,{'item_id':item_id,'action':payload.action,'original_text':item['text'],'reviewed_text':adopted or ''})
+    db.commit();db.refresh(record)
     return _record_to_draft(record)
 
 
@@ -531,6 +571,8 @@ def approve_note(session_id: str, payload: DecisionRequest, db: DbSession = Depe
         raise HTTPException(status_code=409, detail={"code": "INVALID_DECISION_TRANSITION", "message": "This note draft has already been decided."})
     if record.sources_stale:
         raise HTTPException(409, detail={"code": "STALE_SOURCES", "message": "Source excerpts need review."})
+    if any(i.get('type')=='ai_proposed_formulation' and i.get('review_status','pending')=='pending' for f in json.loads(record.fields_json) for i in f.get('generated_items',[])):
+        raise HTTPException(409,detail={'code':'FORMULATION_REVIEW_REQUIRED','message':'Accept, edit or reject each AI-proposed formulation before approving the note.'})
     if record.risk_review_status != RiskReviewStatus.COMPLETED.value:
         _audit(db, session_id, record.id, "NOTE_APPROVAL_BLOCKED", payload.actor_name.strip(), {"reason": "RISK_REVIEW_REQUIRED"})
         db.commit()

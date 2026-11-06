@@ -41,7 +41,9 @@ def process_one(factory, transcriber=transcribe_with_metrics):
         with open(path, "rb") as source:
             if hashlib.file_digest(source, "sha256").hexdigest() != expected_hash:
                 raise SpeechError("AUDIO_CHANGED", "The stored recording has changed; create a new session.")
-        segments, metrics = transcriber(path, session_id=session_id)
+        from services.note_generation.storage import memory_slot
+        with memory_slot():
+            segments, metrics = transcriber(path, session_id=session_id)
         # Validate the integration boundary independently of the selected adapter.
         from services.api.schemas import TranscriptSegment, SpeakerRole
         segments = [TranscriptSegment.model_validate(s) for s in segments]

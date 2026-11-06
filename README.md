@@ -352,3 +352,7 @@ share the patient invitation with another device on the same Wi-Fi. Both devices
 must trust the generated public CA certificate before using microphone/camera.
 The session supports two participants, chat, separate speaker recordings, and
 minute-by-minute local transcription. See [setup, testing, and limitations](docs/ONLINE_MEETINGS.md).
+
+Local English AI note drafts: [setup, review, measurements and comparison](docs/NOTE_GENERATION.md).
+Start with `./scripts/run.py --no-reload`; research-only demo: `/workspace/research-notes`.
+[NVIDIA Secure Boot diagnosis for this laptop](docs/NVIDIA_LOCAL_FIX.md).

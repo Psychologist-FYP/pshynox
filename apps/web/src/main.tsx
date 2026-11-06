@@ -1,3 +1,4 @@
+import { ResearchNotesPage } from "./features/notes/LocalDraftPanel";
 import { StrictMode, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { LandingPage } from "./features/landing/LandingPage";
@@ -41,6 +42,7 @@ function App() {
   }, []);
   if (!path.startsWith("/workspace")) return <LandingPage health={health} error={healthError} />;
   const parts = path.split("/").filter(Boolean);
+  if (parts[1] === "research-notes") return <ResearchNotesPage />;
   if (parts[1] === "research") return <ResearchPage health={health} />;
   let page;
   if (parts[1] === "sessions" && parts[2]) page = <SessionRoute key={parts[2]} id={parts[2]} health={health} />;
