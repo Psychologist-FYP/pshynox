@@ -1,0 +1,56 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Blind final annotation</title>
+<style>body{font:16px system-ui;max-width:1100px;margin:30px auto;padding:20px;background:#f6f6f3;color:#182b25}label{display:block;margin:12px 0}input,textarea,select,button{font:inherit;padding:8px;max-width:100%;box-sizing:border-box}textarea{width:100%}button{margin:5px}article{background:white;border:1px solid #ccc;padding:16px;margin:12px 0}small{display:block}#message{font-weight:bold}pre{white-space:pre-wrap}</style>
+<h1>Independent blind final annotation</h1>
+<p>Read each full conversation. Write three realistic retrieval questions per conversation and define the intended evidence and exclusions. Include an absent-answer question where the dialogue supports one. Grade every turn yourself: 2 direct evidence, 1 materially useful context, 0 irrelevant. Do not consult AI suggestions or retrieval rankings. The configuration is already frozen.</p>
+<p>This page supplies no query wording or label suggestions. Progress saves in this browser. Download a progress backup before closing or moving devices. A completed export must have every turn graded with a rationale. A second human should check a subset and resolve disagreements before final reporting.</p>
+<label>Your reviewer name <input id="reviewer"></label><label>Conversation <select id="conversation"></select></label>
+<label>Your query <select id="query"></select></label><button id="add">Add a question</button>
+<label>Query wording<textarea id="wording"></textarea></label><label>Intended evidence and exclusions<textarea id="intent"></textarea></label>
+<p>Changing saved query wording or intent clears its grades. Use specific, realistic documentation questions.</p>
+<label><input type="checkbox" id="absence"> I personally reviewed the complete conversation and found no relevant answer to this query.</label>
+<button id="backup">Download progress</button><button id="export">Export completed human labels</button>
+<label>Restore progress <input id="import" type="file" accept="application/json,.json"></label><p id="message" role="status"></p>
+<div id="turns"></div>
+<script>
+const original=__PACKET__;
+const key='pshynox-blind-final-'+original.frozen_config_sha256;
+let data=JSON.parse(localStorage.getItem(key)||JSON.stringify(original));
+const $=id=>document.getElementById(id);let cid=data.conversations[0].conversation_id,qid='';
+const conv=()=>data.conversations.find(c=>c.conversation_id===cid);
+const query=()=>data.queries.find(q=>q.query_id===qid);
+function save(){localStorage.setItem(key,JSON.stringify(data));}
+function message(text){$('message').textContent=text;}
+function option(select,text,value){const o=document.createElement('option');o.textContent=text;o.value=value;select.append(o);}
+for(const c of data.conversations)option($('conversation'),c.conversation_id+' · '+c.segments.length+' turns',c.conversation_id);
+$('reviewer').value=data.reviewer||'';
+$('reviewer').oninput=()=>{data.reviewer=$('reviewer').value;save();};
+function refresh(){
+ const qs=data.queries.filter(q=>q.conversation_id===cid);if(!qs.some(q=>q.query_id===qid))qid=qs[0]?.query_id||'';
+ $('query').replaceChildren();for(const q of qs)option($('query'),q.text||'Write a question',q.query_id);$('query').value=qid;
+ const q=query();$('wording').value=q?.text||'';$('intent').value=q?.intent||'';$('absence').checked=q?.no_answer_confirmed||false;
+ $('wording').disabled=$('intent').disabled=$('absence').disabled=!q;
+ $('turns').replaceChildren();for(const s of conv().segments){
+  const a=document.createElement('article'),head=document.createElement('small'),text=document.createElement('p');head.textContent=s.id+' · '+s.speaker_role;text.textContent=s.text;a.append(head,text);
+  if(q){const j=q.judgments[s.id],grade=document.createElement('select'),why=document.createElement('textarea');
+   option(grade,'Unreviewed','');for(const [g,label]of [[0,'Irrelevant'],[1,'Useful context'],[2,'Direct evidence']])option(grade,g+' · '+label,String(g));grade.value=j?String(j.grade):'';why.placeholder='Your evidence-based rationale';why.value=j?.rationale||'';
+   const change=()=>{if(grade.value==='')delete q.judgments[s.id];else q.judgments[s.id]={grade:Number(grade.value),rationale:why.value};q.no_answer_confirmed=false;$('absence').checked=false;save();};grade.onchange=change;why.oninput=change;a.append(grade,why);}
+  $('turns').append(a);
+ }
+}
+$('conversation').onchange=()=>{cid=$('conversation').value;qid='';refresh();};$('query').onchange=()=>{qid=$('query').value;refresh();};
+$('add').onclick=()=>{const q={query_id:'human-final-'+crypto.randomUUID(),conversation_id:cid,text:'',intent:'',judgments:{},no_answer_confirmed:false};data.queries.push(q);qid=q.query_id;save();refresh();};
+for(const [id,field]of [['wording','text'],['intent','intent']])$(id).onchange=()=>{const q=query();if(!q)return;if(q[field]!==$(id).value){q[field]=$(id).value;q.judgments={};q.no_answer_confirmed=false;save();refresh();}};
+$('absence').onchange=()=>{const q=query();if(!q)return;const complete=conv().segments.every(s=>q.judgments[s.id]?.grade===0);if($('absence').checked&&!complete){$('absence').checked=false;message('Review every turn as grade 0 before confirming absence.');return;}q.no_answer_confirmed=$('absence').checked;save();};
+function download(value,name){const url=URL.createObjectURL(new Blob([JSON.stringify(value,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+$('backup').onclick=()=>download(data,'blind-final-progress.json');
+$('import').onchange=async()=>{try{const imported=JSON.parse(await $('import').files[0].text());if(imported.dataset_hash!==original.dataset_hash||imported.frozen_config_sha256!==original.frozen_config_sha256)throw Error('Packet or frozen configuration mismatch');
+ const known=new Map(original.conversations.map(c=>[c.conversation_id,c]));const seen=new Set();for(const q of imported.queries){if(!known.has(q.conversation_id)||seen.has(q.query_id))throw Error('Unknown conversation or duplicate query');seen.add(q.query_id);const ids=new Set(known.get(q.conversation_id).segments.map(s=>s.id));for(const [id,j]of Object.entries(q.judgments||{}))if(!ids.has(id)||![0,1,2].includes(j.grade))throw Error('Invalid turn or grade');}
+ data={...original,reviewer:imported.reviewer||'',queries:imported.queries};cid=data.conversations[0].conversation_id;qid='';$('conversation').value=cid;$('reviewer').value=data.reviewer;save();refresh();message('Progress restored.');}catch(e){message(e.message);}};
+$('export').onclick=()=>{try{if(!(data.reviewer||'').trim())throw Error('Enter your human reviewer name.');const result={...original,description:'Independent blind human-labelled final evaluation',annotation_status:'Complete independently human-authored labels; inspect reviewer provenance',queries:[],judgments:[]};
+ for(const c of original.conversations){const qs=data.queries.filter(q=>q.conversation_id===c.conversation_id);if(qs.length<3)throw Error('Write at least three questions for '+c.conversation_id);for(const q of qs){if(!q.text.trim()||!q.intent.trim())throw Error('Query wording and intent required.');
+ const allZero=c.segments.every(s=>q.judgments[s.id]?.grade===0);if(allZero&&!q.no_answer_confirmed)throw Error('Explicit full-conversation no-answer confirmation required.');
+ result.queries.push({query_id:q.query_id,conversation_id:q.conversation_id,text:q.text,intent:q.intent,draft:false,no_answer_confirmed:q.no_answer_confirmed,annotation_origin:'human',human_review_status:'reviewed'});
+ for(const s of c.segments){const j=q.judgments[s.id];if(!j||![0,1,2].includes(j.grade)||!j.rationale.trim())throw Error('Grade and rationale required: '+q.query_id+' / '+s.id);result.judgments.push({...j,query_id:q.query_id,conversation_id:c.conversation_id,source_segment_id:s.id,reviewer:data.reviewer,annotation_origin:'human',review_action:'individually-labelled-blind',at:new Date().toISOString()});}}}
+ download(result,'independent-final-labelled.json');message('Completed human labels exported. Run the frozen configuration once; do not tune on final results.');}catch(e){message(e.message);}};
+refresh();
+</script></html>

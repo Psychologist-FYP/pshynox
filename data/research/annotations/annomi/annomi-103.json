@@ -1,0 +1,1220 @@
+{
+  "dataset_version": "46db33abc04a2d80912d9c63a72a242021f3eb8edfd286db89512edebaa083a0",
+  "conversation_id": "annomi-103",
+  "pilot_extra": false,
+  "explored": false,
+  "queries": [
+    {
+      "query_id": "draft-annomi-103-1",
+      "conversation_id": "annomi-103",
+      "text": "\"Well, I didn't do anything\"",
+      "intent": "Find the statement beginning \"Well, I didn't do anything yet. I didn't go-- I know I\"; check other relevant turns too.",
+      "kind": "literal",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    },
+    {
+      "query_id": "draft-annomi-103-2",
+      "conversation_id": "annomi-103",
+      "text": "What is the client explaining in this statement: Well, I didn't do anything yet. I didn't go-- I know I?",
+      "intent": "Draft prompt: rewrite in your own words as a paraphrase of this source before approving; do not copy its wording.",
+      "kind": "paraphrase",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    },
+    {
+      "query_id": "draft-annomi-103-3",
+      "conversation_id": "annomi-103",
+      "text": "What does the client mean by \"Yeah.\"?",
+      "intent": "Interpret the short reply at annomi-103-utterance-1 using surrounding conversation; review all turns for evidence.",
+      "kind": "context",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    },
+    {
+      "query_id": "draft-annomi-103-4",
+      "conversation_id": "annomi-103",
+      "text": "What does the client say about taking a scuba-diving certification course?",
+      "intent": "Draft absent-topic candidate. Read the FULL conversation to verify absence, or replace the query. Absence is not pre-labelled.",
+      "kind": "no-answer-candidate",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    },
+    {
+      "query_id": "ai-v1-annomi-103-1",
+      "conversation_id": "annomi-103",
+      "text": "Which community activities has the client considered, and have they attended?",
+      "intent": "Retrieve YMCA classes and inexpensive yoga at the Women’s Center; distinguish looking into classes from attending.",
+      "kind": "factual",
+      "draft": false,
+      "annotation_origin": "ai",
+      "human_review_status": "reviewed",
+      "no_answer_confirmed": false,
+      "substitution_reason": null,
+      "query_revision": "7566b4d7219ae6c6e5649e958b3b38c8e907cae27fba6dfd2af1ed4479009673",
+      "judgments": {
+        "annomi-103-utterance-0": {
+          "grade": 1,
+          "rationale": "Clinician recalls a prior discussion of community activities rather than completed attendance. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-1",
+            "source_segment_id": "annomi-103-utterance-0",
+            "query_revision": "7566b4d7219ae6c6e5649e958b3b38c8e907cae27fba6dfd2af1ed4479009673",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-1": {
+          "grade": 1,
+          "rationale": "Client acknowledges the earlier activity discussion. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-1",
+            "source_segment_id": "annomi-103-utterance-1",
+            "query_revision": "7566b4d7219ae6c6e5649e958b3b38c8e907cae27fba6dfd2af1ed4479009673",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-2": {
+          "grade": 0,
+          "rationale": "Clinician supplies meeting people as the earlier purpose. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-1",
+            "source_segment_id": "annomi-103-utterance-2",
+            "query_revision": "7566b4d7219ae6c6e5649e958b3b38c8e907cae27fba6dfd2af1ed4479009673",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-3": {
+          "grade": 0,
+          "rationale": "Client tentatively acknowledges that purpose. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-1",
+            "source_segment_id": "annomi-103-utterance-3",
+            "query_revision": "7566b4d7219ae6c6e5649e958b3b38c8e907cae27fba6dfd2af1ed4479009673",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-4": {
+          "grade": 1,
+          "rationale": "Clinician asks for progress but does not report attendance. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-1",
+            "source_segment_id": "annomi-103-utterance-4",
+            "query_revision": "7566b4d7219ae6c6e5649e958b3b38c8e907cae27fba6dfd2af1ed4479009673",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-5": {
+          "grade": 2,
+          "rationale": "Client names classes considered, explicitly denies attending, and describes fear of not being liked or finding friends. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-1",
+            "source_segment_id": "annomi-103-utterance-5",
+            "query_revision": "7566b4d7219ae6c6e5649e958b3b38c8e907cae27fba6dfd2af1ed4479009673",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-6": {
+          "grade": 0,
+          "rationale": "Clinician recalls weighing pros and cons, framing the barrier discussion. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-1",
+            "source_segment_id": "annomi-103-utterance-6",
+            "query_revision": "7566b4d7219ae6c6e5649e958b3b38c8e907cae27fba6dfd2af1ed4479009673",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-7": {
+          "grade": 0,
+          "rationale": "Client acknowledges the preceding pros-and-cons discussion. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-1",
+            "source_segment_id": "annomi-103-utterance-7",
+            "query_revision": "7566b4d7219ae6c6e5649e958b3b38c8e907cae27fba6dfd2af1ed4479009673",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-8": {
+          "grade": 0,
+          "rationale": "Clinician begins naming anxiety as a barrier, reflecting earlier reports. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-1",
+            "source_segment_id": "annomi-103-utterance-8",
+            "query_revision": "7566b4d7219ae6c6e5649e958b3b38c8e907cae27fba6dfd2af1ed4479009673",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-10": {
+          "grade": 0,
+          "rationale": "Clinician completes the description of anxiety as a major disadvantage. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-1",
+            "source_segment_id": "annomi-103-utterance-10",
+            "query_revision": "7566b4d7219ae6c6e5649e958b3b38c8e907cae27fba6dfd2af1ed4479009673",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-9": {
+          "grade": 0,
+          "rationale": "Client agrees with the clinician's characterization of the anxiety barrier. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-1",
+            "source_segment_id": "annomi-103-utterance-9",
+            "query_revision": "7566b4d7219ae6c6e5649e958b3b38c8e907cae27fba6dfd2af1ed4479009673",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-11": {
+          "grade": 0,
+          "rationale": "Client again affirms the barrier described across preceding turns. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-1",
+            "source_segment_id": "annomi-103-utterance-11",
+            "query_revision": "7566b4d7219ae6c6e5649e958b3b38c8e907cae27fba6dfd2af1ed4479009673",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-12": {
+          "grade": 0,
+          "rationale": "Clinician's recollection adds no specific barrier or purpose. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-1",
+            "source_segment_id": "annomi-103-utterance-12",
+            "query_revision": "7566b4d7219ae6c6e5649e958b3b38c8e907cae27fba6dfd2af1ed4479009673",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-13": {
+          "grade": 0,
+          "rationale": "Client intends to participate anyway to make friends, not reporting attendance. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-1",
+            "source_segment_id": "annomi-103-utterance-13",
+            "query_revision": "7566b4d7219ae6c6e5649e958b3b38c8e907cae27fba6dfd2af1ed4479009673",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-14": {
+          "grade": 0,
+          "rationale": "Clinician frames the intention as making a change. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-1",
+            "source_segment_id": "annomi-103-utterance-14",
+            "query_revision": "7566b4d7219ae6c6e5649e958b3b38c8e907cae27fba6dfd2af1ed4479009673",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-15": {
+          "grade": 0,
+          "rationale": "Client acknowledges the change reflection without supplying a new purpose. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-1",
+            "source_segment_id": "annomi-103-utterance-15",
+            "query_revision": "7566b4d7219ae6c6e5649e958b3b38c8e907cae27fba6dfd2af1ed4479009673",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-16": {
+          "grade": 0,
+          "rationale": "Clinician qualifies this as a long-standing desired change. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-1",
+            "source_segment_id": "annomi-103-utterance-16",
+            "query_revision": "7566b4d7219ae6c6e5649e958b3b38c8e907cae27fba6dfd2af1ed4479009673",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        }
+      },
+      "query_review": {
+        "reviewer": "Anas",
+        "at": "2026-11-03T13:10:30.372796+00:00",
+        "action": "bulk-accepted-wording",
+        "review_basis": "User explicitly authorized bulk acceptance after inspecting a sample; not individual inspection of every label"
+      }
+    },
+    {
+      "query_id": "ai-v1-annomi-103-2",
+      "conversation_id": "annomi-103",
+      "text": "What is holding the client back from joining social activities?",
+      "intent": "Retrieve fear of rejection or having no friends; do not infer a diagnosed anxiety disorder.",
+      "kind": "paraphrase",
+      "draft": false,
+      "annotation_origin": "ai",
+      "human_review_status": "reviewed",
+      "no_answer_confirmed": false,
+      "substitution_reason": null,
+      "query_revision": "458ca13781b892480dd6f4828750eb7674b06d71e0d54c5897e08e5d0312902d",
+      "judgments": {
+        "annomi-103-utterance-0": {
+          "grade": 0,
+          "rationale": "Clinician recalls a prior discussion of community activities rather than completed attendance. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-2",
+            "source_segment_id": "annomi-103-utterance-0",
+            "query_revision": "458ca13781b892480dd6f4828750eb7674b06d71e0d54c5897e08e5d0312902d",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-1": {
+          "grade": 0,
+          "rationale": "Client acknowledges the earlier activity discussion. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-2",
+            "source_segment_id": "annomi-103-utterance-1",
+            "query_revision": "458ca13781b892480dd6f4828750eb7674b06d71e0d54c5897e08e5d0312902d",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-2": {
+          "grade": 0,
+          "rationale": "Clinician supplies meeting people as the earlier purpose. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-2",
+            "source_segment_id": "annomi-103-utterance-2",
+            "query_revision": "458ca13781b892480dd6f4828750eb7674b06d71e0d54c5897e08e5d0312902d",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-3": {
+          "grade": 0,
+          "rationale": "Client tentatively acknowledges that purpose. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-2",
+            "source_segment_id": "annomi-103-utterance-3",
+            "query_revision": "458ca13781b892480dd6f4828750eb7674b06d71e0d54c5897e08e5d0312902d",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-4": {
+          "grade": 0,
+          "rationale": "Clinician asks for progress but does not report attendance. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-2",
+            "source_segment_id": "annomi-103-utterance-4",
+            "query_revision": "458ca13781b892480dd6f4828750eb7674b06d71e0d54c5897e08e5d0312902d",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-5": {
+          "grade": 2,
+          "rationale": "Client names classes considered, explicitly denies attending, and describes fear of not being liked or finding friends. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-2",
+            "source_segment_id": "annomi-103-utterance-5",
+            "query_revision": "458ca13781b892480dd6f4828750eb7674b06d71e0d54c5897e08e5d0312902d",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-6": {
+          "grade": 1,
+          "rationale": "Clinician recalls weighing pros and cons, framing the barrier discussion. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-2",
+            "source_segment_id": "annomi-103-utterance-6",
+            "query_revision": "458ca13781b892480dd6f4828750eb7674b06d71e0d54c5897e08e5d0312902d",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-7": {
+          "grade": 1,
+          "rationale": "Client acknowledges the preceding pros-and-cons discussion. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-2",
+            "source_segment_id": "annomi-103-utterance-7",
+            "query_revision": "458ca13781b892480dd6f4828750eb7674b06d71e0d54c5897e08e5d0312902d",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-8": {
+          "grade": 1,
+          "rationale": "Clinician begins naming anxiety as a barrier, reflecting earlier reports. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-2",
+            "source_segment_id": "annomi-103-utterance-8",
+            "query_revision": "458ca13781b892480dd6f4828750eb7674b06d71e0d54c5897e08e5d0312902d",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-10": {
+          "grade": 1,
+          "rationale": "Clinician completes the description of anxiety as a major disadvantage. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-2",
+            "source_segment_id": "annomi-103-utterance-10",
+            "query_revision": "458ca13781b892480dd6f4828750eb7674b06d71e0d54c5897e08e5d0312902d",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-9": {
+          "grade": 2,
+          "rationale": "Client agrees with the clinician's characterization of the anxiety barrier. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-2",
+            "source_segment_id": "annomi-103-utterance-9",
+            "query_revision": "458ca13781b892480dd6f4828750eb7674b06d71e0d54c5897e08e5d0312902d",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-11": {
+          "grade": 2,
+          "rationale": "Client again affirms the barrier described across preceding turns. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-2",
+            "source_segment_id": "annomi-103-utterance-11",
+            "query_revision": "458ca13781b892480dd6f4828750eb7674b06d71e0d54c5897e08e5d0312902d",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-12": {
+          "grade": 0,
+          "rationale": "Clinician's recollection adds no specific barrier or purpose. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-2",
+            "source_segment_id": "annomi-103-utterance-12",
+            "query_revision": "458ca13781b892480dd6f4828750eb7674b06d71e0d54c5897e08e5d0312902d",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-13": {
+          "grade": 1,
+          "rationale": "Client intends to participate anyway to make friends, not reporting attendance. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-2",
+            "source_segment_id": "annomi-103-utterance-13",
+            "query_revision": "458ca13781b892480dd6f4828750eb7674b06d71e0d54c5897e08e5d0312902d",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-14": {
+          "grade": 0,
+          "rationale": "Clinician frames the intention as making a change. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-2",
+            "source_segment_id": "annomi-103-utterance-14",
+            "query_revision": "458ca13781b892480dd6f4828750eb7674b06d71e0d54c5897e08e5d0312902d",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-15": {
+          "grade": 0,
+          "rationale": "Client acknowledges the change reflection without supplying a new purpose. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-2",
+            "source_segment_id": "annomi-103-utterance-15",
+            "query_revision": "458ca13781b892480dd6f4828750eb7674b06d71e0d54c5897e08e5d0312902d",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-16": {
+          "grade": 0,
+          "rationale": "Clinician qualifies this as a long-standing desired change. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-2",
+            "source_segment_id": "annomi-103-utterance-16",
+            "query_revision": "458ca13781b892480dd6f4828750eb7674b06d71e0d54c5897e08e5d0312902d",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        }
+      },
+      "query_review": {
+        "reviewer": "Anas",
+        "at": "2026-11-03T13:10:30.372796+00:00",
+        "action": "bulk-accepted-wording",
+        "review_basis": "User explicitly authorized bulk acceptance after inspecting a sample; not individual inspection of every label"
+      }
+    },
+    {
+      "query_id": "ai-v1-annomi-103-3",
+      "conversation_id": "annomi-103",
+      "text": "Why does the client intend to participate despite their worries?",
+      "intent": "Retrieve the wish to make friends and stated future intention; exclude completed participation.",
+      "kind": "context",
+      "draft": false,
+      "annotation_origin": "ai",
+      "human_review_status": "reviewed",
+      "no_answer_confirmed": false,
+      "substitution_reason": null,
+      "query_revision": "74d25575fb93cecec2300e4ae3564a1233c759da9f8224b37b8b119cfdebd4a7",
+      "judgments": {
+        "annomi-103-utterance-0": {
+          "grade": 1,
+          "rationale": "Clinician recalls a prior discussion of community activities rather than completed attendance. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-3",
+            "source_segment_id": "annomi-103-utterance-0",
+            "query_revision": "74d25575fb93cecec2300e4ae3564a1233c759da9f8224b37b8b119cfdebd4a7",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-1": {
+          "grade": 1,
+          "rationale": "Client acknowledges the earlier activity discussion. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-3",
+            "source_segment_id": "annomi-103-utterance-1",
+            "query_revision": "74d25575fb93cecec2300e4ae3564a1233c759da9f8224b37b8b119cfdebd4a7",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-2": {
+          "grade": 1,
+          "rationale": "Clinician supplies meeting people as the earlier purpose. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-3",
+            "source_segment_id": "annomi-103-utterance-2",
+            "query_revision": "74d25575fb93cecec2300e4ae3564a1233c759da9f8224b37b8b119cfdebd4a7",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-3": {
+          "grade": 1,
+          "rationale": "Client tentatively acknowledges that purpose. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-3",
+            "source_segment_id": "annomi-103-utterance-3",
+            "query_revision": "74d25575fb93cecec2300e4ae3564a1233c759da9f8224b37b8b119cfdebd4a7",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-4": {
+          "grade": 0,
+          "rationale": "Clinician asks for progress but does not report attendance. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-3",
+            "source_segment_id": "annomi-103-utterance-4",
+            "query_revision": "74d25575fb93cecec2300e4ae3564a1233c759da9f8224b37b8b119cfdebd4a7",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-5": {
+          "grade": 0,
+          "rationale": "Client names classes considered, explicitly denies attending, and describes fear of not being liked or finding friends. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-3",
+            "source_segment_id": "annomi-103-utterance-5",
+            "query_revision": "74d25575fb93cecec2300e4ae3564a1233c759da9f8224b37b8b119cfdebd4a7",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-6": {
+          "grade": 0,
+          "rationale": "Clinician recalls weighing pros and cons, framing the barrier discussion. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-3",
+            "source_segment_id": "annomi-103-utterance-6",
+            "query_revision": "74d25575fb93cecec2300e4ae3564a1233c759da9f8224b37b8b119cfdebd4a7",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-7": {
+          "grade": 0,
+          "rationale": "Client acknowledges the preceding pros-and-cons discussion. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-3",
+            "source_segment_id": "annomi-103-utterance-7",
+            "query_revision": "74d25575fb93cecec2300e4ae3564a1233c759da9f8224b37b8b119cfdebd4a7",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-8": {
+          "grade": 0,
+          "rationale": "Clinician begins naming anxiety as a barrier, reflecting earlier reports. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-3",
+            "source_segment_id": "annomi-103-utterance-8",
+            "query_revision": "74d25575fb93cecec2300e4ae3564a1233c759da9f8224b37b8b119cfdebd4a7",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-10": {
+          "grade": 0,
+          "rationale": "Clinician completes the description of anxiety as a major disadvantage. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-3",
+            "source_segment_id": "annomi-103-utterance-10",
+            "query_revision": "74d25575fb93cecec2300e4ae3564a1233c759da9f8224b37b8b119cfdebd4a7",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-9": {
+          "grade": 0,
+          "rationale": "Client agrees with the clinician's characterization of the anxiety barrier. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-3",
+            "source_segment_id": "annomi-103-utterance-9",
+            "query_revision": "74d25575fb93cecec2300e4ae3564a1233c759da9f8224b37b8b119cfdebd4a7",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-11": {
+          "grade": 0,
+          "rationale": "Client again affirms the barrier described across preceding turns. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-3",
+            "source_segment_id": "annomi-103-utterance-11",
+            "query_revision": "74d25575fb93cecec2300e4ae3564a1233c759da9f8224b37b8b119cfdebd4a7",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-12": {
+          "grade": 0,
+          "rationale": "Clinician's recollection adds no specific barrier or purpose. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-3",
+            "source_segment_id": "annomi-103-utterance-12",
+            "query_revision": "74d25575fb93cecec2300e4ae3564a1233c759da9f8224b37b8b119cfdebd4a7",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-13": {
+          "grade": 2,
+          "rationale": "Client intends to participate anyway to make friends, not reporting attendance. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-3",
+            "source_segment_id": "annomi-103-utterance-13",
+            "query_revision": "74d25575fb93cecec2300e4ae3564a1233c759da9f8224b37b8b119cfdebd4a7",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-14": {
+          "grade": 1,
+          "rationale": "Clinician frames the intention as making a change. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-3",
+            "source_segment_id": "annomi-103-utterance-14",
+            "query_revision": "74d25575fb93cecec2300e4ae3564a1233c759da9f8224b37b8b119cfdebd4a7",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-15": {
+          "grade": 1,
+          "rationale": "Client acknowledges the change reflection without supplying a new purpose. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-3",
+            "source_segment_id": "annomi-103-utterance-15",
+            "query_revision": "74d25575fb93cecec2300e4ae3564a1233c759da9f8224b37b8b119cfdebd4a7",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-16": {
+          "grade": 1,
+          "rationale": "Clinician qualifies this as a long-standing desired change. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-3",
+            "source_segment_id": "annomi-103-utterance-16",
+            "query_revision": "74d25575fb93cecec2300e4ae3564a1233c759da9f8224b37b8b119cfdebd4a7",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        }
+      },
+      "query_review": {
+        "reviewer": "Anas",
+        "at": "2026-11-03T13:10:30.372796+00:00",
+        "action": "bulk-accepted-wording",
+        "review_basis": "User explicitly authorized bulk acceptance after inspecting a sample; not individual inspection of every label"
+      }
+    },
+    {
+      "query_id": "ai-v1-annomi-103-4",
+      "conversation_id": "annomi-103",
+      "text": "Which day and time has the client booked for their first yoga class?",
+      "intent": "Require an actual booking with day and time, neither of which is provided.",
+      "kind": "no-answer",
+      "draft": false,
+      "annotation_origin": "ai",
+      "human_review_status": "reviewed",
+      "no_answer_confirmed": false,
+      "substitution_reason": null,
+      "query_revision": "e7a405f5c9ca4d54edc50349491c2a57ae8e3e4ed7ff1bc48b6ae7b8d3171a43",
+      "judgments": {
+        "annomi-103-utterance-0": {
+          "grade": 0,
+          "rationale": "Clinician recalls a prior discussion of community activities rather than completed attendance. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-4",
+            "source_segment_id": "annomi-103-utterance-0",
+            "query_revision": "e7a405f5c9ca4d54edc50349491c2a57ae8e3e4ed7ff1bc48b6ae7b8d3171a43",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-1": {
+          "grade": 0,
+          "rationale": "Client acknowledges the earlier activity discussion. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-4",
+            "source_segment_id": "annomi-103-utterance-1",
+            "query_revision": "e7a405f5c9ca4d54edc50349491c2a57ae8e3e4ed7ff1bc48b6ae7b8d3171a43",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-2": {
+          "grade": 0,
+          "rationale": "Clinician supplies meeting people as the earlier purpose. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-4",
+            "source_segment_id": "annomi-103-utterance-2",
+            "query_revision": "e7a405f5c9ca4d54edc50349491c2a57ae8e3e4ed7ff1bc48b6ae7b8d3171a43",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-3": {
+          "grade": 0,
+          "rationale": "Client tentatively acknowledges that purpose. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-4",
+            "source_segment_id": "annomi-103-utterance-3",
+            "query_revision": "e7a405f5c9ca4d54edc50349491c2a57ae8e3e4ed7ff1bc48b6ae7b8d3171a43",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-4": {
+          "grade": 0,
+          "rationale": "Clinician asks for progress but does not report attendance. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-4",
+            "source_segment_id": "annomi-103-utterance-4",
+            "query_revision": "e7a405f5c9ca4d54edc50349491c2a57ae8e3e4ed7ff1bc48b6ae7b8d3171a43",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-5": {
+          "grade": 0,
+          "rationale": "Client names classes considered, explicitly denies attending, and describes fear of not being liked or finding friends. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-4",
+            "source_segment_id": "annomi-103-utterance-5",
+            "query_revision": "e7a405f5c9ca4d54edc50349491c2a57ae8e3e4ed7ff1bc48b6ae7b8d3171a43",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-6": {
+          "grade": 0,
+          "rationale": "Clinician recalls weighing pros and cons, framing the barrier discussion. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-4",
+            "source_segment_id": "annomi-103-utterance-6",
+            "query_revision": "e7a405f5c9ca4d54edc50349491c2a57ae8e3e4ed7ff1bc48b6ae7b8d3171a43",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-7": {
+          "grade": 0,
+          "rationale": "Client acknowledges the preceding pros-and-cons discussion. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-4",
+            "source_segment_id": "annomi-103-utterance-7",
+            "query_revision": "e7a405f5c9ca4d54edc50349491c2a57ae8e3e4ed7ff1bc48b6ae7b8d3171a43",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-8": {
+          "grade": 0,
+          "rationale": "Clinician begins naming anxiety as a barrier, reflecting earlier reports. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-4",
+            "source_segment_id": "annomi-103-utterance-8",
+            "query_revision": "e7a405f5c9ca4d54edc50349491c2a57ae8e3e4ed7ff1bc48b6ae7b8d3171a43",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-10": {
+          "grade": 0,
+          "rationale": "Clinician completes the description of anxiety as a major disadvantage. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-4",
+            "source_segment_id": "annomi-103-utterance-10",
+            "query_revision": "e7a405f5c9ca4d54edc50349491c2a57ae8e3e4ed7ff1bc48b6ae7b8d3171a43",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-9": {
+          "grade": 0,
+          "rationale": "Client agrees with the clinician's characterization of the anxiety barrier. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-4",
+            "source_segment_id": "annomi-103-utterance-9",
+            "query_revision": "e7a405f5c9ca4d54edc50349491c2a57ae8e3e4ed7ff1bc48b6ae7b8d3171a43",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-11": {
+          "grade": 0,
+          "rationale": "Client again affirms the barrier described across preceding turns. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-4",
+            "source_segment_id": "annomi-103-utterance-11",
+            "query_revision": "e7a405f5c9ca4d54edc50349491c2a57ae8e3e4ed7ff1bc48b6ae7b8d3171a43",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-12": {
+          "grade": 0,
+          "rationale": "Clinician's recollection adds no specific barrier or purpose. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-4",
+            "source_segment_id": "annomi-103-utterance-12",
+            "query_revision": "e7a405f5c9ca4d54edc50349491c2a57ae8e3e4ed7ff1bc48b6ae7b8d3171a43",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-13": {
+          "grade": 0,
+          "rationale": "Client intends to participate anyway to make friends, not reporting attendance. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-4",
+            "source_segment_id": "annomi-103-utterance-13",
+            "query_revision": "e7a405f5c9ca4d54edc50349491c2a57ae8e3e4ed7ff1bc48b6ae7b8d3171a43",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-14": {
+          "grade": 0,
+          "rationale": "Clinician frames the intention as making a change. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-4",
+            "source_segment_id": "annomi-103-utterance-14",
+            "query_revision": "e7a405f5c9ca4d54edc50349491c2a57ae8e3e4ed7ff1bc48b6ae7b8d3171a43",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-15": {
+          "grade": 0,
+          "rationale": "Client acknowledges the change reflection without supplying a new purpose. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-4",
+            "source_segment_id": "annomi-103-utterance-15",
+            "query_revision": "e7a405f5c9ca4d54edc50349491c2a57ae8e3e4ed7ff1bc48b6ae7b8d3171a43",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        },
+        "annomi-103-utterance-16": {
+          "grade": 0,
+          "rationale": "Clinician qualifies this as a long-standing desired change. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-103-4",
+            "source_segment_id": "annomi-103-utterance-16",
+            "query_revision": "e7a405f5c9ca4d54edc50349491c2a57ae8e3e4ed7ff1bc48b6ae7b8d3171a43",
+            "transcript_hash": "f1bbf5175622937168d9835af5cb912941f1b6072b748b83e64c50d33aaac9ac"
+          }
+        }
+      },
+      "query_review": {
+        "reviewer": "Anas",
+        "at": "2026-11-03T13:10:30.372796+00:00",
+        "action": "bulk-accepted-wording",
+        "review_basis": "User explicitly authorized bulk acceptance after inspecting a sample; not individual inspection of every label"
+      }
+    }
+  ]
+}

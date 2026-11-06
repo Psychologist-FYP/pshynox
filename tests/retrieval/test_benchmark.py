@@ -83,3 +83,39 @@ def test_clips_from_one_consultation_cannot_cross_splits(tmp_path):
     path = tmp_path / 'clips.json'; path.write_text(json.dumps(dataset))
     with pytest.raises(ValueError, match='one consultation'):
         load_dataset(path)
+
+
+def test_direct_evidence_metrics_distinguish_context_and_deduplicate():
+    grades = {'direct-a': 2, 'direct-b': 2, 'context': 1, 'zero': 0}
+    context_only = quality_metrics(['context', 'zero'], grades)
+    assert context_only['mrr_at_10'] == 1
+    assert context_only['direct_evidence_hit_at_5'] is False
+    assert context_only['direct_evidence_recall_at_10'] == 0
+    result = quality_metrics(['direct-a', 'direct-a', 'context'], grades)
+    assert result['direct_evidence_hit_at_5'] is True
+    assert result['direct_evidence_recall_at_5'] == .5
+    only_partial = quality_metrics(['context'], {'context': 1})
+    assert only_partial['direct_evidence_hit_at_5'] is None
+    summary = summarize([{'metrics': result}, {'metrics': only_partial}, {'metrics': quality_metrics([], {'zero': 0})}])
+    assert summary['queries_with_direct_evidence'] == 1
+    assert summary['direct_evidence_hit_at_5'] == 1
+    assert summary['direct_evidence_recall_at_10'] == .5
+
+
+def test_frozen_per_method_thresholds_reach_correct_worker(tmp_path, monkeypatch):
+    import sys
+    from pathlib import Path
+    from types import SimpleNamespace
+    from services.retrieval import benchmark
+    fixture = Path(__file__).parent / 'fixtures/engineering.json'
+    config = tmp_path / 'config.json'
+    config.write_text(json.dumps({'methods': ['bm25','e5'], 'settings': {},
+        'calibration': {'split':'dev','dataset_sha256':'example'}, 'per_method_thresholds':{'bm25':2.5,'e5':.75}}))
+    seen={}
+    def run(command, **kwargs):
+        seen[command[command.index('--worker')+1]]=json.loads(command[command.index('--settings')+1])['min_score']
+        return SimpleNamespace(returncode=0,stdout=json.dumps({'status':'measured'}),stderr='')
+    monkeypatch.setattr(benchmark.subprocess,'run',run)
+    monkeypatch.setattr(sys,'argv',['benchmark','--dataset',str(fixture),'--methods','bm25','e5','--config',str(config),'--output',str(tmp_path/'result.json')])
+    benchmark.main()
+    assert seen=={'bm25':2.5,'e5':.75}

@@ -1,0 +1,1796 @@
+{
+  "dataset_version": "46db33abc04a2d80912d9c63a72a242021f3eb8edfd286db89512edebaa083a0",
+  "conversation_id": "annomi-87",
+  "pilot_extra": false,
+  "explored": false,
+  "queries": [
+    {
+      "query_id": "draft-annomi-87-1",
+      "conversation_id": "annomi-87",
+      "text": "\"Um, yeah, I, [sigh] that,\"",
+      "intent": "Find the statement beginning 'Um, yeah, I, [sigh] that, I mean, like, when I was doing'; check other relevant turns too.",
+      "kind": "literal",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    },
+    {
+      "query_id": "draft-annomi-87-2",
+      "conversation_id": "annomi-87",
+      "text": "What is the client explaining in this statement: Um, yeah, I, [sigh] that, I mean, like, when I was doing?",
+      "intent": "Draft prompt: rewrite in your own words as a paraphrase of this source before approving; do not copy its wording.",
+      "kind": "paraphrase",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    },
+    {
+      "query_id": "draft-annomi-87-3",
+      "conversation_id": "annomi-87",
+      "text": "What does the client mean by \"Mm-hmm.\"?",
+      "intent": "Interpret the short reply at annomi-87-utterance-1 using surrounding conversation; review all turns for evidence.",
+      "kind": "context",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    },
+    {
+      "query_id": "draft-annomi-87-4",
+      "conversation_id": "annomi-87",
+      "text": "What does the client say about taking a scuba-diving certification course?",
+      "intent": "Draft absent-topic candidate. Read the FULL conversation to verify absence, or replace the query. Absence is not pre-labelled.",
+      "kind": "no-answer-candidate",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    },
+    {
+      "query_id": "ai-v1-annomi-87-1",
+      "conversation_id": "annomi-87",
+      "text": "What drinking amount and days does the client report to their roommate?",
+      "intent": "Retrieve approximately ten drinks and the Thursday-through-Sunday wording; flag uncertainty over whether ten means total or per drinking day rather than inferring a daily quantity.",
+      "kind": "factual",
+      "draft": false,
+      "annotation_origin": "ai",
+      "human_review_status": "reviewed",
+      "no_answer_confirmed": false,
+      "substitution_reason": null,
+      "query_revision": "1fefe36fa943dcff1da0321903c6a4c9a919af0135c3ad080a350750ac0dd2e9",
+      "judgments": {
+        "annomi-87-utterance-0": {
+          "grade": 0,
+          "rationale": "Clinician explains the interview will provide feedback from last week’s questionnaires. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-1",
+            "source_segment_id": "annomi-87-utterance-0",
+            "query_revision": "1fefe36fa943dcff1da0321903c6a4c9a919af0135c3ad080a350750ac0dd2e9",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-1": {
+          "grade": 0,
+          "rationale": "Client acknowledges the questionnaire-feedback introduction. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-1",
+            "source_segment_id": "annomi-87-utterance-1",
+            "query_revision": "1fefe36fa943dcff1da0321903c6a4c9a919af0135c3ad080a350750ac0dd2e9",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-2": {
+          "grade": 0,
+          "rationale": "Clinician invites discussion and the client’s preferred starting point. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-1",
+            "source_segment_id": "annomi-87-utterance-2",
+            "query_revision": "1fefe36fa943dcff1da0321903c6a4c9a919af0135c3ad080a350750ac0dd2e9",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-3": {
+          "grade": 0,
+          "rationale": "Client says filling forms felt strange because drinking had not seemed a huge issue. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-1",
+            "source_segment_id": "annomi-87-utterance-3",
+            "query_revision": "1fefe36fa943dcff1da0321903c6a4c9a919af0135c3ad080a350750ac0dd2e9",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-4": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no drinking detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-1",
+            "source_segment_id": "annomi-87-utterance-4",
+            "query_revision": "1fefe36fa943dcff1da0321903c6a4c9a919af0135c3ad080a350750ac0dd2e9",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-5": {
+          "grade": 0,
+          "rationale": "Client completes the statement that they had not thought about how much they drink. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-1",
+            "source_segment_id": "annomi-87-utterance-5",
+            "query_revision": "1fefe36fa943dcff1da0321903c6a4c9a919af0135c3ad080a350750ac0dd2e9",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-6": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no drinking detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-1",
+            "source_segment_id": "annomi-87-utterance-6",
+            "query_revision": "1fefe36fa943dcff1da0321903c6a4c9a919af0135c3ad080a350750ac0dd2e9",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-7": {
+          "grade": 0,
+          "rationale": "Client describes surprise while recording daily drinking on the questionnaire without giving amounts. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-1",
+            "source_segment_id": "annomi-87-utterance-7",
+            "query_revision": "1fefe36fa943dcff1da0321903c6a4c9a919af0135c3ad080a350750ac0dd2e9",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-8": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no drinking detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-1",
+            "source_segment_id": "annomi-87-utterance-8",
+            "query_revision": "1fefe36fa943dcff1da0321903c6a4c9a919af0135c3ad080a350750ac0dd2e9",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-9": {
+          "grade": 0,
+          "rationale": "Client realizes counting reveals a large amount previously unconsidered. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-1",
+            "source_segment_id": "annomi-87-utterance-9",
+            "query_revision": "1fefe36fa943dcff1da0321903c6a4c9a919af0135c3ad080a350750ac0dd2e9",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-10": {
+          "grade": 0,
+          "rationale": "Clinician reflects shock at learning about patterns rather than establishing a new quantity. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-1",
+            "source_segment_id": "annomi-87-utterance-10",
+            "query_revision": "1fefe36fa943dcff1da0321903c6a4c9a919af0135c3ad080a350750ac0dd2e9",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-11": {
+          "grade": 2,
+          "rationale": "Client reports about ten drinks with weekend wording including Thursday and Friday, prior peer assumptions and discussion with roommate. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-1",
+            "source_segment_id": "annomi-87-utterance-11",
+            "query_revision": "1fefe36fa943dcff1da0321903c6a4c9a919af0135c3ad080a350750ac0dd2e9",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-12": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no days or amount. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-1",
+            "source_segment_id": "annomi-87-utterance-12",
+            "query_revision": "1fefe36fa943dcff1da0321903c6a4c9a919af0135c3ad080a350750ac0dd2e9",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-13": {
+          "grade": 2,
+          "rationale": "Client completes the sequence of days with Saturday and Sunday. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-1",
+            "source_segment_id": "annomi-87-utterance-13",
+            "query_revision": "1fefe36fa943dcff1da0321903c6a4c9a919af0135c3ad080a350750ac0dd2e9",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-14": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no days or amount. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-1",
+            "source_segment_id": "annomi-87-utterance-14",
+            "query_revision": "1fefe36fa943dcff1da0321903c6a4c9a919af0135c3ad080a350750ac0dd2e9",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-15": {
+          "grade": 0,
+          "rationale": "Client recounts roommate surprise and uncertainty about friends knowing the amount, without a new precise quantity. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-1",
+            "source_segment_id": "annomi-87-utterance-15",
+            "query_revision": "1fefe36fa943dcff1da0321903c6a4c9a919af0135c3ad080a350750ac0dd2e9",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-16": {
+          "grade": 0,
+          "rationale": "Clinician summarizes changed awareness and roommate surprise as reflection of earlier client information. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-1",
+            "source_segment_id": "annomi-87-utterance-16",
+            "query_revision": "1fefe36fa943dcff1da0321903c6a4c9a919af0135c3ad080a350750ac0dd2e9",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-17": {
+          "grade": 0,
+          "rationale": "Client says they thought everyone was doing the same thing. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-1",
+            "source_segment_id": "annomi-87-utterance-17",
+            "query_revision": "1fefe36fa943dcff1da0321903c6a4c9a919af0135c3ad080a350750ac0dd2e9",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-18": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-1",
+            "source_segment_id": "annomi-87-utterance-18",
+            "query_revision": "1fefe36fa943dcff1da0321903c6a4c9a919af0135c3ad080a350750ac0dd2e9",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-19": {
+          "grade": 0,
+          "rationale": "Client explicitly revises the belief that everyone drank similarly. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-1",
+            "source_segment_id": "annomi-87-utterance-19",
+            "query_revision": "1fefe36fa943dcff1da0321903c6a4c9a919af0135c3ad080a350750ac0dd2e9",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-20": {
+          "grade": 0,
+          "rationale": "Clinician checks that standing out from peers had not been considered before. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-1",
+            "source_segment_id": "annomi-87-utterance-20",
+            "query_revision": "1fefe36fa943dcff1da0321903c6a4c9a919af0135c3ad080a350750ac0dd2e9",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-21": {
+          "grade": 0,
+          "rationale": "Client confirms the preceding description of the newly reconsidered peer comparison. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-1",
+            "source_segment_id": "annomi-87-utterance-21",
+            "query_revision": "1fefe36fa943dcff1da0321903c6a4c9a919af0135c3ad080a350750ac0dd2e9",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-22": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-1",
+            "source_segment_id": "annomi-87-utterance-22",
+            "query_revision": "1fefe36fa943dcff1da0321903c6a4c9a919af0135c3ad080a350750ac0dd2e9",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-23": {
+          "grade": 0,
+          "rationale": "Client identifies this realization as the strangest feature of completing the forms. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-1",
+            "source_segment_id": "annomi-87-utterance-23",
+            "query_revision": "1fefe36fa943dcff1da0321903c6a4c9a919af0135c3ad080a350750ac0dd2e9",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-24": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-1",
+            "source_segment_id": "annomi-87-utterance-24",
+            "query_revision": "1fefe36fa943dcff1da0321903c6a4c9a919af0135c3ad080a350750ac0dd2e9",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-25": {
+          "grade": 0,
+          "rationale": "Client completes the prior sentence by naming the forms rather than a new consumption detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-1",
+            "source_segment_id": "annomi-87-utterance-25",
+            "query_revision": "1fefe36fa943dcff1da0321903c6a4c9a919af0135c3ad080a350750ac0dd2e9",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        }
+      },
+      "query_review": {
+        "reviewer": "Anas",
+        "at": "2026-11-03T13:10:30.372796+00:00",
+        "action": "bulk-accepted-wording",
+        "review_basis": "User explicitly authorized bulk acceptance after inspecting a sample; not individual inspection of every label"
+      }
+    },
+    {
+      "query_id": "ai-v1-annomi-87-2",
+      "conversation_id": "annomi-87",
+      "text": "Why had the client not previously regarded their drinking as unusual?",
+      "intent": "Retrieve not counting intake, minimizing the issue and assuming friends drank similarly; exclude verified comparisons of actual peer intake.",
+      "kind": "paraphrase",
+      "draft": false,
+      "annotation_origin": "ai",
+      "human_review_status": "reviewed",
+      "no_answer_confirmed": false,
+      "substitution_reason": null,
+      "query_revision": "a0d067b83842fa719c975819c26484f7cb0120a0b5613a128ae059bf10a82610",
+      "judgments": {
+        "annomi-87-utterance-0": {
+          "grade": 0,
+          "rationale": "Clinician explains the interview will provide feedback from last week’s questionnaires. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-2",
+            "source_segment_id": "annomi-87-utterance-0",
+            "query_revision": "a0d067b83842fa719c975819c26484f7cb0120a0b5613a128ae059bf10a82610",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-1": {
+          "grade": 0,
+          "rationale": "Client acknowledges the questionnaire-feedback introduction. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-2",
+            "source_segment_id": "annomi-87-utterance-1",
+            "query_revision": "a0d067b83842fa719c975819c26484f7cb0120a0b5613a128ae059bf10a82610",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-2": {
+          "grade": 0,
+          "rationale": "Clinician invites discussion and the client’s preferred starting point. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-2",
+            "source_segment_id": "annomi-87-utterance-2",
+            "query_revision": "a0d067b83842fa719c975819c26484f7cb0120a0b5613a128ae059bf10a82610",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-3": {
+          "grade": 2,
+          "rationale": "Client says filling forms felt strange because drinking had not seemed a huge issue. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-2",
+            "source_segment_id": "annomi-87-utterance-3",
+            "query_revision": "a0d067b83842fa719c975819c26484f7cb0120a0b5613a128ae059bf10a82610",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-4": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no drinking detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-2",
+            "source_segment_id": "annomi-87-utterance-4",
+            "query_revision": "a0d067b83842fa719c975819c26484f7cb0120a0b5613a128ae059bf10a82610",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-5": {
+          "grade": 2,
+          "rationale": "Client completes the statement that they had not thought about how much they drink. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-2",
+            "source_segment_id": "annomi-87-utterance-5",
+            "query_revision": "a0d067b83842fa719c975819c26484f7cb0120a0b5613a128ae059bf10a82610",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-6": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no drinking detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-2",
+            "source_segment_id": "annomi-87-utterance-6",
+            "query_revision": "a0d067b83842fa719c975819c26484f7cb0120a0b5613a128ae059bf10a82610",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-7": {
+          "grade": 1,
+          "rationale": "Client describes surprise while recording daily drinking on the questionnaire without giving amounts. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-2",
+            "source_segment_id": "annomi-87-utterance-7",
+            "query_revision": "a0d067b83842fa719c975819c26484f7cb0120a0b5613a128ae059bf10a82610",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-8": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no drinking detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-2",
+            "source_segment_id": "annomi-87-utterance-8",
+            "query_revision": "a0d067b83842fa719c975819c26484f7cb0120a0b5613a128ae059bf10a82610",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-9": {
+          "grade": 2,
+          "rationale": "Client realizes counting reveals a large amount previously unconsidered. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-2",
+            "source_segment_id": "annomi-87-utterance-9",
+            "query_revision": "a0d067b83842fa719c975819c26484f7cb0120a0b5613a128ae059bf10a82610",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-10": {
+          "grade": 0,
+          "rationale": "Clinician reflects shock at learning about patterns rather than establishing a new quantity. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-2",
+            "source_segment_id": "annomi-87-utterance-10",
+            "query_revision": "a0d067b83842fa719c975819c26484f7cb0120a0b5613a128ae059bf10a82610",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-11": {
+          "grade": 2,
+          "rationale": "Client reports about ten drinks with weekend wording including Thursday and Friday, prior peer assumptions and discussion with roommate. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-2",
+            "source_segment_id": "annomi-87-utterance-11",
+            "query_revision": "a0d067b83842fa719c975819c26484f7cb0120a0b5613a128ae059bf10a82610",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-12": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no days or amount. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-2",
+            "source_segment_id": "annomi-87-utterance-12",
+            "query_revision": "a0d067b83842fa719c975819c26484f7cb0120a0b5613a128ae059bf10a82610",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-13": {
+          "grade": 0,
+          "rationale": "Client completes the sequence of days with Saturday and Sunday. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-2",
+            "source_segment_id": "annomi-87-utterance-13",
+            "query_revision": "a0d067b83842fa719c975819c26484f7cb0120a0b5613a128ae059bf10a82610",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-14": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no days or amount. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-2",
+            "source_segment_id": "annomi-87-utterance-14",
+            "query_revision": "a0d067b83842fa719c975819c26484f7cb0120a0b5613a128ae059bf10a82610",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-15": {
+          "grade": 1,
+          "rationale": "Client recounts roommate surprise and uncertainty about friends knowing the amount, without a new precise quantity. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-2",
+            "source_segment_id": "annomi-87-utterance-15",
+            "query_revision": "a0d067b83842fa719c975819c26484f7cb0120a0b5613a128ae059bf10a82610",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-16": {
+          "grade": 1,
+          "rationale": "Clinician summarizes changed awareness and roommate surprise as reflection of earlier client information. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-2",
+            "source_segment_id": "annomi-87-utterance-16",
+            "query_revision": "a0d067b83842fa719c975819c26484f7cb0120a0b5613a128ae059bf10a82610",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-17": {
+          "grade": 2,
+          "rationale": "Client says they thought everyone was doing the same thing. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-2",
+            "source_segment_id": "annomi-87-utterance-17",
+            "query_revision": "a0d067b83842fa719c975819c26484f7cb0120a0b5613a128ae059bf10a82610",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-18": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-2",
+            "source_segment_id": "annomi-87-utterance-18",
+            "query_revision": "a0d067b83842fa719c975819c26484f7cb0120a0b5613a128ae059bf10a82610",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-19": {
+          "grade": 2,
+          "rationale": "Client explicitly revises the belief that everyone drank similarly. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-2",
+            "source_segment_id": "annomi-87-utterance-19",
+            "query_revision": "a0d067b83842fa719c975819c26484f7cb0120a0b5613a128ae059bf10a82610",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-20": {
+          "grade": 1,
+          "rationale": "Clinician checks that standing out from peers had not been considered before. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-2",
+            "source_segment_id": "annomi-87-utterance-20",
+            "query_revision": "a0d067b83842fa719c975819c26484f7cb0120a0b5613a128ae059bf10a82610",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-21": {
+          "grade": 2,
+          "rationale": "Client confirms the preceding description of the newly reconsidered peer comparison. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-2",
+            "source_segment_id": "annomi-87-utterance-21",
+            "query_revision": "a0d067b83842fa719c975819c26484f7cb0120a0b5613a128ae059bf10a82610",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-22": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-2",
+            "source_segment_id": "annomi-87-utterance-22",
+            "query_revision": "a0d067b83842fa719c975819c26484f7cb0120a0b5613a128ae059bf10a82610",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-23": {
+          "grade": 0,
+          "rationale": "Client identifies this realization as the strangest feature of completing the forms. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-2",
+            "source_segment_id": "annomi-87-utterance-23",
+            "query_revision": "a0d067b83842fa719c975819c26484f7cb0120a0b5613a128ae059bf10a82610",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-24": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-2",
+            "source_segment_id": "annomi-87-utterance-24",
+            "query_revision": "a0d067b83842fa719c975819c26484f7cb0120a0b5613a128ae059bf10a82610",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-25": {
+          "grade": 0,
+          "rationale": "Client completes the prior sentence by naming the forms rather than a new consumption detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-2",
+            "source_segment_id": "annomi-87-utterance-25",
+            "query_revision": "a0d067b83842fa719c975819c26484f7cb0120a0b5613a128ae059bf10a82610",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        }
+      },
+      "query_review": {
+        "reviewer": "Anas",
+        "at": "2026-11-03T13:10:30.372796+00:00",
+        "action": "bulk-accepted-wording",
+        "review_basis": "User explicitly authorized bulk acceptance after inspecting a sample; not individual inspection of every label"
+      }
+    },
+    {
+      "query_id": "ai-v1-annomi-87-3",
+      "conversation_id": "annomi-87",
+      "text": "How did the questionnaires and roommate conversation change the client’s view of drinking?",
+      "intent": "Retrieve surprise on counting, the roommate’s reaction and reconsideration of peer similarity; this is insight, not an agreed reduction plan.",
+      "kind": "context",
+      "draft": false,
+      "annotation_origin": "ai",
+      "human_review_status": "reviewed",
+      "no_answer_confirmed": false,
+      "substitution_reason": null,
+      "query_revision": "d446817b075ee5a319891f0eadcff60818ae3cb8850ce9e7373bf474abd0e969",
+      "judgments": {
+        "annomi-87-utterance-0": {
+          "grade": 1,
+          "rationale": "Clinician explains the interview will provide feedback from last week’s questionnaires. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-3",
+            "source_segment_id": "annomi-87-utterance-0",
+            "query_revision": "d446817b075ee5a319891f0eadcff60818ae3cb8850ce9e7373bf474abd0e969",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-1": {
+          "grade": 1,
+          "rationale": "Client acknowledges the questionnaire-feedback introduction. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-3",
+            "source_segment_id": "annomi-87-utterance-1",
+            "query_revision": "d446817b075ee5a319891f0eadcff60818ae3cb8850ce9e7373bf474abd0e969",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-2": {
+          "grade": 1,
+          "rationale": "Clinician invites discussion and the client’s preferred starting point. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-3",
+            "source_segment_id": "annomi-87-utterance-2",
+            "query_revision": "d446817b075ee5a319891f0eadcff60818ae3cb8850ce9e7373bf474abd0e969",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-3": {
+          "grade": 2,
+          "rationale": "Client says filling forms felt strange because drinking had not seemed a huge issue. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-3",
+            "source_segment_id": "annomi-87-utterance-3",
+            "query_revision": "d446817b075ee5a319891f0eadcff60818ae3cb8850ce9e7373bf474abd0e969",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-4": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no drinking detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-3",
+            "source_segment_id": "annomi-87-utterance-4",
+            "query_revision": "d446817b075ee5a319891f0eadcff60818ae3cb8850ce9e7373bf474abd0e969",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-5": {
+          "grade": 2,
+          "rationale": "Client completes the statement that they had not thought about how much they drink. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-3",
+            "source_segment_id": "annomi-87-utterance-5",
+            "query_revision": "d446817b075ee5a319891f0eadcff60818ae3cb8850ce9e7373bf474abd0e969",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-6": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no drinking detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-3",
+            "source_segment_id": "annomi-87-utterance-6",
+            "query_revision": "d446817b075ee5a319891f0eadcff60818ae3cb8850ce9e7373bf474abd0e969",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-7": {
+          "grade": 2,
+          "rationale": "Client describes surprise while recording daily drinking on the questionnaire without giving amounts. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-3",
+            "source_segment_id": "annomi-87-utterance-7",
+            "query_revision": "d446817b075ee5a319891f0eadcff60818ae3cb8850ce9e7373bf474abd0e969",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-8": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no drinking detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-3",
+            "source_segment_id": "annomi-87-utterance-8",
+            "query_revision": "d446817b075ee5a319891f0eadcff60818ae3cb8850ce9e7373bf474abd0e969",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-9": {
+          "grade": 2,
+          "rationale": "Client realizes counting reveals a large amount previously unconsidered. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-3",
+            "source_segment_id": "annomi-87-utterance-9",
+            "query_revision": "d446817b075ee5a319891f0eadcff60818ae3cb8850ce9e7373bf474abd0e969",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-10": {
+          "grade": 1,
+          "rationale": "Clinician reflects shock at learning about patterns rather than establishing a new quantity. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-3",
+            "source_segment_id": "annomi-87-utterance-10",
+            "query_revision": "d446817b075ee5a319891f0eadcff60818ae3cb8850ce9e7373bf474abd0e969",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-11": {
+          "grade": 2,
+          "rationale": "Client reports about ten drinks with weekend wording including Thursday and Friday, prior peer assumptions and discussion with roommate. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-3",
+            "source_segment_id": "annomi-87-utterance-11",
+            "query_revision": "d446817b075ee5a319891f0eadcff60818ae3cb8850ce9e7373bf474abd0e969",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-12": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no days or amount. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-3",
+            "source_segment_id": "annomi-87-utterance-12",
+            "query_revision": "d446817b075ee5a319891f0eadcff60818ae3cb8850ce9e7373bf474abd0e969",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-13": {
+          "grade": 0,
+          "rationale": "Client completes the sequence of days with Saturday and Sunday. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-3",
+            "source_segment_id": "annomi-87-utterance-13",
+            "query_revision": "d446817b075ee5a319891f0eadcff60818ae3cb8850ce9e7373bf474abd0e969",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-14": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no days or amount. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-3",
+            "source_segment_id": "annomi-87-utterance-14",
+            "query_revision": "d446817b075ee5a319891f0eadcff60818ae3cb8850ce9e7373bf474abd0e969",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-15": {
+          "grade": 2,
+          "rationale": "Client recounts roommate surprise and uncertainty about friends knowing the amount, without a new precise quantity. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-3",
+            "source_segment_id": "annomi-87-utterance-15",
+            "query_revision": "d446817b075ee5a319891f0eadcff60818ae3cb8850ce9e7373bf474abd0e969",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-16": {
+          "grade": 1,
+          "rationale": "Clinician summarizes changed awareness and roommate surprise as reflection of earlier client information. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-3",
+            "source_segment_id": "annomi-87-utterance-16",
+            "query_revision": "d446817b075ee5a319891f0eadcff60818ae3cb8850ce9e7373bf474abd0e969",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-17": {
+          "grade": 2,
+          "rationale": "Client says they thought everyone was doing the same thing. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-3",
+            "source_segment_id": "annomi-87-utterance-17",
+            "query_revision": "d446817b075ee5a319891f0eadcff60818ae3cb8850ce9e7373bf474abd0e969",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-18": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-3",
+            "source_segment_id": "annomi-87-utterance-18",
+            "query_revision": "d446817b075ee5a319891f0eadcff60818ae3cb8850ce9e7373bf474abd0e969",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-19": {
+          "grade": 2,
+          "rationale": "Client explicitly revises the belief that everyone drank similarly. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-3",
+            "source_segment_id": "annomi-87-utterance-19",
+            "query_revision": "d446817b075ee5a319891f0eadcff60818ae3cb8850ce9e7373bf474abd0e969",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-20": {
+          "grade": 1,
+          "rationale": "Clinician checks that standing out from peers had not been considered before. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-3",
+            "source_segment_id": "annomi-87-utterance-20",
+            "query_revision": "d446817b075ee5a319891f0eadcff60818ae3cb8850ce9e7373bf474abd0e969",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-21": {
+          "grade": 2,
+          "rationale": "Client confirms the preceding description of the newly reconsidered peer comparison. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-3",
+            "source_segment_id": "annomi-87-utterance-21",
+            "query_revision": "d446817b075ee5a319891f0eadcff60818ae3cb8850ce9e7373bf474abd0e969",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-22": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-3",
+            "source_segment_id": "annomi-87-utterance-22",
+            "query_revision": "d446817b075ee5a319891f0eadcff60818ae3cb8850ce9e7373bf474abd0e969",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-23": {
+          "grade": 2,
+          "rationale": "Client identifies this realization as the strangest feature of completing the forms. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-3",
+            "source_segment_id": "annomi-87-utterance-23",
+            "query_revision": "d446817b075ee5a319891f0eadcff60818ae3cb8850ce9e7373bf474abd0e969",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-24": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-3",
+            "source_segment_id": "annomi-87-utterance-24",
+            "query_revision": "d446817b075ee5a319891f0eadcff60818ae3cb8850ce9e7373bf474abd0e969",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-25": {
+          "grade": 1,
+          "rationale": "Client completes the prior sentence by naming the forms rather than a new consumption detail. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-3",
+            "source_segment_id": "annomi-87-utterance-25",
+            "query_revision": "d446817b075ee5a319891f0eadcff60818ae3cb8850ce9e7373bf474abd0e969",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        }
+      },
+      "query_review": {
+        "reviewer": "Anas",
+        "at": "2026-11-03T13:10:30.372796+00:00",
+        "action": "bulk-accepted-wording",
+        "review_basis": "User explicitly authorized bulk acceptance after inspecting a sample; not individual inspection of every label"
+      }
+    },
+    {
+      "query_id": "ai-v1-annomi-87-4",
+      "conversation_id": "annomi-87",
+      "text": "What weekly drinking limit did the client agree to adopt?",
+      "intent": "Require an explicit agreed future weekly maximum; none is given. A reported amount is not a goal.",
+      "kind": "no-answer",
+      "draft": false,
+      "annotation_origin": "ai",
+      "human_review_status": "reviewed",
+      "no_answer_confirmed": false,
+      "substitution_reason": null,
+      "query_revision": "25ac8177ae8dc09f814c2b449ed30422a834085f4e38c475f63df24860866499",
+      "judgments": {
+        "annomi-87-utterance-0": {
+          "grade": 0,
+          "rationale": "Clinician explains the interview will provide feedback from last week’s questionnaires. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-4",
+            "source_segment_id": "annomi-87-utterance-0",
+            "query_revision": "25ac8177ae8dc09f814c2b449ed30422a834085f4e38c475f63df24860866499",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-1": {
+          "grade": 0,
+          "rationale": "Client acknowledges the questionnaire-feedback introduction. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-4",
+            "source_segment_id": "annomi-87-utterance-1",
+            "query_revision": "25ac8177ae8dc09f814c2b449ed30422a834085f4e38c475f63df24860866499",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-2": {
+          "grade": 0,
+          "rationale": "Clinician invites discussion and the client’s preferred starting point. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-4",
+            "source_segment_id": "annomi-87-utterance-2",
+            "query_revision": "25ac8177ae8dc09f814c2b449ed30422a834085f4e38c475f63df24860866499",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-3": {
+          "grade": 0,
+          "rationale": "Client says filling forms felt strange because drinking had not seemed a huge issue. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-4",
+            "source_segment_id": "annomi-87-utterance-3",
+            "query_revision": "25ac8177ae8dc09f814c2b449ed30422a834085f4e38c475f63df24860866499",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-4": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no drinking detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-4",
+            "source_segment_id": "annomi-87-utterance-4",
+            "query_revision": "25ac8177ae8dc09f814c2b449ed30422a834085f4e38c475f63df24860866499",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-5": {
+          "grade": 0,
+          "rationale": "Client completes the statement that they had not thought about how much they drink. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-4",
+            "source_segment_id": "annomi-87-utterance-5",
+            "query_revision": "25ac8177ae8dc09f814c2b449ed30422a834085f4e38c475f63df24860866499",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-6": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no drinking detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-4",
+            "source_segment_id": "annomi-87-utterance-6",
+            "query_revision": "25ac8177ae8dc09f814c2b449ed30422a834085f4e38c475f63df24860866499",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-7": {
+          "grade": 0,
+          "rationale": "Client describes surprise while recording daily drinking on the questionnaire without giving amounts. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-4",
+            "source_segment_id": "annomi-87-utterance-7",
+            "query_revision": "25ac8177ae8dc09f814c2b449ed30422a834085f4e38c475f63df24860866499",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-8": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no drinking detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-4",
+            "source_segment_id": "annomi-87-utterance-8",
+            "query_revision": "25ac8177ae8dc09f814c2b449ed30422a834085f4e38c475f63df24860866499",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-9": {
+          "grade": 0,
+          "rationale": "Client realizes counting reveals a large amount previously unconsidered. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-4",
+            "source_segment_id": "annomi-87-utterance-9",
+            "query_revision": "25ac8177ae8dc09f814c2b449ed30422a834085f4e38c475f63df24860866499",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-10": {
+          "grade": 0,
+          "rationale": "Clinician reflects shock at learning about patterns rather than establishing a new quantity. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-4",
+            "source_segment_id": "annomi-87-utterance-10",
+            "query_revision": "25ac8177ae8dc09f814c2b449ed30422a834085f4e38c475f63df24860866499",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-11": {
+          "grade": 0,
+          "rationale": "Client reports about ten drinks with weekend wording including Thursday and Friday, prior peer assumptions and discussion with roommate. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-4",
+            "source_segment_id": "annomi-87-utterance-11",
+            "query_revision": "25ac8177ae8dc09f814c2b449ed30422a834085f4e38c475f63df24860866499",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-12": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no days or amount. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-4",
+            "source_segment_id": "annomi-87-utterance-12",
+            "query_revision": "25ac8177ae8dc09f814c2b449ed30422a834085f4e38c475f63df24860866499",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-13": {
+          "grade": 0,
+          "rationale": "Client completes the sequence of days with Saturday and Sunday. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-4",
+            "source_segment_id": "annomi-87-utterance-13",
+            "query_revision": "25ac8177ae8dc09f814c2b449ed30422a834085f4e38c475f63df24860866499",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-14": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no days or amount. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-4",
+            "source_segment_id": "annomi-87-utterance-14",
+            "query_revision": "25ac8177ae8dc09f814c2b449ed30422a834085f4e38c475f63df24860866499",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-15": {
+          "grade": 0,
+          "rationale": "Client recounts roommate surprise and uncertainty about friends knowing the amount, without a new precise quantity. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-4",
+            "source_segment_id": "annomi-87-utterance-15",
+            "query_revision": "25ac8177ae8dc09f814c2b449ed30422a834085f4e38c475f63df24860866499",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-16": {
+          "grade": 0,
+          "rationale": "Clinician summarizes changed awareness and roommate surprise as reflection of earlier client information. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-4",
+            "source_segment_id": "annomi-87-utterance-16",
+            "query_revision": "25ac8177ae8dc09f814c2b449ed30422a834085f4e38c475f63df24860866499",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-17": {
+          "grade": 0,
+          "rationale": "Client says they thought everyone was doing the same thing. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-4",
+            "source_segment_id": "annomi-87-utterance-17",
+            "query_revision": "25ac8177ae8dc09f814c2b449ed30422a834085f4e38c475f63df24860866499",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-18": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-4",
+            "source_segment_id": "annomi-87-utterance-18",
+            "query_revision": "25ac8177ae8dc09f814c2b449ed30422a834085f4e38c475f63df24860866499",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-19": {
+          "grade": 0,
+          "rationale": "Client explicitly revises the belief that everyone drank similarly. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-4",
+            "source_segment_id": "annomi-87-utterance-19",
+            "query_revision": "25ac8177ae8dc09f814c2b449ed30422a834085f4e38c475f63df24860866499",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-20": {
+          "grade": 0,
+          "rationale": "Clinician checks that standing out from peers had not been considered before. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-4",
+            "source_segment_id": "annomi-87-utterance-20",
+            "query_revision": "25ac8177ae8dc09f814c2b449ed30422a834085f4e38c475f63df24860866499",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-21": {
+          "grade": 0,
+          "rationale": "Client confirms the preceding description of the newly reconsidered peer comparison. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-4",
+            "source_segment_id": "annomi-87-utterance-21",
+            "query_revision": "25ac8177ae8dc09f814c2b449ed30422a834085f4e38c475f63df24860866499",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-22": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-4",
+            "source_segment_id": "annomi-87-utterance-22",
+            "query_revision": "25ac8177ae8dc09f814c2b449ed30422a834085f4e38c475f63df24860866499",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-23": {
+          "grade": 0,
+          "rationale": "Client identifies this realization as the strangest feature of completing the forms. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-4",
+            "source_segment_id": "annomi-87-utterance-23",
+            "query_revision": "25ac8177ae8dc09f814c2b449ed30422a834085f4e38c475f63df24860866499",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-24": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-4",
+            "source_segment_id": "annomi-87-utterance-24",
+            "query_revision": "25ac8177ae8dc09f814c2b449ed30422a834085f4e38c475f63df24860866499",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        },
+        "annomi-87-utterance-25": {
+          "grade": 0,
+          "rationale": "Client completes the prior sentence by naming the forms rather than a new consumption detail. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-87-4",
+            "source_segment_id": "annomi-87-utterance-25",
+            "query_revision": "25ac8177ae8dc09f814c2b449ed30422a834085f4e38c475f63df24860866499",
+            "transcript_hash": "4fcdf4b8308446356eb05a32f1c4a378ae7195094b251a3693887d113996106b"
+          }
+        }
+      },
+      "query_review": {
+        "reviewer": "Anas",
+        "at": "2026-11-03T13:10:30.372796+00:00",
+        "action": "bulk-accepted-wording",
+        "review_basis": "User explicitly authorized bulk acceptance after inspecting a sample; not individual inspection of every label"
+      }
+    }
+  ]
+}

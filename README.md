@@ -197,6 +197,11 @@ AnnoMI/PriMock datasets are separate from clinical records. Reproduce their veri
 imports with `.venv/bin/python -m services.retrieval.prepare`; no downloads or
 automatic patient creation occur. See [the research walkthrough](docs/RESEARCH_EVALUATION.md)
 for the pilot, keyboard controls, evaluation, exports and PriMock audio clips.
+For collaborating on the `annotation` branch, see the
+[team annotation workflow](docs/TEAM_ANNOTATION.md): prepared transcripts and
+conversation-level annotation files are shared through Git, including partial progress.
+For AI-label review, direct-evidence metrics, method-specific threshold experiments,
+and the independent human final packet, see [review experiments](docs/RETRIEVAL_REVIEW_EXPERIMENTS.md).
 
 ## Use the workspace
 
@@ -347,3 +352,7 @@ share the patient invitation with another device on the same Wi-Fi. Both devices
 must trust the generated public CA certificate before using microphone/camera.
 The session supports two participants, chat, separate speaker recordings, and
 minute-by-minute local transcription. See [setup, testing, and limitations](docs/ONLINE_MEETINGS.md).
+
+Local English AI note drafts: [setup, review, measurements and comparison](docs/NOTE_GENERATION.md).
+Start with `./scripts/run.py --no-reload`; research-only demo: `/workspace/research-notes`.
+[NVIDIA Secure Boot diagnosis for this laptop](docs/NVIDIA_LOCAL_FIX.md).

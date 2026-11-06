@@ -219,3 +219,13 @@ For a local demonstration, the intended implemented path is:
 8. Restart and reopen the saved patient, session, audio, transcript, note, and audit history.
 
 Installation and ordinary startup commands are in the [root README](../README.md). Meeting setup, certificate trust, networking, and recovery details are in [ONLINE_MEETINGS.md](ONLINE_MEETINGS.md).
+
+## 4 November 2026: local English note-generation milestone
+
+A laptop CPU llama.cpp workflow now adds versioned source-linked Qwen drafts alongside
+existing manual notes, with separate research development UI, bounded retrieval planning,
+local evidence/cache files and explicit human review. A real fictional smoke completed;
+GPU acceleration, model semantic reliability and human quality evaluation remain unverified.
+See [implementation/verification details](NOTE_GENERATION.md) and
+[the NVIDIA Secure Boot diagnosis](NVIDIA_LOCAL_FIX.md). Existing labels and held-out
+retrieval evaluation artifacts were not changed.

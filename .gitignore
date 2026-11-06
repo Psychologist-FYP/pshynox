@@ -10,6 +10,32 @@ node_modules/
 dist/
 .env
 data/
+# Share only research transcripts and conversation-level annotation files.
+!/data/
+/data/*
+!/data/research/
+/data/research/*
+!/data/research/datasets/
+/data/research/datasets/*
+!/data/research/datasets/annomi.json
+!/data/research/datasets/primock.json
+!/data/research/annotations/
+/data/research/annotations/*
+!/data/research/annotations/annomi/
+!/data/research/annotations/primock/
+/data/research/annotations/*/*
+!/data/research/annotations/annomi/*.json
+!/data/research/annotations/primock/*.json
+# Keep publisher attribution alongside the already tracked starter manifest.
+!/docs/Pshynox_Retrieval_Starter/data/
+/docs/Pshynox_Retrieval_Starter/data/*
+!/docs/Pshynox_Retrieval_Starter/data/annomi/
+!/docs/Pshynox_Retrieval_Starter/data/primock57/
+/docs/Pshynox_Retrieval_Starter/data/annomi/*
+/docs/Pshynox_Retrieval_Starter/data/primock57/*
+!/docs/Pshynox_Retrieval_Starter/data/annomi/README.md
+!/docs/Pshynox_Retrieval_Starter/data/primock57/README.md
+!/docs/Pshynox_Retrieval_Starter/data/primock57/LICENSE.md
 *.db
 *.sqlite
 *.sqlite3
@@ -32,3 +58,10 @@ models/
 # Browser integration-test artifacts
 apps/web/test-results/
 apps/web/playwright-report/
+
+# Separate AI contributions, never human judgment files.
+!/data/research/ai-suggestions/
+/data/research/ai-suggestions/*
+!/data/research/ai-suggestions/annomi/
+/data/research/ai-suggestions/annomi/*
+!/data/research/ai-suggestions/annomi/*.json

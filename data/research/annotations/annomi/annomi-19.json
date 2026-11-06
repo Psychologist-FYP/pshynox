@@ -1,0 +1,1218 @@
+{
+  "dataset_version": "46db33abc04a2d80912d9c63a72a242021f3eb8edfd286db89512edebaa083a0",
+  "conversation_id": "annomi-19",
+  "pilot_extra": false,
+  "explored": false,
+  "queries": [
+    {
+      "query_id": "draft-annomi-19-1",
+      "conversation_id": "annomi-19",
+      "text": "\"Yeah. I-I just-- I can't\"",
+      "intent": "Find the statement beginning \"Yeah. I-I just-- I can't shoplift anymore. You know, I got- I\"; check other relevant turns too.",
+      "kind": "literal",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    },
+    {
+      "query_id": "draft-annomi-19-2",
+      "conversation_id": "annomi-19",
+      "text": "What is the client explaining in this statement: Yeah. I-I just-- I can't shoplift anymore. You know, I got- I?",
+      "intent": "Draft prompt: rewrite in your own words as a paraphrase of this source before approving; do not copy its wording.",
+      "kind": "paraphrase",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    },
+    {
+      "query_id": "draft-annomi-19-3",
+      "conversation_id": "annomi-19",
+      "text": "What does the client mean by \"Yeah.\"?",
+      "intent": "Interpret the short reply at annomi-19-utterance-7 using surrounding conversation; review all turns for evidence.",
+      "kind": "context",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    },
+    {
+      "query_id": "draft-annomi-19-4",
+      "conversation_id": "annomi-19",
+      "text": "What does the client say about taking a scuba-diving certification course?",
+      "intent": "Draft absent-topic candidate. Read the FULL conversation to verify absence, or replace the query. Absence is not pre-labelled.",
+      "kind": "no-answer-candidate",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    },
+    {
+      "query_id": "ai-v1-annomi-19-2",
+      "conversation_id": "annomi-19",
+      "text": "What makes stopping shoplifting difficult for this client?",
+      "intent": "Retrieve enjoyment, friendships, uncertainty about how to change and lack of equally enjoyable alternatives.",
+      "kind": "paraphrase",
+      "draft": false,
+      "no_answer_confirmed": false,
+      "judgments": {
+        "annomi-19-utterance-0": {
+          "grade": 0,
+          "rationale": "Clinician asks about being tired of the situation without providing a stopping plan. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:03:29.250387+00:00",
+          "annotation_origin": "human",
+          "human_review_status": "reviewed",
+          "review_action": "accepted",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-2",
+            "source_segment_id": "annomi-19-utterance-0",
+            "query_revision": "0164ab8be2ba36b638949946a8461c0d15f77bbbec7db67bf11418b4657d0a14",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4",
+            "annotation_policy_version": "retrieval-ai-v1"
+          }
+        },
+        "annomi-19-utterance-15": {
+          "grade": 2,
+          "rationale": "Client describes stealing CDs with friends and a lack of equally fun alternatives; past apparent success qualifies the consequences. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:04:51.220904+00:00",
+          "annotation_origin": "human",
+          "human_review_status": "reviewed",
+          "review_action": "accepted",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-2",
+            "source_segment_id": "annomi-19-utterance-15",
+            "query_revision": "0164ab8be2ba36b638949946a8461c0d15f77bbbec7db67bf11418b4657d0a14",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4",
+            "annotation_policy_version": "retrieval-ai-v1"
+          }
+        },
+        "annomi-19-utterance-3": {
+          "grade": 2,
+          "rationale": "Client says shoplifting with friends is fun, does not know what to do, and insists on change. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:04:57.056809+00:00",
+          "annotation_origin": "human",
+          "human_review_status": "reviewed",
+          "review_action": "accepted",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-2",
+            "source_segment_id": "annomi-19-utterance-3",
+            "query_revision": "0164ab8be2ba36b638949946a8461c0d15f77bbbec7db67bf11418b4657d0a14",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4",
+            "annotation_policy_version": "retrieval-ai-v1"
+          }
+        },
+        "annomi-19-utterance-1": {
+          "grade": 0,
+          "rationale": "Client reports being caught again and suspended, fears damaging their life and wants to stop. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-2",
+            "source_segment_id": "annomi-19-utterance-1",
+            "query_revision": "0164ab8be2ba36b638949946a8461c0d15f77bbbec7db67bf11418b4657d0a14",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-2": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-2",
+            "source_segment_id": "annomi-19-utterance-2",
+            "query_revision": "0164ab8be2ba36b638949946a8461c0d15f77bbbec7db67bf11418b4657d0a14",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-4": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-2",
+            "source_segment_id": "annomi-19-utterance-4",
+            "query_revision": "0164ab8be2ba36b638949946a8461c0d15f77bbbec7db67bf11418b4657d0a14",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-5": {
+          "grade": 0,
+          "rationale": "Client's wish refers to changing the shoplifting behavior in the preceding exchange. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-2",
+            "source_segment_id": "annomi-19-utterance-5",
+            "query_revision": "0164ab8be2ba36b638949946a8461c0d15f77bbbec7db67bf11418b4657d0a14",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-6": {
+          "grade": 0,
+          "rationale": "Clinician reflects readiness to give shoplifting up rather than a concrete method. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-2",
+            "source_segment_id": "annomi-19-utterance-6",
+            "query_revision": "0164ab8be2ba36b638949946a8461c0d15f77bbbec7db67bf11418b4657d0a14",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-7": {
+          "grade": 0,
+          "rationale": "Client affirms readiness to stop in response to the reflection. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-2",
+            "source_segment_id": "annomi-19-utterance-7",
+            "query_revision": "0164ab8be2ba36b638949946a8461c0d15f77bbbec7db67bf11418b4657d0a14",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-8": {
+          "grade": 1,
+          "rationale": "Clinician reflects the lack of a clear path to change. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-2",
+            "source_segment_id": "annomi-19-utterance-8",
+            "query_revision": "0164ab8be2ba36b638949946a8461c0d15f77bbbec7db67bf11418b4657d0a14",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-9": {
+          "grade": 2,
+          "rationale": "Client explicitly lacks a method and describes conflicted loyalty to friends considered bad influences. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-2",
+            "source_segment_id": "annomi-19-utterance-9",
+            "query_revision": "0164ab8be2ba36b638949946a8461c0d15f77bbbec7db67bf11418b4657d0a14",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-10": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-2",
+            "source_segment_id": "annomi-19-utterance-10",
+            "query_revision": "0164ab8be2ba36b638949946a8461c0d15f77bbbec7db67bf11418b4657d0a14",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-11": {
+          "grade": 2,
+          "rationale": "Client says the activity is fun, explaining its appeal. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-2",
+            "source_segment_id": "annomi-19-utterance-11",
+            "query_revision": "0164ab8be2ba36b638949946a8461c0d15f77bbbec7db67bf11418b4657d0a14",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-12": {
+          "grade": 1,
+          "rationale": "Clinician reflects enjoyment rather than adding a separate client experience. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-2",
+            "source_segment_id": "annomi-19-utterance-12",
+            "query_revision": "0164ab8be2ba36b638949946a8461c0d15f77bbbec7db67bf11418b4657d0a14",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-13": {
+          "grade": 0,
+          "rationale": "Discourse tag adds no substantive evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-2",
+            "source_segment_id": "annomi-19-utterance-13",
+            "query_revision": "0164ab8be2ba36b638949946a8461c0d15f77bbbec7db67bf11418b4657d0a14",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-14": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-2",
+            "source_segment_id": "annomi-19-utterance-14",
+            "query_revision": "0164ab8be2ba36b638949946a8461c0d15f77bbbec7db67bf11418b4657d0a14",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-16": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-2",
+            "source_segment_id": "annomi-19-utterance-16",
+            "query_revision": "0164ab8be2ba36b638949946a8461c0d15f77bbbec7db67bf11418b4657d0a14",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        }
+      },
+      "annotation_origin": "ai",
+      "human_review_status": "reviewed",
+      "query_review": {
+        "reviewer": "Anas",
+        "at": "2026-11-03T13:10:30.372796+00:00",
+        "action": "bulk-accepted-wording",
+        "review_basis": "User explicitly authorized bulk acceptance after inspecting a sample; not individual inspection of every label"
+      }
+    },
+    {
+      "query_id": "ai-v1-annomi-19-1",
+      "conversation_id": "annomi-19",
+      "text": "What consequences of shoplifting does the client report?",
+      "intent": "Retrieve being caught again, suspension, returning to school and feared future harm; do not invent criminal charges.",
+      "kind": "factual",
+      "draft": false,
+      "annotation_origin": "ai",
+      "human_review_status": "reviewed",
+      "no_answer_confirmed": false,
+      "substitution_reason": null,
+      "query_revision": "2a9129bde4a6c13655bd98dfcc5e82c1e8fd7bc69f6df1598e8cbd4b984f1af1",
+      "judgments": {
+        "annomi-19-utterance-0": {
+          "grade": 0,
+          "rationale": "Clinician asks about being tired of the situation without providing a stopping plan. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-1",
+            "source_segment_id": "annomi-19-utterance-0",
+            "query_revision": "2a9129bde4a6c13655bd98dfcc5e82c1e8fd7bc69f6df1598e8cbd4b984f1af1",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-1": {
+          "grade": 2,
+          "rationale": "Client reports being caught again and suspended, fears damaging their life and wants to stop. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-1",
+            "source_segment_id": "annomi-19-utterance-1",
+            "query_revision": "2a9129bde4a6c13655bd98dfcc5e82c1e8fd7bc69f6df1598e8cbd4b984f1af1",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-2": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-1",
+            "source_segment_id": "annomi-19-utterance-2",
+            "query_revision": "2a9129bde4a6c13655bd98dfcc5e82c1e8fd7bc69f6df1598e8cbd4b984f1af1",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-3": {
+          "grade": 0,
+          "rationale": "Client says shoplifting with friends is fun, does not know what to do, and insists on change. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-1",
+            "source_segment_id": "annomi-19-utterance-3",
+            "query_revision": "2a9129bde4a6c13655bd98dfcc5e82c1e8fd7bc69f6df1598e8cbd4b984f1af1",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-4": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-1",
+            "source_segment_id": "annomi-19-utterance-4",
+            "query_revision": "2a9129bde4a6c13655bd98dfcc5e82c1e8fd7bc69f6df1598e8cbd4b984f1af1",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-5": {
+          "grade": 0,
+          "rationale": "Client's wish refers to changing the shoplifting behavior in the preceding exchange. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-1",
+            "source_segment_id": "annomi-19-utterance-5",
+            "query_revision": "2a9129bde4a6c13655bd98dfcc5e82c1e8fd7bc69f6df1598e8cbd4b984f1af1",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-6": {
+          "grade": 0,
+          "rationale": "Clinician reflects readiness to give shoplifting up rather than a concrete method. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-1",
+            "source_segment_id": "annomi-19-utterance-6",
+            "query_revision": "2a9129bde4a6c13655bd98dfcc5e82c1e8fd7bc69f6df1598e8cbd4b984f1af1",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-7": {
+          "grade": 0,
+          "rationale": "Client affirms readiness to stop in response to the reflection. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-1",
+            "source_segment_id": "annomi-19-utterance-7",
+            "query_revision": "2a9129bde4a6c13655bd98dfcc5e82c1e8fd7bc69f6df1598e8cbd4b984f1af1",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-8": {
+          "grade": 0,
+          "rationale": "Clinician reflects the lack of a clear path to change. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-1",
+            "source_segment_id": "annomi-19-utterance-8",
+            "query_revision": "2a9129bde4a6c13655bd98dfcc5e82c1e8fd7bc69f6df1598e8cbd4b984f1af1",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-9": {
+          "grade": 0,
+          "rationale": "Client explicitly lacks a method and describes conflicted loyalty to friends considered bad influences. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-1",
+            "source_segment_id": "annomi-19-utterance-9",
+            "query_revision": "2a9129bde4a6c13655bd98dfcc5e82c1e8fd7bc69f6df1598e8cbd4b984f1af1",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-10": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-1",
+            "source_segment_id": "annomi-19-utterance-10",
+            "query_revision": "2a9129bde4a6c13655bd98dfcc5e82c1e8fd7bc69f6df1598e8cbd4b984f1af1",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-11": {
+          "grade": 0,
+          "rationale": "Client says the activity is fun, explaining its appeal. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-1",
+            "source_segment_id": "annomi-19-utterance-11",
+            "query_revision": "2a9129bde4a6c13655bd98dfcc5e82c1e8fd7bc69f6df1598e8cbd4b984f1af1",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-12": {
+          "grade": 0,
+          "rationale": "Clinician reflects enjoyment rather than adding a separate client experience. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-1",
+            "source_segment_id": "annomi-19-utterance-12",
+            "query_revision": "2a9129bde4a6c13655bd98dfcc5e82c1e8fd7bc69f6df1598e8cbd4b984f1af1",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-13": {
+          "grade": 0,
+          "rationale": "Discourse tag adds no substantive evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-1",
+            "source_segment_id": "annomi-19-utterance-13",
+            "query_revision": "2a9129bde4a6c13655bd98dfcc5e82c1e8fd7bc69f6df1598e8cbd4b984f1af1",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-14": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-1",
+            "source_segment_id": "annomi-19-utterance-14",
+            "query_revision": "2a9129bde4a6c13655bd98dfcc5e82c1e8fd7bc69f6df1598e8cbd4b984f1af1",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-15": {
+          "grade": 1,
+          "rationale": "Client describes stealing CDs with friends and a lack of equally fun alternatives; past apparent success qualifies the consequences. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-1",
+            "source_segment_id": "annomi-19-utterance-15",
+            "query_revision": "2a9129bde4a6c13655bd98dfcc5e82c1e8fd7bc69f6df1598e8cbd4b984f1af1",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-16": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-1",
+            "source_segment_id": "annomi-19-utterance-16",
+            "query_revision": "2a9129bde4a6c13655bd98dfcc5e82c1e8fd7bc69f6df1598e8cbd4b984f1af1",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        }
+      },
+      "query_review": {
+        "reviewer": "Anas",
+        "at": "2026-11-03T13:10:30.372796+00:00",
+        "action": "bulk-accepted-wording",
+        "review_basis": "User explicitly authorized bulk acceptance after inspecting a sample; not individual inspection of every label"
+      }
+    },
+    {
+      "query_id": "ai-v1-annomi-19-3",
+      "conversation_id": "annomi-19",
+      "text": "Is the client expressing a wish to stop, a clear method for stopping, or both?",
+      "intent": "Retrieve readiness and desire alongside an unclear path; distinguish wanting change from having a concrete plan.",
+      "kind": "context",
+      "draft": false,
+      "annotation_origin": "ai",
+      "human_review_status": "reviewed",
+      "no_answer_confirmed": false,
+      "substitution_reason": null,
+      "query_revision": "b5701e669fe97095fd47c1c619c29ba797f0e48f6069319a050265ce65a13dde",
+      "judgments": {
+        "annomi-19-utterance-0": {
+          "grade": 1,
+          "rationale": "Clinician asks about being tired of the situation without providing a stopping plan. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-3",
+            "source_segment_id": "annomi-19-utterance-0",
+            "query_revision": "b5701e669fe97095fd47c1c619c29ba797f0e48f6069319a050265ce65a13dde",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-1": {
+          "grade": 2,
+          "rationale": "Client reports being caught again and suspended, fears damaging their life and wants to stop. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-3",
+            "source_segment_id": "annomi-19-utterance-1",
+            "query_revision": "b5701e669fe97095fd47c1c619c29ba797f0e48f6069319a050265ce65a13dde",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-2": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-3",
+            "source_segment_id": "annomi-19-utterance-2",
+            "query_revision": "b5701e669fe97095fd47c1c619c29ba797f0e48f6069319a050265ce65a13dde",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-3": {
+          "grade": 2,
+          "rationale": "Client says shoplifting with friends is fun, does not know what to do, and insists on change. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-3",
+            "source_segment_id": "annomi-19-utterance-3",
+            "query_revision": "b5701e669fe97095fd47c1c619c29ba797f0e48f6069319a050265ce65a13dde",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-4": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-3",
+            "source_segment_id": "annomi-19-utterance-4",
+            "query_revision": "b5701e669fe97095fd47c1c619c29ba797f0e48f6069319a050265ce65a13dde",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-5": {
+          "grade": 2,
+          "rationale": "Client's wish refers to changing the shoplifting behavior in the preceding exchange. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-3",
+            "source_segment_id": "annomi-19-utterance-5",
+            "query_revision": "b5701e669fe97095fd47c1c619c29ba797f0e48f6069319a050265ce65a13dde",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-6": {
+          "grade": 1,
+          "rationale": "Clinician reflects readiness to give shoplifting up rather than a concrete method. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-3",
+            "source_segment_id": "annomi-19-utterance-6",
+            "query_revision": "b5701e669fe97095fd47c1c619c29ba797f0e48f6069319a050265ce65a13dde",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-7": {
+          "grade": 2,
+          "rationale": "Client affirms readiness to stop in response to the reflection. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-3",
+            "source_segment_id": "annomi-19-utterance-7",
+            "query_revision": "b5701e669fe97095fd47c1c619c29ba797f0e48f6069319a050265ce65a13dde",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-8": {
+          "grade": 1,
+          "rationale": "Clinician reflects the lack of a clear path to change. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-3",
+            "source_segment_id": "annomi-19-utterance-8",
+            "query_revision": "b5701e669fe97095fd47c1c619c29ba797f0e48f6069319a050265ce65a13dde",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-9": {
+          "grade": 2,
+          "rationale": "Client explicitly lacks a method and describes conflicted loyalty to friends considered bad influences. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-3",
+            "source_segment_id": "annomi-19-utterance-9",
+            "query_revision": "b5701e669fe97095fd47c1c619c29ba797f0e48f6069319a050265ce65a13dde",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-10": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-3",
+            "source_segment_id": "annomi-19-utterance-10",
+            "query_revision": "b5701e669fe97095fd47c1c619c29ba797f0e48f6069319a050265ce65a13dde",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-11": {
+          "grade": 0,
+          "rationale": "Client says the activity is fun, explaining its appeal. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-3",
+            "source_segment_id": "annomi-19-utterance-11",
+            "query_revision": "b5701e669fe97095fd47c1c619c29ba797f0e48f6069319a050265ce65a13dde",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-12": {
+          "grade": 0,
+          "rationale": "Clinician reflects enjoyment rather than adding a separate client experience. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-3",
+            "source_segment_id": "annomi-19-utterance-12",
+            "query_revision": "b5701e669fe97095fd47c1c619c29ba797f0e48f6069319a050265ce65a13dde",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-13": {
+          "grade": 0,
+          "rationale": "Discourse tag adds no substantive evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-3",
+            "source_segment_id": "annomi-19-utterance-13",
+            "query_revision": "b5701e669fe97095fd47c1c619c29ba797f0e48f6069319a050265ce65a13dde",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-14": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-3",
+            "source_segment_id": "annomi-19-utterance-14",
+            "query_revision": "b5701e669fe97095fd47c1c619c29ba797f0e48f6069319a050265ce65a13dde",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-15": {
+          "grade": 0,
+          "rationale": "Client describes stealing CDs with friends and a lack of equally fun alternatives; past apparent success qualifies the consequences. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-3",
+            "source_segment_id": "annomi-19-utterance-15",
+            "query_revision": "b5701e669fe97095fd47c1c619c29ba797f0e48f6069319a050265ce65a13dde",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-16": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-3",
+            "source_segment_id": "annomi-19-utterance-16",
+            "query_revision": "b5701e669fe97095fd47c1c619c29ba797f0e48f6069319a050265ce65a13dde",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        }
+      },
+      "query_review": {
+        "reviewer": "Anas",
+        "at": "2026-11-03T13:10:30.372796+00:00",
+        "action": "bulk-accepted-wording",
+        "review_basis": "User explicitly authorized bulk acceptance after inspecting a sample; not individual inspection of every label"
+      }
+    },
+    {
+      "query_id": "ai-v1-annomi-19-4",
+      "conversation_id": "annomi-19",
+      "text": "What restitution payment has the client agreed to make?",
+      "intent": "Require an agreed repayment amount or restitution arrangement; none appears.",
+      "kind": "no-answer",
+      "draft": false,
+      "annotation_origin": "ai",
+      "human_review_status": "reviewed",
+      "no_answer_confirmed": false,
+      "substitution_reason": null,
+      "query_revision": "258cd000f0dc00fb7beee6530a3ac2e6bb77ad3c5e51a9e9da2e091e7e663f64",
+      "judgments": {
+        "annomi-19-utterance-0": {
+          "grade": 0,
+          "rationale": "Clinician asks about being tired of the situation without providing a stopping plan. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-4",
+            "source_segment_id": "annomi-19-utterance-0",
+            "query_revision": "258cd000f0dc00fb7beee6530a3ac2e6bb77ad3c5e51a9e9da2e091e7e663f64",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-1": {
+          "grade": 0,
+          "rationale": "Client reports being caught again and suspended, fears damaging their life and wants to stop. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-4",
+            "source_segment_id": "annomi-19-utterance-1",
+            "query_revision": "258cd000f0dc00fb7beee6530a3ac2e6bb77ad3c5e51a9e9da2e091e7e663f64",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-2": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-4",
+            "source_segment_id": "annomi-19-utterance-2",
+            "query_revision": "258cd000f0dc00fb7beee6530a3ac2e6bb77ad3c5e51a9e9da2e091e7e663f64",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-3": {
+          "grade": 0,
+          "rationale": "Client says shoplifting with friends is fun, does not know what to do, and insists on change. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-4",
+            "source_segment_id": "annomi-19-utterance-3",
+            "query_revision": "258cd000f0dc00fb7beee6530a3ac2e6bb77ad3c5e51a9e9da2e091e7e663f64",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-4": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-4",
+            "source_segment_id": "annomi-19-utterance-4",
+            "query_revision": "258cd000f0dc00fb7beee6530a3ac2e6bb77ad3c5e51a9e9da2e091e7e663f64",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-5": {
+          "grade": 0,
+          "rationale": "Client's wish refers to changing the shoplifting behavior in the preceding exchange. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-4",
+            "source_segment_id": "annomi-19-utterance-5",
+            "query_revision": "258cd000f0dc00fb7beee6530a3ac2e6bb77ad3c5e51a9e9da2e091e7e663f64",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-6": {
+          "grade": 0,
+          "rationale": "Clinician reflects readiness to give shoplifting up rather than a concrete method. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-4",
+            "source_segment_id": "annomi-19-utterance-6",
+            "query_revision": "258cd000f0dc00fb7beee6530a3ac2e6bb77ad3c5e51a9e9da2e091e7e663f64",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-7": {
+          "grade": 0,
+          "rationale": "Client affirms readiness to stop in response to the reflection. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-4",
+            "source_segment_id": "annomi-19-utterance-7",
+            "query_revision": "258cd000f0dc00fb7beee6530a3ac2e6bb77ad3c5e51a9e9da2e091e7e663f64",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-8": {
+          "grade": 0,
+          "rationale": "Clinician reflects the lack of a clear path to change. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-4",
+            "source_segment_id": "annomi-19-utterance-8",
+            "query_revision": "258cd000f0dc00fb7beee6530a3ac2e6bb77ad3c5e51a9e9da2e091e7e663f64",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-9": {
+          "grade": 0,
+          "rationale": "Client explicitly lacks a method and describes conflicted loyalty to friends considered bad influences. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-4",
+            "source_segment_id": "annomi-19-utterance-9",
+            "query_revision": "258cd000f0dc00fb7beee6530a3ac2e6bb77ad3c5e51a9e9da2e091e7e663f64",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-10": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-4",
+            "source_segment_id": "annomi-19-utterance-10",
+            "query_revision": "258cd000f0dc00fb7beee6530a3ac2e6bb77ad3c5e51a9e9da2e091e7e663f64",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-11": {
+          "grade": 0,
+          "rationale": "Client says the activity is fun, explaining its appeal. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-4",
+            "source_segment_id": "annomi-19-utterance-11",
+            "query_revision": "258cd000f0dc00fb7beee6530a3ac2e6bb77ad3c5e51a9e9da2e091e7e663f64",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-12": {
+          "grade": 0,
+          "rationale": "Clinician reflects enjoyment rather than adding a separate client experience. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-4",
+            "source_segment_id": "annomi-19-utterance-12",
+            "query_revision": "258cd000f0dc00fb7beee6530a3ac2e6bb77ad3c5e51a9e9da2e091e7e663f64",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-13": {
+          "grade": 0,
+          "rationale": "Discourse tag adds no substantive evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-4",
+            "source_segment_id": "annomi-19-utterance-13",
+            "query_revision": "258cd000f0dc00fb7beee6530a3ac2e6bb77ad3c5e51a9e9da2e091e7e663f64",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-14": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-4",
+            "source_segment_id": "annomi-19-utterance-14",
+            "query_revision": "258cd000f0dc00fb7beee6530a3ac2e6bb77ad3c5e51a9e9da2e091e7e663f64",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-15": {
+          "grade": 0,
+          "rationale": "Client describes stealing CDs with friends and a lack of equally fun alternatives; past apparent success qualifies the consequences. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-4",
+            "source_segment_id": "annomi-19-utterance-15",
+            "query_revision": "258cd000f0dc00fb7beee6530a3ac2e6bb77ad3c5e51a9e9da2e091e7e663f64",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        },
+        "annomi-19-utterance-16": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-19-4",
+            "source_segment_id": "annomi-19-utterance-16",
+            "query_revision": "258cd000f0dc00fb7beee6530a3ac2e6bb77ad3c5e51a9e9da2e091e7e663f64",
+            "transcript_hash": "2749a5bc898420b7bad7646279ce19ee83683b2766cb8a09219d54a0995c7ba4"
+          }
+        }
+      },
+      "query_review": {
+        "reviewer": "Anas",
+        "at": "2026-11-03T13:10:30.372796+00:00",
+        "action": "bulk-accepted-wording",
+        "review_basis": "User explicitly authorized bulk acceptance after inspecting a sample; not individual inspection of every label"
+      }
+    }
+  ]
+}

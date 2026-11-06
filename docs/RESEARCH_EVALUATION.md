@@ -24,13 +24,19 @@ imports AnnoMI (133 conversations / 9,699 turns) and both PriMock consultations
 It does not download data or create patients. All conversations are browseable;
 turn off **Pilot conversations only** to see the rest.
 
-Files live under ignored `data/research/` (override with `RESEARCH_DATA_DIR`):
+For shared work on the `annotation` branch, follow the
+[team annotation workflow](TEAM_ANNOTATION.md). Prepared transcripts and conversation
+annotation files are tracked there; a fresh checkout does not need preparation.
+
+Files live under `data/research/` (override with `RESEARCH_DATA_DIR`):
 
 - `datasets/`: versioned transcript imports and pilot selection metadata.
-- `annotations/`: query drafts, explicit judgments, reviewer/rationale, revision,
-  no-answer confirmations, and exploration exposure.
-- `runs/<run-id>/`: immutable dataset/config snapshots, process log and report.
-- `audio-clips/`: prepared audio, offset/exclusion manifests and clip references.
+- `annotations/<dataset>/<conversation-id>.json`: shared query drafts, explicit
+  judgments, reviewer/rationale, no-answer confirmations, and exploration exposure.
+  Progress revisions are derived from file contents to detect edits and Git pulls.
+  Legacy `annotations/<dataset>.json` files remain ignored local backups after conversion.
+- `runs/<run-id>/`: ignored immutable dataset/config snapshots, process log and report.
+- `audio-clips/`: ignored prepared audio, offset/exclusion manifests and clip references.
 
 Publisher README, citations and usage terms remain authoritative. No reference
 notes, AnnoMI behavior/change/sustain labels, or diagnosis fields enter searchable

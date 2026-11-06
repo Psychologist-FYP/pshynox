@@ -12,7 +12,7 @@ from typing import Literal
 from uuid import uuid4
 
 from fastapi import APIRouter, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from pydantic import BaseModel, ConfigDict, Field, StrictInt
 
 from services.api.schemas import TranscriptSegment
@@ -108,6 +108,13 @@ def shutdown_research():
 def build_research_router():
     router = APIRouter(prefix="/api/v1/research")
 
+    @router.get("/independent-final", response_class=HTMLResponse)
+    def independent_final():
+        path = ResearchStore().root / "review-experiments/independent-final/review.html"
+        if not path.is_file():
+            raise ResearchError("Blind final packet has not been prepared in this workspace", 404)
+        return HTMLResponse(path.read_text())
+
     @router.get("/datasets")
     def datasets():
         store = ResearchStore()
@@ -124,6 +131,13 @@ def build_research_router():
     @router.put("/datasets/{name}/conversations/{cid}/queries/{qid}/turns/{sid}")
     def grade(name: str, cid: str, qid: str, sid: str, payload: GradeInput):
         return ResearchStore().grade(name, cid, qid, sid, payload.model_dump())
+
+    @router.post("/datasets/{name}/conversations/{cid}/ai/{qid}/turns/{sid}")
+    def review_ai(name: str, cid: str, qid: str, sid: str, payload: GradeInput):
+        from services.retrieval.ai_suggestions import review
+        if payload.grade is None:
+            raise ResearchError("Select a grade for explicit human review")
+        return review(ResearchStore(), name, cid, qid, sid, payload.model_dump())
 
     @router.post("/datasets/{name}/conversations/{cid}/include")
     def expand(name: str, cid: str, payload: RevisionInput):
@@ -256,7 +270,7 @@ def build_research_router():
         except (ValueError, KeyError, TypeError) as exc:
             raise ResearchError(f"Invalid report dataset: {exc}") from exc
         report["query_count"] = sum(conversations[q["conversation_id"]]["split"] == report["split"] for q in queries.values())
-        report["result_kind"] = "fictional" if "fictional" in snapshot.get("description", "").lower() or snapshot.get("kind") == "fictional" else "dataset"
+        report["result_kind"] = snapshot["kind"] if snapshot.get("kind") in {"ai-exploratory", "ai-accepted"} else "fictional" if "fictional" in snapshot.get("description", "").lower() or snapshot.get("kind") == "fictional" else "dataset"
         report.setdefault("annotation_status", snapshot.get("annotation_status", "Externally supplied complete judgments; inspect reviewer provenance"))
         report.setdefault("asr", {"status": "not_measured"})
         job = {"run_id": rid, "status": "completed", "dataset_id": snapshot.get("dataset_id", report["result_kind"]),

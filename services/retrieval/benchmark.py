@@ -30,6 +30,7 @@ def quality_metrics(ranked_ids: list[str], grades: dict[str, int]) -> dict:
     # extra true positives, and repeated overlapping evidence counts once.
     ids = list(dict.fromkeys(ranked_ids))
     relevant = {sid for sid, grade in grades.items() if grade > 0}
+    direct = {sid for sid, grade in grades.items() if grade == 2}
     if not relevant:
         return {"no_answer": True, "false_positive_return": bool(ids), "abstained": not ids}
     dcg = sum((2 ** grades.get(sid, 0) - 1) / math.log2(rank + 1) for rank, sid in enumerate(ids[:10], 1))
@@ -37,6 +38,9 @@ def quality_metrics(ranked_ids: list[str], grades: dict[str, int]) -> dict:
     idcg = sum((2 ** grade - 1) / math.log2(rank + 1) for rank, grade in enumerate(ideal, 1))
     return {
         "no_answer": False,
+        "direct_evidence_hit_at_5": bool(set(ids[:5]) & direct) if direct else None,
+        "direct_evidence_recall_at_5": len(set(ids[:5]) & direct) / len(direct) if direct else None,
+        "direct_evidence_recall_at_10": len(set(ids[:10]) & direct) / len(direct) if direct else None,
         "recall_at_5": len(set(ids[:5]) & relevant) / len(relevant),
         "recall_at_10": len(set(ids[:10]) & relevant) / len(relevant),
         "precision_at_5": len(set(ids[:5]) & relevant) / 5,
@@ -53,6 +57,10 @@ def summarize(rows):
     metrics.update({"answerable_queries": len(answered), "no_answer_queries": len(no_answer),
                     "false_positive_return_rate": statistics.mean(r["metrics"]["false_positive_return"] for r in no_answer) if no_answer else None,
                     "abstention_rate_no_answer": statistics.mean(r["metrics"]["abstained"] for r in no_answer) if no_answer else None})
+    direct_rows = [r for r in answered if r["metrics"].get("direct_evidence_hit_at_5") is not None]
+    metrics["queries_with_direct_evidence"] = len(direct_rows)
+    for key in ("direct_evidence_hit_at_5", "direct_evidence_recall_at_5", "direct_evidence_recall_at_10"):
+        metrics[key] = statistics.mean(r["metrics"][key] for r in direct_rows) if direct_rows else None
     return metrics
 
 
@@ -212,6 +220,7 @@ def main():
     config = asdict(RetrievalSettings.from_env())
     config.pop("method")
     calibration = None
+    method_thresholds = {}
     if args.config:
         frozen = json.loads(Path(args.config).read_text())
         calibration = frozen.get("calibration")
@@ -219,6 +228,11 @@ def main():
             parser.error("Frozen configurations require development dataset provenance")
         if not set(args.methods) <= set(frozen.get("methods", [])):
             parser.error("Frozen configuration must have been measured on the requested methods")
+        method_thresholds = frozen.get("per_method_thresholds", {})
+        if method_thresholds and (not set(args.methods) <= set(method_thresholds) or any(
+                v is not None and (isinstance(v, bool) or not isinstance(v, (int, float)) or not math.isfinite(v))
+                for v in method_thresholds.values())):
+            parser.error("Frozen per-method thresholds must cover every requested method with finite values or null")
         config = frozen["settings"]
         RetrievalSettings(**config)
     if args.min_score is not None:
@@ -235,7 +249,7 @@ def main():
     report = {"dataset_sha256": hashlib.sha256(Path(args.dataset).read_bytes()).hexdigest(),
               "dataset_description": payload.get("description", ""), "split": args.split,
               "python": platform.python_version(), "platform": platform.platform(), "packages": packages,
-              "settings": config, "calibration": calibration, "results": [],
+              "settings": config, "per_method_thresholds": method_thresholds, "calibration": calibration, "results": [],
               "created_at": datetime.now(timezone.utc).isoformat(),
               "evaluation_dataset": snapshot,
               "snapshot_sha256": hashlib.sha256(json.dumps(snapshot, sort_keys=True, ensure_ascii=False).encode()).hexdigest(),
@@ -243,7 +257,7 @@ def main():
               "annotation_status": snapshot.get("annotation_status", "complete externally supplied judgments; review provenance in dataset"),
               "query_count": sum(conversations[q["conversation_id"]]["split"] == args.split for q in queries.values()),
               "result_kind": snapshot.get("kind", "fictional" if "fictional" in snapshot.get("description", "").lower() else "dataset"),
-              "metric_policy": "grade > 0 is relevant; graded nDCG uses 2^grade-1; precision denominator 5; central source deduplication; no-answer queries reported separately",
+              "metric_policy": "grade > 0 is relevant; graded nDCG uses 2^grade-1; precision denominator 5; central source deduplication; no-answer queries reported separately; direct-hit and direct-recall use grade == 2 and exclude queries without direct evidence",
               "memory_policy": "fresh process per method/variant; RSS includes interpreter/imports/native/model memory; tracemalloc excludes most native allocations"}
     paired = [c for c in conversations.values() if c["split"] == args.split and "asr_segments" in c]
     variants = ["reference", "asr"] if paired else ["reference"]
@@ -251,7 +265,7 @@ def main():
         for method in args.methods:
             command = [sys.executable, "-m", "services.retrieval.benchmark", "--dataset", args.dataset,
                        "--split", args.split, "--repeats", str(args.repeats), "--worker", method,
-                       "--variant", variant, "--settings", json.dumps(config)]
+                       "--variant", variant, "--settings", json.dumps({**config, "min_score": method_thresholds[method]} if method in method_thresholds else config)]
             try:
                 completed = subprocess.run(command, text=True, capture_output=True, timeout=args.method_timeout)
                 if completed.returncode:

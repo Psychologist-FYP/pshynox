@@ -2,6 +2,7 @@
 from copy import deepcopy
 import json
 from pathlib import Path
+import shutil
 
 import pytest
 
@@ -130,3 +131,59 @@ def test_missing_or_corrupt_manifest_inputs_are_rejected_without_download(tmp_pa
     path.unlink()
     with pytest.raises(ValueError, match='Missing/corrupt'):
         verify_pack(tmp_path)
+
+
+def test_shared_conversion_preserves_all_progress_and_keeps_legacy_backup(tmp_path):
+    store = create_research_fixture(tmp_path)
+    grade_all(store, add_query(store), [0, 2])
+    store.mark_explored('synthetic', 'example', store.state('synthetic')['revision'])
+    before = store.state('synthetic')
+    backup = (tmp_path / 'annotations/synthetic.json').read_bytes()
+    shared = store.share_annotations('synthetic')
+    assert {k: v for k, v in shared.items() if k != 'revision'} == {k: v for k, v in before.items() if k != 'revision'}
+    assert shared['revision'] < 2 ** 53
+    assert store.export('synthetic', 'dev')['judgments'][0]['grade'] == 0
+    assert (tmp_path / 'annotations/synthetic.json').read_bytes() == backup
+    assert store.share_annotations('synthetic') == shared
+
+
+def test_separate_conversation_edits_combine_after_pull_without_touching_other_files(tmp_path):
+    root = tmp_path / 'first'
+    store = create_research_fixture(root)
+    first = grade_all(store, add_query(store), [0, 2])
+    grade_all(store, add_query(store, cid='heldout'), [1, 2])
+    store.share_annotations('synthetic')
+    other_root = tmp_path / 'second'
+    shutil.copytree(root, other_root)
+    other = ResearchStore(other_root)
+    stale_revision = other.state('synthetic')['revision']
+    heldout_path = root / 'annotations/synthetic/heldout.json'
+    untouched = heldout_path.read_bytes()
+    store.grade('synthetic', 'example', first['queries'][0]['query_id'], 'example-0',
+                {'revision': store.state('synthetic')['revision'], 'grade': None, 'reviewer': '', 'rationale': ''})
+    assert heldout_path.read_bytes() == untouched
+    heldout = other.detail('synthetic', 'heldout')
+    other.grade('synthetic', 'heldout', heldout['queries'][0]['query_id'], 'heldout-0',
+                {'revision': stale_revision, 'grade': 2, 'reviewer': 'second author', 'rationale': 'Fictional evidence'})
+    # A Git pull combines independently changed conversation files.
+    shutil.copyfile(root / 'annotations/synthetic/example.json', other_root / 'annotations/synthetic/example.json')
+    assert 'example-0' not in other.detail('synthetic', 'example')['queries'][0]['judgments']
+    assert other.export('synthetic', 'test')['judgments'][0]['reviewer'] == 'second author'
+    with pytest.raises(ResearchError, match='another tab'):
+        other.grade('synthetic', 'example', first['queries'][0]['query_id'], 'example-0',
+                    {'revision': stale_revision, 'grade': 0, 'reviewer': 'test', 'rationale': 'test'})
+    other.save_query('synthetic', 'heldout', {'revision': other.state('synthetic')['revision'],
+                     'query_id': heldout['queries'][0]['query_id'], 'text': 'changed question', 'intent': 'New intent', 'draft': True})
+    assert ResearchStore(other_root).detail('synthetic', 'heldout')['queries'][0]['judgments'] == {}
+
+
+def test_shared_annotations_reject_dataset_version_mismatch(tmp_path):
+    store = create_research_fixture(tmp_path)
+    add_query(store)
+    store.share_annotations('synthetic')
+    path = tmp_path / 'datasets/synthetic.json'
+    dataset = json.loads(path.read_text())
+    dataset['version'] = 'different-source-version'
+    write_json(path, dataset)
+    with pytest.raises(ResearchError, match='Dataset changed'):
+        store.state('synthetic')

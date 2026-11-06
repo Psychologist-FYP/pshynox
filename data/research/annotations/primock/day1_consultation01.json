@@ -1,0 +1,48 @@
+{
+  "dataset_version": "a64141a2e609057e25bd0c51c45f36efd9a1803032d2c678c1b555f123570377",
+  "conversation_id": "day1_consultation01",
+  "pilot_extra": false,
+  "explored": false,
+  "queries": [
+    {
+      "query_id": "draft-day1_consultation01-1",
+      "conversation_id": "day1_consultation01",
+      "text": "\"<UNSURE>Oh</UNSURE> <UNSURE>hey</UNSURE>, um, I've just\"",
+      "intent": "Find the statement beginning \"<UNSURE>Oh</UNSURE> <UNSURE>hey</UNSURE>, um, I've just had some diarrhea for the last three\"; check other relevant turns too.",
+      "kind": "literal",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    },
+    {
+      "query_id": "draft-day1_consultation01-2",
+      "conversation_id": "day1_consultation01",
+      "text": "What is the client explaining in this statement: <UNSURE>Oh</UNSURE> <UNSURE>hey</UNSURE>, um, I've just had some diarrhea for the last three?",
+      "intent": "Draft prompt: rewrite in your own words as a paraphrase of this source before approving; do not copy its wording.",
+      "kind": "paraphrase",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    },
+    {
+      "query_id": "draft-day1_consultation01-3",
+      "conversation_id": "day1_consultation01",
+      "text": "What does the client mean by \"Yep.\"?",
+      "intent": "Interpret the short reply at day1_consultation01_patient_12 using surrounding conversation; review all turns for evidence.",
+      "kind": "context",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    },
+    {
+      "query_id": "draft-day1_consultation01-4",
+      "conversation_id": "day1_consultation01",
+      "text": "What does the client say about taking a scuba-diving certification course?",
+      "intent": "Draft absent-topic candidate. Read the FULL conversation to verify absence, or replace the query. Absence is not pre-labelled.",
+      "kind": "no-answer-candidate",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    }
+  ]
+}

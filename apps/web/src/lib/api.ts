@@ -45,12 +45,19 @@ export type EvidenceHit = {
   method?: string | null;
   retrieval_diagnostics?: Record<string, unknown>;
 };
+export type GeneratedNoteItem = {
+  id:string; text:string; type:string; source_ids:string[]; status:string;
+  attribution:string; timeframe:string; uncertainty:string; basis:string; missing_information:string[];
+  review_status:'pending'|'accepted'|'edited'|'rejected'; review_text:string|null;
+  review_history:{actor:string;action:string;at:string;text:string|null}[];
+};
 export type NoteField = {
-  section: "subjective" | "objective" | "assessment" | "plan" | "functioning";
+  section: "subjective" | "objective" | "assessment" | "plan" | "functioning" | "progress" | "interventions";
   text: string;
-  provenance: "MANUAL" | "RETRIEVAL_CANDIDATE" | "TEMPLATE";
+  provenance: "MANUAL" | "RETRIEVAL_CANDIDATE" | "TEMPLATE" | "AI_GENERATED";
   evidence_ids: string[];
   review_status: "PENDING" | "REVIEWED";
+  generated_items?: GeneratedNoteItem[];
 };
 export type NoteDraft = { sources_stale: boolean; id: string; session_id: string; fields: NoteField[]; created_at: string; updated_at: string; workflow_status: "DRAFT" | "APPROVED" | "REJECTED"; risk_review_status: "PENDING" | "COMPLETED"; reviewer_name?: string | null; decision_actor_name?: string | null; };
 export type ReviewState = { session_id: string; note_draft_id: string | null; workflow_status: "DRAFT" | "APPROVED" | "REJECTED"; risk_review_status: "PENDING" | "COMPLETED"; reviewer_name?: string | null; risk_review_completed_at?: string | null; review_note?: string | null; decision_actor_name?: string | null; decision_at?: string | null; rejection_reason?: string | null };

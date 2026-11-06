@@ -1,0 +1,1156 @@
+{
+  "dataset_version": "46db33abc04a2d80912d9c63a72a242021f3eb8edfd286db89512edebaa083a0",
+  "conversation_id": "annomi-3",
+  "pilot_extra": false,
+  "explored": false,
+  "queries": [
+    {
+      "query_id": "draft-annomi-3-1",
+      "conversation_id": "annomi-3",
+      "text": "\"Well see, my-my wife's been\"",
+      "intent": "Find the statement beginning \"Well see, my-my wife's been getting on me a lot lately about\"; check other relevant turns too.",
+      "kind": "literal",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    },
+    {
+      "query_id": "draft-annomi-3-2",
+      "conversation_id": "annomi-3",
+      "text": "What is the client explaining in this statement: Well see, my-my wife's been getting on me a lot lately about?",
+      "intent": "Draft prompt: rewrite in your own words as a paraphrase of this source before approving; do not copy its wording.",
+      "kind": "paraphrase",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    },
+    {
+      "query_id": "draft-annomi-3-3",
+      "conversation_id": "annomi-3",
+      "text": "What does the client mean by \"Yeah.\"?",
+      "intent": "Interpret the short reply at annomi-3-utterance-10 using surrounding conversation; review all turns for evidence.",
+      "kind": "context",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    },
+    {
+      "query_id": "draft-annomi-3-4",
+      "conversation_id": "annomi-3",
+      "text": "What does the client say about taking a scuba-diving certification course?",
+      "intent": "Draft absent-topic candidate. Read the FULL conversation to verify absence, or replace the query. Absence is not pre-labelled.",
+      "kind": "no-answer-candidate",
+      "draft": true,
+      "no_answer_confirmed": false,
+      "judgments": {}
+    },
+    {
+      "query_id": "ai-v1-annomi-3-1",
+      "conversation_id": "annomi-3",
+      "text": "What does the client report about recent health and medical checks?",
+      "intent": "Retrieve feeling fine, a little weight gain, and a physical about last year reportedly showing no problem; exclude independently verified medical conclusions.",
+      "kind": "factual",
+      "draft": false,
+      "annotation_origin": "ai",
+      "human_review_status": "reviewed",
+      "no_answer_confirmed": false,
+      "substitution_reason": null,
+      "query_revision": "ba28efdedb8a9c06891035c69b1cd3a609ccd5075ff540dfbb62c53c7eaf59d5",
+      "judgments": {
+        "annomi-3-utterance-0": {
+          "grade": 1,
+          "rationale": "Client reports wife’s concerns and describes working hard, missing home dinner and eating out while seeing little problem. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-1",
+            "source_segment_id": "annomi-3-utterance-0",
+            "query_revision": "ba28efdedb8a9c06891035c69b1cd3a609ccd5075ff540dfbb62c53c7eaf59d5",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-1": {
+          "grade": 1,
+          "rationale": "Clinician reflects the client’s lack of current health concern. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-1",
+            "source_segment_id": "annomi-3-utterance-1",
+            "query_revision": "ba28efdedb8a9c06891035c69b1cd3a609ccd5075ff540dfbb62c53c7eaf59d5",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-2": {
+          "grade": 2,
+          "rationale": "Client explicitly reports feeling fine. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-1",
+            "source_segment_id": "annomi-3-utterance-2",
+            "query_revision": "ba28efdedb8a9c06891035c69b1cd3a609ccd5075ff540dfbb62c53c7eaf59d5",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-3": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-1",
+            "source_segment_id": "annomi-3-utterance-3",
+            "query_revision": "ba28efdedb8a9c06891035c69b1cd3a609ccd5075ff540dfbb62c53c7eaf59d5",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-4": {
+          "grade": 1,
+          "rationale": "Client describes manual labor and sweating as a personal reason for dismissing health concerns; this is not verified physiology. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-1",
+            "source_segment_id": "annomi-3-utterance-4",
+            "query_revision": "ba28efdedb8a9c06891035c69b1cd3a609ccd5075ff540dfbb62c53c7eaf59d5",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-5": {
+          "grade": 1,
+          "rationale": "Clinician asks about weight gain, contextualizing the short answer. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-1",
+            "source_segment_id": "annomi-3-utterance-5",
+            "query_revision": "ba28efdedb8a9c06891035c69b1cd3a609ccd5075ff540dfbb62c53c7eaf59d5",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-6": {
+          "grade": 2,
+          "rationale": "Client acknowledges a little weight gain while minimizing it. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-1",
+            "source_segment_id": "annomi-3-utterance-6",
+            "query_revision": "ba28efdedb8a9c06891035c69b1cd3a609ccd5075ff540dfbb62c53c7eaf59d5",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-7": {
+          "grade": 1,
+          "rationale": "Clinician asks about recent doctor visits without supplying a result. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-1",
+            "source_segment_id": "annomi-3-utterance-7",
+            "query_revision": "ba28efdedb8a9c06891035c69b1cd3a609ccd5075ff540dfbb62c53c7eaf59d5",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-8": {
+          "grade": 2,
+          "rationale": "Client reports a physical about last year and says the results were fine. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-1",
+            "source_segment_id": "annomi-3-utterance-8",
+            "query_revision": "ba28efdedb8a9c06891035c69b1cd3a609ccd5075ff540dfbb62c53c7eaf59d5",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-9": {
+          "grade": 1,
+          "rationale": "Clinician checks the client’s perception of feeling good. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-1",
+            "source_segment_id": "annomi-3-utterance-9",
+            "query_revision": "ba28efdedb8a9c06891035c69b1cd3a609ccd5075ff540dfbb62c53c7eaf59d5",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-10": {
+          "grade": 2,
+          "rationale": "Client confirms feeling good in response to the explicit question. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-1",
+            "source_segment_id": "annomi-3-utterance-10",
+            "query_revision": "ba28efdedb8a9c06891035c69b1cd3a609ccd5075ff540dfbb62c53c7eaf59d5",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-11": {
+          "grade": 0,
+          "rationale": "Clinician proposes that the wife may be overreacting, which the client subsequently qualifies. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-1",
+            "source_segment_id": "annomi-3-utterance-11",
+            "query_revision": "ba28efdedb8a9c06891035c69b1cd3a609ccd5075ff540dfbb62c53c7eaf59d5",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-12": {
+          "grade": 0,
+          "rationale": "Client recognizes the wife’s caring motive and says eating out feels better after a hard job. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-1",
+            "source_segment_id": "annomi-3-utterance-12",
+            "query_revision": "ba28efdedb8a9c06891035c69b1cd3a609ccd5075ff540dfbb62c53c7eaf59d5",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-13": {
+          "grade": 0,
+          "rationale": "Clinician offers information on obesity or diabetes conditionally, without diagnosing either. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-1",
+            "source_segment_id": "annomi-3-utterance-13",
+            "query_revision": "ba28efdedb8a9c06891035c69b1cd3a609ccd5075ff540dfbb62c53c7eaf59d5",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-14": {
+          "grade": 0,
+          "rationale": "Client assents to receiving information; the rest is unintelligible. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-1",
+            "source_segment_id": "annomi-3-utterance-14",
+            "query_revision": "ba28efdedb8a9c06891035c69b1cd3a609ccd5075ff540dfbb62c53c7eaf59d5",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-15": {
+          "grade": 0,
+          "rationale": "Clinician acknowledges acceptance without specifying additional content or action. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-1",
+            "source_segment_id": "annomi-3-utterance-15",
+            "query_revision": "ba28efdedb8a9c06891035c69b1cd3a609ccd5075ff540dfbb62c53c7eaf59d5",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        }
+      },
+      "query_review": {
+        "reviewer": "Anas",
+        "at": "2026-11-03T13:10:30.372796+00:00",
+        "action": "bulk-accepted-wording",
+        "review_basis": "User explicitly authorized bulk acceptance after inspecting a sample; not individual inspection of every label"
+      }
+    },
+    {
+      "query_id": "ai-v1-annomi-3-2",
+      "conversation_id": "annomi-3",
+      "text": "Why does the client value eating out despite their wife’s concerns?",
+      "intent": "Retrieve work preventing home dinners and the comfort of restaurant meals after hard work; distinguish the client’s beliefs from verified benefits.",
+      "kind": "paraphrase",
+      "draft": false,
+      "annotation_origin": "ai",
+      "human_review_status": "reviewed",
+      "no_answer_confirmed": false,
+      "substitution_reason": null,
+      "query_revision": "71ddd1f7e264e6513d2e5688a84018fae1fbfcd2a10b28c14a4becdddf8ae8f3",
+      "judgments": {
+        "annomi-3-utterance-0": {
+          "grade": 2,
+          "rationale": "Client reports wife’s concerns and describes working hard, missing home dinner and eating out while seeing little problem. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-2",
+            "source_segment_id": "annomi-3-utterance-0",
+            "query_revision": "71ddd1f7e264e6513d2e5688a84018fae1fbfcd2a10b28c14a4becdddf8ae8f3",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-1": {
+          "grade": 0,
+          "rationale": "Clinician reflects the client’s lack of current health concern. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-2",
+            "source_segment_id": "annomi-3-utterance-1",
+            "query_revision": "71ddd1f7e264e6513d2e5688a84018fae1fbfcd2a10b28c14a4becdddf8ae8f3",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-2": {
+          "grade": 0,
+          "rationale": "Client explicitly reports feeling fine. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-2",
+            "source_segment_id": "annomi-3-utterance-2",
+            "query_revision": "71ddd1f7e264e6513d2e5688a84018fae1fbfcd2a10b28c14a4becdddf8ae8f3",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-3": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-2",
+            "source_segment_id": "annomi-3-utterance-3",
+            "query_revision": "71ddd1f7e264e6513d2e5688a84018fae1fbfcd2a10b28c14a4becdddf8ae8f3",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-4": {
+          "grade": 1,
+          "rationale": "Client describes manual labor and sweating as a personal reason for dismissing health concerns; this is not verified physiology. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-2",
+            "source_segment_id": "annomi-3-utterance-4",
+            "query_revision": "71ddd1f7e264e6513d2e5688a84018fae1fbfcd2a10b28c14a4becdddf8ae8f3",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-5": {
+          "grade": 0,
+          "rationale": "Clinician asks about weight gain, contextualizing the short answer. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-2",
+            "source_segment_id": "annomi-3-utterance-5",
+            "query_revision": "71ddd1f7e264e6513d2e5688a84018fae1fbfcd2a10b28c14a4becdddf8ae8f3",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-6": {
+          "grade": 0,
+          "rationale": "Client acknowledges a little weight gain while minimizing it. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-2",
+            "source_segment_id": "annomi-3-utterance-6",
+            "query_revision": "71ddd1f7e264e6513d2e5688a84018fae1fbfcd2a10b28c14a4becdddf8ae8f3",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-7": {
+          "grade": 0,
+          "rationale": "Clinician asks about recent doctor visits without supplying a result. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-2",
+            "source_segment_id": "annomi-3-utterance-7",
+            "query_revision": "71ddd1f7e264e6513d2e5688a84018fae1fbfcd2a10b28c14a4becdddf8ae8f3",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-8": {
+          "grade": 0,
+          "rationale": "Client reports a physical about last year and says the results were fine. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-2",
+            "source_segment_id": "annomi-3-utterance-8",
+            "query_revision": "71ddd1f7e264e6513d2e5688a84018fae1fbfcd2a10b28c14a4becdddf8ae8f3",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-9": {
+          "grade": 0,
+          "rationale": "Clinician checks the client’s perception of feeling good. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-2",
+            "source_segment_id": "annomi-3-utterance-9",
+            "query_revision": "71ddd1f7e264e6513d2e5688a84018fae1fbfcd2a10b28c14a4becdddf8ae8f3",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-10": {
+          "grade": 0,
+          "rationale": "Client confirms feeling good in response to the explicit question. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-2",
+            "source_segment_id": "annomi-3-utterance-10",
+            "query_revision": "71ddd1f7e264e6513d2e5688a84018fae1fbfcd2a10b28c14a4becdddf8ae8f3",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-11": {
+          "grade": 1,
+          "rationale": "Clinician proposes that the wife may be overreacting, which the client subsequently qualifies. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-2",
+            "source_segment_id": "annomi-3-utterance-11",
+            "query_revision": "71ddd1f7e264e6513d2e5688a84018fae1fbfcd2a10b28c14a4becdddf8ae8f3",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-12": {
+          "grade": 2,
+          "rationale": "Client recognizes the wife’s caring motive and says eating out feels better after a hard job. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-2",
+            "source_segment_id": "annomi-3-utterance-12",
+            "query_revision": "71ddd1f7e264e6513d2e5688a84018fae1fbfcd2a10b28c14a4becdddf8ae8f3",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-13": {
+          "grade": 0,
+          "rationale": "Clinician offers information on obesity or diabetes conditionally, without diagnosing either. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-2",
+            "source_segment_id": "annomi-3-utterance-13",
+            "query_revision": "71ddd1f7e264e6513d2e5688a84018fae1fbfcd2a10b28c14a4becdddf8ae8f3",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-14": {
+          "grade": 0,
+          "rationale": "Client assents to receiving information; the rest is unintelligible. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-2",
+            "source_segment_id": "annomi-3-utterance-14",
+            "query_revision": "71ddd1f7e264e6513d2e5688a84018fae1fbfcd2a10b28c14a4becdddf8ae8f3",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-15": {
+          "grade": 0,
+          "rationale": "Clinician acknowledges acceptance without specifying additional content or action. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-2",
+            "source_segment_id": "annomi-3-utterance-15",
+            "query_revision": "71ddd1f7e264e6513d2e5688a84018fae1fbfcd2a10b28c14a4becdddf8ae8f3",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        }
+      },
+      "query_review": {
+        "reviewer": "Anas",
+        "at": "2026-11-03T13:10:30.372796+00:00",
+        "action": "bulk-accepted-wording",
+        "review_basis": "User explicitly authorized bulk acceptance after inspecting a sample; not individual inspection of every label"
+      }
+    },
+    {
+      "query_id": "ai-v1-annomi-3-3",
+      "conversation_id": "annomi-3",
+      "text": "How does the client respond to the offer of health information?",
+      "intent": "Retrieve the clinician’s conditional offer on obesity or diabetes and the client’s assent; this is not a diagnosis or an agreed treatment plan.",
+      "kind": "context",
+      "draft": false,
+      "annotation_origin": "ai",
+      "human_review_status": "reviewed",
+      "no_answer_confirmed": false,
+      "substitution_reason": null,
+      "query_revision": "1a91ed4b23c175f3c2e8bfe67fbac4e50bb10d0455608a9eb2dd9a7251ecadf8",
+      "judgments": {
+        "annomi-3-utterance-0": {
+          "grade": 0,
+          "rationale": "Client reports wife’s concerns and describes working hard, missing home dinner and eating out while seeing little problem. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-3",
+            "source_segment_id": "annomi-3-utterance-0",
+            "query_revision": "1a91ed4b23c175f3c2e8bfe67fbac4e50bb10d0455608a9eb2dd9a7251ecadf8",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-1": {
+          "grade": 0,
+          "rationale": "Clinician reflects the client’s lack of current health concern. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-3",
+            "source_segment_id": "annomi-3-utterance-1",
+            "query_revision": "1a91ed4b23c175f3c2e8bfe67fbac4e50bb10d0455608a9eb2dd9a7251ecadf8",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-2": {
+          "grade": 0,
+          "rationale": "Client explicitly reports feeling fine. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-3",
+            "source_segment_id": "annomi-3-utterance-2",
+            "query_revision": "1a91ed4b23c175f3c2e8bfe67fbac4e50bb10d0455608a9eb2dd9a7251ecadf8",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-3": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-3",
+            "source_segment_id": "annomi-3-utterance-3",
+            "query_revision": "1a91ed4b23c175f3c2e8bfe67fbac4e50bb10d0455608a9eb2dd9a7251ecadf8",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-4": {
+          "grade": 0,
+          "rationale": "Client describes manual labor and sweating as a personal reason for dismissing health concerns; this is not verified physiology. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-3",
+            "source_segment_id": "annomi-3-utterance-4",
+            "query_revision": "1a91ed4b23c175f3c2e8bfe67fbac4e50bb10d0455608a9eb2dd9a7251ecadf8",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-5": {
+          "grade": 0,
+          "rationale": "Clinician asks about weight gain, contextualizing the short answer. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-3",
+            "source_segment_id": "annomi-3-utterance-5",
+            "query_revision": "1a91ed4b23c175f3c2e8bfe67fbac4e50bb10d0455608a9eb2dd9a7251ecadf8",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-6": {
+          "grade": 0,
+          "rationale": "Client acknowledges a little weight gain while minimizing it. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-3",
+            "source_segment_id": "annomi-3-utterance-6",
+            "query_revision": "1a91ed4b23c175f3c2e8bfe67fbac4e50bb10d0455608a9eb2dd9a7251ecadf8",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-7": {
+          "grade": 0,
+          "rationale": "Clinician asks about recent doctor visits without supplying a result. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-3",
+            "source_segment_id": "annomi-3-utterance-7",
+            "query_revision": "1a91ed4b23c175f3c2e8bfe67fbac4e50bb10d0455608a9eb2dd9a7251ecadf8",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-8": {
+          "grade": 0,
+          "rationale": "Client reports a physical about last year and says the results were fine. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-3",
+            "source_segment_id": "annomi-3-utterance-8",
+            "query_revision": "1a91ed4b23c175f3c2e8bfe67fbac4e50bb10d0455608a9eb2dd9a7251ecadf8",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-9": {
+          "grade": 0,
+          "rationale": "Clinician checks the client’s perception of feeling good. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-3",
+            "source_segment_id": "annomi-3-utterance-9",
+            "query_revision": "1a91ed4b23c175f3c2e8bfe67fbac4e50bb10d0455608a9eb2dd9a7251ecadf8",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-10": {
+          "grade": 0,
+          "rationale": "Client confirms feeling good in response to the explicit question. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-3",
+            "source_segment_id": "annomi-3-utterance-10",
+            "query_revision": "1a91ed4b23c175f3c2e8bfe67fbac4e50bb10d0455608a9eb2dd9a7251ecadf8",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-11": {
+          "grade": 0,
+          "rationale": "Clinician proposes that the wife may be overreacting, which the client subsequently qualifies. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-3",
+            "source_segment_id": "annomi-3-utterance-11",
+            "query_revision": "1a91ed4b23c175f3c2e8bfe67fbac4e50bb10d0455608a9eb2dd9a7251ecadf8",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-12": {
+          "grade": 0,
+          "rationale": "Client recognizes the wife’s caring motive and says eating out feels better after a hard job. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-3",
+            "source_segment_id": "annomi-3-utterance-12",
+            "query_revision": "1a91ed4b23c175f3c2e8bfe67fbac4e50bb10d0455608a9eb2dd9a7251ecadf8",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-13": {
+          "grade": 2,
+          "rationale": "Clinician offers information on obesity or diabetes conditionally, without diagnosing either. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-3",
+            "source_segment_id": "annomi-3-utterance-13",
+            "query_revision": "1a91ed4b23c175f3c2e8bfe67fbac4e50bb10d0455608a9eb2dd9a7251ecadf8",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-14": {
+          "grade": 2,
+          "rationale": "Client assents to receiving information; the rest is unintelligible. This supplies a substantive part of the requested evidence.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-3",
+            "source_segment_id": "annomi-3-utterance-14",
+            "query_revision": "1a91ed4b23c175f3c2e8bfe67fbac4e50bb10d0455608a9eb2dd9a7251ecadf8",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-15": {
+          "grade": 1,
+          "rationale": "Clinician acknowledges acceptance without specifying additional content or action. This provides interpretive or qualifying context for the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-3",
+            "source_segment_id": "annomi-3-utterance-15",
+            "query_revision": "1a91ed4b23c175f3c2e8bfe67fbac4e50bb10d0455608a9eb2dd9a7251ecadf8",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        }
+      },
+      "query_review": {
+        "reviewer": "Anas",
+        "at": "2026-11-03T13:10:30.372796+00:00",
+        "action": "bulk-accepted-wording",
+        "review_basis": "User explicitly authorized bulk acceptance after inspecting a sample; not individual inspection of every label"
+      }
+    },
+    {
+      "query_id": "ai-v1-annomi-3-4",
+      "conversation_id": "annomi-3",
+      "text": "What specific dietary change did the client agree to start next week?",
+      "intent": "Require a named dietary change and commitment for next week; accepting information alone does not qualify.",
+      "kind": "no-answer",
+      "draft": false,
+      "annotation_origin": "ai",
+      "human_review_status": "reviewed",
+      "no_answer_confirmed": false,
+      "substitution_reason": null,
+      "query_revision": "891bdaacab88aa7aabe2601ab60bcb06ebe87ff20b49efbf9db2c602616d8dc5",
+      "judgments": {
+        "annomi-3-utterance-0": {
+          "grade": 0,
+          "rationale": "Client reports wife’s concerns and describes working hard, missing home dinner and eating out while seeing little problem. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-4",
+            "source_segment_id": "annomi-3-utterance-0",
+            "query_revision": "891bdaacab88aa7aabe2601ab60bcb06ebe87ff20b49efbf9db2c602616d8dc5",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-1": {
+          "grade": 0,
+          "rationale": "Clinician reflects the client’s lack of current health concern. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-4",
+            "source_segment_id": "annomi-3-utterance-1",
+            "query_revision": "891bdaacab88aa7aabe2601ab60bcb06ebe87ff20b49efbf9db2c602616d8dc5",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-2": {
+          "grade": 0,
+          "rationale": "Client explicitly reports feeling fine. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-4",
+            "source_segment_id": "annomi-3-utterance-2",
+            "query_revision": "891bdaacab88aa7aabe2601ab60bcb06ebe87ff20b49efbf9db2c602616d8dc5",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-3": {
+          "grade": 0,
+          "rationale": "Clinician acknowledgment adds no evidence. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-4",
+            "source_segment_id": "annomi-3-utterance-3",
+            "query_revision": "891bdaacab88aa7aabe2601ab60bcb06ebe87ff20b49efbf9db2c602616d8dc5",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-4": {
+          "grade": 0,
+          "rationale": "Client describes manual labor and sweating as a personal reason for dismissing health concerns; this is not verified physiology. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-4",
+            "source_segment_id": "annomi-3-utterance-4",
+            "query_revision": "891bdaacab88aa7aabe2601ab60bcb06ebe87ff20b49efbf9db2c602616d8dc5",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-5": {
+          "grade": 0,
+          "rationale": "Clinician asks about weight gain, contextualizing the short answer. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-4",
+            "source_segment_id": "annomi-3-utterance-5",
+            "query_revision": "891bdaacab88aa7aabe2601ab60bcb06ebe87ff20b49efbf9db2c602616d8dc5",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-6": {
+          "grade": 0,
+          "rationale": "Client acknowledges a little weight gain while minimizing it. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-4",
+            "source_segment_id": "annomi-3-utterance-6",
+            "query_revision": "891bdaacab88aa7aabe2601ab60bcb06ebe87ff20b49efbf9db2c602616d8dc5",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-7": {
+          "grade": 0,
+          "rationale": "Clinician asks about recent doctor visits without supplying a result. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-4",
+            "source_segment_id": "annomi-3-utterance-7",
+            "query_revision": "891bdaacab88aa7aabe2601ab60bcb06ebe87ff20b49efbf9db2c602616d8dc5",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-8": {
+          "grade": 0,
+          "rationale": "Client reports a physical about last year and says the results were fine. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-4",
+            "source_segment_id": "annomi-3-utterance-8",
+            "query_revision": "891bdaacab88aa7aabe2601ab60bcb06ebe87ff20b49efbf9db2c602616d8dc5",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-9": {
+          "grade": 0,
+          "rationale": "Clinician checks the client’s perception of feeling good. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-4",
+            "source_segment_id": "annomi-3-utterance-9",
+            "query_revision": "891bdaacab88aa7aabe2601ab60bcb06ebe87ff20b49efbf9db2c602616d8dc5",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-10": {
+          "grade": 0,
+          "rationale": "Client confirms feeling good in response to the explicit question. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-4",
+            "source_segment_id": "annomi-3-utterance-10",
+            "query_revision": "891bdaacab88aa7aabe2601ab60bcb06ebe87ff20b49efbf9db2c602616d8dc5",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-11": {
+          "grade": 0,
+          "rationale": "Clinician proposes that the wife may be overreacting, which the client subsequently qualifies. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-4",
+            "source_segment_id": "annomi-3-utterance-11",
+            "query_revision": "891bdaacab88aa7aabe2601ab60bcb06ebe87ff20b49efbf9db2c602616d8dc5",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-12": {
+          "grade": 0,
+          "rationale": "Client recognizes the wife’s caring motive and says eating out feels better after a hard job. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-4",
+            "source_segment_id": "annomi-3-utterance-12",
+            "query_revision": "891bdaacab88aa7aabe2601ab60bcb06ebe87ff20b49efbf9db2c602616d8dc5",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-13": {
+          "grade": 0,
+          "rationale": "Clinician offers information on obesity or diabetes conditionally, without diagnosing either. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-4",
+            "source_segment_id": "annomi-3-utterance-13",
+            "query_revision": "891bdaacab88aa7aabe2601ab60bcb06ebe87ff20b49efbf9db2c602616d8dc5",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-14": {
+          "grade": 0,
+          "rationale": "Client assents to receiving information; the rest is unintelligible. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-4",
+            "source_segment_id": "annomi-3-utterance-14",
+            "query_revision": "891bdaacab88aa7aabe2601ab60bcb06ebe87ff20b49efbf9db2c602616d8dc5",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        },
+        "annomi-3-utterance-15": {
+          "grade": 0,
+          "rationale": "Clinician acknowledges acceptance without specifying additional content or action. This contributes no evidence to the defined question.",
+          "reviewer": "Anas",
+          "at": "2026-11-03T13:10:30.372796+00:00",
+          "annotation_origin": "ai",
+          "human_review_status": "reviewed",
+          "review_action": "bulk-accepted",
+          "review_basis": "User-approved sample-based bulk acceptance",
+          "ai_reference": {
+            "query_id": "ai-v1-annomi-3-4",
+            "source_segment_id": "annomi-3-utterance-15",
+            "query_revision": "891bdaacab88aa7aabe2601ab60bcb06ebe87ff20b49efbf9db2c602616d8dc5",
+            "transcript_hash": "b76820255c33b9e7e4dceae269c48fa0d19a21e3c51a94b34df220cdf859f7e7"
+          }
+        }
+      },
+      "query_review": {
+        "reviewer": "Anas",
+        "at": "2026-11-03T13:10:30.372796+00:00",
+        "action": "bulk-accepted-wording",
+        "review_basis": "User explicitly authorized bulk acceptance after inspecting a sample; not individual inspection of every label"
+      }
+    }
+  ]
+}

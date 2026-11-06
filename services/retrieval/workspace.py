@@ -47,11 +47,64 @@ class ResearchStore:
 
     def state(self, name):
         dataset = self.dataset(name)
+        folder = self.root / "annotations" / identifier(name)
+        if folder.is_dir():
+            value = {"dataset_version": dataset["version"], "pilot_extra": [], "explored": [], "queries": []}
+            seen = set()
+            conversation_ids = {c["conversation_id"] for c in dataset["conversations"]}
+            for path in sorted(folder.glob("*.json")):
+                part = json.loads(path.read_text())
+                cid = path.stem
+                if part["dataset_version"] != dataset["version"]:
+                    raise ResearchError("Dataset changed; annotations must be migrated explicitly.", 409)
+                if part["conversation_id"] != cid or cid not in conversation_ids:
+                    raise ResearchError(f"Invalid annotation conversation in {path.name}", 409)
+                if part["pilot_extra"]:
+                    value["pilot_extra"].append(cid)
+                if part["explored"]:
+                    value["explored"].append(cid)
+                for query in part["queries"]:
+                    if query["conversation_id"] != cid or query["query_id"] in seen:
+                        raise ResearchError(f"Invalid or duplicate annotation query in {path.name}", 409)
+                    seen.add(query["query_id"])
+                    value["queries"].append(query)
+            # Content-based revisions detect pulled changes as well as other tabs.
+            # Twelve hex digits remain exact in JavaScript's Number representation.
+            value["revision"] = int(digest(value)[:12], 16)
+            return value
         path = self.root / "annotations" / f"{identifier(name)}.json"
         value = json.loads(path.read_text())
         if value["dataset_version"] != dataset["version"]:
             raise ResearchError("Dataset changed; annotations must be migrated explicitly.", 409)
         return value
+
+    def _write_conversations(self, folder, state):
+        ids = {q["conversation_id"] for q in state["queries"]} | set(state["pilot_extra"]) | set(state["explored"])
+        ids.update(p.stem for p in folder.glob("*.json"))
+        for cid in sorted(ids):
+            path = folder / f"{identifier(cid)}.json"
+            part = {"dataset_version": state["dataset_version"], "conversation_id": cid,
+                    "pilot_extra": cid in state["pilot_extra"], "explored": cid in state["explored"],
+                    "queries": [q for q in state["queries"] if q["conversation_id"] == cid]}
+            if not path.exists() or json.loads(path.read_text()) != part:
+                write_json(path, part)
+
+    def share_annotations(self, name):
+        """Convert legacy progress without deleting the original local backup."""
+        folder = self.root / "annotations" / identifier(name)
+        if folder.is_dir():
+            return self.state(name)
+        with (self.root / "annotations" / f"{name}.lock").open("a") as lock:
+            fcntl.flock(lock, fcntl.LOCK_EX)
+            if folder.is_dir():
+                return self.state(name)
+            state = self.state(name)
+            # Build elsewhere and rename so readers never see a partial migration.
+            staging = folder.with_name(f".{name}-{uuid4().hex}")
+            staging.mkdir()
+            self._write_conversations(staging, state)
+            staging.rename(folder)
+        return self.state(name)
 
     @contextmanager
     def edit(self, name, revision):
@@ -63,8 +116,11 @@ class ResearchStore:
             if revision != state["revision"]:
                 raise ResearchError("Progress changed in another tab. Reload before saving again.", 409)
             yield state
-            state["revision"] += 1
-            write_json(folder / f"{name}.json", state)
+            if (folder / name).is_dir():
+                self._write_conversations(folder / name, state)
+            else:
+                state["revision"] += 1
+                write_json(folder / f"{name}.json", state)
 
     def conversation(self, name, cid):
         dataset = self.dataset(name)
@@ -91,7 +147,17 @@ class ResearchStore:
         conversation, state = self.conversation(name, cid), self.state(name)
         return {"conversation": conversation, "revision": state["revision"],
                 "queries": [{**q, "progress": progress(q, conversation)} for q in state["queries"] if q["conversation_id"] == cid],
-                "explored": cid in state["explored"]}
+                "explored": cid in state["explored"], "ai_drafts": self.ai_drafts(name, cid), "ai_audit": self.ai_audit(name, cid)}
+
+    def ai_audit(self, name, cid):
+        path = self.root / "review-experiments/audit-results.json"
+        if name != "annomi" or not path.exists():
+            return []
+        return [p for p in json.loads(path.read_text())["correction_proposals"] if p["conversation_id"] == cid]
+
+    def ai_drafts(self, name, cid):
+        from services.retrieval.ai_suggestions import suggestions
+        return suggestions(self, name, cid)
 
     def save_query(self, name, cid, payload):
         conversation = self.conversation(name, cid)
@@ -112,6 +178,14 @@ class ResearchStore:
                 query["judgments"] = {}
                 query["no_answer_confirmed"] = False
             query.update(text=payload["text"], intent=payload["intent"], draft=payload["draft"])
+            if query.get("annotation_origin") == "ai":
+                if not payload["draft"] and not payload.get("reviewer", "").strip():
+                    raise ResearchError("A human reviewer is required to approve AI query wording")
+                query["human_review_status"] = "pending" if payload["draft"] else "query-approved"
+                if not payload["draft"]:
+                    query["query_review"] = {"reviewer": payload["reviewer"], "action": "approved-wording",
+                                            "at": datetime.now(timezone.utc).isoformat()}
+
             if payload.get("no_answer_confirmed"):
                 grades = query["judgments"]
                 if len(grades) != len(conversation["segments"]) or any(j["grade"] != 0 for j in grades.values()):
@@ -144,8 +218,15 @@ class ResearchStore:
                     raise ResearchError("Grade must be 0, 1, 2 or unreviewed")
                 if not payload["reviewer"].strip() or not payload["rationale"].strip():
                     raise ResearchError("Reviewer and rationale are required for each reviewed turn")
-                query["judgments"][sid] = {"grade": payload["grade"], "reviewer": payload["reviewer"],
-                                          "rationale": payload["rationale"], "at": datetime.now(timezone.utc).isoformat()}
+                previous = query["judgments"].get(sid)
+                judgment = {"grade": payload["grade"], "reviewer": payload["reviewer"],
+                            "rationale": payload["rationale"], "at": datetime.now(timezone.utc).isoformat(),
+                            "annotation_origin": "human", "human_review_status": "reviewed", "review_action": "edited" if previous else "individually-labelled"}
+                if previous:
+                    judgment["review_history"] = previous.get("review_history", []) + [{k: v for k, v in previous.items() if k != "review_history"}]
+                    if "ai_reference" in previous:
+                        judgment["ai_reference"] = previous["ai_reference"]
+                query["judgments"][sid] = judgment
             query["no_answer_confirmed"] = False
             query.pop("no_answer_review", None)
         return self.detail(name, cid)

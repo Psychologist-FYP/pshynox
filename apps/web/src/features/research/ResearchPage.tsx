@@ -1,3 +1,4 @@
+import { AiDrafts } from './AiDrafts';
 import { useEffect, useRef, useState } from 'react';
 import { TopBar } from '../../components/layout/AppShell';
 import { formatTimestamp, type EvidenceHit, type Health } from '../../lib/api';
@@ -19,6 +20,7 @@ export function ResearchPage({ health }: { health: Health | null }) {
   const query = detail?.queries.find(q => q.query_id === qid);
   const segment = detail?.conversation.segments[index];
   const currentJudgment = segment && query?.judgments[segment.id];
+  const auditProposal = detail?.ai_audit?.find(p => p.query_id === qid && p.source_segment_id === segment?.id);
   const queryDirty = !!query && (text !== query.text || intent !== query.intent || approved === query.draft);
   const refresh = async () => { const items = await research.datasets(); setDatasets(items); return items; };
   useEffect(() => { void refresh().catch(e => setError(e.message)); }, []);
@@ -89,6 +91,7 @@ export function ResearchPage({ health }: { health: Health | null }) {
         <button className="research-reload" disabled={busy} onClick={async () => { setError(''); try { await refresh(); if (cid) setDetail(await research.conversation(name, cid)); } catch (e) { setError((e as Error).message); } }}>Reload saved progress</button>
       </section>
       {mode === 'results' ? <ResultsViewer dataset={dataset} /> : detail && <>
+        {mode === 'annotate' && <AiDrafts key={`${name}-${cid}`} detail={detail} name={name} reviewer={reviewer} update={d => { setDetail(d); void refresh(); }} />}
         {mode === 'annotate' && <section className="panel research-card">
           <h2>Query and intended evidence</h2><p>Rankings are hidden here. Read the conversation before grading. Query suggestions are drafts, not approved research questions.</p>
           {detail.explored && <p className="research-notice">This development conversation has been explored. That exposure is recorded in exports; use an independent reviewer for unbiased judgments where practical.</p>}
@@ -109,10 +112,11 @@ export function ResearchPage({ health }: { health: Health | null }) {
             })}</div>
           </section>
           {mode === 'annotate' && <section className="panel research-card research-grading" tabIndex={0}><h2>Review selected turn</h2>{segment && <><code>{segment.id}</code><p><strong>{segment.speaker_role} · {formatTimestamp(segment.start_ms)}–{formatTimestamp(segment.end_ms)}</strong></p><p>{segment.text}</p><p>Saved query: <strong>{query?.text || 'None selected'}</strong></p>{queryDirty && <p>Save query changes before grading.</p>}
+            {auditProposal && <div className="research-notice"><strong>AI consistency-check proposal · human review pending</strong><p>Original AI grade {auditProposal.original_grade}; proposed grade {auditProposal.proposed_grade}. {auditProposal.rationale}</p><button className="button button-secondary" disabled={busy || queryDirty} onClick={() => {setGrade(auditProposal.proposed_grade); setRationale(auditProposal.rationale);}}>Load proposal for my review</button><p>Review the transcript, then save explicitly under your reviewer name.</p></div>}
             <fieldset disabled={busy || !query || queryDirty}><legend>Relevance to the saved query</legend>{[[0, 'Irrelevant'], [1, 'Partial evidence or useful context'], [2, 'Direct evidence']].map(([v, label]) => <label className="research-check" key={v}><input type="radio" name="grade" checked={grade === v} onChange={() => setGrade(Number(v))} />{v} = {label}</label>)}</fieldset>
             <label>Rationale<textarea value={rationale} disabled={busy || !query} onChange={e => setRationale(e.target.value)} placeholder="Why does this turn receive this grade?" /></label>
             <label className="research-check"><input type="checkbox" checked={keepRationale} onChange={e => setKeepRationale(e.target.checked)} />Carry this rationale to the next turn for explicit reuse</label>
-            {currentJudgment && <p className="small-note">Saved by {currentJudgment.reviewer}: {currentJudgment.rationale}</p>}
+            {currentJudgment && <p className="small-note">Saved by {currentJudgment.reviewer}{currentJudgment.review_action === 'bulk-accepted' ? ' (bulk acceptance based on a sample)' : ''}: {currentJudgment.rationale}</p>}
             <div className="research-actions"><button className="button button-primary" disabled={busy || !query || queryDirty || grade === null || !reviewer.trim() || !rationale.trim()} onClick={() => saveGrade(true)}>Save judgment & next</button><button className="button button-secondary" disabled={busy || !query || queryDirty || !currentJudgment} onClick={() => saveGrade(false, null)}>Mark unreviewed</button></div>
             <div className="research-actions"><button className="button button-secondary" disabled={busy || index === 0} onClick={() => setIndex(i => i - 1)}>Previous turn</button><button className="button button-secondary" disabled={busy || index === detail.conversation.segments.length - 1} onClick={() => setIndex(i => i + 1)}>Next turn</button></div>
             <p className="small-note">Keyboard: focus this panel, then 0/1/2 selects a grade; J/K or arrows moves turns. Ctrl+Enter saves and advances, including from the rationale field. Unreviewed is different from grade 0.</p>
