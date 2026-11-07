@@ -2,8 +2,10 @@ from pathlib import Path
 from services.retrieval.final_packet import prepare
 from services.retrieval.prepare import digest
 from services.retrieval.workspace import ResearchStore
+from tests.local_data import needs_review_experiments
 
 
+@needs_review_experiments
 def test_final_packet_is_blind_disjoint_and_bound_to_frozen_config(tmp_path):
     root = Path('data/research')
     store = ResearchStore(root)
@@ -18,6 +20,7 @@ def test_final_packet_is_blind_disjoint_and_bound_to_frozen_config(tmp_path):
     assert all(c['split']=='test' for c in packet['conversations'])
 
 
+@needs_review_experiments
 def test_final_runner_rejects_packet_without_human_questions_and_labels():
     import pytest
     from services.retrieval.run_final import validate

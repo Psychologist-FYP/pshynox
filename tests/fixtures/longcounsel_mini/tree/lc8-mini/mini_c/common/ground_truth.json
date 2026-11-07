@@ -1,0 +1,97 @@
+{
+ "result_bundle_version": 1,
+ "run_id": "mini_c",
+ "scale": "PHQ-8",
+ "sessions": [
+  {
+   "session_id": 1,
+   "ground_truth_score": {
+    "scale": "PHQ-8",
+    "symptom_scores": {
+     "anhedonia": 0.375,
+     "depressed_mood": 0.375,
+     "sleep": 0.375,
+     "fatigue": 0.375,
+     "appetite": 0.375,
+     "self_worth": 0.375,
+     "concentration": 0.375,
+     "psychomotor": 0.375
+    },
+    "overall_score": 3.0,
+    "severity_band": "mild"
+   }
+  },
+  {
+   "session_id": 2,
+   "ground_truth_score": {
+    "scale": "PHQ-8",
+    "symptom_scores": {
+     "anhedonia": 0.375,
+     "depressed_mood": 0.375,
+     "sleep": 0.375,
+     "fatigue": 0.375,
+     "appetite": 0.375,
+     "self_worth": 0.375,
+     "concentration": 0.375,
+     "psychomotor": 0.375
+    },
+    "overall_score": 3.0,
+    "severity_band": "mild"
+   }
+  },
+  {
+   "session_id": 3,
+   "ground_truth_score": {
+    "scale": "PHQ-8",
+    "symptom_scores": {
+     "anhedonia": 0.5,
+     "depressed_mood": 0.5,
+     "sleep": 0.5,
+     "fatigue": 0.5,
+     "appetite": 0.5,
+     "self_worth": 0.5,
+     "concentration": 0.5,
+     "psychomotor": 0.5
+    },
+    "overall_score": 4.0,
+    "severity_band": "mild"
+   }
+  },
+  {
+   "session_id": 4,
+   "ground_truth_score": {
+    "scale": "PHQ-8",
+    "symptom_scores": {
+     "anhedonia": 0.375,
+     "depressed_mood": 0.375,
+     "sleep": 0.375,
+     "fatigue": 0.375,
+     "appetite": 0.375,
+     "self_worth": 0.375,
+     "concentration": 0.375,
+     "psychomotor": 0.375
+    },
+    "overall_score": 3.0,
+    "severity_band": "mild"
+   }
+  },
+  {
+   "session_id": 5,
+   "ground_truth_score": {
+    "scale": "PHQ-8",
+    "symptom_scores": {
+     "anhedonia": 0.375,
+     "depressed_mood": 0.375,
+     "sleep": 0.375,
+     "fatigue": 0.375,
+     "appetite": 0.375,
+     "self_worth": 0.375,
+     "concentration": 0.375,
+     "psychomotor": 0.375
+    },
+    "overall_score": 3.0,
+    "severity_band": "mild"
+   }
+  }
+ ]
+}

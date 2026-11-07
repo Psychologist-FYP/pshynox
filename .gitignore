@@ -65,3 +65,11 @@ apps/web/playwright-report/
 !/data/research/ai-suggestions/annomi/
 /data/research/ai-suggestions/annomi/*
 !/data/research/ai-suggestions/annomi/*.json
+
+# Progress benchmark: commit the fixed subset manifests and the frozen config only.
+# LongCounsel-8 raw/prepared data, runs, caches and calibration stay local (CC BY-NC 4.0 release).
+/data/research/datasets/longcounsel-8/
+!/data/research/progress-subsets/
+!/data/research/progress-frozen/
+/data/research/progress-frozen/*
+!/data/research/progress-frozen/frozen-progress-config.json

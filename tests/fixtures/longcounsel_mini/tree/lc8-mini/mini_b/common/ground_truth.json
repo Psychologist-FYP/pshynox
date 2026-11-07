@@ -1,0 +1,97 @@
+{
+ "result_bundle_version": 1,
+ "run_id": "mini_b",
+ "scale": "PHQ-8",
+ "sessions": [
+  {
+   "session_id": 1,
+   "ground_truth_score": {
+    "scale": "PHQ-8",
+    "symptom_scores": {
+     "anhedonia": 0.625,
+     "depressed_mood": 0.625,
+     "sleep": 0.625,
+     "fatigue": 0.625,
+     "appetite": 0.625,
+     "self_worth": 0.625,
+     "concentration": 0.625,
+     "psychomotor": 0.625
+    },
+    "overall_score": 5.0,
+    "severity_band": "mild"
+   }
+  },
+  {
+   "session_id": 2,
+   "ground_truth_score": {
+    "scale": "PHQ-8",
+    "symptom_scores": {
+     "anhedonia": 1.375,
+     "depressed_mood": 1.375,
+     "sleep": 1.375,
+     "fatigue": 1.375,
+     "appetite": 1.375,
+     "self_worth": 1.375,
+     "concentration": 1.375,
+     "psychomotor": 1.375
+    },
+    "overall_score": 11.0,
+    "severity_band": "moderate"
+   }
+  },
+  {
+   "session_id": 3,
+   "ground_truth_score": {
+    "scale": "PHQ-8",
+    "symptom_scores": {
+     "anhedonia": 0.75,
+     "depressed_mood": 0.75,
+     "sleep": 0.75,
+     "fatigue": 0.75,
+     "appetite": 0.75,
+     "self_worth": 0.75,
+     "concentration": 0.75,
+     "psychomotor": 0.75
+    },
+    "overall_score": 6.0,
+    "severity_band": "mild"
+   }
+  },
+  {
+   "session_id": 4,
+   "ground_truth_score": {
+    "scale": "PHQ-8",
+    "symptom_scores": {
+     "anhedonia": 1.625,
+     "depressed_mood": 1.625,
+     "sleep": 1.625,
+     "fatigue": 1.625,
+     "appetite": 1.625,
+     "self_worth": 1.625,
+     "concentration": 1.625,
+     "psychomotor": 1.625
+    },
+    "overall_score": 13.0,
+    "severity_band": "moderate"
+   }
+  },
+  {
+   "session_id": 5,
+   "ground_truth_score": {
+    "scale": "PHQ-8",
+    "symptom_scores": {
+     "anhedonia": 0.875,
+     "depressed_mood": 0.875,
+     "sleep": 0.875,
+     "fatigue": 0.875,
+     "appetite": 0.875,
+     "self_worth": 0.875,
+     "concentration": 0.875,
+     "psychomotor": 0.875
+    },
+    "overall_score": 7.0,
+    "severity_band": "mild"
+   }
+  }
+ ]
+}

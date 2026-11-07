@@ -1,4 +1,5 @@
 from services.retrieval.import_data import import_annomi, import_primock
+from tests.local_data import needs_starter_pack
 
 
 def test_annomi_import_excludes_annotation_and_diagnosis_columns(tmp_path):
@@ -35,6 +36,7 @@ from services.retrieval.import_data import research_payload, timestamp_ms
 STARTER = Path(__file__).resolve().parents[2] / 'docs/Pshynox_Retrieval_Starter/data'
 
 
+@needs_starter_pack
 def test_actual_supplied_schemas_preserve_ids_text_roles_times_and_sources():
     for name, count in [('day1_consultation01', 109), ('day1_consultation02', 130)]:
         path = STARTER / 'primock57' / f'{name}_transcript.csv'

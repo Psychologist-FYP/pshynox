@@ -1,0 +1,81 @@
+{
+  "kind": "instruments",
+  "version": "1.0.0",
+  "verification": "pending clinical consultant verification",
+  "notes": "Item labels are short paraphrases for navigation, not the questionnaire wording. Administer the published instrument itself.",
+  "instruments": [
+    {
+      "key": "phq9",
+      "label": "PHQ-9",
+      "licence_confirmed": true,
+      "licence_note": "PHQ instruments are free to use without permission (developed by Spitzer, Williams, Kroenke and colleagues).",
+      "item_min": 0,
+      "item_max": 3,
+      "reporting_period": "last two weeks",
+      "items": [
+        {"id": "1", "label": "Loss of interest or pleasure", "domain": "interest"},
+        {"id": "2", "label": "Low, depressed or hopeless mood", "domain": "low_mood"},
+        {"id": "3", "label": "Sleep difficulty or sleeping too much", "domain": "sleep"},
+        {"id": "4", "label": "Tiredness or low energy", "domain": "energy"},
+        {"id": "5", "label": "Poor appetite or overeating", "domain": "appetite"},
+        {"id": "6", "label": "Feeling bad about oneself or like a failure", "domain": "self_worth"},
+        {"id": "7", "label": "Trouble concentrating", "domain": "concentration"},
+        {"id": "8", "label": "Slowed movement or speech, or restlessness", "domain": "psychomotor"},
+        {"id": "9", "label": "Thoughts of self-harm or being better off dead", "domain": null, "clinician_only": true}
+      ],
+      "ai_estimable_items": ["1", "2", "3", "4", "5", "6", "7", "8"],
+      "total_max": 27,
+      "bands": [
+        {"min": 0, "max": 4, "label": "minimal"},
+        {"min": 5, "max": 9, "label": "mild"},
+        {"min": 10, "max": 14, "label": "moderate"},
+        {"min": 15, "max": 19, "label": "moderately severe"},
+        {"min": 20, "max": 27, "label": "severe"}
+      ],
+      "subtotals": [
+        {"key": "phq8", "label": "PHQ-8 (items 1–8)", "items": ["1", "2", "3", "4", "5", "6", "7", "8"], "max": 24,
+         "bands": [
+           {"min": 0, "max": 4, "label": "minimal"},
+           {"min": 5, "max": 9, "label": "mild"},
+           {"min": 10, "max": 14, "label": "moderate"},
+           {"min": 15, "max": 19, "label": "moderately severe"},
+           {"min": 20, "max": 24, "label": "severe"}
+         ]}
+      ],
+      "chart_subtotal": "phq8",
+      "reliable_change_threshold": 5,
+      "reliable_change_source": "Löwe B, Unützer J, Callahan CM, Perkins AJ, Kroenke K. Monitoring depression treatment outcomes with the Patient Health Questionnaire-9. Medical Care 2004;42(12). Applied to the PHQ-8 subtotal as an assumption pending consultant verification."
+    },
+    {
+      "key": "gad7",
+      "label": "GAD-7",
+      "licence_confirmed": true,
+      "licence_note": "GAD-7 is free to use without permission (Spitzer, Kroenke, Williams, Löwe 2006).",
+      "item_min": 0,
+      "item_max": 3,
+      "reporting_period": "last two weeks",
+      "items": [
+        {"id": "1", "label": "Feeling nervous, anxious or on edge", "domain": "worry"},
+        {"id": "2", "label": "Unable to stop or control worrying", "domain": "worry"},
+        {"id": "3", "label": "Worrying too much about different things", "domain": "worry"},
+        {"id": "4", "label": "Trouble relaxing", "domain": "restlessness_tension"},
+        {"id": "5", "label": "So restless it is hard to sit still", "domain": "restlessness_tension"},
+        {"id": "6", "label": "Easily annoyed or irritable", "domain": "irritability"},
+        {"id": "7", "label": "Feeling afraid something awful might happen", "domain": "worry"}
+      ],
+      "ai_estimable_items": ["1", "2", "3", "4", "5", "6", "7"],
+      "total_max": 21,
+      "bands": [
+        {"min": 0, "max": 4, "label": "minimal"},
+        {"min": 5, "max": 9, "label": "mild"},
+        {"min": 10, "max": 14, "label": "moderate"},
+        {"min": 15, "max": 21, "label": "severe"}
+      ],
+      "subtotals": [],
+      "chart_subtotal": null,
+      "reliable_change_threshold": null,
+      "reliable_change_source": "Not set; awaiting clinical consultant. No change markers are produced while null."
+    }
+  ],
+  "extension_point": "Add an instrument only after its licence is confirmed (licence_confirmed: true). A mania/hypomania self-rating scale for bipolar monitoring is a planned candidate; its licence has not been checked."
+}

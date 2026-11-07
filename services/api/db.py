@@ -76,7 +76,9 @@ class AuditEventRecord(Base):
     __tablename__ = "audit_events"
 
     id: Mapped[str] = mapped_column(String(100), primary_key=True)
-    session_id: Mapped[str] = mapped_column(ForeignKey("sessions.id", ondelete="CASCADE"), nullable=False, index=True)
+    # Nullable since 0008: patient-level progress actions may have no session.
+    session_id: Mapped[str | None] = mapped_column(ForeignKey("sessions.id", ondelete="CASCADE"), nullable=True, index=True)
+    patient_id: Mapped[str | None] = mapped_column(ForeignKey("patients.id"), nullable=True, index=True)
     note_draft_id: Mapped[str | None] = mapped_column(ForeignKey("note_drafts.id", ondelete="SET NULL"), nullable=True)
     event_type: Mapped[str] = mapped_column(String(50), nullable=False)
     actor_name: Mapped[str] = mapped_column(String(120), nullable=False)
@@ -184,3 +186,167 @@ class MeetingChunkRecord(Base):
     recording_id: Mapped[str] = mapped_column(ForeignKey("recordings.id"), unique=True)
     speaker_role: Mapped[str] = mapped_column(String(20))
     offset_ms: Mapped[int] = mapped_column(Integer)
+
+
+# ---- Progress monitoring (migration 0008). JSON columns are Text, as elsewhere. ----
+
+class RegistryVersionRecord(Base):
+    __tablename__ = "registry_versions"
+    id: Mapped[str] = mapped_column(String(100), primary_key=True)
+    kind: Mapped[str] = mapped_column(String(40))
+    version: Mapped[str] = mapped_column(String(40))
+    sha256: Mapped[str] = mapped_column(String(64))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+
+class _ReviewColumns:
+    provenance: Mapped[str] = mapped_column(String(30))
+    review_status: Mapped[str] = mapped_column(String(20), default="pending")
+    original_ai_json: Mapped[str | None] = mapped_column(Text, nullable=True)
+    reviewer_name: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    reviewed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    reviewer_comment: Mapped[str | None] = mapped_column(String(1000), nullable=True)
+    extraction_job_id: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    source_revisions_json: Mapped[str] = mapped_column(Text, default="{}")
+    stale_from_status: Mapped[str | None] = mapped_column(String(20), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+
+class InstrumentScoreRecord(_ReviewColumns, Base):
+    __tablename__ = "instrument_scores"
+    id: Mapped[str] = mapped_column(String(100), primary_key=True)
+    patient_id: Mapped[str] = mapped_column(ForeignKey("patients.id"), index=True)
+    session_id: Mapped[str | None] = mapped_column(ForeignKey("sessions.id"), nullable=True, index=True)
+    instrument_key: Mapped[str] = mapped_column(String(40))
+    registry_version: Mapped[str] = mapped_column(String(80))
+    administered_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    item_scores_json: Mapped[str] = mapped_column(Text)
+    total: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    total_is_partial: Mapped[bool] = mapped_column(Boolean, default=False)
+    subtotals_json: Mapped[str] = mapped_column(Text, default="{}")
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+    superseded_by_id: Mapped[str | None] = mapped_column(String(100), nullable=True)
+
+
+class DomainObservationRecord(_ReviewColumns, Base):
+    __tablename__ = "domain_observations"
+    id: Mapped[str] = mapped_column(String(100), primary_key=True)
+    patient_id: Mapped[str] = mapped_column(ForeignKey("patients.id"), index=True)
+    session_id: Mapped[str] = mapped_column(ForeignKey("sessions.id"), index=True)
+    domain_key: Mapped[str] = mapped_column(String(80))
+    registry_version: Mapped[str] = mapped_column(String(80))
+    rating: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    status_value: Mapped[str] = mapped_column(String(30))
+    direction: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    timeframe: Mapped[str] = mapped_column(String(20), default="current")
+    frequency_text: Mapped[str] = mapped_column(String(300), default="")
+    intensity_text: Mapped[str] = mapped_column(String(300), default="")
+    duration_text: Mapped[str] = mapped_column(String(300), default="")
+    basis: Mapped[str] = mapped_column(String(600), default="")
+    evidence_segment_ids_json: Mapped[str] = mapped_column(Text, default="[]")
+
+
+class DomainObservationVersionRecord(Base):
+    __tablename__ = "domain_observation_versions"
+    id: Mapped[str] = mapped_column(String(100), primary_key=True)
+    observation_id: Mapped[str] = mapped_column(ForeignKey("domain_observations.id"), index=True)
+    session_id: Mapped[str] = mapped_column(String(100), index=True)
+    domain_key: Mapped[str] = mapped_column(String(80))
+    version_no: Mapped[int] = mapped_column(Integer)
+    role: Mapped[str] = mapped_column(String(20))  # history | alternative
+    snapshot_json: Mapped[str] = mapped_column(Text)
+    actor: Mapped[str] = mapped_column(String(120))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+
+class ConditionPredictionRecord(_ReviewColumns, Base):
+    __tablename__ = "condition_predictions"
+    id: Mapped[str] = mapped_column(String(100), primary_key=True)
+    patient_id: Mapped[str] = mapped_column(ForeignKey("patients.id"), index=True)
+    as_of_session_id: Mapped[str] = mapped_column(ForeignKey("sessions.id"), index=True)
+    condition_key: Mapped[str] = mapped_column(String(60))
+    subtype_key: Mapped[str | None] = mapped_column(String(60), nullable=True)
+    prediction: Mapped[str] = mapped_column(String(30))
+    probability: Mapped[float | None] = mapped_column(nullable=True)
+    calibration_id: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    criteria_met_count: Mapped[int] = mapped_column(Integer, default=0)
+    criteria_required: Mapped[int] = mapped_column(Integer, default=0)
+    duration_status: Mapped[str] = mapped_column(String(20), default="unknown")
+    impairment_status: Mapped[str] = mapped_column(String(20), default="unknown")
+    rule_outs_json: Mapped[str] = mapped_column(Text, default="[]")
+    differentials_json: Mapped[str] = mapped_column(Text, default="[]")
+    missing_information_json: Mapped[str] = mapped_column(Text, default="[]")
+    rationale_json: Mapped[str] = mapped_column(Text, default="[]")
+    postprocess_json: Mapped[str] = mapped_column(Text, default="{}")
+    model_version: Mapped[str] = mapped_column(String(200), default="")
+    prompt_version: Mapped[str] = mapped_column(String(80), default="")
+    schema_version: Mapped[str] = mapped_column(String(80), default="")
+    registry_version: Mapped[str] = mapped_column(String(200), default="")
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+    superseded_by_id: Mapped[str | None] = mapped_column(String(100), nullable=True)
+
+
+class CriterionFindingRecord(Base):
+    __tablename__ = "criterion_findings"
+    id: Mapped[str] = mapped_column(String(100), primary_key=True)
+    prediction_id: Mapped[str] = mapped_column(ForeignKey("condition_predictions.id"), index=True)
+    criterion_id: Mapped[str] = mapped_column(String(80))
+    status: Mapped[str] = mapped_column(String(30))
+    evidence_json: Mapped[str] = mapped_column(Text, default="[]")
+    counter_evidence_json: Mapped[str] = mapped_column(Text, default="[]")
+    timeframe: Mapped[str] = mapped_column(String(20), default="unclear")
+    duration_note: Mapped[str] = mapped_column(String(600), default="")
+
+
+class RiskStatementRecord(_ReviewColumns, Base):
+    __tablename__ = "risk_statements"
+    id: Mapped[str] = mapped_column(String(100), primary_key=True)
+    patient_id: Mapped[str] = mapped_column(ForeignKey("patients.id"), index=True)
+    session_id: Mapped[str] = mapped_column(ForeignKey("sessions.id"), index=True)
+    segment_ids_json: Mapped[str] = mapped_column(Text)
+    category: Mapped[str] = mapped_column(String(40))
+    basis: Mapped[str] = mapped_column(String(600), default="")
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+
+
+class ChangeEventRecord(Base):
+    __tablename__ = "change_events"
+    id: Mapped[str] = mapped_column(String(100), primary_key=True)
+    patient_id: Mapped[str] = mapped_column(ForeignKey("patients.id"), index=True)
+    dedupe_key: Mapped[str] = mapped_column(String(64), unique=True)
+    measure_kind: Mapped[str] = mapped_column(String(20))
+    measure_key: Mapped[str] = mapped_column(String(80))
+    series: Mapped[str] = mapped_column(String(30))
+    from_session_id: Mapped[str] = mapped_column(String(100))
+    to_session_id: Mapped[str] = mapped_column(String(100))
+    delta: Mapped[float | None] = mapped_column(nullable=True)
+    from_label: Mapped[str | None] = mapped_column(String(60), nullable=True)
+    to_label: Mapped[str | None] = mapped_column(String(60), nullable=True)
+    rule_id: Mapped[str] = mapped_column(String(60))
+    provenance_of_inputs: Mapped[str] = mapped_column(String(20))
+    acknowledged_by: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    acknowledged_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    comment: Mapped[str | None] = mapped_column(String(1000), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+
+class PlanFollowupRecord(_ReviewColumns, Base):
+    __tablename__ = "plan_followups"
+    id: Mapped[str] = mapped_column(String(100), primary_key=True)
+    patient_id: Mapped[str] = mapped_column(ForeignKey("patients.id"), index=True)
+    origin_session_id: Mapped[str] = mapped_column(ForeignKey("sessions.id"), index=True)
+    origin_note_item_id: Mapped[str] = mapped_column(String(100))
+    plan_text: Mapped[str] = mapped_column(String(1000))
+    followup_session_id: Mapped[str] = mapped_column(ForeignKey("sessions.id"), index=True)
+    status: Mapped[str] = mapped_column(String(30), default="not_reviewed")
+    basis: Mapped[str] = mapped_column(String(600), default="")
+    evidence_segment_ids_json: Mapped[str] = mapped_column(Text, default="[]")
+
+
+class ProgressEvidenceLinkRecord(Base):
+    __tablename__ = "progress_evidence_links"
+    segment_id: Mapped[str] = mapped_column(String(100), primary_key=True)
+    owner_kind: Mapped[str] = mapped_column(String(30), primary_key=True)
+    owner_id: Mapped[str] = mapped_column(String(100), primary_key=True)
+    revision_at_link: Mapped[int] = mapped_column(Integer)

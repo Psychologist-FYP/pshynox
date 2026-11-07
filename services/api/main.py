@@ -89,6 +89,8 @@ async def lifespan(_: FastAPI):
         from services.api.note_generation_routes import shutdown_notes
         shutdown_notes()
         shutdown_research()
+        from services.progress.jobs import shutdown_progress
+        shutdown_progress()
         if worker and worker.poll() is None:
             os.killpg(worker.pid, signal.SIGTERM)
             worker.wait(timeout=10)
@@ -372,6 +374,9 @@ def update_transcript_segment(
                     field["review_status"] = "PENDING"
             draft.fields_json = json.dumps(fields)
         reset_review(draft)
+    # Same path as note excerpts: progress values citing this segment become stale.
+    from services.progress.store import mark_stale
+    mark_stale(db, segment_id)
     if payload.text is not None:
         record.text = payload.text
     if payload.speaker_role is not None:
@@ -613,7 +618,7 @@ def audit_events(session_id: str, db: DbSession = Depends(db_dependency)) -> lis
     records = db.scalars(select(AuditEventRecord).where(AuditEventRecord.session_id == session_id).order_by(AuditEventRecord.occurred_at, AuditEventRecord.id)).all()
     return [
         AuditEvent(
-            id=item.id, session_id=item.session_id, note_draft_id=item.note_draft_id,
+            id=item.id, session_id=item.session_id, patient_id=item.patient_id, note_draft_id=item.note_draft_id,
             event_type=item.event_type, actor_name=item.actor_name, occurred_at=item.occurred_at,
             metadata=json.loads(item.metadata_json),
         )
@@ -715,6 +720,10 @@ app.include_router(build_patient_router(db_dependency))
 
 from services.api.meeting_routes import build_meeting_router
 app.include_router(build_meeting_router(db_dependency, session_factory))
+
+
+from services.api.progress_routes import build_progress_router
+app.include_router(build_progress_router(db_dependency))
 
 
 @app.middleware("http")

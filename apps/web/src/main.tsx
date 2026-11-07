@@ -1,5 +1,8 @@
 import { ResearchNotesPage } from "./features/notes/LocalDraftPanel";
-import { StrictMode, useEffect, useState } from "react";
+import { StrictMode, Suspense, lazy, useEffect, useState } from "react";
+// Recharts is only bundled into the progress dashboard chunk.
+const ProgressPage = lazy(() => import("./features/progress/ProgressPage").then(m => ({ default: m.ProgressPage })));
+const ResearchProgressPage = lazy(() => import("./features/progress/ResearchProgressPage").then(m => ({ default: m.ResearchProgressPage })));
 import { createRoot } from "react-dom/client";
 import { LandingPage } from "./features/landing/LandingPage";
 import { SessionDetailPage } from "./features/sessions/SessionDetailPage";
@@ -43,10 +46,12 @@ function App() {
   if (!path.startsWith("/workspace")) return <LandingPage health={health} error={healthError} />;
   const parts = path.split("/").filter(Boolean);
   if (parts[1] === "research-notes") return <ResearchNotesPage />;
+  if (parts[1] === "research-progress") return <Suspense fallback={<div className="state-panel" role="status">Loading results…</div>}><ResearchProgressPage health={health} /></Suspense>;
   if (parts[1] === "research") return <ResearchPage health={health} />;
   let page;
   if (parts[1] === "sessions" && parts[2]) page = <SessionRoute key={parts[2]} id={parts[2]} health={health} />;
   else if (parts[1] === "patients" && parts[2] === "new") page = <PatientPage health={health} />;
+  else if (parts[1] === "patients" && parts[2] && parts[3] === "progress") page = <Suspense fallback={<div className="state-panel" role="status">Loading progress…</div>}><ProgressPage key={path} health={health} patientId={parts[2]} /></Suspense>;
   else if (parts[1] === "patients" && parts[2]) page = <PatientPage key={path} health={health} patientId={parts[2]} editing={parts[3] === "edit"} />;
   else page = <WorkspacePage health={health} />;
   return <PatientDirectory>{page}</PatientDirectory>;

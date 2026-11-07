@@ -5,6 +5,7 @@ import { usePatients } from "../patients/PatientDirectory";
 import { MeetingEntry } from "../meetings/MeetingEntry";
 import "../meetings/meeting.css";
 import { RecordingPanel } from "./RecordingPanel";
+import { ObservationsPanel } from "../progress/ObservationsPanel";
 import { useEffect, useState } from "react";
 import { WorkspaceShell } from "../../components/layout/AppShell";
 import { Icon } from "../../components/ui/Icon";
@@ -70,6 +71,26 @@ export function SessionDetailPage({ health, session, error }: { health: Health |
     Promise.all([api.noteDraft(session.id), api.reviewState(session.id), api.auditEvents(session.id)]).then(([value, state, events]) => { setDraft(value); setNoteFields(value.fields); setNoteState("Saved"); setReview(state); setAudit(events); }).catch((reason: Error) => setNoteState(reason.message));
   }, [session]);
 
+  useEffect(() => {
+    const target = window.location.hash.match(/^#segment-(.+)$/)?.[1];
+    if (!target || !transcript.some(s => s.id === target)) return;
+    setSelectedSegment(target);
+    const details = document.getElementById("session-sources") as HTMLDetailsElement | null;
+    if (details) details.open = true;
+    // Other panels load asynchronously and shift the layout: keep the cited turn centred while the page
+    // settles (first 3 s), and stop as soon as the user scrolls or clicks.
+    const focus = () => document.getElementById(`segment-${target}`)?.scrollIntoView({ block: "center" });
+    let frame = 0;
+    const observer = new ResizeObserver(() => { cancelAnimationFrame(frame); frame = requestAnimationFrame(focus); });
+    const stop = () => { observer.disconnect(); cancelAnimationFrame(frame); };
+    observer.observe(document.body);
+    focus();
+    const timer = window.setTimeout(stop, 3000);
+    window.addEventListener("wheel", stop, { once: true });
+    window.addEventListener("pointerdown", stop, { once: true });
+    window.addEventListener("keydown", stop, { once: true });
+    return () => { stop(); window.clearTimeout(timer); window.removeEventListener("wheel", stop); window.removeEventListener("pointerdown", stop); window.removeEventListener("keydown", stop); };
+  }, [transcript]);
   if (!session) return <WorkspaceShell health={health} active="Sessions"><main className="section-wrap"><div className="state-panel state-error"><strong>Session unavailable</strong><span>{detailError ?? "This session could not be found."}</span><a href="/workspace">Return to workspace</a></div></main></WorkspaceShell>;
   return <WorkspaceShell health={health} active="Session" patientId={session.patient_id}><main className="detail-page section-wrap">
     <a className="back-link" href={session.patient_id ? `/workspace/patients/${session.patient_id}` : "/workspace"}><Icon name="chevron" /> {patient ? `Back to ${patient.name}` : session.patient_id ? "Back to patient" : "All patients"}</a>
@@ -90,6 +111,7 @@ export function SessionDetailPage({ health, session, error }: { health: Health |
       onSource={id=>{setSelectedSegment(id);const details=document.getElementById("session-sources") as HTMLDetailsElement;details.open=true;document.getElementById(`segment-${id}`)?.scrollIntoView({block:"center"});}} />
     <NoteComposer dirty={noteDirty} saving={noteSaving} session={session} patientName={patient?.name || session.pseudonym_id} generating={generating} draft={draft} fields={noteFields} state={noteState} onChange={(fields) => { setNoteFields(fields); setNoteDirty(true); setNoteState("Unsaved changes"); }} onSave={async () => { if (!draft) return; setNoteSaving(true); setNoteState("Saving…"); try { const saved = await api.saveNoteDraft(session.id, noteFields); setDraft(saved); setNoteFields(saved.fields); setNoteDirty(false); setNoteState(`Saved ${new Date(saved.updated_at).toLocaleTimeString()}`); await refreshSaved(); } catch (reason) { setNoteState(reason instanceof Error ? reason.message : "Could not save draft"); } finally { setNoteSaving(false); } }} />
     {draft&&<FormulationReview note={draft} transcript={transcript} disabled={generating||noteDirty||noteSaving} onReviewed={saved=>{setDraft(saved);setNoteFields(saved.fields);setNoteDirty(false);setNoteState("Formulation review saved");void refreshSaved();}}/>}
+    <ObservationsPanel key={`obs-${session.id}`} sessionId={session.id} patientId={session.patient_id} decided={!!draft && draft.workflow_status !== "DRAFT"} />
     <ReviewPanel sessionId={session.id} review={review} audit={audit} disabled={generating || noteDirty || noteSaving} onChanged={(state, events) => { setReview(state); setAudit(events); void refreshSaved(); }} />
     <div className="notice"><Icon name="shield" /><span><strong>Review remains clinician-controlled.</strong> Transcription and excerpt drafts remain unreviewed until you check the sources and complete review.</span></div>
   </main></WorkspaceShell>;

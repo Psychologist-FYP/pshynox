@@ -1,0 +1,164 @@
+{
+  "kind": "conditions",
+  "version": "1.0.0",
+  "verification": "pending clinical consultant verification",
+  "notes": "Criterion summaries are short paraphrases written by the project team, not DSM-5-TR or ICD-11 text. Outputs are AI hypotheses for clinician review, not diagnoses.",
+  "enabled_conditions": ["depressive_episode", "bipolar", "gad", "social_anxiety"],
+  "excluded_by_proposal": ["bulimia_nervosa"],
+  "conditions": [
+    {
+      "key": "depressive_episode",
+      "label": "Depressive episode (depression)",
+      "source": "DSM-5-TR, Depressive Disorders — Major Depressive Disorder (episode criteria), paraphrased",
+      "verification": "pending clinical consultant verification",
+      "criteria": [
+        {"id": "mde.depressed_mood", "kind": "symptom", "core": true, "summary": "Low or depressed mood for most of the day on most days, reported or observed.", "domains": ["low_mood"]},
+        {"id": "mde.anhedonia", "kind": "symptom", "core": true, "summary": "Clearly reduced interest or enjoyment in most activities.", "domains": ["interest"]},
+        {"id": "mde.appetite_weight", "kind": "symptom", "core": false, "summary": "Noticeable change in appetite or weight without deliberate dieting.", "domains": ["appetite"]},
+        {"id": "mde.sleep", "kind": "symptom", "core": false, "summary": "Sleeping much less or much more than usual on most nights.", "domains": ["sleep"]},
+        {"id": "mde.psychomotor", "kind": "symptom", "core": false, "summary": "Slowing or agitation of movement that others could notice.", "domains": ["psychomotor"]},
+        {"id": "mde.fatigue", "kind": "symptom", "core": false, "summary": "Tiredness or loss of energy on most days.", "domains": ["energy"]},
+        {"id": "mde.worthlessness_guilt", "kind": "symptom", "core": false, "summary": "Feeling worthless or excessively guilty.", "domains": ["self_worth"]},
+        {"id": "mde.concentration", "kind": "symptom", "core": false, "summary": "Reduced ability to think, concentrate or make decisions.", "domains": ["concentration"]},
+        {"id": "mde.suicidal_thoughts", "kind": "symptom", "core": false, "model_assessed": false, "summary": "Recurrent thoughts of death or self-harm. Not assessed by the model: handled by flagged risk statements and clinician-entered PHQ-9 item 9.", "domains": []},
+        {"id": "mde.impairment", "kind": "impairment", "core": false, "summary": "The symptoms cause significant distress or difficulty in social, work, study or self-care roles.", "domains": ["social_functioning", "academic_work_functioning", "self_care"]}
+      ],
+      "requirements": [
+        {"id": "mde", "label": "Depressive symptoms", "criteria": ["mde.depressed_mood", "mde.anhedonia", "mde.appetite_weight", "mde.sleep", "mde.psychomotor", "mde.fatigue", "mde.worthlessness_guilt", "mde.concentration", "mde.suicidal_thoughts"], "min_met": 5, "must_include_any_of": ["mde.depressed_mood", "mde.anhedonia"]}
+      ],
+      "duration_days_min": 14,
+      "duration_summary": "Symptoms present together for at least two weeks and representing a change from usual functioning.",
+      "impairment_required": true,
+      "rule_outs": [
+        {"key": "substance_or_medication", "summary": "Effects of a substance, medication or withdrawal could explain the symptoms."},
+        {"key": "medical_condition", "summary": "A medical condition (for example thyroid disease) could explain the symptoms."},
+        {"key": "bereavement_or_expected_response", "summary": "The presentation could be an expected response to a significant loss; clinical judgement required."},
+        {"key": "manic_or_hypomanic_history", "summary": "Any past manic or hypomanic period changes the picture to a bipolar-spectrum question."}
+      ],
+      "differentials": [
+        {"condition": "bipolar", "why": "Depressive episodes also occur in bipolar disorder; past elevated periods must be asked about."},
+        {"condition": "gad", "why": "Worry, poor sleep, fatigue and poor concentration overlap with depression."},
+        {"condition": "adjustment_difficulties", "why": "Low mood after a clear stressor may not meet episode thresholds."}
+      ],
+      "retrieval_queries": ["sad down depressed hopeless", "no interest enjoy nothing", "sleep night awake", "tired no energy", "worthless failure guilty", "weeks months since started", "work studies family affected"],
+      "subtypes": []
+    },
+    {
+      "key": "bipolar",
+      "label": "Bipolar spectrum features",
+      "source": "DSM-5-TR, Bipolar and Related Disorders — Bipolar I, Bipolar II and Cyclothymic Disorder (episode criteria), paraphrased",
+      "verification": "pending clinical consultant verification",
+      "criteria": [
+        {"id": "mania.elevated_mood", "kind": "symptom", "core": true, "summary": "A distinct period of unusually elevated, expansive or euphoric mood.", "domains": ["elevated_mood"]},
+        {"id": "mania.irritable_mood", "kind": "symptom", "core": true, "summary": "A distinct period of unusually irritable mood, beyond the person's usual self.", "domains": ["irritability"]},
+        {"id": "mania.increased_energy", "kind": "symptom", "core": false, "summary": "Persistently increased energy or activity during that period.", "domains": ["increased_goal_directed_activity_risky_behaviour"]},
+        {"id": "mania.grandiosity", "kind": "symptom", "core": false, "summary": "Inflated self-esteem or grandiose beliefs.", "domains": ["grandiosity"]},
+        {"id": "mania.decreased_sleep_need", "kind": "symptom", "core": false, "summary": "Needing much less sleep while still feeling rested.", "domains": ["sleep"]},
+        {"id": "mania.pressured_speech", "kind": "symptom", "core": false, "summary": "More talkative than usual or feeling pressure to keep talking.", "domains": ["racing_thoughts_pressured_speech"]},
+        {"id": "mania.racing_thoughts", "kind": "symptom", "core": false, "summary": "Thoughts racing or jumping quickly between ideas.", "domains": ["racing_thoughts_pressured_speech"]},
+        {"id": "mania.distractibility", "kind": "symptom", "core": false, "summary": "Attention easily pulled away by unimportant things.", "domains": ["concentration"]},
+        {"id": "mania.goal_directed_activity", "kind": "symptom", "core": false, "summary": "Marked increase in goal-directed activity or restless agitation.", "domains": ["increased_goal_directed_activity_risky_behaviour"]},
+        {"id": "mania.risky_activities", "kind": "symptom", "core": false, "summary": "Excessive involvement in activities with painful consequences, such as spending sprees or reckless decisions.", "domains": ["increased_goal_directed_activity_risky_behaviour"]},
+        {"id": "bipolar.manic_period", "kind": "episode", "core": false, "summary": "Such a period lasted at least one week (or any length if hospitalised) and caused marked impairment or required hospitalisation.", "domains": []},
+        {"id": "bipolar.hypomanic_period", "kind": "episode", "core": false, "summary": "Such a period lasted at least four consecutive days, was noticeable to others, and did not cause marked impairment.", "domains": []},
+        {"id": "bipolar.depressive_period", "kind": "episode", "core": false, "summary": "A depressive period of at least two weeks meeting depressive-episode thresholds, now or in the past.", "domains": ["low_mood", "interest"]},
+        {"id": "bipolar.cyclothymic_course", "kind": "episode", "core": false, "summary": "For at least two years, many periods of milder elevated and low mood that never met full episode thresholds.", "domains": []},
+        {"id": "bipolar.impairment", "kind": "impairment", "core": false, "summary": "The mood periods affected work, study, relationships or self-care.", "domains": ["social_functioning", "academic_work_functioning", "self_care"]}
+      ],
+      "requirements": [
+        {"id": "mania_a", "label": "Elevated or irritable mood period", "criteria": ["mania.elevated_mood", "mania.irritable_mood"], "min_met": 1, "must_include_any_of": []},
+        {"id": "mania_b", "label": "Associated manic/hypomanic symptoms", "criteria": ["mania.grandiosity", "mania.decreased_sleep_need", "mania.pressured_speech", "mania.racing_thoughts", "mania.distractibility", "mania.goal_directed_activity", "mania.risky_activities"], "min_met": 3, "min_met_if_only": {"criterion": "mania.irritable_mood", "min_met": 4}, "must_include_any_of": []}
+      ],
+      "duration_days_min": 4,
+      "duration_summary": "Manic period at least 7 days (or any duration if hospitalised); hypomanic period at least 4 consecutive days; depressive period at least 2 weeks; cyclothymic course at least 2 years.",
+      "impairment_required": false,
+      "rule_outs": [
+        {"key": "substance_or_medication", "summary": "Stimulants, steroids, antidepressants or other substances could explain elevated periods."},
+        {"key": "medical_condition", "summary": "A medical or neurological condition could explain the mood change."},
+        {"key": "psychotic_disorder", "summary": "The periods could be better explained by a primary psychotic disorder."}
+      ],
+      "differentials": [
+        {"condition": "unipolar_depression", "why": "Without evidence of past elevated periods, depressive features alone cannot distinguish bipolar from unipolar depression."},
+        {"condition": "borderline_personality_features", "why": "Rapid mood shifts lasting hours, linked to interpersonal events, differ from sustained episodes."},
+        {"condition": "adhd", "why": "Distractibility, talkativeness and restlessness can be long-standing traits rather than episodic changes."},
+        {"condition": "substance_induced", "why": "Elevated mood tied to substance use requires a different formulation."}
+      ],
+      "retrieval_queries": ["decreased need for sleep slept hours not tired", "felt on top of the world unstoppable", "spending spree bought money", "talking fast racing thoughts", "days week lasted period", "high energy projects plans", "hospital admitted"],
+      "subtypes": [
+        {"key": "bipolar_i_pattern", "label": "Bipolar I pattern", "summary": "Requires cited evidence of a manic period."},
+        {"key": "bipolar_ii_pattern", "label": "Bipolar II pattern", "summary": "Requires cited evidence of a hypomanic period and a depressive period, with no manic period."},
+        {"key": "cyclothymic_pattern", "label": "Cyclothymic pattern", "summary": "Requires cited evidence of a two-year course of subthreshold mood periods."},
+        {"key": "depressive_features_only", "label": "Depressive features only — bipolarity not assessable", "summary": "Depressive features are documented, but no elevated period is evidenced; this does not establish unipolar depression."}
+      ]
+    },
+    {
+      "key": "gad",
+      "label": "Generalized anxiety",
+      "source": "DSM-5-TR, Anxiety Disorders — Generalized Anxiety Disorder, paraphrased",
+      "verification": "pending clinical consultant verification",
+      "criteria": [
+        {"id": "gad.excessive_worry", "kind": "symptom", "core": true, "summary": "Excessive worry about several areas of life, on more days than not.", "domains": ["worry"]},
+        {"id": "gad.difficult_to_control", "kind": "symptom", "core": true, "summary": "Finding the worry hard to control or stop.", "domains": ["worry"]},
+        {"id": "gad.restlessness", "kind": "symptom", "core": false, "summary": "Restlessness or feeling keyed up or on edge.", "domains": ["restlessness_tension", "psychomotor"]},
+        {"id": "gad.fatigue", "kind": "symptom", "core": false, "summary": "Getting tired easily.", "domains": ["energy"]},
+        {"id": "gad.concentration", "kind": "symptom", "core": false, "summary": "Difficulty concentrating or mind going blank.", "domains": ["concentration"]},
+        {"id": "gad.irritability", "kind": "symptom", "core": false, "summary": "Irritability.", "domains": ["irritability"]},
+        {"id": "gad.muscle_tension", "kind": "symptom", "core": false, "summary": "Muscle tension.", "domains": ["restlessness_tension"]},
+        {"id": "gad.sleep", "kind": "symptom", "core": false, "summary": "Trouble falling or staying asleep, or restless sleep.", "domains": ["sleep"]},
+        {"id": "gad.impairment", "kind": "impairment", "core": false, "summary": "The anxiety causes significant distress or difficulty in daily roles.", "domains": ["social_functioning", "academic_work_functioning"]}
+      ],
+      "requirements": [
+        {"id": "gad_core", "label": "Excessive, hard-to-control worry", "criteria": ["gad.excessive_worry", "gad.difficult_to_control"], "min_met": 2, "must_include_any_of": []},
+        {"id": "gad_associated", "label": "Associated symptoms", "criteria": ["gad.restlessness", "gad.fatigue", "gad.concentration", "gad.irritability", "gad.muscle_tension", "gad.sleep"], "min_met": 3, "must_include_any_of": []}
+      ],
+      "duration_days_min": 180,
+      "duration_summary": "Worry on more days than not for at least six months.",
+      "impairment_required": true,
+      "rule_outs": [
+        {"key": "substance_or_medication", "summary": "Caffeine, stimulants, medication or withdrawal could explain the anxiety."},
+        {"key": "medical_condition", "summary": "A medical condition (for example hyperthyroidism) could explain the anxiety."},
+        {"key": "better_explained_by_other_disorder", "summary": "The worry could be confined to the focus of another disorder (social evaluation, panic attacks, trauma reminders)."}
+      ],
+      "differentials": [
+        {"condition": "social_anxiety", "why": "Worry limited to social evaluation points towards social anxiety."},
+        {"condition": "panic_disorder", "why": "Worry centred on unexpected panic attacks suggests panic disorder."},
+        {"condition": "depressive_episode", "why": "Anxious distress commonly accompanies depression."}
+      ],
+      "retrieval_queries": ["worry about everything", "can't stop worrying control", "on edge restless tense", "months years always worried", "sleep worry night"],
+      "subtypes": []
+    },
+    {
+      "key": "social_anxiety",
+      "label": "Social anxiety",
+      "source": "DSM-5-TR, Anxiety Disorders — Social Anxiety Disorder, paraphrased",
+      "verification": "pending clinical consultant verification",
+      "criteria": [
+        {"id": "sad.fear_of_scrutiny", "kind": "symptom", "core": true, "summary": "Marked fear in social or performance situations where others might observe or judge.", "domains": ["social_fear_avoidance", "performance_fear"]},
+        {"id": "sad.fear_negative_evaluation", "kind": "symptom", "core": false, "summary": "Fear of acting or showing anxiety in a way that leads to embarrassment or rejection.", "domains": ["social_fear_avoidance"]},
+        {"id": "sad.situations_provoke_fear", "kind": "symptom", "core": false, "summary": "The feared situations almost always provoke anxiety.", "domains": ["social_fear_avoidance"]},
+        {"id": "sad.avoidance_or_endured", "kind": "symptom", "core": true, "summary": "The situations are avoided or endured with intense distress.", "domains": ["social_fear_avoidance"]},
+        {"id": "sad.out_of_proportion", "kind": "symptom", "core": false, "summary": "The fear is out of proportion to the actual threat and the social context.", "domains": ["social_fear_avoidance", "performance_fear"]},
+        {"id": "sad.impairment", "kind": "impairment", "core": false, "summary": "The fear or avoidance significantly affects study, work or relationships.", "domains": ["social_functioning", "academic_work_functioning"]}
+      ],
+      "requirements": [
+        {"id": "sad", "label": "Social fear features", "criteria": ["sad.fear_of_scrutiny", "sad.fear_negative_evaluation", "sad.situations_provoke_fear", "sad.avoidance_or_endured", "sad.out_of_proportion"], "min_met": 5, "must_include_any_of": ["sad.fear_of_scrutiny"]}
+      ],
+      "duration_days_min": 180,
+      "duration_summary": "Typically lasting six months or more.",
+      "impairment_required": true,
+      "specifiers": [{"key": "performance_only", "summary": "Fear limited to speaking or performing in public."}],
+      "rule_outs": [
+        {"key": "substance_or_medication", "summary": "A substance or medication could explain the anxiety."},
+        {"key": "medical_condition", "summary": "Fear limited to a visible medical condition (for example stuttering or disfigurement) is formulated differently."},
+        {"key": "better_explained_by_other_disorder", "summary": "Panic disorder, body dysmorphic concerns or autism-related social difficulty could explain the presentation."}
+      ],
+      "differentials": [
+        {"condition": "gad", "why": "Worry across many areas, not only social evaluation, suggests generalized anxiety."},
+        {"condition": "panic_disorder", "why": "Avoidance driven by fear of panic attacks rather than judgement."},
+        {"condition": "depressive_episode", "why": "Social withdrawal from loss of interest rather than fear of scrutiny."}
+      ],
+      "retrieval_queries": ["afraid of being judged", "avoid presentations speaking", "embarrassed people watching", "skip parties social events", "years since school always shy"],
+      "subtypes": []
+    }
+  ]
+}
