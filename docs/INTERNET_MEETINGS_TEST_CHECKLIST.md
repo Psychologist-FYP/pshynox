@@ -9,11 +9,11 @@ tests cannot cover real NAT, mobile networks, Funnel or TURN.
 - [ ] `.env` has `MEETING_PUBLIC_ORIGIN` (https) and the Cloudflare TURN keys. Check with `./scripts/setup.sh --check`
       or by starting the launcher. Never print the key values.
 - [ ] `git status` shows no `.env`.
-- [ ] Run `.venv/bin/python scripts/run_internet.py --diag-headers`, then `tailscale funnel --bg 8443`, then press
-      Enter. **All public checks PASS.**
+- [ ] Run `./scripts/run.py --diag-headers`. It turns Funnel on and must print **PASS public address answers**,
+      with no FAIL lines.
 - [ ] Note the header names logged for the public `/healthz` request (diagnostic). Record whether Funnel adds
       `X-Forwarded-For` or similar.
-- [ ] Afterwards: `tailscale funnel reset`, and `tailscale funnel status` shows nothing.
+- [ ] Afterwards: Ctrl+C turns Funnel off; `tailscale funnel status` then shows nothing.
 
 ## Checks
 

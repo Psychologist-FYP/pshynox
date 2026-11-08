@@ -51,29 +51,43 @@ participant of each meeting and revoked (best effort) when the meeting ends.
 ## 2. Hold a meeting
 
 ```bash
-.venv/bin/python scripts/run_internet.py
+./scripts/run.py
 ```
 
-The launcher:
+That one command starts everything. When `.env` has an `https://` `MEETING_PUBLIC_ORIGIN` and Tailscale is installed,
+it runs in **internet mode**:
 
-1. Refuses to start unless every server binds to `127.0.0.1` and `MEETING_PUBLIC_ORIGIN` is `https://`.
-2. Builds the **patient-only** page (`npm run build:meeting`, which contains nothing from the clinician workspace).
-3. Starts the clinician API (`127.0.0.1:8000`) and the public meeting server (`127.0.0.1:8443`) in one process, plus
-   the clinician UI (`http://localhost:5173`).
-4. Prints the Funnel command. **You run it yourself**, in another terminal:
+1. **Checks Tailscale.** It refuses to start unless Tailscale is connected (`tailscale up`) and every server binds to
+   `127.0.0.1`.
+2. **Builds the patient-only page** (`npm run build:meeting`). It contains nothing from the clinician workspace.
+3. **Starts the servers:**
+   - the clinician API on `127.0.0.1:8000`, with the speech worker;
+   - the public meeting server on `127.0.0.1:8443`, in the same process;
+   - the clinician UI on `http://127.0.0.1:5173`.
+4. **Turns on Funnel for the public server only:** `tailscale funnel --bg --yes --https=443 http://127.0.0.1:8443`.
+5. **Checks the public address.** `/healthz` must answer, and no clinician route (`/api/v1/patients`,
+   `/api/v1/sessions`, `/docs`, `/openapi.json`, …) may be served there.
+   - If a clinician route ever answers, it **turns Funnel off and stops**.
+   - If the address does not answer yet (a new name can take a few minutes), it warns and keeps running.
+6. **Turns Funnel off when you stop:** Ctrl+C, closing the terminal, or `kill`. This runs
+   `tailscale funnel --https=443 off`, and falls back to `tailscale funnel reset`.
 
-   ```bash
-   tailscale funnel --bg 8443        # public https://<name>.ts.net → http://127.0.0.1:8443 (the public server only)
-   tailscale funnel status
-   ```
-5. After you press Enter, checks through the public address that `/healthz` answers and that no clinician route
-   (`/api/v1/patients`, `/api/v1/sessions`, `/docs`, `/openapi.json`, …) is served there. If any check fails, do not
-   invite anyone.
-6. On exit (Ctrl+C), reminds you to turn Funnel off:
+Options:
 
-   ```bash
-   tailscale funnel reset
-   ```
+| Command | Effect |
+|---|---|
+| `./scripts/run.py --local` | Workspace only: no public server, no Funnel |
+| `./scripts/run.py --no-funnel` | Internet servers, but you expose them yourself (`tailscale funnel --bg 8443`) |
+| `./scripts/run.py --diag-headers` | Also logs the **names** of headers Funnel adds (never their values) |
+| `./scripts/run.py --skip-build` | Reuse the existing patient page build |
+
+Notes:
+
+- In internet mode the backend runs **without auto-reload**, so a code change never cuts a call. Restart after editing
+  backend code or `.env`.
+- On Linux, Tailscale may refuse configuration changes from a normal user. If Funnel cannot be turned on with "access
+  denied", run once: `sudo tailscale set --operator=$USER`.
+- `scripts/run_internet.py` is the older variant in which you run the Funnel commands yourself.
 
 Then, in the clinician workspace:
 
@@ -144,7 +158,9 @@ Clinical processing (Whisper, notes, progress) is unchanged and fully local.
 
 | Symptom | Check |
 |---|---|
-| Launcher refuses to start | The message names the problem. Usually `MEETING_PUBLIC_ORIGIN` is missing or not `https://`, or a port is in use. |
+| Launcher refuses to start | The message names the problem: usually Tailscale is not connected (`tailscale up`), `MEETING_PUBLIC_ORIGIN` is not `https://`, or a port is in use. |
+| "Could not turn on Tailscale Funnel… access denied" | Run once: `sudo tailscale set --operator=$USER`, then start again. |
+| Funnel still on after a crash | `tailscale funnel status`; turn it off with `tailscale funnel reset`. |
 | Public checks fail at `/healthz` | `tailscale funnel status` must show `https://<name>.ts.net` proxying to `http://127.0.0.1:8443`. DNS for a new name can take up to 10 minutes. |
 | A clinician route answers publicly | Stop immediately: `tailscale funnel reset`. Funnel is pointing at the wrong port; only 8443 may be exposed. |
 | "No TURN relay is configured" banner | TURN keys are missing from `.env`. Direct connections may still work. |
@@ -152,7 +168,7 @@ Clinical processing (Whisper, notes, progress) is unchanged and fully local.
 | Patient sees "invitation is closed" | The meeting ended or is over 4 hours old: create a new meeting. |
 | Codes differ | End the call, create a new meeting and send the link again over a trusted channel. |
 | No "patient-device chunks received" | The patient's browser may not support recording (fallback audio is used), or the data channel dropped. Chunks are resent within 15 s of reconnecting. |
-| Which headers does Funnel add? | `scripts/run_internet.py --diag-headers` logs header **names** (never values) for public `/healthz` requests. |
+| Which headers does Funnel add? | `./scripts/run.py --diag-headers` logs header **names** (never values) for public `/healthz` requests. |
 
 ## 6. Tests
 

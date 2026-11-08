@@ -286,15 +286,27 @@ Then set `RETRIEVAL_METHOD=e5` or `hybrid` in `.env`. See [docs/RETRIEVAL.md](do
 ## Running
 
 ```bash
-./scripts/run.py               # backend :8000 + frontend :5173 with auto-reload, one terminal, Ctrl+C stops both
+./scripts/run.py               # the whole project; internet meetings + Tailscale Funnel too when configured (below)
+./scripts/run.py --local       # workspace only (backend :8000 + frontend :5173, auto-reload)
 ./scripts/run.py --no-reload   # recommended when using the local LLM (long-running jobs)
 ./scripts/run.py --api-port 8001 --web-port 5174
 python scripts/run_lan.py      # HTTPS on the local Wi-Fi for two-device meetings (docs/ONLINE_MEETINGS.md)
-.venv/bin/python scripts/run_internet.py   # meetings over the internet via Tailscale Funnel + TURN (docs/INTERNET_MEETINGS.md)
 ```
 
-The launcher uses `.venv/bin/python`, creates `.env` if it is missing, checks the ports and runs the database
-migrations at backend startup. Restart it after changing `.env`.
+The launcher re-runs itself with `.venv/bin/python`, creates `.env` if it is missing, checks the ports and runs the
+database migrations at backend startup. Restart it after changing `.env`. Ctrl+C stops everything.
+
+**Internet meetings.** When `.env` sets `MEETING_PUBLIC_ORIGIN=https://<name>.ts.net` and Tailscale is installed and
+connected, the same `./scripts/run.py` also:
+
+1. builds the patient page;
+2. starts the public meeting-only server on 127.0.0.1:8443;
+3. turns on **Tailscale Funnel for that server only**;
+4. checks that no clinician route is reachable publicly;
+5. turns Funnel off again when you stop.
+
+In this mode the backend does not auto-reload. Setup, TURN keys and the threat model are in
+[docs/INTERNET_MEETINGS.md](docs/INTERNET_MEETINGS.md).
 
 ## Tests
 
