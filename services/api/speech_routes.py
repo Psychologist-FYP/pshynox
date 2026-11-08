@@ -74,7 +74,9 @@ def build_router(db_dependency):
             chunk = db.scalar(select(MeetingChunkRecord).where(MeetingChunkRecord.recording_id == r.id))
             result.append({**recording_view(r), "offset_ms": chunk.offset_ms if chunk else 0,
                            "speaker_role": chunk.speaker_role if chunk else "UNKNOWN",
-                           "meeting_id": chunk.meeting_id if chunk else None})
+                           "meeting_id": chunk.meeting_id if chunk else None,
+                           # clinician_local | patient_device | network_received; legacy meeting chunks have no source.
+                           "source": (chunk.source or ("clinician_local" if chunk.speaker_role == "CLINICIAN" else "network_received")) if chunk else "upload"})
         return result
 
     @router.post("/sessions/{sid}/recordings", status_code=201)

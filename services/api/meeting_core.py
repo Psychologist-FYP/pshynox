@@ -181,9 +181,14 @@ def ice_servers_from_env() -> list:
 
 # ---------------------------------------------------------------- signaling hub
 
+# Signaling carries connection metadata only. Chat, media state and recording control travel on the encrypted
+# WebRTC data channel (pshynox-v1); any other type arriving here is dropped, never relayed.
+SIGNAL_TYPES = ("offer", "answer", "ice", "leave")
+
+
 class Signal(BaseModel):
-    type: Literal["offer", "answer", "ice", "chat", "media", "leave", "recording"]
-    data: dict | str | bool | None = None
+    type: Literal["offer", "answer", "ice", "leave"]
+    data: dict | None = None
 
 
 class Hub:
@@ -270,15 +275,14 @@ async def run_signal(ws, mid: str, factory, *, allowed_roles: set[str], hub: Hub
             if count > 200:
                 await ws.close(code=4429, reason="Too many messages")
                 break
-            message = Signal.model_validate_json(raw)
+            try:
+                message = Signal.model_validate_json(raw)
+            except ValueError:
+                continue                     # e.g. chat from an old client: dropped, never relayed
             with factory() as db:
                 authorize(db, mid, token)
             if message.type == "leave":
                 break
-            if message.type == "chat" and (not isinstance(message.data, str) or not 0 < len(message.data.strip()) <= 2000):
-                continue
-            if message.type == "recording" and role != "CLINICIAN":
-                continue
             peer = hub.peer(mid, role)
             if peer:
                 await hub.send(peer, {"type": message.type, "data": message.data, "role": role})

@@ -106,7 +106,7 @@ export function RecordingPanel({ session, onTranscribed }: { session: Session; o
       const job = jobs.find(j => j.recording_id === file.id);
       const pending = job?.status === "QUEUED" || job?.status === "RUNNING";
       return <div className="saved-recording" key={file.id}>
-        <span>{file.meeting_id ? `${file.speaker_role === "CLIENT" ? "Patient" : "Clinician"} · meeting ${formatTimestamp(file.offset_ms ?? 0)}` : `Recording ${index + 1}`} · {formatTimestamp(file.duration_ms)} · {file.channels} channel(s)</span>
+        <span>{file.meeting_id ? `${file.speaker_role === "CLIENT" ? "Patient" : "Clinician"} · meeting ${formatTimestamp(file.offset_ms ?? 0)}${file.source === "patient_device" ? " · recorded on the patient’s device" : file.source === "network_received" && file.speaker_role === "CLIENT" ? " · network-received audio (fallback)" : ""}` : `Recording ${index + 1}`} · {formatTimestamp(file.duration_ms)} · {file.channels} channel(s)</span>
         <audio id={`audio-${file.id}`} data-offset-ms={file.offset_ms ?? 0} controls preload="none" src={`/api/v1/sessions/${session.id}/recordings/${file.id}/audio`} />
         <button className="button button-secondary small-button" disabled={!consent || busy || recording || pending || job?.status === "SUCCEEDED"} onClick={async () => {
           setError(""); setBusy(true);

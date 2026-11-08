@@ -564,3 +564,55 @@ trailer), a progress-log entry here, and a stop.
   passes 4/4 (it was 3/4 at baseline); its camera tests now create meetings with `audio_only: false`.
 - **Deviation:** Phases 1 and 2 are one commit, because Phase 2 edits landed in the same files before Phase 1 was
   committed.
+
+### Phase 3 — 8 November 2026 (encrypted data channel, verification code)
+- **Built:**
+  - `protocol.ts` (`pshynox-v1`): versioned JSON frames of at most 16 KiB, per-type validation, unknown or invalid
+    frames dropped and counted, base64 parts of 11 KiB raw (a full part frame stays under 16 KiB), and a `Reassembler`
+    that verifies SHA-256.
+  - `verify.ts`: fingerprints normalised and sorted, SHA-256, first 4 bytes mod 10⁶. A Python reference vector
+    (`459652`) is pinned in the unit test.
+  - The clinician opens the channel before the offer. Chat, media state and `recording_start`/`stop` now use it.
+  - Signaling relays only `offer`, `answer`, `ice` and `leave`; any other type is dropped without closing the socket.
+    The existing LAN backend test was updated to assert this.
+  - The verification panel shows the code on both screens. The clinician confirms with **Codes match** or **Codes
+    differ**: `POST /meetings/{id}/verification` writes `MEETING_VERIFICATION_CONFIRMED` or `…_MISMATCH` (the code
+    itself is never sent), and a `verify` message updates the patient's screen.
+  - Unit tests run with `npm run test:unit` (Node's built-in runner with type stripping; a resolve hook lets the tests
+    import app modules).
+
+### Phase 4 — 8 November 2026 (patient-side clean recording)
+- **Built:**
+  - `patientOutbox.ts`: IndexedDB, AES-GCM-256 under a per-meeting non-extractable key in memory, random IV; rows the
+    key cannot decrypt after a reload are deleted and counted (Q5).
+  - `patientLink.ts`:
+    - `ClockSync`: lowest-RTT ping/pong; uncertainty = RTT/2; re-synced about every 5 minutes;
+    - `PatientSender`: encrypt and store, then `chunk_meta` and `chunk_part`, with backpressure (pause above 1 MiB
+      buffered, resume on `bufferedamountlow` at 256 KiB); deleted only after `chunk_ack saved`; resent on reconnect
+      and every 15 s;
+    - `ChunkReceiver`: reassembly, hash check, upload, then ack; failed uploads are rejected so the patient retries;
+      duplicates are re-acknowledged; stale reassemblies are swept;
+    - a pure `coverage()` function.
+  - The patient records its own microphone with the same worklet (16 kHz mono, 60 s chunks plus a final partial). Its
+    `AudioContext` is created during the join click. Microphone settings (Q6): echo cancellation on, noise
+    suppression and auto gain off.
+  - `captureAudio` reads the meeting clock at the moment of the audio epoch.
+  - The clinician holds the network-received patient audio as a local fallback. A fallback chunk is uploaded with
+    `source=network_received` only when patient-device chunks cover less than 50% of its window (90 s grace, or at
+    the end of the meeting), or directly when the patient cannot record or the channel is down.
+  - On ending, the clinician waits (up to 12 s) for the patient's final partial chunk.
+  - The chunk endpoint takes `source`, `offset_uncertainty_ms` and `rtt_ms`, validated against the speaker. An
+    idempotent retry with a different source gets 409. The recordings list returns `source`, and the session's
+    recording panel labels patient-device and fallback audio.
+  - The patient consent text (§7.1) is on the patient lobby.
+  - A test hook (`window.__pshynoxMeeting`) exposes counts, clock state and a drift report in ppm, with no audio or
+    text.
+- **Tests:**
+  - backend 337 passed (+3: source and timing validation, storage and listing, legacy default, consent gating;
+    verification audit);
+  - unit 14 passed (protocol round-trip and rejection, frame size, reassembly with reordering and duplicates, hash
+    mismatch, lost part means no ack, failed upload means retry, duplicate idempotency, ack before delete, coverage,
+    clock sync, the verification vector and swap detection);
+  - LAN Playwright 4/4: the minute-chunk test now passes with patient-device recording.
+- **Fixed during the phase:** my new chunk test left queued ASR jobs in the shared test database, which made five
+  speech-pipeline tests process the wrong job. It now drains its queue.

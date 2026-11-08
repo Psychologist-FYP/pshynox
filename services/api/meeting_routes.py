@@ -43,6 +43,11 @@ class CreateMeeting(BaseModel):
     audio_only: bool | None = None      # default: on in development (keeps relayed traffic small)
 
 
+class VerificationResult(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    matched: bool
+
+
 class ConnectionStats(BaseModel):
     """Call-end summary from the clinician browser's getStats(). No addresses: extra fields are rejected."""
     model_config = ConfigDict(extra="forbid")
@@ -142,6 +147,16 @@ def build_meeting_router(db_dependency, factory):
         row, _ = authorize(db, mid, authorization)
         return core.ice_for(row)
 
+    @router.post("/meetings/{mid}/verification")
+    def verification(mid: str, payload: VerificationResult, authorization: str = Header(default=""), db=Depends(db_dependency)):
+        """The clinician compared the 6-digit codes with the patient. Audited; the code itself is not stored."""
+        row, _ = authorize(db, mid, authorization, host_only=True)
+        if payload.matched:
+            row.verification_confirmed_at = utc_now()
+        audit(db, row, "MEETING_VERIFICATION_CONFIRMED" if payload.matched else "MEETING_VERIFICATION_MISMATCH", "CLINICIAN")
+        db.commit()
+        return {"matched": payload.matched}
+
     @router.post("/meetings/{mid}/stats")
     def connection_stats(mid: str, payload: ConnectionStats, authorization: str = Header(default=""), db=Depends(db_dependency)):
         """Cost awareness: whether the call was relayed and roughly how many bytes moved. No IP addresses stored."""
@@ -168,8 +183,18 @@ def build_meeting_router(db_dependency, factory):
     @router.post("/meetings/{mid}/chunks/{chunk_id}", status_code=201)
     async def chunk(mid: str, chunk_id: uuid.UUID, request: Request,
                     speaker_role: Literal["CLINICIAN", "CLIENT"], offset_ms: int = 0,
+                    source: Literal["clinician_local", "patient_device", "network_received"] | None = None,
+                    offset_uncertainty_ms: int | None = None, rtt_ms: int | None = None,
                     authorization: str = Header(default=""), db=Depends(db_dependency)):
         row, _ = authorize(db, mid, authorization, host_only=True, allow_ended=True)
+        # Where the audio came from: the clinician's own mic, the patient's own device (sent over the encrypted data
+        # channel), or the patient audio as received over the network (fallback; also the legacy LAN default).
+        source = source or ("clinician_local" if speaker_role == "CLINICIAN" else "network_received")
+        if (speaker_role == "CLINICIAN") != (source == "clinician_local"):
+            fail("INVALID_SOURCE", "This audio source does not match the speaker.", 422)
+        for value in (offset_uncertainty_ms, rtt_ms):
+            if value is not None and not 0 <= value <= 120000:
+                fail("INVALID_TIMING", "Invalid clock-sync values.", 422)
         writable(db, row.session_id)
         if not row.guest_consented or row.started_ms is None or json.loads(session_record(db, row.session_id).consent_json).get("recording_consent") is not True:
             fail("CONSENT_REQUIRED", "Both participants must consent before recording.", 403)
@@ -187,7 +212,7 @@ def build_meeting_router(db_dependency, factory):
         old = db.get(MeetingChunkRecord, cid)
         if old:
             saved = db.get(RecordingRecord, old.recording_id)
-            if old.meeting_id != mid or old.speaker_role != speaker_role or old.offset_ms != offset_ms or saved.sha256 != digest:
+            if old.meeting_id != mid or old.speaker_role != speaker_role or old.offset_ms != offset_ms or saved.sha256 != digest or (old.source or source) != source:
                 fail("CHUNK_CONFLICT", "A different audio chunk already uses this identifier.")
             return {"recording_id": old.recording_id}
         try:
@@ -210,7 +235,8 @@ def build_meeting_router(db_dependency, factory):
             db.add(RecordingRecord(id=rid, session_id=row.session_id, path=str(path), sha256=digest,
                 mime="audio/wav", duration_ms=duration, sample_rate=rate, channels=1, created_at=utc_now()))
             db.flush()
-            db.add(MeetingChunkRecord(id=cid, meeting_id=mid, recording_id=rid, speaker_role=speaker_role, offset_ms=offset_ms))
+            db.add(MeetingChunkRecord(id=cid, meeting_id=mid, recording_id=rid, speaker_role=speaker_role, offset_ms=offset_ms,
+                                      source=source, offset_uncertainty_ms=offset_uncertainty_ms, rtt_ms=rtt_ms))
             db.add(TranscriptionJobRecord(id=jid, session_id=row.session_id, recording_id=rid,
                 idempotency_key=cid, status="QUEUED", metrics_json="{}", attempt=1, created_at=utc_now(), updated_at=utc_now()))
             db.commit()
