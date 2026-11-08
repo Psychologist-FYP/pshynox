@@ -49,3 +49,41 @@ Work on branch `progress-monitoring` (it replaced `feat/progress-monitoring`). D
 8. Claude does **not** run the held-out test split. The user runs the final half-test run (`test-final-37`) via `run_final`; the other 37 test trajectories stay unused. Stop and report the frozen config.
 
 Final report (after Phase 6): what was built per phase, test/build results, UNVERIFIED steps, development results with caveats, and open questions for the clinical consultant (criteria summaries, domain list, thresholds, prediction label definitions, vignette case mix).
+
+## Internet meetings module
+
+**Plan and handover document:** [`docs/INTERNET_MEETINGS_PLAN.md`](docs/INTERNET_MEETINGS_PLAN.md). Read all of it,
+including its open questions and progress log, before starting a phase. Work on branch `feat/internet-meetings`. Do one
+phase per session: commit, update the progress log, stop. Ask before adding dependencies.
+
+### Rules (must hold in every phase)
+
+1. **No clinical content on third-party infrastructure.** Audio, video, chat, transcripts and notes never pass through
+   any server in readable form. Signaling may carry metadata only (SDP, ICE candidates, meeting id, hashed tokens), never
+   patient names, session titles or transcript text.
+2. **The public surface is a separate server.** Funnel traffic reaches the laptop from `localhost`, and the existing API
+   treats loopback as the trusted clinician, so the clinician API must **never** be exposed.
+   - A separate ASGI app on its own port serves only:
+     - the patient meeting page (production build);
+     - invitation validation;
+     - patient consent;
+     - signaling for that meeting;
+     - TURN credentials for a valid invitation.
+   - Every request to it is untrusted.
+   - It shares state with the clinician API only through a narrow internal interface.
+   - Tests must prove that clinician routes (patients, sessions, transcripts, notes, research, progress, uploads) are
+     unreachable through it.
+3. **Same-Wi-Fi mode keeps working.** `scripts/run_lan.py` and its tests must still pass. Internet mode is a new
+   launcher/mode, not a replacement.
+4. **Don't touch the progress benchmark.**
+   - Do not edit anything under `services/progress/`, its tests or `data/research/progress-*`.
+   - Do not run anything that loads the LLM or the Whisper model: a benchmark run may be in progress, and its code hash
+     must not change.
+   - If a change there seems necessary, stop and ask.
+5. **Secrets.**
+   - TURN API keys live only in `.env`, which is git-ignored; a test fails if `.env` is ever tracked or staged.
+   - The keys are read by the backend only. The browser receives only short-lived TURN credentials.
+   - `.env.example` gets placeholders, never real values.
+   - Never print secrets in logs, test output or messages. Report a value only as "set" or "missing".
+6. **Local only for processing.** No hosted transcription or inference. No CDN assets in the patient page.
+7. Commit messages carry no co-author trailer (user preference).
