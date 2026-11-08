@@ -101,6 +101,46 @@ def fidelity_errors(item,sources):
     return list(dict.fromkeys(errors))
 
 
+CLINICIAN_KINDS={'observation','assessment','intervention','recommendation'}
+
+
+def repair_roles(value,sources):
+    """Fix speaker-role mismatches in place instead of failing the whole draft.
+
+    The model sometimes files a client statement as a clinician action (or the reverse). A retry rarely
+    changes that, and failing aborts the draft. The conservative repair never invents support:
+    - Plan items are relabelled to the kind their cited speakers allow (an unsupported agreement
+      becomes a proposal or a client intention, never stays "agreed");
+    - Objective, Assessment and Interventions items that cite no clinician source are dropped.
+      A client's own account belongs in Subjective, which is drafted from the same sources.
+    A section left with no items becomes not_documented. Returns the number of items changed.
+    """
+    changed=0
+    for section,field in value['sections'].items():
+        if not isinstance(field,dict) or not isinstance(field.get('items'),list):continue
+        kept=[]
+        for item in field['items']:
+            refs=item.get('refs') if isinstance(item,dict) else None
+            if not isinstance(refs,list) or not refs or any(r not in sources for r in refs):
+                kept.append(item);continue  # left for the strict checks to reject
+            roles={sources[r]['role'] for r in refs}
+            kind=item.get('kind')
+            if section=='Plan' and kind in {'recommendation','intention','agreement'}:
+                wanted=kind
+                if kind=='agreement' and not {'CLIENT','CLINICIAN'}<=roles:
+                    wanted='recommendation' if 'CLINICIAN' in roles else 'intention'
+                if wanted=='recommendation' and 'CLINICIAN' not in roles:wanted='intention'
+                if wanted=='intention' and 'CLIENT' not in roles:wanted='recommendation'
+                if wanted!=kind:item['kind']=wanted;changed+=1
+            elif kind in CLINICIAN_KINDS and 'CLINICIAN' not in roles:
+                changed+=1;continue
+            kept.append(item)
+        if len(kept)<len(field['items']) and not kept and field.get('status')=='documented':
+            field['status']='not_documented'
+        field['items']=kept
+    return changed
+
+
 def validate(value,data):
     from .workflow import validate_items
     if not isinstance(value,dict) or not isinstance(value.get('sections'),dict) or set(value['sections'])!=set(data['requested_sections']):
@@ -110,6 +150,7 @@ def validate(value,data):
         if r['id'] in sources:
             sources[r['id']]={**r,'text':sources[r['id']]['text']+' '+r['text']}
         else:sources[r['id']]=r
+    repair_roles(value,sources)
     for section, field in value['sections'].items():
         if not isinstance(field,dict) or field.get('status') not in {'documented','not_documented','insufficient_evidence'} or not isinstance(field.get('items'),list):
             raise GenerationError('Invalid output schema: section status/items required')

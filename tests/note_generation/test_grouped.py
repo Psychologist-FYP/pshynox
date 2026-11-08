@@ -236,7 +236,7 @@ def test_complete_response_valid_sections_saved_and_only_failed_section_retried(
     def result(rt,system,data,output):
         v=empty(data)
         if len(data['requested_sections'])==7:
-            v['sections']['Objective']={'status':'documented','items':[item('Reported symptom.',['T0'],kind='observation')]}
+            v['sections']['Objective']={'status':'documented','items':[item('Reported symptom.',['T0'],kind='report')]}
         return v
     rt=Writer(result);fields,_=draft_grouped(packet([source(0,'A reported symptom.')]),rt,tmp_path/'job')
     assert len(rt.metrics['calls'])==2
@@ -251,7 +251,7 @@ def test_output_growth_then_section_validation_recovers_without_accepting_partia
         if len(rt.metrics['calls'])==1:raise OutputLimitError('limit')
         v=empty(data)
         if len(data['requested_sections'])==7:
-            v['sections']['Objective']={'status':'documented','items':[item('Client report.',['T0'],kind='observation')]}
+            v['sections']['Objective']={'status':'documented','items':[item('Client report.',['T0'],kind='report')]}
         return v
     rt=Writer(result);fields,_=draft_grouped(packet([source(0,'Client report.')]),rt,tmp_path/'job')
     assert len(rt.metrics['calls'])==3 and not fields[1]['items']
@@ -297,3 +297,30 @@ def test_recovery_error_is_formatted_once_with_short_source_range(tmp_path):
     assert str(error.value).count('Completed work saved.')==1
     assert 'through T9:' in str(error.value)
     assert len(str(error.value))<500
+
+
+def test_client_only_intervention_is_dropped_instead_of_failing_the_draft(tmp_path):
+    # Regression: "Invalid factual item in Interventions: intervention cites only client sources ['T1']".
+    rows=[source(0,'How has your week been?','CLINICIAN'),source(1,'I started walking every morning.')]
+    def result(rt,system,data,output):
+        v=empty(data)
+        v['sections']['Subjective']={'status':'documented','items':[item('Client reports walking each morning.',['T1'],who='client')]}
+        v['sections']['Interventions']={'status':'documented','items':[item('Walking routine.',['T1'],'intervention','client')]}
+        v['sections']['Objective']={'status':'documented','items':[item('Client walks daily.',['T1'],'observation','client')]}
+        return v
+    rt=Writer(result);fields,_=draft_grouped(packet(rows),rt,tmp_path/'job')
+    assert len(rt.metrics['calls'])==1
+    assert fields[0]['items'][0]['text']=='Client reports walking each morning.'
+    assert not fields[1]['items'] and fields[1]['evidence_status']=='not_documented'
+    assert not fields[5]['items'] and fields[5]['evidence_status']=='not_documented'
+
+
+def test_plan_kinds_follow_cited_speakers_and_unsupported_agreement_is_not_kept():
+    data={'requested_sections':['Plan'],'sources':[{'id':'T0','role':'CLINICIAN','text':'Try a sleep diary.'},
+          {'id':'T1','role':'CLIENT','text':'I will call my sister.'}],'context':[]}
+    value={'sections':{'Plan':{'status':'documented','items':[
+        item('Clinician suggested a sleep diary.',['T0'],'agreement','clinician'),
+        item('Client will call their sister.',['T1'],'recommendation','client'),
+        item('Clinician suggested a sleep diary.',['T0'],'intention','clinician')]}}}
+    validate(value,data)
+    assert [i['kind'] for i in value['sections']['Plan']['items']]==['recommendation','intention','recommendation']
