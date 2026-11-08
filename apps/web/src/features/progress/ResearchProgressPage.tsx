@@ -3,6 +3,7 @@ import { Bar, BarChart, CartesianGrid, Line, LineChart, ReferenceLine, Responsiv
 import { request, type Health } from "../../lib/api";
 import { WorkspaceShell } from "../../components/layout/AppShell";
 import { CHART, axisTick } from "./chartTheme";
+import { VignetteResults } from "./VignetteResults";
 import "./progress.css";
 
 type Metric = { value: number | null; ci95: [number, number] | null };
@@ -81,5 +82,6 @@ export function ResearchProgressPage({ health }: { health: Health | null }) {
       </section>
       <section className="panel progress-panel"><h3>Notes</h3><ul>{report.notes.map((n, i) => <li key={i}>{n}</li>)}</ul><p className="small-note">Runtime: {JSON.stringify(report.runtime)}</p></section>
     </>}
+    <VignetteResults />
   </main></WorkspaceShell>;
 }

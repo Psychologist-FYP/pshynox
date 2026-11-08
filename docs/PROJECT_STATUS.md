@@ -1,5 +1,43 @@
 # Pshynox — Current Project Status
 
+## Update, 8 November 2026: progress-monitoring plan complete (Phase 6)
+
+All implementation phases of the [progress-monitoring plan](PROGRESS_MONITORING_PLAN.md) are now built. User
+documentation is in [PROGRESS_MONITORING.md](PROGRESS_MONITORING.md).
+
+| Item | Status |
+|---|---|
+| Vignette-set infrastructure | Built: schema and validator, resumable run (Stage A + all four conditions), report, results view on `/workspace/research-progress`, one fictional test fixture, [authoring guide](VIGNETTE_AUTHORING_GUIDE.md). **No clinical cases or consultant labels exist yet.** |
+| Print view | Completed: hypotheses with criterion checklist, cited references and "information still needed"; flagged statements with transcript text; questionnaires; domains; changes; plans and follow-up |
+| Plans and follow-up thread | Built (Phase 2 UI, Phase 3 producer) |
+| Scope-change wording | API description, workspace footer, landing page and README now describe AI condition hypotheses for clinician review, not diagnoses (draft wording; see below) |
+| Benchmark | Both retrieval arms on `val-arms-12` complete. **Full-transcript arms not run (user decision, 8 November).** Reports, freeze, calibration and the final `test-final-37` run are optional user-run steps, not done. |
+
+**Scope-change addendum.** §1 below says the system "does not implement automated diagnosis". That is no longer true
+in the same sense. The progress module automatically produces criterion-level condition hypotheses (bipolar, GAD,
+social anxiety, depressive episode) from transcripts:
+
+- each hypothesis cites transcript turns;
+- each is labelled *AI-generated · human review pending*;
+- the clinician remains the decision-maker;
+- risk is flagged, never scored.
+
+The new wording is a draft. It needs agreement from the supervisor and the clinical consultant before the final report
+(plan §1).
+
+**Verification (8 November 2026):** backend `pytest` 302 passed; frontend build passes; progress Playwright tests 4/4
+pass.
+
+**Still open:**
+
+- the consultant's verification of criteria, domains, thresholds and label definitions (plan §13);
+- writing and labelling the vignette set, then running it;
+- the optional LongCounsel-8 reports, freeze and final run;
+- authentication and encryption at rest;
+- Urdu evaluation.
+
+---
+
 ## Update, 7 November 2026 (branch `progress-monitoring`)
 
 This section summarises the current state. The sections below it keep the October baseline assessment and the earlier

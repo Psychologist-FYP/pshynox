@@ -57,7 +57,7 @@ export function WorkspaceShell({ health, children, active = "Patients", patientI
           <StatusPill health={health} />
         </header>
         {children}
-        <footer className="workspace-footer">Documentation support only · No diagnosis, risk assessment, or treatment recommendations.</footer>
+        <footer className="workspace-footer">Documentation support · AI condition hypotheses are for clinician review, not diagnoses · No risk scoring or treatment recommendations.</footer>
       </div>
     </div>
   );

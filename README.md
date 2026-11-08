@@ -13,10 +13,12 @@ The workspace covers:
 - AI note drafts;
 - longitudinal progress monitoring with evidence-cited condition hypotheses.
 
-> **FYP prototype.** Pshynox supports documentation; it does not diagnose or recommend treatment. Every AI output is
-> labelled *AI-generated · human review pending* until a clinician reviews it. Use fictional or synthetic data only.
+> **FYP prototype.** Pshynox supports documentation. Its condition hypotheses (bipolar, GAD, social anxiety,
+> depression) are AI-generated, criterion by criterion with cited transcript turns, for clinician review. They are
+> not diagnoses. It does not score risk or recommend treatment. Every AI output is labelled *AI-generated · human
+> review pending* until a clinician reviews it. Use fictional or synthetic data only.
 
-**Status:** [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) (dated assessment, latest update 7 November 2026).
+**Status:** [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) (dated assessment, latest update 8 November 2026).
 **Active branch:** `progress-monitoring`.
 
 ---
@@ -120,8 +122,8 @@ database is backed up to `data/backups/` before every import. The held-out test 
 
 ## Progress monitoring and condition hypotheses
 
-The module is built in phases on `progress-monitoring`. Phases 0–5 are complete. Phase 6 (vignette set, print
-view, final docs) remains.
+All phases of the plan (0–6) are built on `progress-monitoring`. User guide:
+[docs/PROGRESS_MONITORING.md](docs/PROGRESS_MONITORING.md).
 
 - **Target conditions:**
   - bipolar disorder (manic, hypomanic and depressive episode features);
@@ -145,10 +147,12 @@ view, final docs) remains.
 
 Documents:
 
+- [module guide](docs/PROGRESS_MONITORING.md): what the clinician sees, rules, pipeline, API, evaluation status;
 - [plan, principles and progress log](docs/PROGRESS_MONITORING_PLAN.md);
 - [benchmark runbook](docs/PROGRESS_BENCHMARK_RUNBOOK.md): exact commands for subsets, arms, reports, freeze, calibration and the final test run;
 - [prompt v2 pilot](docs/PROGRESS_PROMPT_V2_PILOT.md);
-- [freeze rule](docs/PROGRESS_FREEZE_RULE.md).
+- [freeze rule](docs/PROGRESS_FREEZE_RULE.md);
+- [vignette authoring guide](docs/VIGNETTE_AUTHORING_GUIDE.md): the clinician-labelled cases needed to evaluate bipolar, GAD and social anxiety.
 
 Benchmark runs are long GPU jobs: on a GTX 1650 they take about 4.8 h for `retrieval-current` and 1.4 h for
 `retrieval-prior`. They checkpoint every session and
@@ -394,7 +398,9 @@ React 19 / TypeScript / Vite / Recharts (apps/web)
 | Document | Topic |
 |---|---|
 | [PROJECT_STATUS.md](docs/PROJECT_STATUS.md) | What is built, verified and outstanding |
+| [PROGRESS_MONITORING.md](docs/PROGRESS_MONITORING.md) | Progress monitoring and condition hypotheses: user and team guide |
 | [PROGRESS_MONITORING_PLAN.md](docs/PROGRESS_MONITORING_PLAN.md) | Progress-monitoring design, principles, progress log, open questions |
+| [VIGNETTE_AUTHORING_GUIDE.md](docs/VIGNETTE_AUTHORING_GUIDE.md) | Writing and labelling vignette cases; running their evaluation |
 | [PROGRESS_BENCHMARK_RUNBOOK.md](docs/PROGRESS_BENCHMARK_RUNBOOK.md) | LongCounsel-8 benchmark commands and runtimes |
 | [NOTE_GENERATION.md](docs/NOTE_GENERATION.md), [NOTE_FORMULATION_REVIEW.md](docs/NOTE_FORMULATION_REVIEW.md) | Local AI note drafts |
 | [RETRIEVAL.md](docs/RETRIEVAL.md), [RESEARCH_EVALUATION.md](docs/RESEARCH_EVALUATION.md), [TEAM_ANNOTATION.md](docs/TEAM_ANNOTATION.md) | Module B retrieval, research workspace, annotation workflow |

@@ -99,7 +99,8 @@ async def lifespan(_: FastAPI):
 app = FastAPI(
     title="Psychologist-FYP Module C API",
     version=APP_VERSION,
-    description="Offline documentation support API. Not a diagnostic system.",
+    description=("Offline documentation support API with AI-generated, evidence-cited condition hypotheses for clinician review. "
+                 "Hypotheses are not diagnoses; no risk scores or treatment recommendations."),
     lifespan=lifespan,
 )
 app.include_router(build_research_router())

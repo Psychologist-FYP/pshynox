@@ -1,0 +1,5 @@
+{"session_index": 2, "days_since_first": 7, "turns": [
+ {"turn_id": 1, "speaker": "CLINICIAN", "text": "How was this week?"},
+ {"turn_id": 2, "speaker": "CLIENT", "text": "Still tense all the time, my shoulders ache and I keep missing lectures because of it."},
+ {"turn_id": 3, "speaker": "CLINICIAN", "text": "And your mood?"},
+ {"turn_id": 4, "speaker": "CLIENT", "text": "My mood is okay, I still enjoy football with friends."}]}

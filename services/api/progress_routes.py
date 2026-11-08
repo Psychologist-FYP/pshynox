@@ -250,4 +250,26 @@ def build_progress_router(db_dependency) -> APIRouter:
             raise store.error(404, "REPORT_NOT_FOUND", "No report yet; run the report command for this run.")
         return json.loads(path.read_text())
 
+    @router.get("/research/progress/vignette-runs")
+    def vignette_runs():
+        from services.progress.evaluation.vignettes import RUNS as VIGNETTE_RUNS
+        out = []
+        for folder in sorted(VIGNETTE_RUNS.glob("*")) if VIGNETTE_RUNS.is_dir() else []:
+            if not (folder / "config.json").exists():
+                continue
+            status = json.loads((folder / "status.json").read_text()) if (folder / "status.json").exists() else {}
+            out.append({"run_id": folder.name, "state": status.get("state"), "completed": status.get("completed"), "total": status.get("total"),
+                        "has_report": (folder / "report" / "report.json").exists()})
+        return out
+
+    @router.get("/research/progress/vignette-runs/{run_id}/report")
+    def vignette_report(run_id: str):
+        from services.progress.evaluation.vignettes import RUNS as VIGNETTE_RUNS
+        if not run_id.replace("-", "").replace("_", "").isalnum():
+            raise store.error(404, "RUN_NOT_FOUND", "Unknown run.")
+        path = VIGNETTE_RUNS / run_id / "report" / "report.json"
+        if not path.exists():
+            raise store.error(404, "REPORT_NOT_FOUND", "No report yet; run the vignette report command for this run.")
+        return json.loads(path.read_text())
+
     return router

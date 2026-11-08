@@ -8,7 +8,7 @@ Frontend build: `npm run build --prefix apps/web`.
 
 **Plan and handover document:** [`docs/PROGRESS_MONITORING_PLAN.md`](docs/PROGRESS_MONITORING_PLAN.md).
 Read all of it, including its "Open questions" and "Progress log", before starting any phase.
-Work on branch `feat/progress-monitoring`. Do one phase per session.
+Work on branch `progress-monitoring` (it replaced `feat/progress-monitoring`). Do one phase per session.
 
 ### Principles (must hold in every phase)
 

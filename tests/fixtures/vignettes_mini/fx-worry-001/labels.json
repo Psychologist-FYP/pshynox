@@ -1,0 +1,7 @@
+{"case_id": "fx-worry-001", "labelled_by": "test fixture (not a consultant)", "labelled_on": "2026-11-08", "blind_to_model_output": true,
+ "conditions": {
+  "gad": {"status": "present", "criteria": {"gad.excessive_worry": "met", "gad.difficult_to_control": "met", "gad.muscle_tension": "met", "gad.sleep": "met", "gad.impairment": "met"}},
+  "depressive_episode": {"status": "absent", "criteria": {"mde.depressed_mood": "not_met", "mde.anhedonia": "not_met"}},
+  "bipolar": {"status": "absent"},
+  "social_anxiety": {"status": "absent"}},
+ "session_domains": {"1": {"worry": 3, "sleep": 2}, "2": {"restlessness_tension": 2, "low_mood": 0, "interest": 0, "academic_work_functioning": 2}}}

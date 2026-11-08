@@ -1,8 +1,10 @@
 # Progress Monitoring and Evidence-Cited Condition Prediction — Implementation Plan
 
-**Status:** Phase 0 plan **approved 7 November 2026** with decisions Q1–Q3 (§13) and a revised
-Phase 5 execution model (§8.5). Next: Phase 1, in a fresh session.
-**Branch:** `feat/progress-monitoring` (created from `main` at `d4f4cb8`, see §1.1)
+**Status (8 November 2026):** **all phases (0–6) built.** The plan was approved on 7 November 2026 with decisions
+Q1–Q3 (§13) and a revised Phase 5 execution model (§8.5). The full-transcript benchmark arms were dropped by the user
+on 8 November. Optional user-run evaluation steps (reports, freeze, calibration, final run) and the vignette cases
+remain; see the Phase 6 entry in §15.
+**Branch:** `progress-monitoring` (single-commit rewrite of the earlier `feat/progress-monitoring`, based on `main` at `d4f4cb8`, see §1.1)
 **Prepared:** 7 November 2026
 **Persistent rules:** the "Progress monitoring module" section of the root [`CLAUDE.md`](../CLAUDE.md).
 Every session must read that section and this whole document before starting a phase.
@@ -32,6 +34,10 @@ proposal/report and inform the supervisor and Ms. Kinza Nazir (clinical consulta
 | `description="Offline documentation support API. Not a diagnostic system."` | `services/api/main.py:100` | Needs rewording in Phase 6 (wording to be agreed). |
 | LongCounsel-8 terms: "Models trained on it must not be used for diagnosis, autonomous triage, treatment decisions, or other decisions about a person's care." | `data/research/datasets/longcounsel-8/raw/README.md` | A calibration mapping fitted on LongCounsel-8 is a model trained on it. Applying it to clinical patients' depression predictions is likely to conflict with these terms. See **Q3**. |
 | Proposal §7 risk review: "A risk-review state is a workflow status, not a predicted risk level." | Proposal §7 | **Unchanged.** Risk statements are flagged with citations, never scored (principle 7). |
+
+**Phase 6 (8 November 2026):** draft wording is now in the API description, the workspace footer, the landing page,
+the README and a dated PROJECT_STATUS addendum: "AI condition hypotheses are for clinician review, not diagnoses; no risk
+scoring or treatment recommendations." The supervisor and consultant still need to agree it.
 
 What stays the same: the clinician remains the decision-maker. Review status is always
 visible. Nothing is approved automatically. The manual risk-review gate on notes is unchanged.
@@ -487,3 +493,30 @@ LongCounsel-8 is synthetic and depression-only. Bipolar, GAD and SAD predictions
 - Progress charts moved to a neutral clinical palette independent of the app theme (`43a976a`).
 - `scripts/setup.sh` performs a pinned, SHA-256-checked setup of a fresh laptop: system packages, venv, npm, whisper.cpp, the speech model, the llama.cpp b12079 CUDA/CPU release, Qwen3-4B, LongCounsel-8 primary edition and prepare, migrations, transcript-only demo patients, tests. `--check` reports missing parts. README rewritten around it; PROJECT_STATUS has a 7 November update.
 - No new dependencies.
+
+### Phase 6 — 8 November 2026 (vignette infrastructure, print view, docs, scope wording)
+- **User decision:** the full-transcript arms (`full-current`, `full-prior`) are not run; v2 Stage A is estimated ineligible on them at 4,096 context. Reports, freeze, calibration and the final half-test run stay optional user-run steps (runbook updated).
+- **Built:**
+  - `services/progress/evaluation/vignettes.py`:
+    - Pydantic schema for `case.json`, `sessions/s<n>.json` and `labels.json`. Transcript turns allow only `turn_id`, `speaker` and `text`, so any extra field is rejected as possible label leakage.
+    - Registry cross-checks: enabled conditions, criteria per condition, subtypes, domains and 0–3 ratings. `blind_to_model_output` is required.
+    - `validate` prints the case mix.
+    - `run`: resumable, with a per-case checkpoint, config binding (code, model, prompt and case-content hashes) and safe stop. It runs Stage A on every session, then Stage B for all four enabled conditions as of the last session with prior history. It never reads `labels.json`.
+    - `report`: per-condition sensitivity, specificity, PPV, NPV and F1 at the `possible` and `likely` thresholds, with case-bootstrap CIs; subtype agreement; criterion confusion, agreement, abstention and κ; session domain MAE, exact and within-1 agreement and abstention; `citation_rating.csv` with empty rating columns. Cases edited after the run are excluded and listed.
+  - Research API: `GET /research/progress/vignette-runs[/{id}/report]`.
+  - `VignetteResults` section on `/workspace/research-progress`.
+  - Fixture `tests/fixtures/vignettes_mini/fx-worry-001` (fictional, test-only).
+  - `data/research/vignettes/README.md`, with a `.gitignore` exception for the README only.
+  - Docs: `docs/VIGNETTE_AUTHORING_GUIDE.md` (roles and blinding, case mix, writing rules, formats, label definitions, commands, runtime estimate, interpretation) and `docs/PROGRESS_MONITORING.md` (module guide).
+  - The print view now includes the criterion checklist with session/time references, "information still needed", flagged transcript text, and plans and follow-up.
+  - Scope wording updated in `main.py` (API description), `AppShell` footer, `LandingPage`, README, PROJECT_STATUS (dated addendum) and MODULE_INTEGRATION_GUIDE §6a.
+- **Tests:** 302 passed (+15: fixture validates; ten invalid-case rejections; scripted run checkpoints all four conditions, sends no label text, resumes with no calls and refuses edited cases; report metrics by hand on the fixture; binary metrics and κ by hand; research API list and report). Frontend build passes; Playwright progress suite 4/4. The research page vignette section and the print view were checked by screenshot.
+- **Deviations:**
+  - The plans and follow-up thread and the print view already existed from Phase 2; this phase completed the print content.
+  - No vignette demo import into the clinical DB was built. The plan does not require one, and labels must stay out of the DB.
+  - No real vignette cases or labels were written (plan §8.7: structure only).
+- **No new dependencies.** No migration or contract changes.
+- **Next (outside the plan):**
+  - consultant verification of the §13 items;
+  - writing and labelling the vignette set, then `vignettes run`/`report`;
+  - optionally the LongCounsel-8 reports, freeze and final run.

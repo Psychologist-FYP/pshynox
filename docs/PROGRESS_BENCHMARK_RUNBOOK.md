@@ -108,7 +108,12 @@ done
 prompt version. Each arm can also be run on its own. The run-ids are new, so earlier v1 timing runs cannot mix in: the
 run config records `extract_prompt` and refuses any mismatch.
 
-Full-transcript arms (only after choosing an option in "Estimated hours per step"):
+**Status (8 November 2026):** both retrieval arms are complete (60/60 sessions each). **The user decided not to run the
+full-transcript arms** (`full-current`, `full-prior`): with v2 they are estimated ineligible at 4,096 context, and the
+freeze rule ([PROGRESS_FREEZE_RULE.md](PROGRESS_FREEZE_RULE.md)) already chooses between the retrieval arms. Steps 6–8
+(reports, freeze, calibration, final run) remain available and optional. The commands below are kept for reference.
+
+Full-transcript arms (not run; only after choosing an option in "Estimated hours per step"):
 
 ```bash
 # Option 2 (larger context), checked on one arm first:

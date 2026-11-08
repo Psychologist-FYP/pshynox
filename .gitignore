@@ -73,3 +73,8 @@ apps/web/playwright-report/
 !/data/research/progress-frozen/
 /data/research/progress-frozen/*
 !/data/research/progress-frozen/frozen-progress-config.json
+
+# Vignette set: only the folder README is shared; cases and consultant labels stay local (see the README).
+!/data/research/vignettes/
+/data/research/vignettes/*
+!/data/research/vignettes/README.md
