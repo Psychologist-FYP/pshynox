@@ -1,6 +1,6 @@
 export type MeetingInfo = {
   id: string; role: "CLINICIAN" | "CLIENT"; status: string; expires_ms: number;
-  session_id?: string; ice_servers: RTCIceServer[];
+  session_id?: string; ice_servers?: RTCIceServer[]; audio_only?: boolean;
   jobs?: { id: string; status: string; error_message: string | null }[];
 };
 export async function meetingRequest<T>(path: string, token = "", init: RequestInit = {}): Promise<T> {

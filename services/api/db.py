@@ -176,6 +176,10 @@ class MeetingRecord(Base):
     expires_ms: Mapped[int] = mapped_column(Integer)
     started_ms: Mapped[int | None] = mapped_column(Integer, nullable=True)
     guest_consented: Mapped[bool] = mapped_column(Boolean, default=False)
+    mode: Mapped[str | None] = mapped_column(String(20), nullable=True)
+    audio_only: Mapped[bool] = mapped_column(Boolean, default=False)
+    verification_confirmed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    connection_json: Mapped[str | None] = mapped_column(Text, nullable=True)
 
 
 class MeetingChunkRecord(Base):
@@ -186,6 +190,9 @@ class MeetingChunkRecord(Base):
     recording_id: Mapped[str] = mapped_column(ForeignKey("recordings.id"), unique=True)
     speaker_role: Mapped[str] = mapped_column(String(20))
     offset_ms: Mapped[int] = mapped_column(Integer)
+    source: Mapped[str | None] = mapped_column(String(30), nullable=True)
+    offset_uncertainty_ms: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    rtt_ms: Mapped[int | None] = mapped_column(Integer, nullable=True)
 
 
 # ---- Progress monitoring (migration 0008). JSON columns are Text, as elsewhere. ----

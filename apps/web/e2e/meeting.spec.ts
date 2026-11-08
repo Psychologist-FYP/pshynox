@@ -18,7 +18,7 @@ for (const cameras of [
 ]) {
   test(`independent cameras: clinician starts ${cameras.host ? 'on' : 'off'}, patient starts ${cameras.guest ? 'on' : 'off'}`, async ({ browser, request }) => {
     const session = await (await request.post('/api/v1/sessions', { data: { session_type: 'FOLLOW_UP', consent: {} } })).json();
-    const response = await request.post(`/api/v1/sessions/${session.id}/meetings`, { data: { recording_consent: true } });
+    const response = await request.post(`/api/v1/sessions/${session.id}/meetings`, { data: { recording_consent: true, audio_only: false } });
     expect(response.status()).toBe(201);
     const room = await response.json();
     const hostContext = await browser.newContext({ permissions: ['camera', 'microphone'], ignoreHTTPSErrors: true });
@@ -68,7 +68,7 @@ for (const cameras of [
 test('two participants connect, chat, mute, save minute chunks, and end cleanly', async ({ browser, request }) => {
   const created = await request.post('/api/v1/sessions', { data: { session_type: 'FOLLOW_UP', consent: {} } });
   const session = await created.json();
-  const roomResponse = await request.post(`/api/v1/sessions/${session.id}/meetings`, { data: { recording_consent: true } });
+  const roomResponse = await request.post(`/api/v1/sessions/${session.id}/meetings`, { data: { recording_consent: true, audio_only: false } });
   const room = await roomResponse.json();
   expect(roomResponse.status()).toBe(201);
   const hostContext = await browser.newContext({ permissions: ['camera', 'microphone'], ignoreHTTPSErrors: true });

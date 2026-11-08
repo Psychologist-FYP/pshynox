@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { Brand } from "../../components/layout/AppShell";
 import { api, formatTimestamp, type TranscriptSegment } from "../../lib/api";
 import { captureAudio, outbox, type AudioChunk } from "./audio";
 import { meetingRequest, tokenFor, type MeetingInfo } from "./api";
+import { selectedPair, type ConnectionInfo } from "./connection";
 import "./meeting.css";
 
 type Signal = { type: string; data?: any; offset_ms?: number; role?: string };
@@ -63,12 +63,17 @@ export function MeetingRoom({ id }: { id: string }) {
   const memoryChunks = useRef(new Map<string, AudioChunk>());
   const pumping = useRef<Promise<boolean> | null>(null);
   const roomClock = useRef({ offset: 0, received: performance.now() });
+  const iceServers = useRef<RTCIceServer[]>([]);
   const active = useRef(false);
   const leaving = useRef(false);
   const recordingRef = useRef(false);
   const mounted = useRef(true);
   const captureGeneration = useRef(0);
   const isHost = info?.role === "CLINICIAN";
+  const audioOnly = !!info?.audio_only;
+  const [iceWarning, setIceWarning] = useState("");
+  const [connection, setConnection] = useState<ConnectionInfo | null>(null);
+  const callStarted = useRef(0);
   const secure = window.isSecureContext && !!navigator.mediaDevices;
 
   function send(type: string, data?: unknown) {
@@ -136,12 +141,12 @@ export function MeetingRoom({ id }: { id: string }) {
 
   function makePeer() {
     peer.current?.close();
-    const pc = new RTCPeerConnection({ iceServers: infoRef.current?.ice_servers || [] });
+    const pc = new RTCPeerConnection({ iceServers: iceServers.current });
     peer.current = pc;
     localRef.current!.getTracks().forEach(track => pc.addTrack(track, localRef.current!));
     // The offer must reserve video even when the clinician joins audio only.
     // Otherwise the patient's answer cannot include a camera track.
-    if (isHost && !localRef.current!.getVideoTracks().length) {
+    if (isHost && !audioOnly && !localRef.current!.getVideoTracks().length) {
       pc.addTransceiver("video", { direction: "sendrecv", streams: [localRef.current!] });
     }
     const received = new MediaStream();
@@ -156,7 +161,11 @@ export function MeetingRoom({ id }: { id: string }) {
     };
     pc.onconnectionstatechange = () => {
       if (peer.current !== pc) return;
-      if (pc.connectionState === "connected") { setStatus("Connected"); startCapture(); }
+      if (pc.connectionState === "connected") {
+        setStatus("Connected"); startCapture();
+        if (!callStarted.current) callStarted.current = performance.now();
+        void selectedPair(pc).then(c => { if (peer.current === pc) setConnection(c); }).catch(() => setConnection(null));
+      }
       else if (["disconnected", "failed"].includes(pc.connectionState)) {
         setStatus("Connection interrupted — recording paused"); void haltCapture();
         if (pc.connectionState === "failed") setError("The media connection failed. Leave and rejoin; different networks may require a TURN relay.");
@@ -171,7 +180,7 @@ export function MeetingRoom({ id }: { id: string }) {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
         audio: { deviceId: audioDevice ? { exact: audioDevice } : undefined, echoCancellation: true, noiseSuppression: true, channelCount: 1 },
-        video: camera ? { deviceId: videoDevice ? { exact: videoDevice } : undefined, width: { ideal: 1280 }, height: { ideal: 720 } } : false,
+        video: camera && !audioOnly ? { deviceId: videoDevice ? { exact: videoDevice } : undefined, width: { ideal: 1280 }, height: { ideal: 720 } } : false,
       });
       localRef.current = stream; setLocal(stream);
       stream.getAudioTracks().forEach(t => { t.enabled = mic; t.onended = () => { setError("The microphone disconnected. Leave and rejoin with a working device."); void haltCapture(); }; });
@@ -184,6 +193,10 @@ export function MeetingRoom({ id }: { id: string }) {
     if (!localRef.current || !consent || !info) return;
     setBusy(true); setError(""); leaving.current = false;
     try {
+      // The patient's consent is recorded explicitly before joining (same route in LAN and internet mode).
+      if (!isHost) await meetingRequest(`meetings/${id}/consent`, token, { method: "POST", body: JSON.stringify({ recording_consent: true }) });
+      const ice = await meetingRequest<{ ice_servers: RTCIceServer[]; warning?: string | null }>(`meetings/${id}/ice-servers`, token);
+      iceServers.current = ice.ice_servers; setIceWarning(ice.warning || "");
       if (isHost) {
         // Storage and AudioContext permissions are checked during the user's gesture.
         await outbox("list", id);
@@ -258,8 +271,12 @@ export function MeetingRoom({ id }: { id: string }) {
     if (leaving.current) return;
     leaving.current = true; active.current = false; setEnding(true);
     await haltCapture();
+    // Cost awareness: whether the call was relayed and how many bytes moved (candidate types and counters only).
+    const finalStats = isHost && peer.current ? await selectedPair(peer.current).catch(() => null) : null;
     send("leave"); socket.current?.close(); socket.current = null;
     peer.current?.close(); peer.current = null;
+    if (finalStats) void meetingRequest(`meetings/${id}/stats`, token, { method: "POST", body: JSON.stringify({ ...finalStats,
+      duration_s: callStarted.current ? Math.round((performance.now() - callStarted.current) / 1000) : 0 }) }).catch(() => undefined);
     localRef.current?.getTracks().forEach(t => t.stop()); localRef.current = null; setLocal(null);
     remoteRef.current = null; setRemote(null);
     await audioContext.current?.close(); audioContext.current = null;
@@ -357,9 +374,10 @@ export function MeetingRoom({ id }: { id: string }) {
     } finally { setCameraBusy(false); }
   }
 
-  return <div className="meeting-app"><header className="meeting-header"><Brand /><div><p className="eyebrow">The office, with a longer cable</p><h1>Online session</h1></div><span className="meeting-clock">{joined ? formatTimestamp(seconds * 1000) : "Two chairs. One conversation."}</span></header>
+  return <div className="meeting-app"><header className="meeting-header"><span className="brand"><img className="brand-logo" src="/images/logo.png" alt="Dr. Katz — Professional Therapist" /></span><div><p className="eyebrow">The office, with a longer cable</p><h1>Online session</h1></div><span className="meeting-clock">{joined ? formatTimestamp(seconds * 1000) : "Two chairs. One conversation."}</span></header>
     <main className="meeting-main">
-      <div className="meeting-status" role="status"><strong>{status}</strong><span>{recording ? "Audio recording · separate speaker tracks" : "Audio recording is not active"}</span></div>
+      <div className="meeting-status" role="status"><strong>{status}</strong><span>{recording ? "Audio recording · separate speaker tracks" : "Audio recording is not active"}{connection && joined ? ` · ${connection.relayed ? "Relayed connection (TURN)" : "Direct connection"}` : ""}{audioOnly ? " · Audio-only meeting" : ""}</span></div>
+      {iceWarning && !connection && <div className="meeting-alert" role="status">{iceWarning}</div>}
       {error && <div className="meeting-alert" role="alert">{error}</div>}
       {saveError && <div className="meeting-alert" role="alert"><strong>Audio needs attention.</strong> {saveError} <button className="text-button" onClick={() => void drain()}>Retry uploads</button><p>Keep this tab open. Saved browser chunks remain queued until the server confirms receipt.</p></div>}
       {!secure && <div className="meeting-alert">Microphone and camera need a secure connection. On the hosting laptop, use localhost. On another Wi-Fi device, open the trusted HTTPS invitation address. See docs/ONLINE_MEETINGS.md.</div>}
@@ -368,9 +386,9 @@ export function MeetingRoom({ id }: { id: string }) {
           <div className="device-settings"><label>Microphone<select value={audioDevice} disabled={busy} onChange={e => { setAudioDevice(e.target.value); localRef.current?.getTracks().forEach(t => t.stop()); localRef.current = null; setLocal(null); }}><option value="">Default microphone</option>{devices.filter(d => d.kind === "audioinput").map(d => <option key={d.deviceId} value={d.deviceId}>{d.label || "Microphone"}</option>)}</select></label><label>Camera<select value={videoDevice} disabled={busy} onChange={e => { setVideoDevice(e.target.value); localRef.current?.getTracks().forEach(t => t.stop()); localRef.current = null; setLocal(null); }}><option value="">Default camera</option>{devices.filter(d => d.kind === "videoinput").map(d => <option key={d.deviceId} value={d.deviceId}>{d.label || "Camera"}</option>)}</select></label></div>
           <div className="meeting-lobby-actions"><button className="button button-secondary" disabled={!secure || busy || !info || ending} onClick={() => void preview()}>{local ? "Refresh preview" : "Check camera & microphone"}</button><button className="button button-primary" disabled={!local || !consent || busy || !info || ending} onClick={() => void join()}>Join meeting</button></div>
           {isHost && <button className="text-button" disabled={ending || busy} onClick={() => void leave(true)}>End meeting and close invitation</button>}
-        </div><div><VideoTile stream={local} local camera={camera} label={isHost ? "Clinician" : "Patient"} /><button className="text-button" disabled={busy || cameraBusy || ending} onClick={() => void toggleCamera()}>{cameraBusy ? "Opening camera…" : camera ? "Turn camera off / audio only" : "Turn camera on"}</button></div></section>}
+        </div><div><VideoTile stream={local} local camera={camera} label={isHost ? "Clinician" : "Patient"} />{!audioOnly && <button className="text-button" disabled={busy || cameraBusy || ending} onClick={() => void toggleCamera()}>{cameraBusy ? "Opening camera…" : camera ? "Turn camera off / audio only" : "Turn camera on"}</button>}</div></section>}
         {joined && <div className="meeting-layout"><section className="call-stage"><VideoTile stream={remote} camera={peerCamera} label={isHost ? "Patient" : "Clinician"} /><VideoTile stream={local} local camera={camera} label={isHost ? "Clinician" : "Patient"} /><p className="call-caption">{remote ? peerMic ? "Both participants connected" : "The other participant’s microphone is muted" : "Share the invitation. The other chair is ready."}</p>
-          <div className="call-controls" aria-label="Meeting controls"><button aria-pressed={!mic} onClick={toggleMic}>{mic ? "Mute microphone" : "Unmute microphone"}</button><button aria-pressed={!camera} disabled={cameraBusy || ending} onClick={() => void toggleCamera()}>{cameraBusy ? "Opening camera…" : camera ? "Turn camera off" : "Turn camera on"}</button><button onClick={() => setTab("chat")}>Chat ({messages.length})</button>{isHost && !recording && remote && <button onClick={startCapture}>Resume recording</button>}<button className="leave-call" disabled={ending} onClick={() => void leave(!!isHost)}>{ending ? "Saving final audio…" : isHost ? "End meeting" : "Leave meeting"}</button></div>
+          <div className="call-controls" aria-label="Meeting controls"><button aria-pressed={!mic} onClick={toggleMic}>{mic ? "Mute microphone" : "Unmute microphone"}</button>{!audioOnly && <button aria-pressed={!camera} disabled={cameraBusy || ending} onClick={() => void toggleCamera()}>{cameraBusy ? "Opening camera…" : camera ? "Turn camera off" : "Turn camera on"}</button>}<button onClick={() => setTab("chat")}>Chat ({messages.length})</button>{isHost && !recording && remote && <button onClick={startCapture}>Resume recording</button>}<button className="leave-call" disabled={ending} onClick={() => void leave(!!isHost)}>{ending ? "Saving final audio…" : isHost ? "End meeting" : "Leave meeting"}</button></div>
         </section><aside className="meeting-side"><div className="meeting-tabs"><button aria-pressed={tab === "chat"} onClick={() => setTab("chat")}>Chat</button>{isHost && <button aria-pressed={tab === "transcript"} onClick={() => setTab("transcript")}>Live transcript</button>}</div>{tab === "chat" ? <><div className="meeting-chat" aria-live="polite">{!messages.length && <p className="empty-chat">A quiet chat. We’ll try not to take it personally.<small>Messages are visible to both participants and disappear when this page closes.</small></p>}{messages.map((m, i) => <div className={`chat-message ${m.role === info?.role ? "own-message" : ""}`} key={i}><strong>{m.role === "CLIENT" ? "Patient" : "Clinician"}</strong><p>{m.text}</p></div>)}</div><form className="chat-form" onSubmit={e => { e.preventDefault(); if (!chat.trim() || !remote) return; send("chat", chat.trim()); setMessages(list => [...list.slice(-199), { role: info!.role, text: chat.trim() }]); setChat(""); }}><input aria-label="Chat message" placeholder="Something to add?" maxLength={2000} value={chat} onChange={e => setChat(e.target.value)} /><button disabled={!chat.trim() || !remote}>Send</button></form></> : <div className="meeting-chat" aria-live="polite"><p className="small-note">Draft ASR text appears after each chunk finishes processing. Review for errors.</p>{transcript.slice(-30).map(s => <article className="live-segment" key={s.id}><strong>{s.speaker_role === "CLIENT" ? "Patient" : s.speaker_role === "CLINICIAN" ? "Clinician" : "Unknown"} · {formatTimestamp(s.start_ms)}</strong><p>{s.text}</p></article>)}{!transcript.length && <p>The transcript is listening. First results arrive after the first minute plus processing time.</p>}</div>}</aside></div>}
       </>}
       {isHost && <section className="meeting-bottom"><div className="meeting-invite panel"><p className="eyebrow">Invite the other chair</p><label htmlFor="meeting-invite">Patient invitation — share only with your patient</label><div><input id="meeting-invite" readOnly value={invite} placeholder="Invitation is available in the tab that created this meeting." /><button className="button button-secondary" disabled={!invite} onClick={async () => { try { await navigator.clipboard.writeText(invite); setCopied(true); } catch { setError("Select the invitation text and copy it manually."); } }}>{copied ? "Copied" : "Copy link"}</button></div>{invite.includes("localhost") || invite.includes("127.0.0.1") ? <p className="form-error">This address works only on this laptop. Set MEETING_PUBLIC_ORIGIN to your trusted HTTPS Wi-Fi address and create a new invitation for another device.</p> : <p className="small-note">Invitation expires after four hours or when you end the meeting.</p>}</div><div className="meeting-progress panel"><p className="eyebrow">Behind the conversation</p><strong>{completed} / {jobs.length} chunks transcribed</strong><p>{pendingCount} awaiting upload · {jobs.length - completed - failed} processing or queued · {failed} failed</p><p className="small-note">One continuous audio timeline, two speaker tracks, roughly one-minute WAV files. Processing can continue after the call.</p>{failed > 0 && <p className="form-error">{jobs.find(j => j.status === "FAILED")?.error_message} Retry failed transcription from the session page.</p>}</div></section>}

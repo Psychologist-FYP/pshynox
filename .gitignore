@@ -8,6 +8,7 @@ __pycache__/
 *.py[cod]
 node_modules/
 dist/
+dist-meeting/
 .env
 data/
 # Share only research transcripts and conversation-level annotation files.

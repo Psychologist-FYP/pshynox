@@ -749,7 +749,12 @@ async def protect_lan_workspace(request, call_next):
         except ValueError:
             local = False
     path = request.url.path
-    if not local and not re.fullmatch(r"/api/v1/meetings/meeting-[a-f0-9]{32}(?:/(?:end|chunks/[a-f0-9-]{36}))?", path):
+    from services.api.meeting_core import clinician_request_allowed, meeting_mode
+    # Internet mode: patients use the separate public meeting server; this API answers only loopback-addressed,
+    # unproxied requests, so a tunnel pointed here by mistake gets 403 on every route.
+    if not clinician_request_allowed(request.headers) or (not local and meeting_mode() == "internet"):
+        return JSONResponse(status_code=403, content={"error": {"code": "LOCAL_WORKSPACE_ONLY", "message": "The clinician workspace is available only on the hosting computer."}})
+    if not local and not re.fullmatch(r"/api/v1/meetings/meeting-[a-f0-9]{32}(?:/(?:end|consent|ice-servers|chunks/[a-f0-9-]{36}))?", path):
         return JSONResponse(status_code=403, content={"error": {"code": "LOCAL_WORKSPACE_ONLY", "message": "The clinician workspace is available only on the hosting computer. Use your meeting invitation to join."}})
     response = await call_next(request)
     response.headers["Cache-Control"] = "no-store"

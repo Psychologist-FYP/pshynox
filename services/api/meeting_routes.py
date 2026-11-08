@@ -1,7 +1,8 @@
-"""Two-person WebRTC signaling. A single API process owns live sockets.
+"""Two-person WebRTC meetings: clinician-side routes. A single API process owns live sockets.
 
-Only capability-authenticated meeting endpoints are accessible to LAN guests.
-Audio and ASR stay on the hosting computer; chat is ephemeral.
+Shared logic (tokens, consent, the signaling hub) lives in ``services.api.meeting_core`` so the public meeting-only
+server (``services.meeting_public``) can use it without importing clinician routes. Only capability-authenticated
+meeting endpoints are accessible to LAN guests. Audio and ASR stay on the hosting computer; chat is ephemeral.
 """
 import asyncio
 import hashlib
@@ -9,74 +10,61 @@ import io
 import json
 import os
 import secrets
-import time
 import uuid
 import wave
 from pathlib import Path
 from typing import Literal
 
-from fastapi import APIRouter, Depends, Header, Request, WebSocket, WebSocketDisconnect
-from pydantic import BaseModel, Field
+from fastapi import APIRouter, Depends, Header, Request, WebSocket
+from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 
+from services.api import meeting_core as core
+from services.api import turn
 from services.api.db import (MeetingRecord, MeetingChunkRecord, RecordingRecord,
-    TranscriptionJobRecord, AuditEventRecord, utc_now)
+    TranscriptionJobRecord, utc_now)
 from services.api.speech_routes import fail, writable, session_record
 
-
-def now_ms():
-    return round(time.time() * 1000)
-
-
-def token_hash(token):
-    return hashlib.sha256(token.encode()).hexdigest()
+now_ms = core.now_ms
+token_hash = core.token_hash
+audit = core.audit
 
 
 def authorize(db, mid, authorization, host_only=False, allow_ended=False):
-    row = db.get(MeetingRecord, mid)
-    token = (authorization or "").removeprefix("Bearer ")
-    digest = token_hash(token)
-    role = None
-    if row and secrets.compare_digest(row.host_hash, digest):
-        role = "CLINICIAN"
-    elif row and secrets.compare_digest(row.guest_hash, digest):
-        role = "CLIENT"
-    if not role or (host_only and role != "CLINICIAN"):
-        fail("MEETING_ACCESS_DENIED", "This meeting link is invalid.", 403)
-    if row.expires_ms < now_ms() or (row.status == "ENDED" and not allow_ended):
-        fail("MEETING_CLOSED", "This meeting has ended or its invitation has expired.", 410)
-    return row, role
-
-
-def audit(db, row, event, actor):
-    db.add(AuditEventRecord(id=f"audit-{uuid.uuid4().hex}", session_id=row.session_id,
-        note_draft_id=None, event_type=event, actor_name=actor, occurred_at=utc_now(), metadata_json="{}"))
+    try:
+        return core.authorize(db, mid, core.bearer(authorization), host_only=host_only, allow_ended=allow_ended)
+    except core.MeetingError as exc:
+        fail(exc.code, exc.message, exc.status)
 
 
 class CreateMeeting(BaseModel):
     recording_consent: Literal[True]
+    audio_only: bool | None = None      # default: on in development (keeps relayed traffic small)
 
 
-class Signal(BaseModel):
-    type: Literal["offer", "answer", "ice", "chat", "media", "leave", "recording"]
-    data: dict | str | bool | None = None
+class ConnectionStats(BaseModel):
+    """Call-end summary from the clinician browser's getStats(). No addresses: extra fields are rejected."""
+    model_config = ConfigDict(extra="forbid")
+    relayed: bool
+    local_candidate_type: Literal["host", "srflx", "prflx", "relay", "unknown"] = "unknown"
+    remote_candidate_type: Literal["host", "srflx", "prflx", "relay", "unknown"] = "unknown"
+    bytes_sent: int = Field(ge=0, le=50 * 1024 ** 3)
+    bytes_received: int = Field(ge=0, le=50 * 1024 ** 3)
+    duration_s: int = Field(ge=0, le=24 * 3600)
+
+
+def audio_only_default() -> bool:
+    return os.getenv("APP_ENV", "development").lower() == "development"
+
+
+class GuestConsent(BaseModel):
+    recording_consent: Literal[True]
 
 
 def build_meeting_router(db_dependency, factory):
     router = APIRouter(prefix="/api/v1")
-    rooms: dict[str, dict[str, WebSocket]] = {}
-    lock = asyncio.Lock()
-
-    async def send(ws, payload):
-        try:
-            await ws.send_json(payload)
-        except (RuntimeError, WebSocketDisconnect):
-            pass
-
-    async def broadcast(mid, payload):
-        for ws in list(rooms.get(mid, {}).values()):
-            await send(ws, payload)
+    hub = core.HUB
 
     @router.post("/sessions/{sid}/meetings", status_code=201)
     def create(sid: str, payload: CreateMeeting, db=Depends(db_dependency)):
@@ -91,14 +79,16 @@ def build_meeting_router(db_dependency, factory):
         consent["recording_consent"] = True
         session.consent_json = json.dumps(consent)
         host, guest = secrets.token_urlsafe(32), secrets.token_urlsafe(32)
+        mode = core.meeting_mode()
         row = MeetingRecord(id=f"meeting-{uuid.uuid4().hex}", session_id=sid,
             host_hash=token_hash(host), guest_hash=token_hash(guest), status="OPEN",
-            created_ms=now_ms(), expires_ms=now_ms() + 4 * 60 * 60 * 1000, guest_consented=False)
+            created_ms=now_ms(), expires_ms=now_ms() + core.INVITATION_MS, guest_consented=False, mode=mode,
+            audio_only=audio_only_default() if payload.audio_only is None else payload.audio_only)
         db.add(row)
         audit(db, row, "MEETING_CREATED", "CLINICIAN")
         db.commit()
-        return {"id": row.id, "host_token": host, "guest_token": guest,
-                "public_origin": os.getenv("MEETING_PUBLIC_ORIGIN", "").rstrip("/")}
+        return {"id": row.id, "host_token": host, "guest_token": guest, "mode": mode, "public_origin": core.public_origin(),
+                "audio_only": row.audio_only}
 
     @router.post("/sessions/{sid}/meetings/close")
     async def close_session_meetings(sid: str, db=Depends(db_dependency)):
@@ -109,16 +99,14 @@ def build_meeting_router(db_dependency, factory):
             audit(db, row, "MEETING_ENDED", "CLINICIAN")
         db.commit()
         for row in rows:
-            await broadcast(row.id, {"type": "ended"})
-            for ws in list(rooms.get(row.id, {}).values()):
-                await ws.close(code=1000)
+            await hub.close_meeting(row.id)
+            await asyncio.to_thread(turn.revoke_meeting, row.id)
         return {"closed": len(rows)}
 
     @router.get("/meetings/{mid}")
     def info(mid: str, authorization: str = Header(default=""), db=Depends(db_dependency)):
         row, role = authorize(db, mid, authorization, allow_ended=True)
-        result = {"id": row.id, "role": role, "status": row.status, "expires_ms": row.expires_ms,
-            "ice_servers": json.loads(os.getenv("MEETING_ICE_SERVERS", "[]"))}
+        result = {"id": row.id, "role": role, "status": row.status, "expires_ms": row.expires_ms, "audio_only": bool(row.audio_only)}
         if role == "CLINICIAN":
             result["session_id"] = row.session_id
             jobs = db.scalars(select(TranscriptionJobRecord).join(MeetingChunkRecord,
@@ -134,10 +122,48 @@ def build_meeting_router(db_dependency, factory):
             row.status = "ENDED"
             audit(db, row, "MEETING_ENDED", "CLINICIAN")
             db.commit()
-        await broadcast(mid, {"type": "ended"})
-        for ws in list(rooms.get(mid, {}).values()):
-            await ws.close(code=1000)
+        await hub.close_meeting(mid)
+        await asyncio.to_thread(turn.revoke_meeting, mid)
         return {"status": "ENDED"}
+
+    @router.post("/meetings/{mid}/consent")
+    def guest_consent(mid: str, payload: GuestConsent, authorization: str = Header(default=""), db=Depends(db_dependency)):
+        """The patient's explicit recording consent (LAN mode; the public app has the same route in internet mode)."""
+        try:
+            row, _ = core.authorize(db, mid, core.bearer(authorization), guest_only=True)
+            core.session_writable(db, row.session_id)
+        except core.MeetingError as exc:
+            fail(exc.code, exc.message, exc.status)
+        core.record_guest_consent(db, row)
+        return {"recording_consent": True}
+
+    @router.get("/meetings/{mid}/ice-servers")
+    def ice_servers(mid: str, authorization: str = Header(default=""), db=Depends(db_dependency)):
+        row, _ = authorize(db, mid, authorization)
+        return core.ice_for(row)
+
+    @router.post("/meetings/{mid}/stats")
+    def connection_stats(mid: str, payload: ConnectionStats, authorization: str = Header(default=""), db=Depends(db_dependency)):
+        """Cost awareness: whether the call was relayed and roughly how many bytes moved. No IP addresses stored."""
+        row, _ = authorize(db, mid, authorization, host_only=True, allow_ended=True)
+        row.connection_json = json.dumps({**payload.model_dump(), "recorded_ms": now_ms()})
+        db.commit()
+        return {"saved": True}
+
+    @router.get("/meeting-usage")
+    def usage(month: str | None = None, db=Depends(db_dependency)):
+        """Monthly totals for the clinician (local only). month = YYYY-MM, default the current UTC month."""
+        import datetime as dt
+        start = dt.datetime.strptime(month, "%Y-%m").replace(tzinfo=dt.timezone.utc) if month else dt.datetime.now(dt.timezone.utc).replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+        end = (start + dt.timedelta(days=32)).replace(day=1)
+        rows = db.scalars(select(MeetingRecord).where(MeetingRecord.created_ms >= int(start.timestamp() * 1000),
+                                                      MeetingRecord.created_ms < int(end.timestamp() * 1000))).all()
+        stats = [json.loads(r.connection_json) for r in rows if r.connection_json]
+        relayed = [s for s in stats if s.get("relayed")]
+        relayed_bytes = sum(s["bytes_sent"] + s["bytes_received"] for s in relayed)
+        return {"month": start.strftime("%Y-%m"), "meetings": len(rows), "with_stats": len(stats), "relayed_meetings": len(relayed),
+                "relayed_bytes": relayed_bytes, "estimated_cost_usd": round(relayed_bytes / 1e9 * 0.05, 4),
+                "turn_provider": turn.provider(), "audio_only_default": audio_only_default(), "mode": core.meeting_mode()}
 
     @router.post("/meetings/{mid}/chunks/{chunk_id}", status_code=201)
     async def chunk(mid: str, chunk_id: uuid.UUID, request: Request,
@@ -200,81 +226,9 @@ def build_meeting_router(db_dependency, factory):
     @router.websocket("/meetings/{mid}/signal")
     async def signal(mid: str, ws: WebSocket):
         # Token is sent in the first frame, never in URL/query/access logs.
-        await ws.accept()
-        role = None
-        admitted = False
-        try:
-            auth = json.loads(await asyncio.wait_for(ws.receive_text(), timeout=10))
-            if auth.get("recording_consent") is not True:
-                await ws.close(code=4403, reason="Recording consent is required")
-                return
-            with factory() as db:
-                row, role = authorize(db, mid, f"Bearer {auth.get('token', '')}")
-                writable(db, row.session_id)
-                if json.loads(session_record(db, row.session_id).consent_json).get("recording_consent") is not True:
-                    await ws.close(code=4403, reason="Recording consent was withdrawn")
-                    return
-            async with lock:
-                room = rooms.setdefault(mid, {})
-                if role in room:
-                    await ws.close(code=4409, reason="This participant is already connected")
-                    return
-                room[role] = ws
-                admitted = True
-                if role == "CLIENT":
-                    with factory() as db:
-                        row = db.get(MeetingRecord, mid)
-                        row.guest_consented = True
-                        audit(db, row, "MEETING_RECORDING_CONSENT", role)
-                        db.commit()
-                await send(ws, {"type": "joined", "role": role})
-                if len(room) == 2:
-                    with factory() as db:
-                        row = db.get(MeetingRecord, mid)
-                        if row.started_ms is None:
-                            row.started_ms = now_ms()
-                            db.commit()
-                        offset = now_ms() - row.started_ms
-                    await broadcast(mid, {"type": "ready", "offset_ms": offset})
-            window_start, count = time.monotonic(), 0
-            while True:
-                raw = await ws.receive_text()
-                if len(raw) > 65536:
-                    await ws.close(code=4400, reason="Message too large")
-                    break
-                if time.monotonic() - window_start > 10:
-                    window_start, count = time.monotonic(), 0
-                count += 1
-                if count > 200:
-                    await ws.close(code=4429, reason="Too many messages")
-                    break
-                message = Signal.model_validate_json(raw)
-                with factory() as db:
-                    authorize(db, mid, f"Bearer {auth.get('token', '')}")
-                if message.type == "leave":
-                    break
-                if message.type == "chat" and (not isinstance(message.data, str) or not 0 < len(message.data.strip()) <= 2000):
-                    continue
-                if message.type == "recording" and role != "CLINICIAN":
-                    continue
-                peer = rooms.get(mid, {}).get("CLIENT" if role == "CLINICIAN" else "CLINICIAN")
-                if peer:
-                    await send(peer, {"type": message.type, "data": message.data, "role": role})
-        except WebSocketDisconnect:
-            pass
-        except Exception:
-            try:
-                await ws.close(code=4403, reason="Meeting unavailable or invalid message")
-            except RuntimeError:
-                pass
-        finally:
-            if admitted:
-                async with lock:
-                    room = rooms.get(mid, {})
-                    if room.get(role) is ws:
-                        room.pop(role, None)
-                    await broadcast(mid, {"type": "peer-left"})
-                    if not room:
-                        rooms.pop(mid, None)
+        if not core.clinician_request_allowed(ws.headers):
+            await ws.close(code=4403, reason="The clinician API is local only")
+            return
+        await core.run_signal(ws, mid, factory, allowed_roles={"CLINICIAN", "CLIENT"}, hub=hub)
 
     return router

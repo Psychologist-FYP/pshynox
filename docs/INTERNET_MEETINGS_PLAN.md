@@ -1,6 +1,6 @@
 # Internet meetings with patient-side clean recording: implementation plan
 
-**Status:** Phase 0 plan, written 8 November 2026. **Waiting for approval** and for answers to the open questions (§11).
+**Status:** approved 8 November 2026 (all phases in one session; every §11 recommendation accepted; `httpx` made a core dependency; the chunk-gap bug to be fixed). See §12.
 **Branch:** `feat/internet-meetings`, from `progress-monitoring` at `877b9cb`.
 **Persistent rules:** the "Internet meetings module" section of [`CLAUDE.md`](../CLAUDE.md).
 
@@ -491,3 +491,76 @@ trailer), a progress-log entry here, and a stop.
 - **Baseline:** backend 302 passed; build passes; meeting Playwright 3 passed, 1 failed (pre-existing chunk-gap
   assertion; it also fails when run alone, with an 8 ms gap).
 - **Next:** wait for approval and answers to §11, then Phase 1.
+
+### Phase 0 addendum — approval, 8 November 2026
+- The user approved the plan with every §11 recommendation and asked for all phases now.
+- Q1: `httpx` becomes a core dependency.
+- Q10: investigate and fix the chunk gap.
+
+### Phase 1 — 8 November 2026 (public meeting-only server, launcher)
+- **Chunk-gap bug fixed.** The 8 ms and 16 ms gaps were one and two 128-frame render quanta that the audio thread
+  skipped for the worklet node. `currentFrame` jumped, so the next slice started late, with no audio recorded in
+  between. `meeting-pcm.js` now:
+  - pads skips of up to 0.5 s with silence, keeping slices contiguous and aligned with wall clock;
+  - starts a new slice after longer skips;
+  - reports the padded frame count.
+
+  The minute-chunk e2e now passes.
+- **Built:**
+  - `services/api/meeting_core.py`: shared tokens, consent, audit, origin normalisation, the internet-mode
+    clinician-request check, ICE assembly, and the signaling `Hub` and `run_signal`. It imports only the DB models.
+  - `meeting_routes.py` now uses the core. It adds a guest `POST /meetings/{id}/consent` and
+    `GET /meetings/{id}/ice-servers`, so the patient page is identical in both modes.
+  - `services/meeting_public/`:
+    - `app.py`: allow-listed routes, a 404 envelope for everything else, docs and OpenAPI disabled, CSP and security
+      headers, Host check (public name or loopback), exact `Origin` check on consent and the WebSocket, 1 KB body
+      limit, guest token only;
+    - `gateway.py` (the narrow interface) and `limits.py` (in-memory sliding windows keyed by route and meeting, plus
+      a failed-token lockout);
+    - `serve.py`: both apps in one process on two loopback sockets, one signal handler, proxy headers off; it refuses
+      non-loopback binds and non-https origins.
+  - Clinician API middleware in internet mode: refuses any non-local request, non-loopback `Host` values, and requests
+    carrying forwarding headers. The same check runs on the clinician WebSocket.
+  - Patient-only bundle: `meeting.html` and `src/meeting-main.tsx`, built by `npm run build:meeting` into
+    `dist-meeting/` (ignored by Git). It contains only the HTML, one JS file, one CSS file, the worklet and the logo:
+    no inline script, no external origin. The room no longer imports the app-shell `Brand`.
+  - `scripts/run_internet.py`: checks configuration and binds, builds the patient page, starts both processes,
+    prints the Funnel commands, runs public-origin checks after confirmation (optionally logging header names), and
+    reminds the user to run `tailscale funnel reset` on exit.
+  - `.env.example` placeholders; `tests/test_secrets_guard.py` (`.env` ignored, untracked and unstaged; placeholders
+    only).
+- **Verified by hand:**
+  - the real `serve.py` on spare ports: public `/healthz` gives 200; `/api/v1/patients`, `/api/v1/health`, `/docs` and
+    `/openapi.json` on the public port give 404; the clinician port with a public `Host` gives 403; both stop cleanly;
+  - the built patient page in Chrome under the CSP: it renders with no policy violations and the invitation check
+    works.
+
+### Phase 2 — 8 November 2026 (NAT traversal)
+- **Built:**
+  - `services/api/turn.py`:
+    - Cloudflare `generate-ice-servers` through `httpx` with a 5 s timeout;
+    - port-53 URLs dropped;
+    - TTL = min(`CLOUDFLARE_TURN_TTL_SECONDS` (14,400), remaining invitation lifetime), at least 60 s;
+    - no caching across calls;
+    - optional Metered provider;
+    - STUN-only fallback with a warning when there is no configuration or on failure;
+    - logs only provider, ok/failed and latency;
+    - best-effort revocation of a meeting's Cloudflare usernames when it ends (both end routes).
+  - Migration `0009_internet_meetings` (additive; upgrade, downgrade and re-upgrade verified):
+    - `meetings`: `mode`, `audio_only`, `verification_confirmed_at`, `connection_json`;
+    - `meeting_chunks`: `source`, `offset_uncertainty_ms`, `rtt_ms`.
+  - The per-meeting audio-only option (default on when `APP_ENV=development`). It hides the camera controls and skips
+    the video transceiver.
+  - `connection.ts`: the selected candidate pair, as candidate types and counters only.
+  - In the UI: the connection type ("Direct" or "Relayed (TURN)"), the TURN warning, and call-end stats posted to
+    `POST /meetings/{id}/stats` (extra fields rejected, so no IPs).
+  - `GET /meeting-usage` (local): monthly meetings, relayed meetings, relayed bytes and estimated cost at $0.05/GB.
+    It is shown in the "Meet online" panel with an audio-only checkbox.
+- **Tests:** backend 334 passed (+32 over the baseline: public app allow-list, guest-only tokens, Origin and Host,
+  rate limits and lockout, headers, expiry, the shared hub across both apps, the import graph, clinician-API refusals
+  on HTTP and WebSocket, origin normalisation, launcher checks, secrets guard; TURN with mocked transport, TTL clamp, no
+  caching, failure and missing configuration, secrets absent from responses and logs, Metered, per-participant
+  issuance, revocation, audio-only default, stats without IPs, usage totals). Frontend build passes. Meeting Playwright
+  passes 4/4 (it was 3/4 at baseline); its camera tests now create meetings with `audio_only: false`.
+- **Deviation:** Phases 1 and 2 are one commit, because Phase 2 edits landed in the same files before Phase 1 was
+  committed.

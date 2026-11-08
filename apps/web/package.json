@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "test:meeting": "playwright test"
+    "test:meeting": "playwright test",
+    "build:meeting": "tsc -b && vite build --config vite.meeting.config.ts",
+    "test:unit": "node --experimental-strip-types --no-warnings --test unit/*.test.mjs"
   },
   "dependencies": {
     "react": "^19.0.0",
