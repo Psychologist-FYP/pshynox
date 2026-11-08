@@ -15,7 +15,7 @@ execFileSync(`${root}/.venv/bin/python`, ['-c', 'from services.retrieval.prepare
 process.env.MEETING_TEST_GUEST_ORIGIN = `https://${lanIP}:5179`;
 console.log(`Meeting browser test: clinician localhost, patient ${process.env.MEETING_TEST_GUEST_ORIGIN}`);
 export default defineConfig({
-  testDir: './e2e', timeout: 120000, workers: 1,
+  testDir: './e2e', testIgnore: ['meeting-internet.spec.ts'], timeout: 120000, workers: 1,   // internet mode: playwright.internet.config.ts
   use: {
     baseURL: 'https://127.0.0.1:5179', channel: 'chrome', ignoreHTTPSErrors: true,
     permissions: ['camera', 'microphone'],

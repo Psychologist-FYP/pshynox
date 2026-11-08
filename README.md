@@ -290,6 +290,7 @@ Then set `RETRIEVAL_METHOD=e5` or `hybrid` in `.env`. See [docs/RETRIEVAL.md](do
 ./scripts/run.py --no-reload   # recommended when using the local LLM (long-running jobs)
 ./scripts/run.py --api-port 8001 --web-port 5174
 python scripts/run_lan.py      # HTTPS on the local Wi-Fi for two-device meetings (docs/ONLINE_MEETINGS.md)
+.venv/bin/python scripts/run_internet.py   # meetings over the internet via Tailscale Funnel + TURN (docs/INTERNET_MEETINGS.md)
 ```
 
 The launcher uses `.venv/bin/python`, creates `.env` if it is missing, checks the ports and runs the database
@@ -385,7 +386,8 @@ React 19 / TypeScript / Vite / Recharts (apps/web)
 | `alembic/versions/` | database migrations |
 | `tests/` | backend tests (pytest) with fixtures and a scripted fake LLM |
 | `docs/` | plans, status, runbooks and module documentation |
-| `scripts/` | `setup.sh`, `run.py`, `run_lan.py`, benchmark and verification helpers |
+| `services/meeting_public/` | Public meeting-only server for internet meetings (patient page, consent, signaling, ICE) |
+| `scripts/` | `setup.sh`, `run.py`, `run_lan.py`, `run_internet.py`, benchmark and verification helpers |
 
 | Owner | Module |
 |---|---|
@@ -405,6 +407,7 @@ React 19 / TypeScript / Vite / Recharts (apps/web)
 | [NOTE_GENERATION.md](docs/NOTE_GENERATION.md), [NOTE_FORMULATION_REVIEW.md](docs/NOTE_FORMULATION_REVIEW.md) | Local AI note drafts |
 | [RETRIEVAL.md](docs/RETRIEVAL.md), [RESEARCH_EVALUATION.md](docs/RESEARCH_EVALUATION.md), [TEAM_ANNOTATION.md](docs/TEAM_ANNOTATION.md) | Module B retrieval, research workspace, annotation workflow |
 | [PATIENT_WORKSPACE.md](docs/PATIENT_WORKSPACE.md), [ONLINE_MEETINGS.md](docs/ONLINE_MEETINGS.md) | Workspace and LAN meetings |
+| [INTERNET_MEETINGS.md](docs/INTERNET_MEETINGS.md), [checklist](docs/INTERNET_MEETINGS_TEST_CHECKLIST.md), [plan](docs/INTERNET_MEETINGS_PLAN.md) | Internet meetings: setup, threat model, manual real-network checks |
 | [MODULE_INTEGRATION_GUIDE.md](docs/MODULE_INTEGRATION_GUIDE.md), [Plan.txt](docs/Plan.txt) | Module boundaries and the original plan |
 | [NVIDIA_LOCAL_FIX.md](docs/NVIDIA_LOCAL_FIX.md) | NVIDIA driver and Secure Boot on Fedora |
 

@@ -616,3 +616,75 @@ trailer), a progress-log entry here, and a stop.
   - LAN Playwright 4/4: the minute-chunk test now passes with patient-device recording.
 - **Fixed during the phase:** my new chunk test left queued ASR jobs in the shared test database, which made five
   speech-pipeline tests process the wrong job. It now drains its queue.
+
+### Phase 5 — 8 November 2026 (end-to-end test, docs, checklist)
+- **Built:**
+  - `playwright.internet.config.ts` and `e2e/meeting-internet.spec.ts` (`npm run test:meeting:internet`):
+    - setup: the real `serve.py` with the public server on HTTPS (a local certificate standing in for Funnel's TLS,
+      via new local-test-only `--public-ssl-*` flags), `MEETING_MODE=internet`, `TURN_PROVIDER=none` with a mocked STUN
+      entry, and the clinician UI on loopback;
+    - two browser contexts with fake media;
+    - asserts that the public origin returns 404 for clinician routes;
+    - asserts the consent text, the matching verification code on both screens and the clinician's confirmation shown
+      to the patient;
+    - asserts chat over the data channel, with a spy on every signaling frame showing no chat, media or recording
+      messages;
+    - asserts patient-device chunks (a full minute plus the final partial, contiguous within 1 ms, no fallback upload),
+      the clock-sync state, acknowledgements and the drift report;
+    - asserts the meeting ends cleanly on both sides.
+  - The default Playwright config ignores the internet spec.
+  - `?compare=1` on the clinician meeting page keeps both patient copies, for the manual transcript-quality check. The
+    token handler now preserves the query string.
+  - Docs:
+    - `docs/INTERNET_MEETINGS.md`: setup, launcher, workflow, what each party can see, the verification code's
+      guarantees and limits, troubleshooting, tests;
+    - `docs/INTERNET_MEETINGS_TEST_CHECKLIST.md`: nine manual real-network checks and a results table;
+    - updates to `ONLINE_MEETINGS.md`, `README.md` and `PROJECT_STATUS.md` (dated addendum).
+- **Tests:** backend 337 passed; unit 14 passed; frontend build passes; LAN meeting Playwright 4/4; internet
+  Playwright 1/1.
+
+---
+
+## 13. Final report
+
+**Built per phase:**
+
+| Phase | What was built |
+|---|---|
+| 1 | Separate public meeting-only server with a narrow gateway; shared hub in one process; strict headers, Host and Origin checks, body and rate limits; clinician API refuses public-host and forwarded requests; patient-only bundle; launcher with leak checks; `.env` guard. Also the pre-existing chunk-gap bug fix. |
+| 2 | Server-side TURN (Cloudflare; Metered optional); TTL clamped to the invitation; no caching; revocation; STUN fallback with a warning; audio-only meetings; connection type; call-end stats without IPs; monthly usage. |
+| 3 | `pshynox-v1` data channel for chat, media state and recording control; signaling reduced to SDP and ICE; audited verification code. |
+| 4 | Patient-side clean recording with an encrypted outbox, backpressured and hash-verified transfer, ack-before-delete, clock sync, a coverage-based fallback, and stored, labelled sources. |
+| 5 | Internet-mode browser test, docs, manual checklist. |
+
+**Test and build results:** listed in the phase entries above.
+
+**What the user must do manually** (Claude never runs tailscale and never handles key values):
+
+1. Add `MEETING_PUBLIC_ORIGIN=https://nachovarga.tail5ed395.ts.net`, `CLOUDFLARE_TURN_KEY_ID` and
+   `CLOUDFLARE_TURN_API_TOKEN` to `.env`. As of 8 November the two TURN keys are **missing**.
+2. Run `.venv/bin/python scripts/run_internet.py --diag-headers`, then `tailscale funnel --bg 8443`, press Enter, and
+   confirm every public check passes. Note which forwarding header names Funnel adds.
+3. Work through `docs/INTERNET_MEETINGS_TEST_CHECKLIST.md` on real networks.
+4. Run `tailscale funnel reset` when finished.
+
+**Unverified:**
+
+- WebSocket upgrades through Funnel (not documented by Tailscale);
+- which forwarding headers Funnel adds;
+- real TURN relaying;
+- mobile networks;
+- long calls and recovery from a network drop;
+- Safari and Firefox on the patient side;
+- the transcript-quality difference between the two sources;
+- Cloudflare's billing figures against the usage estimate.
+
+**Open questions:**
+
+1. **Forwarding headers:** if Funnel adds `X-Forwarded-For`, should the public app use it, only to key rate limits and
+   without storing it? Today nothing per-IP is used.
+2. **The 50% fallback threshold** (Q4) and the memory-only outbox key (Q5) are defaults to revisit after the
+   checklist.
+3. **Patient microphone processing** (Q6): keep echo cancellation on and noise suppression and auto gain off once
+   checklist item 7 has real numbers?
+4. **Clinician authentication** before any use beyond the FYP demo.

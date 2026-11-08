@@ -49,6 +49,9 @@ def main(argv=None) -> int:
     parser.add_argument("--api-port", type=int, default=8000)
     parser.add_argument("--public-host", default="127.0.0.1")
     parser.add_argument("--public-port", type=int, default=int(os.getenv("MEETING_PUBLIC_PORT", "8443")))
+    # Local browser tests only. With Funnel, TLS terminates in the Tailscale daemon and the public app stays plain http.
+    parser.add_argument("--public-ssl-certfile", default=None)
+    parser.add_argument("--public-ssl-keyfile", default=None)
     args = parser.parse_args(argv)
     try:
         from dotenv import load_dotenv
@@ -67,7 +70,8 @@ def main(argv=None) -> int:
     common = {"proxy_headers": False, "server_header": False, "log_level": os.getenv("MEETING_LOG_LEVEL", "info")}
     servers = [
         _Server(uvicorn.Config(clinician_app, host=args.api_host, port=args.api_port, lifespan="on", **common)),
-        _Server(uvicorn.Config(public_app, host=args.public_host, port=args.public_port, lifespan="off", date_header=False, **common)),
+        _Server(uvicorn.Config(public_app, host=args.public_host, port=args.public_port, lifespan="off", date_header=False,
+                               ssl_certfile=args.public_ssl_certfile, ssl_keyfile=args.public_ssl_keyfile, **common)),
     ]
 
     def stop(*_):

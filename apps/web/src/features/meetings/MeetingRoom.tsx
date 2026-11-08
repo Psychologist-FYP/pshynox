@@ -94,6 +94,7 @@ export function MeetingRoom({ id }: { id: string }) {
   const receiver = useRef<ChunkReceiver | null>(null);
   const [patientDelivered, setPatientDelivered] = useState(0);
   const debug = useRef<{ chunks: Interval[]; wallStart: number | null; wallEnd: number | null }>({ chunks: [], wallStart: null, wallEnd: null });
+  const [compareSources] = useState(() => new URLSearchParams(location.search).get("compare") === "1");
   const canRecordHere = typeof AudioWorkletNode !== "undefined" && typeof indexedDB !== "undefined" && !!crypto?.subtle && window.isSecureContext;
   const secure = window.isSecureContext && !!navigator.mediaDevices;
 
@@ -170,7 +171,8 @@ export function MeetingRoom({ id }: { id: string }) {
     for (const chunk of (await outbox("list", id)).filter(c => c.hold)) {
       const end = chunk.offset + (chunk.duration ?? 60000);
       if (!final && end + 90000 > now) continue;            // give the patient's copy time to arrive
-      if (coverage([chunk.offset, end], received) < 0.5) await outbox("put", { ...chunk, hold: false });
+      // ?compare=1 on the clinician's meeting page keeps both copies (manual transcript-quality comparison only).
+      if (compareSources || coverage([chunk.offset, end], received) < 0.5) await outbox("put", { ...chunk, hold: false });
       else await outbox("delete", chunk.id);
     }
     void drain();

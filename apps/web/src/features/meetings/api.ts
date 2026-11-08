@@ -18,7 +18,7 @@ export function tokenFor(id: string) {
   const token = hash.get("token");
   if (token) {
     sessionStorage.setItem(`meeting-token-${id}`, token);
-    history.replaceState(null, "", location.pathname);
+    history.replaceState(null, "", location.pathname + location.search);
   }
   return token || sessionStorage.getItem(`meeting-token-${id}`) || "";
 }

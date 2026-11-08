@@ -1,5 +1,23 @@
 # Pshynox — Current Project Status
 
+## Update, 8 November 2026 (evening): internet meetings (branch `feat/internet-meetings`)
+
+Two-person meetings now also work over the internet; same-Wi-Fi meetings are unchanged for users. See
+[INTERNET_MEETINGS.md](INTERNET_MEETINGS.md).
+
+| Item | Status |
+|---|---|
+| Public meeting-only server | Built. A separate app on its own loopback port, reached through Tailscale Funnel, serves only the patient page, consent, signaling and ICE. The clinician API is never exposed: it also refuses public-host and forwarded requests in internet mode. |
+| NAT traversal | Cloudflare TURN credentials issued server side (short-lived, TTL ≤ invitation, revoked at the end); optional Metered; STUN-only fallback with a warning; audio-only option; connection type and monthly relayed-traffic estimate. |
+| Encrypted data channel | Chat, media state and recording control moved off signaling. A 6-digit verification code from both DTLS fingerprints; the clinician's confirmation is audited. |
+| Patient-side clean recording | The patient's browser records its own microphone and sends 60 s chunks over the data channel: encrypted at rest until acknowledged, SHA-256-verified, clock-aligned. Network-received audio is a labelled fallback. |
+| Pre-existing chunk-gap bug | Fixed: skipped audio render quanta are padded in the worklet. |
+| Verification | Backend 337 passed; unit 14; LAN meeting Playwright 4/4; internet-mode Playwright 1/1 (two browsers, HTTPS public server, mocked ICE). |
+| **Unverified** | Real networks: Funnel WebSockets, mobile data, TURN relaying, 30-minute calls, recovery from a network drop, transcript quality by source. See [the manual checklist](INTERNET_MEETINGS_TEST_CHECKLIST.md). |
+
+---
+
+
 ## Update, 8 November 2026: progress-monitoring plan complete (Phase 6)
 
 All implementation phases of the [progress-monitoring plan](PROGRESS_MONITORING_PLAN.md) are now built. User
