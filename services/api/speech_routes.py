@@ -14,7 +14,7 @@ from starlette.concurrency import run_in_threadpool
 
 from services.api.db import (SessionRecord, RecordingRecord, TranscriptionJobRecord,
                             TranscriptSegmentRecord, SegmentSourceRecord, NoteDraftRecord, MeetingChunkRecord, utc_now)
-from services.speech.audio import MAX_BYTES, SpeechError, decode_audio
+from services.speech.audio import MAX_BYTES, MAX_MB, SpeechError, decode_audio
 
 
 class TranscribeRequest(BaseModel):
@@ -101,7 +101,7 @@ def build_router(db_dependency):
                 async for chunk in request.stream():
                     total += len(chunk)
                     if total > MAX_BYTES:
-                        fail("AUDIO_TOO_LARGE", "Recording exceeds the 100 MB limit.", 413)
+                        fail("AUDIO_TOO_LARGE", f"Recording exceeds the {MAX_MB} MB limit.", 413)
                     target.write(chunk)
                     digest.update(chunk)
             with tempfile.TemporaryDirectory(prefix="pshynox-validate-") as temp:

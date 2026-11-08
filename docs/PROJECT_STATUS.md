@@ -12,6 +12,7 @@ Two-person meetings now also work over the internet; same-Wi-Fi meetings are unc
 | Encrypted data channel | Chat, media state and recording control moved off signaling. A 6-digit verification code from both DTLS fingerprints; the clinician's confirmation is audited. |
 | Patient-side clean recording | The patient's browser records its own microphone and sends 60 s chunks over the data channel: encrypted at rest until acknowledged, SHA-256-verified, clock-aligned. Network-received audio is a labelled fallback. |
 | Pre-existing chunk-gap bug | Fixed: skipped audio render quanta are padded in the worklet. |
+| Single-recording limit | Raised from 5 to **45 minutes** (and 100 MB to 600 MB) for browser recordings and imported files; the panel stops and saves automatically at the limit. Online meetings were never limited to 5 minutes (they upload 1-minute chunks). Research clips stay at 5 minutes. |
 | Verification | Backend 337 passed; unit 14; LAN meeting Playwright 4/4; internet-mode Playwright 1/1 (two browsers, HTTPS public server, mocked ICE). |
 | **Unverified** | Real networks: Funnel WebSockets, mobile data, TURN relaying, 30-minute calls, recovery from a network drop, transcript quality by source. See [the manual checklist](INTERNET_MEETINGS_TEST_CHECKLIST.md). |
 

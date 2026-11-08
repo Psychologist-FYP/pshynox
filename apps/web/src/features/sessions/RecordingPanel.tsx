@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { api, formatTimestamp, type Recording, type Session, type SpeechJob } from "../../lib/api";
 
+
+const MAX_RECORDING_MINUTES = 45;
+const MAX_RECORDING_SECONDS = MAX_RECORDING_MINUTES * 60;
 export function RecordingPanel({ session, onTranscribed }: { session: Session; onTranscribed: () => void }) {
   const [consent, setConsent] = useState(session.consent.recording_consent === true);
   const [devices, setDevices] = useState<MediaDeviceInfo[]>([]);
@@ -37,7 +40,8 @@ export function RecordingPanel({ session, onTranscribed }: { session: Session; o
   }, [session.id, processing, jobs]);
   useEffect(() => {
     if (!recording) return;
-    const timer = window.setInterval(() => setSeconds(s => { if (s >= 299) recorder.current?.stop(); return s + 1; }), 1000);
+    // Stops and saves automatically at the limit (matches MAX_SECONDS in services/speech/audio.py).
+    const timer = window.setInterval(() => setSeconds(s => { if (s >= MAX_RECORDING_SECONDS - 1) recorder.current?.stop(); return s + 1; }), 1000);
     return () => clearInterval(timer);
   }, [recording]);
   async function chooseDevices() {
@@ -93,13 +97,13 @@ export function RecordingPanel({ session, onTranscribed }: { session: Session; o
       setError(e instanceof Error ? e.message : "Could not start recording.");
     }
   }
-  return <section className="panel recording-panel"><div className="panel-heading"><div><p className="eyebrow">Local audio · up to five minutes</p><h3>Record or import a conversation</h3></div></div>
+  return <section className="panel recording-panel"><div className="panel-heading"><div><p className="eyebrow">Local audio · up to {MAX_RECORDING_MINUTES} minutes</p><h3>Record or import a conversation</h3></div></div>
     <label className="confirm-line"><input type="checkbox" checked={consent} disabled={busy || recording || processing} onChange={async e => { const value = e.target.checked; try { await api.recordingConsent(session.id, value); setConsent(value); } catch (reason) { setError(reason instanceof Error ? reason.message : "Could not save consent."); } }} /> I have consent to record and process this fictional conversation locally.</label>
     <div className="recording-actions"><button className="button button-secondary small-button" disabled={!consent || recording || busy} onClick={chooseDevices}>Find microphones</button><select aria-label="Microphone" disabled={recording} value={device} onChange={e => setDevice(e.target.value)}><option value="">Default microphone</option>{devices.map(d => <option key={d.deviceId} value={d.deviceId}>{d.label || "Microphone"}</option>)}</select>
       <button className="button button-primary small-button" disabled={!consent || busy || processing} onClick={() => recording ? recorder.current?.stop() : void start()}>{recording ? "Stop and save" : "Start recording"}</button>
       <label>Import WAV <input aria-label="Import WAV" type="file" accept=".wav,audio/wav" disabled={!consent || busy || recording || processing} onChange={e => { const file = e.target.files?.[0]; if (file) void upload(new Blob([file], { type: "audio/wav" })); e.target.value = ""; }} /></label>
     </div>
-    {recording && <p role="status">Recording {formatTimestamp(seconds * 1000)} <meter aria-label="Input level" min={0} max={100} value={level} /> Check that both voices register.</p>}
+    {recording && <p role="status">Recording {formatTimestamp(seconds * 1000)} of {MAX_RECORDING_MINUTES}:00{seconds >= MAX_RECORDING_SECONDS - 120 ? " · stops and saves automatically at the limit" : ""} <meter aria-label="Input level" min={0} max={100} value={level} /> Check that both voices register.</p>}
     {busy && <p role="status">Saving and validating recording…</p>}
     {error && <p className="form-error" role="alert">{error}</p>}
     {files.map((file, index) => {

@@ -8,7 +8,9 @@ import wave
 
 from services.retrieval.import_data import import_primock
 from services.retrieval.prepare import STARTER, research_root, write_json
-from services.speech.audio import MAX_SECONDS
+# Research clips stay at most five minutes (the length they were prepared and evaluated with), independent of the
+# clinical recording limit in services.speech.audio.
+MAX_SECONDS = 300
 
 
 def boundaries(turns, duration_ms, maximum_ms):

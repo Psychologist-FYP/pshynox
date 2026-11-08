@@ -370,7 +370,7 @@ git status --short
 | "GPU offload was requested but no layers were confirmed" | The driver is not loaded ([NVIDIA_LOCAL_FIX.md](docs/NVIDIA_LOCAL_FIX.md)). Set `NOTE_GPU_LAYERS=0` to run on the CPU. |
 | `MODEL_BUSY` / memory slot busy | Another model job (transcription, note draft, analysis, benchmark) is running. Wait for it to finish. |
 | "The local API could not complete that request." | Look at the backend output in the `run.py` terminal for the traceback. |
-| Audio cannot be decoded | `ffmpeg` and `ffprobe` must run in the same terminal. Use a valid WAV within 5 min / 100 MB. |
+| Audio cannot be decoded | `ffmpeg` and `ffprobe` must run in the same terminal. Use a valid WAV within 45 min / 600 MB. |
 | Microphone denied | Allow it for localhost in the browser, or import a WAV. |
 | Transcription job stays queued | `SPEECH_WORKER_ENABLED=true`, Linux/WSL2, and check the backend output. |
 | Port already in use | Stop the earlier `run.py`, or pass `--api-port` / `--web-port`. |
