@@ -234,6 +234,7 @@ class InstrumentScoreRecord(_ReviewColumns, Base):
     subtotals_json: Mapped[str] = mapped_column(Text, default="{}")
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     superseded_by_id: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    retired_batch_id: Mapped[str | None] = mapped_column(String(100), nullable=True)
 
 
 class DomainObservationRecord(_ReviewColumns, Base):
@@ -252,6 +253,7 @@ class DomainObservationRecord(_ReviewColumns, Base):
     duration_text: Mapped[str] = mapped_column(String(300), default="")
     basis: Mapped[str] = mapped_column(String(600), default="")
     evidence_segment_ids_json: Mapped[str] = mapped_column(Text, default="[]")
+    retired_batch_id: Mapped[str | None] = mapped_column(String(100), nullable=True)
 
 
 class DomainObservationVersionRecord(Base):
@@ -292,6 +294,7 @@ class ConditionPredictionRecord(_ReviewColumns, Base):
     registry_version: Mapped[str] = mapped_column(String(200), default="")
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     superseded_by_id: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    retired_batch_id: Mapped[str | None] = mapped_column(String(100), nullable=True)
 
 
 class CriterionFindingRecord(Base):
@@ -315,6 +318,10 @@ class RiskStatementRecord(_ReviewColumns, Base):
     category: Mapped[str] = mapped_column(String(40))
     basis: Mapped[str] = mapped_column(String(600), default="")
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+    retired_batch_id: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    categories_json: Mapped[str | None] = mapped_column(Text, nullable=True)
+    note_kind: Mapped[str] = mapped_column(String(20), default="flag")
+    registry_kind: Mapped[str] = mapped_column(String(10), default="v1")
 
 
 class ChangeEventRecord(Base):
@@ -357,3 +364,100 @@ class ProgressEvidenceLinkRecord(Base):
     owner_kind: Mapped[str] = mapped_column(String(30), primary_key=True)
     owner_id: Mapped[str] = mapped_column(String(100), primary_key=True)
     revision_at_link: Mapped[int] = mapped_column(Integer)
+
+
+# ---------------------------------------------------------------- progress registry v2 (DSM-5-TR)
+
+class DsmBatchRecord(Base):
+    __tablename__ = "dsm_batches"
+    id: Mapped[str] = mapped_column(String(100), primary_key=True)
+    patient_id: Mapped[str] = mapped_column(ForeignKey("patients.id"), index=True)
+    kind: Mapped[str] = mapped_column(String(20))  # extraction | reanalysis | prediction
+    job_id: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    session_ids_json: Mapped[str] = mapped_column(Text, default="[]")
+    skipped_json: Mapped[str] = mapped_column(Text, default="[]")
+    status: Mapped[str] = mapped_column(String(20), default="running")
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    reverted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    reverted_by: Mapped[str | None] = mapped_column(String(120), nullable=True)
+
+
+class DsmFindingRecord(_ReviewColumns, Base):
+    __tablename__ = "dsm_findings"
+    id: Mapped[str] = mapped_column(String(100), primary_key=True)
+    patient_id: Mapped[str] = mapped_column(ForeignKey("patients.id"), index=True)
+    session_id: Mapped[str] = mapped_column(ForeignKey("sessions.id"), index=True)
+    feature_key: Mapped[str] = mapped_column(String(80))
+    registry_version: Mapped[str] = mapped_column(String(80))
+    status: Mapped[str] = mapped_column(String(30))
+    frequency: Mapped[str] = mapped_column(String(40), default="unclear")
+    onset_or_duration_text: Mapped[str] = mapped_column(String(300), default="")
+    time_frame: Mapped[str] = mapped_column(String(20), default="unclear")
+    period_label: Mapped[str] = mapped_column(String(160), default="")
+    qualifier: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    degree: Mapped[str | None] = mapped_column(String(30), nullable=True)
+    contexts_json: Mapped[str] = mapped_column(Text, default="[]")
+    linked_items_json: Mapped[str] = mapped_column(Text, default="[]")
+    evidence_segment_ids_json: Mapped[str] = mapped_column(Text, default="[]")
+    counter_evidence_json: Mapped[str] = mapped_column(Text, default="[]")
+    counter_check_json: Mapped[str] = mapped_column(Text, default="{}")
+    basis: Mapped[str] = mapped_column(String(600), default="")
+    clinician_intensity: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+    batch_id: Mapped[str | None] = mapped_column(String(100), nullable=True)
+
+
+class DsmFindingVersionRecord(Base):
+    __tablename__ = "dsm_finding_versions"
+    id: Mapped[str] = mapped_column(String(100), primary_key=True)
+    finding_id: Mapped[str] = mapped_column(ForeignKey("dsm_findings.id"), index=True)
+    session_id: Mapped[str] = mapped_column(String(100))
+    feature_key: Mapped[str] = mapped_column(String(80))
+    version_no: Mapped[int] = mapped_column(Integer)
+    role: Mapped[str] = mapped_column(String(20))  # history | alternative
+    snapshot_json: Mapped[str] = mapped_column(Text)
+    actor: Mapped[str] = mapped_column(String(120))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+
+class DsmPredictionRecord(_ReviewColumns, Base):
+    __tablename__ = "dsm_predictions"
+    id: Mapped[str] = mapped_column(String(100), primary_key=True)
+    patient_id: Mapped[str] = mapped_column(ForeignKey("patients.id"), index=True)
+    as_of_session_id: Mapped[str] = mapped_column(ForeignKey("sessions.id"), index=True)
+    condition_key: Mapped[str] = mapped_column(String(60))
+    label: Mapped[str] = mapped_column(String(30))
+    role: Mapped[str] = mapped_column(String(20))
+    period_json: Mapped[str] = mapped_column(Text, default="{}")
+    elements_json: Mapped[str] = mapped_column(Text, default="[]")
+    specifiers_json: Mapped[str] = mapped_column(Text, default="[]")
+    codes_json: Mapped[str] = mapped_column(Text, default="{}")
+    differentials_json: Mapped[str] = mapped_column(Text, default="[]")
+    missing_information_json: Mapped[str] = mapped_column(Text, default="[]")
+    periods_json: Mapped[str] = mapped_column(Text, default="[]")
+    proposals_json: Mapped[str] = mapped_column(Text, default="{}")
+    criteria_met_count: Mapped[int] = mapped_column(Integer, default=0)
+    criteria_required: Mapped[int] = mapped_column(Integer, default=0)
+    postprocess_json: Mapped[str] = mapped_column(Text, default="{}")
+    model_version: Mapped[str] = mapped_column(String(200), default="")
+    prompt_version: Mapped[str] = mapped_column(String(80), default="")
+    schema_version: Mapped[str] = mapped_column(String(80), default="")
+    registry_version: Mapped[str] = mapped_column(String(200), default="")
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+    superseded_by_id: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    batch_id: Mapped[str | None] = mapped_column(String(100), nullable=True)
+
+
+class RegistryVerificationRecord(Base):
+    __tablename__ = "registry_verifications"
+    id: Mapped[str] = mapped_column(String(100), primary_key=True)
+    registry_kind: Mapped[str] = mapped_column(String(20))
+    entity_kind: Mapped[str] = mapped_column(String(20))
+    entity_id: Mapped[str] = mapped_column(String(80))
+    content_sha256: Mapped[str] = mapped_column(String(64))
+    status: Mapped[str] = mapped_column(String(20))
+    verified_by: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    verified_on: Mapped[str | None] = mapped_column(String(20), nullable=True)
+    comment: Mapped[str] = mapped_column(String(2000), default="")
+    import_batch_id: Mapped[str] = mapped_column(String(100))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))

@@ -341,9 +341,14 @@ class ProgressReviewStatus(StrEnum):
 
 DomainStatus = Literal["rated", "explicit_denial", "conflicting", "insufficient_evidence"]
 Timeframe = Literal["current", "past", "unclear"]
-PredictionLabel = Literal["likely", "possible", "unlikely", "insufficient_evidence"]
+PredictionLabel = Literal["likely", "possible", "unlikely", "insufficient_evidence", "not_met"]
 CriterionStatus = Literal["met", "not_met", "insufficient_evidence", "conflicting"]
-RiskCategory = Literal["self_harm", "suicidal_ideation", "harm_to_others", "other_safety"]
+RiskCategory = Literal["self_harm", "suicidal_ideation", "harm_to_others", "other_safety",
+                       # registry v2 (DSM) flags and supporting notes
+                       "suicidal_ideation_passive", "suicidal_ideation_active", "self_harm_past", "self_harm_recent",
+                       "protective_factor", "denial_of_plan_or_intent"]
+DsmStatus = Literal["present", "subthreshold", "absent", "explicit_denial", "insufficient_evidence", "conflicting"]
+DsmLabel = Literal["likely", "possible", "insufficient_evidence", "not_met"]
 TriState = Literal["met", "not_met", "unknown"]
 PlanStatus = Literal["not_reviewed", "discussed_done", "discussed_partial", "discussed_not_done", "not_discussed"]
 # Items an AI may never estimate (handled by risk statements and clinician entry).
@@ -440,8 +445,9 @@ class InstrumentScoreInput(BaseModel):
     def anchored(self):
         if self.session_id is None and self.administered_at is None:
             raise ValueError("Link the administration to a session or give its date")
-        if any(v is not None and not 0 <= v <= 3 for v in self.items.values()):
-            raise ValueError("Item scores must be 0-3")
+        # The exact range is checked per instrument in the store (PHQ-9/GAD-7 0-3; WHODAS, CCSM, ASRM 0-4).
+        if any(v is not None and not 0 <= v <= 4 for v in self.items.values()):
+            raise ValueError("Item scores must be 0-4")
         return self
 
 
@@ -518,12 +524,15 @@ class RiskStatement(ReviewInfo):
     category: RiskCategory
     basis: str = ""
     evidence: list[CitedEvidence] = Field(default_factory=list)
+    categories: list[RiskCategory] = Field(default_factory=list)
+    note_kind: Literal["flag", "supporting"] = "flag"
+    registry_kind: Literal["v1", "dsm"] = "v1"
 
 
 class ChangeEvent(BaseModel):
     id: str
     patient_id: str
-    measure_kind: Literal["instrument", "domain", "prediction"]
+    measure_kind: Literal["instrument", "domain", "prediction", "criterion", "condition"]
     measure_key: str
     series: str
     from_session_id: str
@@ -590,3 +599,88 @@ class PatientProgress(BaseModel):
     risk_statements: list[RiskStatement]
     plan_followups: list[PlanFollowup]
     instrument_scores: list[InstrumentScore]
+    registry_kind: Literal["v1", "dsm"] = "v1"
+    dsm: dict | None = None
+
+
+class CounterEvidence(CitedEvidence):
+    kind: Literal["denial", "alternative"] = "alternative"
+
+
+class DsmFindingInput(BaseModel):
+    """Clinician-entered DSM finding (provenance MANUAL). clinician_intensity is accepted only here."""
+    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+    actor: str = Field(min_length=1, max_length=120)
+    status: DsmStatus
+    frequency: Literal["nearly every day", "more days than not", "most of the day", "occasional", "unclear"] = "unclear"
+    onset_or_duration_text: str = Field(default="", max_length=300)
+    time_frame: Literal["current_episode", "past_episode", "unclear"] = "current_episode"
+    period_label: str = Field(default="", max_length=160)
+    qualifier: str | None = Field(default=None, max_length=40)
+    degree: Literal["marked", "clinically_significant"] | None = None
+    contexts: list[str] = Field(default_factory=list, max_length=6)
+    evidence_segment_ids: list[str] = Field(default_factory=list, max_length=40)
+    counter_evidence_segment_ids: list[str] = Field(default_factory=list, max_length=40)
+    basis: str = Field(default="", max_length=600)
+    clinician_intensity: int | None = Field(default=None, ge=0, le=3)
+    expected_updated_at: datetime | None = None
+
+
+class DsmFinding(ReviewInfo):
+    id: str
+    patient_id: str
+    session_id: str
+    feature_key: str
+    feature_label: str
+    group: str
+    registry_version: str
+    status: DsmStatus
+    frequency: str = "unclear"
+    onset_or_duration_text: str = ""
+    time_frame: str = "unclear"
+    period_label: str = ""
+    qualifier: str | None = None
+    degree: str | None = None
+    contexts: list[str] = Field(default_factory=list)
+    linked_items: list[str] = Field(default_factory=list)
+    basis: str = ""
+    clinician_intensity: int | None = Field(default=None, ge=0, le=3)
+    evidence: list[CitedEvidence] = Field(default_factory=list)
+    counter_evidence: list[CounterEvidence] = Field(default_factory=list)
+    counter_check: dict = Field(default_factory=dict)
+    batch_id: str | None = None
+    alternatives: list[dict] = Field(default_factory=list)
+    history: list[dict] = Field(default_factory=list)
+
+
+class DsmPrediction(ReviewInfo):
+    """Code-computed DSM criteria pattern. Never a diagnosis; probability is never produced."""
+    id: str
+    patient_id: str
+    as_of_session_id: str
+    condition_key: str
+    condition_label: str
+    role: str
+    label: DsmLabel
+    label_text: str
+    footer: str
+    period: dict = Field(default_factory=dict)
+    elements: list[dict] = Field(default_factory=list)
+    specifiers: list[dict] = Field(default_factory=list)
+    codes: dict = Field(default_factory=dict)
+    differentials: list[dict] = Field(default_factory=list)
+    missing_information: list[str] = Field(default_factory=list)
+    periods: list[dict] = Field(default_factory=list)
+    criteria_met_count: int = 0
+    criteria_required: int = 0
+    postprocess: dict = Field(default_factory=dict)
+    model_version: str = ""
+    prompt_version: str = ""
+    registry_version: str = ""
+    batch_id: str | None = None
+
+
+class RegistryImportResult(BaseModel):
+    import_batch_id: str
+    recorded: int
+    rejected: list[dict] = Field(default_factory=list)

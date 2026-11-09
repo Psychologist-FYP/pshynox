@@ -1,0 +1,842 @@
+{
+ "kind": "dsm_features",
+ "version": "1.0.0",
+ "source": "Paraphrased by the project team from the DSM-5-TR criteria structure; not APA text. Pending clinical verification.",
+ "statuses": [
+  "present",
+  "subthreshold",
+  "absent",
+  "explicit_denial",
+  "insufficient_evidence",
+  "conflicting"
+ ],
+ "exclusion_statuses": [
+  "cause_evidence",
+  "ruled_out_cited",
+  "not_assessed"
+ ],
+ "frequencies": [
+  "nearly every day",
+  "more days than not",
+  "most of the day",
+  "occasional",
+  "unclear"
+ ],
+ "contexts": [
+  "low_mood",
+  "worry_anxiety",
+  "social_fear",
+  "elevated_period",
+  "physical_or_substance",
+  "other"
+ ],
+ "groups": [
+  {
+   "key": "depressive",
+   "label": "Depressive"
+  },
+  {
+   "key": "elevated",
+   "label": "Elevated mood (manic/hypomanic)"
+  },
+  {
+   "key": "anxiety",
+   "label": "Anxiety"
+  },
+  {
+   "key": "social",
+   "label": "Social anxiety"
+  },
+  {
+   "key": "impairment",
+   "label": "Distress and impairment"
+  },
+  {
+   "key": "exclusion",
+   "label": "Exclusions"
+  }
+ ],
+ "features": [
+  {
+   "key": "feat.depressed_mood",
+   "label": "Depressed mood",
+   "group": "depressive",
+   "kind": "symptom",
+   "definition": "Low, sad, empty or hopeless mood for most of the day.",
+   "queries": [
+    "sad sadness down low depressed hopeless empty crying cry udaas udasi mayoos اداس"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek happy mood good"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": [
+    {
+     "feature": "feat.hopelessness",
+     "reason": "PDD lists hopelessness as its own B-item, so it is tracked separately."
+    }
+   ]
+  },
+  {
+   "key": "feat.anhedonia",
+   "label": "Loss of interest or pleasure",
+   "group": "depressive",
+   "kind": "symptom",
+   "definition": "Clearly reduced interest or enjoyment in usual activities, not just lack of opportunity.",
+   "queries": [
+    "interest enjoy enjoyment pleasure fun hobbies bored nothing dil lagta shauq"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek still enjoy like doing busy no time"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "feat.appetite_weight",
+   "label": "Appetite or weight change",
+   "group": "depressive",
+   "kind": "symptom",
+   "definition": "Appetite clearly lower or higher than usual, or weight change without dieting.",
+   "queries": [
+    "appetite eat eating food hungry meals weight bhook khana بھوک"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek eating normally diet dieting"
+   ],
+   "qualifiers": [
+    "decreased",
+    "increased"
+   ],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "feat.sleep_insomnia_hypersomnia",
+   "label": "Insomnia or hypersomnia",
+   "group": "depressive",
+   "kind": "symptom",
+   "definition": "Sleeping too little or too much, with tiredness or poor rest.",
+   "queries": [
+    "sleep slept sleeping night insomnia awake bed nap neend sona نیند"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek sleeping well rested"
+   ],
+   "qualifiers": [
+    "insomnia",
+    "hypersomnia"
+   ],
+   "degree": false,
+   "separate_from": [
+    {
+     "feature": "feat.reduced_sleep_need",
+     "reason": "Little sleep without tiredness during a high period is a mania feature, not insomnia."
+    },
+    {
+     "feature": "feat.sleep_worry",
+     "reason": "GAD counts sleep disturbance tied to worry, including unrefreshing sleep."
+    }
+   ]
+  },
+  {
+   "key": "feat.psychomotor_observable",
+   "label": "Observable slowing or agitation",
+   "group": "depressive",
+   "kind": "symptom",
+   "definition": "Movement or speech visibly slowed, or visible agitation, noticed by others.",
+   "queries": [
+    "slow slowed sluggish restless fidget pacing agitated still noticed"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek"
+   ],
+   "qualifiers": [
+    "slowed",
+    "agitated"
+   ],
+   "degree": false,
+   "separate_from": [
+    {
+     "feature": "feat.restlessness",
+     "reason": "MDE.A5 must be observable; GAD and anxious distress use felt restlessness."
+    }
+   ]
+  },
+  {
+   "key": "feat.fatigue",
+   "label": "Fatigue or low energy",
+   "group": "depressive",
+   "kind": "symptom",
+   "definition": "Tiredness or loss of energy on most days.",
+   "queries": [
+    "tired energy exhausted fatigue drained worn thakan thaka تھکن"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek energetic"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "feat.worthlessness_guilt",
+   "label": "Worthlessness or guilt",
+   "group": "depressive",
+   "kind": "symptom",
+   "definition": "Feeling worthless, or excessive or misplaced guilt.",
+   "queries": [
+    "worthless failure guilty guilt blame useless ashamed burden"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek proud confident"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": [
+    {
+     "feature": "feat.low_self_esteem",
+     "reason": "PDD's low self-esteem is milder and does not include guilt."
+    }
+   ]
+  },
+  {
+   "key": "feat.low_self_esteem",
+   "label": "Low self-esteem",
+   "group": "depressive",
+   "kind": "symptom",
+   "definition": "Low opinion of oneself without the excessive guilt of MDE.A7.",
+   "queries": [
+    "confidence self esteem not good enough useless failure"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek confident"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "feat.hopelessness",
+   "label": "Hopelessness",
+   "group": "depressive",
+   "kind": "symptom",
+   "definition": "Feeling there is no hope that things will improve.",
+   "queries": [
+    "hopeless no hope pointless future never get better"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek hopeful future plans"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "feat.concentration",
+   "label": "Poor concentration or indecision",
+   "group": "depressive",
+   "kind": "symptom",
+   "definition": "Difficulty thinking, concentrating, or making decisions; record what it is linked to (low mood, worry).",
+   "queries": [
+    "concentrate concentration focus distracted forget decisions attention dhyan blank"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek focus fine"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": [
+    {
+     "feature": "feat.distractibility",
+     "reason": "Mania distractibility is attention pulled by irrelevant things during a high period."
+    }
+   ]
+  },
+  {
+   "key": "feat.elevated_mood",
+   "label": "Elevated or expansive mood",
+   "group": "elevated",
+   "kind": "symptom",
+   "definition": "A distinct period of unusually high, euphoric or expansive mood, unlike the person's usual self.",
+   "queries": [
+    "euphoric high elated amazing unstoppable invincible great top world khush"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek never felt high just normal happy"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "feat.irritable_period",
+   "label": "Irritable mood period",
+   "group": "elevated",
+   "kind": "symptom",
+   "definition": "A distinct period of unusually irritable mood together with raised energy, unlike the person's usual self.",
+   "queries": [
+    "irritable irritated angry snapping temper short gussa غصہ days week"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek calm"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": [
+    {
+     "feature": "feat.irritability",
+     "reason": "GAD irritability is an ongoing anxiety symptom, not a distinct mood period."
+    }
+   ]
+  },
+  {
+   "key": "feat.increased_energy",
+   "label": "Increased energy or activity",
+   "group": "elevated",
+   "kind": "symptom",
+   "definition": "Persistently raised energy or activity during a distinct period.",
+   "queries": [
+    "energy energetic active wired couldn't stop busy days"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek tired low energy"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "feat.grandiosity",
+   "label": "Grandiosity",
+   "group": "elevated",
+   "kind": "symptom",
+   "definition": "Inflated self-esteem or grandiose beliefs.",
+   "queries": [
+    "special powers genius chosen famous destined better than everyone mission"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "feat.reduced_sleep_need",
+   "label": "Decreased need for sleep",
+   "group": "elevated",
+   "kind": "symptom",
+   "definition": "Needing much less sleep than usual yet feeling rested.",
+   "queries": [
+    "decreased need for sleep slept hours not tired rested two three hours"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek exhausted tired"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "feat.talkativeness",
+   "label": "Pressured or increased speech",
+   "group": "elevated",
+   "kind": "symptom",
+   "definition": "Talking much more than usual, or feeling pressure to keep talking.",
+   "queries": [
+    "talking fast talk nonstop interrupt couldn't stop talking"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek quiet"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "feat.racing_thoughts",
+   "label": "Racing thoughts",
+   "group": "elevated",
+   "kind": "symptom",
+   "definition": "Thoughts racing or jumping rapidly between ideas.",
+   "queries": [
+    "racing thoughts mind fast jumping ideas"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "feat.distractibility",
+   "label": "Distractibility",
+   "group": "elevated",
+   "kind": "symptom",
+   "definition": "Attention pulled away too easily by unimportant things during a high period.",
+   "queries": [
+    "distracted every little thing attention jumping"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "feat.goal_directed_activity",
+   "label": "Increased goal-directed activity",
+   "group": "elevated",
+   "kind": "symptom",
+   "definition": "Marked increase in projects, plans or activity, or aimless agitation, during a high period.",
+   "queries": [
+    "projects plans started many things busy business"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "feat.risky_activity",
+   "label": "Risky activities",
+   "group": "elevated",
+   "kind": "symptom",
+   "definition": "Excessive involvement in activities with painful consequences, such as spending sprees or reckless investments.",
+   "queries": [
+    "spending spree money bought reckless risky impulsive investment"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "feat.hospitalised_elevated",
+   "label": "Hospitalised for a high period",
+   "group": "elevated",
+   "kind": "symptom",
+   "definition": "Admitted to hospital because of a high or irritable period.",
+   "queries": [
+    "hospital admitted ward emergency"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek never hospital"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "feat.psychotic_features",
+   "label": "Psychotic features",
+   "group": "elevated",
+   "kind": "symptom",
+   "definition": "Hallucinations or delusional beliefs reported or observed.",
+   "queries": [
+    "voices hearing seeing things not there believe followed"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "feat.observed_by_others",
+   "label": "Change noticed by others",
+   "group": "elevated",
+   "kind": "symptom",
+   "definition": "Other people commented on the mood or behaviour change.",
+   "queries": [
+    "people said noticed friends told family said different"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "feat.functioning_change_elevated",
+   "label": "Clear change in functioning (high period)",
+   "group": "elevated",
+   "kind": "symptom",
+   "definition": "An unmistakable change in functioning during a high period, unlike the person when well.",
+   "queries": [
+    "different not myself unusual for me changed"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "feat.worry_excessive",
+   "label": "Excessive worry",
+   "group": "anxiety",
+   "kind": "symptom",
+   "definition": "Excessive anxiety and worry about several areas of life, more days than not.",
+   "queries": [
+    "worry worried worrying anxious nervous fear afraid what if fikr pareshan ghabrahat فکر گھبراہٹ",
+    "worry about everything months years always worried"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek not worried relaxed"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "feat.worry_uncontrollable",
+   "label": "Worry hard to control",
+   "group": "anxiety",
+   "kind": "symptom",
+   "definition": "The person finds it hard to stop or control the worrying.",
+   "queries": [
+    "can't stop worrying control mind won't stop"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek can stop"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "feat.keyed_up_tense",
+   "label": "Keyed up or tense",
+   "group": "anxiety",
+   "kind": "symptom",
+   "definition": "Feeling keyed up, tense or on edge.",
+   "queries": [
+    "tense tension keyed edge on edge"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek relaxed"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "feat.restlessness",
+   "label": "Restlessness (felt)",
+   "group": "anxiety",
+   "kind": "symptom",
+   "definition": "Feeling unusually restless or unable to sit still.",
+   "queries": [
+    "restless can't sit still fidgety"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek calm"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "feat.muscle_tension",
+   "label": "Muscle tension",
+   "group": "anxiety",
+   "kind": "symptom",
+   "definition": "Muscle tension, aches or tightness.",
+   "queries": [
+    "muscles shoulders tight headache jaw neck tension"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "feat.irritability",
+   "label": "Irritability (ongoing)",
+   "group": "anxiety",
+   "kind": "symptom",
+   "definition": "Being easily annoyed or irritable as an ongoing state; record what it is linked to.",
+   "queries": [
+    "irritable irritated annoyed snapping temper gussa"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek calm"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "feat.sleep_worry",
+   "label": "Sleep disturbance with worry",
+   "group": "anxiety",
+   "kind": "symptom",
+   "definition": "Trouble falling or staying asleep, or restless unsatisfying sleep, tied to worry.",
+   "queries": [
+    "sleep worry night mind awake thinking can't fall asleep"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek sleeping well"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "feat.fear_awful",
+   "label": "Fear something awful will happen",
+   "group": "anxiety",
+   "kind": "symptom",
+   "definition": "Fearing that something terrible may happen.",
+   "queries": [
+    "something bad awful terrible will happen dread"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "feat.fear_losing_control",
+   "label": "Fear of losing control",
+   "group": "anxiety",
+   "kind": "symptom",
+   "definition": "Feeling one might lose control of oneself.",
+   "queries": [
+    "lose control losing it going crazy"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "feat.social_fear_scrutiny",
+   "label": "Fear of social scrutiny",
+   "group": "social",
+   "kind": "symptom",
+   "definition": "Fear, anxiety or embarrassment in social situations where others might watch or judge the person. Avoidance alone is not this.",
+   "queries": [
+    "judged embarrassed people watching scared nervous social sharm log kya kahenge",
+    "afraid of being judged"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek not scared not worried what they think"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "feat.fear_negative_evaluation",
+   "label": "Fear of negative evaluation",
+   "group": "social",
+   "kind": "symptom",
+   "definition": "Fear of acting or showing anxiety in ways others will judge negatively.",
+   "queries": [
+    "embarrass humiliate judge think of me laugh reject"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek don't care what they think"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "feat.social_fear_consistent",
+   "label": "Situations reliably provoke fear",
+   "group": "social",
+   "kind": "symptom",
+   "definition": "Feared social situations almost always cause fear or anxiety.",
+   "queries": [
+    "every time always whenever people social anxious"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "feat.social_avoidance",
+   "label": "Social avoidance",
+   "group": "social",
+   "kind": "symptom",
+   "definition": "Avoiding social situations, or enduring them with distress; record why (social fear, low energy, low mood).",
+   "queries": [
+    "avoid party social skip go out friends seeing people"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek still go out"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "feat.fear_disproportionate",
+   "label": "Fear out of proportion",
+   "group": "social",
+   "kind": "symptom",
+   "definition": "Social fear clearly larger than the real threat in context.",
+   "queries": [
+    "silly irrational know it's too much overreact"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "feat.performance_only",
+   "label": "Performance fear only",
+   "group": "social",
+   "kind": "symptom",
+   "definition": "Fear limited to speaking or performing in front of others.",
+   "queries": [
+    "presentation speaking public class stage exam interview speech"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "imp.social",
+   "label": "Impairment: social",
+   "group": "impairment",
+   "kind": "impairment",
+   "definition": "Effect on relationships, family, friends or social participation; record what it is linked to.",
+   "queries": [
+    "friends family relationship partner going out isolated alone dost ghar"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek"
+   ],
+   "qualifiers": [],
+   "degree": true,
+   "separate_from": []
+  },
+  {
+   "key": "imp.occupational",
+   "label": "Impairment: work or study",
+   "group": "impairment",
+   "kind": "impairment",
+   "definition": "Effect on work, study, attendance or performance; record what it is linked to.",
+   "queries": [
+    "work job office boss university class studies grades deadline quiz kaam parhai"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek doing well"
+   ],
+   "qualifiers": [],
+   "degree": true,
+   "separate_from": []
+  },
+  {
+   "key": "imp.other",
+   "label": "Impairment: self-care or other",
+   "group": "impairment",
+   "kind": "impairment",
+   "definition": "Effect on self-care, household or other roles, or clinically significant distress.",
+   "queries": [
+    "shower wash clean dressed cook chores hygiene bed all day distress"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek"
+   ],
+   "qualifiers": [],
+   "degree": true,
+   "separate_from": []
+  },
+  {
+   "key": "excl.substance",
+   "label": "Substance or medication",
+   "group": "exclusion",
+   "kind": "exclusion",
+   "definition": "Alcohol, drugs, medication or withdrawal that could explain the symptoms.",
+   "queries": [
+    "alcohol drink drugs weed medication medicine pills started stopped"
+   ],
+   "counter_queries": [
+    "no alcohol don't drink no drugs no medication"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "excl.medical",
+   "label": "Medical condition",
+   "group": "exclusion",
+   "kind": "exclusion",
+   "definition": "A medical condition (for example thyroid disease) that could explain the symptoms.",
+   "queries": [
+    "thyroid doctor illness diagnosed blood test medical condition"
+   ],
+   "counter_queries": [
+    "tests normal doctor said fine healthy"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "excl.psychotic_disorder",
+   "label": "Psychotic disorder",
+   "group": "exclusion",
+   "kind": "exclusion",
+   "definition": "Evidence of a primary psychotic disorder that could better explain the picture.",
+   "queries": [
+    "voices schizophrenia psychosis paranoid"
+   ],
+   "counter_queries": [
+    "no voices"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  },
+  {
+   "key": "excl.recent_loss",
+   "label": "Recent significant loss",
+   "group": "exclusion",
+   "kind": "exclusion",
+   "definition": "A recent bereavement or major loss; clinician judgement decides how it bears on the episode.",
+   "queries": [
+    "died death passed away loss lost job divorce"
+   ],
+   "counter_queries": [
+    "fine okay good normal no not never don't haven't nahi theek"
+   ],
+   "qualifiers": [],
+   "degree": false,
+   "separate_from": []
+  }
+ ]
+}

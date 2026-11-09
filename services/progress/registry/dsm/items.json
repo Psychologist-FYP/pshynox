@@ -1,0 +1,2001 @@
+{
+ "kind": "dsm_items",
+ "version": "1.0.0",
+ "source": "Paraphrased by the project team from the DSM-5-TR criteria structure; not APA text. Pending clinical verification.",
+ "items": [
+  {
+   "id": "MDE.A",
+   "disorder": "MDE",
+   "criterion": "A",
+   "label": "Depressive symptom count",
+   "paraphrase": "Five or more A-items within the same two-week period, a change from usual; one must be A1 or A2.",
+   "chapter": "Depressive Disorders",
+   "kind": "stem",
+   "model_assessed": true,
+   "satisfied_by": null,
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "MDE.A1",
+   "disorder": "MDE",
+   "criterion": "A1",
+   "label": "Depressed mood",
+   "paraphrase": "Low, sad, empty or hopeless mood most of the day, nearly every day, reported or observed.",
+   "chapter": "Depressive Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.depressed_mood"
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "MDE.A2",
+   "disorder": "MDE",
+   "criterion": "A2",
+   "label": "Loss of interest or pleasure",
+   "paraphrase": "Much less interest or pleasure in all or almost all activities, most days.",
+   "chapter": "Depressive Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.anhedonia"
+   },
+   "notes": "Not satisfied when the person simply lacks the opportunity; the interest itself must be reduced.",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "MDE.A3",
+   "disorder": "MDE",
+   "criterion": "A3",
+   "label": "Appetite or weight change",
+   "paraphrase": "Clear weight loss without dieting, weight gain, or appetite clearly lower or higher nearly every day.",
+   "chapter": "Depressive Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.appetite_weight"
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "MDE.A4",
+   "disorder": "MDE",
+   "criterion": "A4",
+   "label": "Insomnia or hypersomnia",
+   "paraphrase": "Sleeping too little (insomnia) or too much (hypersomnia) nearly every day.",
+   "chapter": "Depressive Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.sleep_insomnia_hypersomnia"
+   },
+   "notes": "Short sleep with tiredness counts here; short sleep without tiredness during a high period is MANIA.B2.",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "MDE.A5",
+   "disorder": "MDE",
+   "criterion": "A5",
+   "label": "Psychomotor slowing or agitation",
+   "paraphrase": "Slowed or agitated movement nearly every day that others can see, not only felt.",
+   "chapter": "Depressive Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.psychomotor_observable"
+   },
+   "notes": "Needs an observable change; a private feeling of restlessness is not enough.",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "MDE.A6",
+   "disorder": "MDE",
+   "criterion": "A6",
+   "label": "Fatigue or low energy",
+   "paraphrase": "Tiredness or loss of energy nearly every day.",
+   "chapter": "Depressive Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.fatigue"
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "MDE.A7",
+   "disorder": "MDE",
+   "criterion": "A7",
+   "label": "Worthlessness or guilt",
+   "paraphrase": "Feeling worthless, or excessive or misplaced guilt, nearly every day; more than guilt about being unwell.",
+   "chapter": "Depressive Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.worthlessness_guilt"
+   },
+   "notes": "Ordinary self-criticism or guilt only about being ill does not count.",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "MDE.A8",
+   "disorder": "MDE",
+   "criterion": "A8",
+   "label": "Poor concentration or indecision",
+   "paraphrase": "Reduced ability to think, concentrate or make decisions nearly every day.",
+   "chapter": "Depressive Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.concentration"
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "MDE.A9",
+   "disorder": "MDE",
+   "criterion": "A9",
+   "label": "Thoughts of death or suicide",
+   "paraphrase": "Repeated thoughts of death or suicide, or a suicide plan or attempt.",
+   "chapter": "Depressive Disorders",
+   "kind": "symptom",
+   "model_assessed": false,
+   "satisfied_by": null,
+   "notes": "Not assessed by the model. Counts only from a clinician-accepted risk statement or clinician-entered PHQ-9 item 9.",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "MDE.B",
+   "disorder": "MDE",
+   "criterion": "B",
+   "label": "Distress or impairment",
+   "paraphrase": "The symptoms cause significant distress or impair social, work, study or other functioning.",
+   "chapter": "Depressive Disorders",
+   "kind": "impairment",
+   "model_assessed": true,
+   "satisfied_by": {
+    "any_of": [
+     {
+      "feature": "imp.social",
+      "context": [
+       "low_mood"
+      ]
+     },
+     {
+      "feature": "imp.occupational",
+      "context": [
+       "low_mood"
+      ]
+     },
+     {
+      "feature": "imp.other",
+      "context": [
+       "low_mood"
+      ]
+     }
+    ]
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "MDE.C",
+   "disorder": "MDE",
+   "criterion": "C",
+   "label": "Not due to a substance or medical condition",
+   "paraphrase": "The episode is not explained by a substance, medication or another medical condition.",
+   "chapter": "Depressive Disorders",
+   "kind": "exclusion",
+   "model_assessed": true,
+   "satisfied_by": null,
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "MDD.A",
+   "disorder": "MDD",
+   "criterion": "A",
+   "label": "Major depressive episode present",
+   "paraphrase": "At least one major depressive episode (MDE.A to MDE.C) has occurred.",
+   "chapter": "Depressive Disorders",
+   "kind": "structural",
+   "model_assessed": true,
+   "satisfied_by": null,
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "MDD.D",
+   "disorder": "MDD",
+   "criterion": "D",
+   "label": "Not a psychotic disorder",
+   "paraphrase": "The episodes are not better explained by a schizophrenia-spectrum or other psychotic disorder.",
+   "chapter": "Depressive Disorders",
+   "kind": "exclusion",
+   "model_assessed": true,
+   "satisfied_by": null,
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "MDD.E",
+   "disorder": "MDD",
+   "criterion": "E",
+   "label": "Never manic or hypomanic",
+   "paraphrase": "No manic or hypomanic episode ever, unless all were caused by substances or medical conditions.",
+   "chapter": "Depressive Disorders",
+   "kind": "structural",
+   "model_assessed": true,
+   "satisfied_by": null,
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "MDD.SEV",
+   "disorder": "MDD",
+   "criterion": "SEV",
+   "label": "Severity specifier",
+   "paraphrase": "Severity: mild, moderate or severe, from symptom count beyond the threshold, intensity and impairment.",
+   "chapter": "Depressive Disorders",
+   "kind": "specifier",
+   "model_assessed": true,
+   "satisfied_by": null,
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "ANXD.1",
+   "disorder": "ANXD",
+   "criterion": "1",
+   "label": "Keyed up or tense",
+   "paraphrase": "Feeling keyed up or tense.",
+   "chapter": "Depressive Disorders",
+   "kind": "specifier",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.keyed_up_tense"
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "ANXD.2",
+   "disorder": "ANXD",
+   "criterion": "2",
+   "label": "Unusually restless",
+   "paraphrase": "Feeling unusually restless.",
+   "chapter": "Depressive Disorders",
+   "kind": "specifier",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.restlessness"
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "ANXD.3",
+   "disorder": "ANXD",
+   "criterion": "3",
+   "label": "Concentration hindered by worry",
+   "paraphrase": "Hard to concentrate because of worrying.",
+   "chapter": "Depressive Disorders",
+   "kind": "specifier",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.concentration",
+    "context": [
+     "worry_anxiety"
+    ]
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "ANXD.4",
+   "disorder": "ANXD",
+   "criterion": "4",
+   "label": "Fear something awful will happen",
+   "paraphrase": "Fearing that something terrible may happen.",
+   "chapter": "Depressive Disorders",
+   "kind": "specifier",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.fear_awful"
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "ANXD.5",
+   "disorder": "ANXD",
+   "criterion": "5",
+   "label": "Fear of losing control",
+   "paraphrase": "Feeling one might lose control of oneself.",
+   "chapter": "Depressive Disorders",
+   "kind": "specifier",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.fear_losing_control"
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "MANIA.A",
+   "disorder": "MANIA",
+   "criterion": "A",
+   "label": "Elevated or irritable mood with raised energy",
+   "paraphrase": "Distinct period of unusually high, expansive or irritable mood and raised energy, most days, ≥ 1 week or hospitalised.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "stem",
+   "model_assessed": true,
+   "satisfied_by": {
+    "all_of": [
+     {
+      "any_of": [
+       {
+        "feature": "feat.elevated_mood"
+       },
+       {
+        "feature": "feat.irritable_period"
+       }
+      ]
+     },
+     {
+      "feature": "feat.increased_energy"
+     }
+    ]
+   },
+   "notes": "Needs both a distinct mood change and increased energy or activity in the same period.",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "MANIA.B",
+   "disorder": "MANIA",
+   "criterion": "B",
+   "label": "Associated symptom count",
+   "paraphrase": "During that period, three or more B-items (four if mood is only irritable), clearly changed from usual.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "stem",
+   "model_assessed": true,
+   "satisfied_by": null,
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "MANIA.B1",
+   "disorder": "MANIA",
+   "criterion": "B1",
+   "label": "Grandiosity",
+   "paraphrase": "Inflated self-esteem or grandiose ideas about oneself.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.grandiosity"
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "MANIA.B2",
+   "disorder": "MANIA",
+   "criterion": "B2",
+   "label": "Decreased need for sleep",
+   "paraphrase": "Needing much less sleep than usual while still feeling rested.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.reduced_sleep_need"
+   },
+   "notes": "Short sleep with tiredness is not this item; it is MDE.A4.",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "MANIA.B3",
+   "disorder": "MANIA",
+   "criterion": "B3",
+   "label": "Pressured or increased speech",
+   "paraphrase": "Talking more than usual or feeling driven to keep talking.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.talkativeness"
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "MANIA.B4",
+   "disorder": "MANIA",
+   "criterion": "B4",
+   "label": "Racing thoughts or flight of ideas",
+   "paraphrase": "Ideas jumping rapidly between topics, or thoughts experienced as racing.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.racing_thoughts"
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "MANIA.B5",
+   "disorder": "MANIA",
+   "criterion": "B5",
+   "label": "Distractibility",
+   "paraphrase": "Attention pulled too easily by unimportant or irrelevant things, reported or observed.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.distractibility"
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "MANIA.B6",
+   "disorder": "MANIA",
+   "criterion": "B6",
+   "label": "Increased goal-directed activity",
+   "paraphrase": "More goal-directed activity (social, work, study or sexual), or aimless restless agitation.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.goal_directed_activity"
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "MANIA.B7",
+   "disorder": "MANIA",
+   "criterion": "B7",
+   "label": "Risky activities",
+   "paraphrase": "Excessive risky activity likely to cause harm, such as spending sprees or reckless investments.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.risky_activity"
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "MANIA.C",
+   "disorder": "MANIA",
+   "criterion": "C",
+   "label": "Marked impairment, hospitalisation or psychosis",
+   "paraphrase": "Marked social or work impairment, hospitalisation to prevent harm, or psychotic features.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "impairment",
+   "model_assessed": true,
+   "satisfied_by": {
+    "any_of": [
+     {
+      "feature": "imp.social",
+      "context": [
+       "elevated_period"
+      ],
+      "degree": "marked"
+     },
+     {
+      "feature": "imp.occupational",
+      "context": [
+       "elevated_period"
+      ],
+      "degree": "marked"
+     },
+     {
+      "feature": "imp.other",
+      "context": [
+       "elevated_period"
+      ],
+      "degree": "marked"
+     },
+     {
+      "feature": "feat.hospitalised_elevated"
+     },
+     {
+      "feature": "feat.psychotic_features"
+     }
+    ]
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "MANIA.D",
+   "disorder": "MANIA",
+   "criterion": "D",
+   "label": "Not due to a substance or medical condition",
+   "paraphrase": "Not explained by a substance, medication or medical condition; full antidepressant-emergent episodes still count.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "exclusion",
+   "model_assessed": true,
+   "satisfied_by": null,
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "HYPO.A",
+   "disorder": "HYPO",
+   "criterion": "A",
+   "label": "Elevated or irritable mood with raised energy",
+   "paraphrase": "Distinct period of unusually high, expansive or irritable mood and raised energy, most days, ≥ 4 consecutive days.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "stem",
+   "model_assessed": true,
+   "satisfied_by": {
+    "all_of": [
+     {
+      "any_of": [
+       {
+        "feature": "feat.elevated_mood"
+       },
+       {
+        "feature": "feat.irritable_period"
+       }
+      ]
+     },
+     {
+      "feature": "feat.increased_energy"
+     }
+    ]
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "HYPO.B",
+   "disorder": "HYPO",
+   "criterion": "B",
+   "label": "Associated symptom count",
+   "paraphrase": "Three or more B-items (four if only irritable) persisting during the period, clearly changed from usual.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "stem",
+   "model_assessed": true,
+   "satisfied_by": null,
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "HYPO.B1",
+   "disorder": "HYPO",
+   "criterion": "B1",
+   "label": "Grandiosity",
+   "paraphrase": "Inflated self-esteem or grandiose ideas about oneself.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.grandiosity"
+   },
+   "notes": "",
+   "same_as": "MANIA.B1",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "HYPO.B2",
+   "disorder": "HYPO",
+   "criterion": "B2",
+   "label": "Decreased need for sleep",
+   "paraphrase": "Needing much less sleep than usual while still feeling rested.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.reduced_sleep_need"
+   },
+   "notes": "Short sleep with tiredness is not this item; it is MDE.A4.",
+   "same_as": "MANIA.B2",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "HYPO.B3",
+   "disorder": "HYPO",
+   "criterion": "B3",
+   "label": "Pressured or increased speech",
+   "paraphrase": "Talking more than usual or feeling driven to keep talking.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.talkativeness"
+   },
+   "notes": "",
+   "same_as": "MANIA.B3",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "HYPO.B4",
+   "disorder": "HYPO",
+   "criterion": "B4",
+   "label": "Racing thoughts or flight of ideas",
+   "paraphrase": "Ideas jumping rapidly between topics, or thoughts experienced as racing.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.racing_thoughts"
+   },
+   "notes": "",
+   "same_as": "MANIA.B4",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "HYPO.B5",
+   "disorder": "HYPO",
+   "criterion": "B5",
+   "label": "Distractibility",
+   "paraphrase": "Attention pulled too easily by unimportant or irrelevant things, reported or observed.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.distractibility"
+   },
+   "notes": "",
+   "same_as": "MANIA.B5",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "HYPO.B6",
+   "disorder": "HYPO",
+   "criterion": "B6",
+   "label": "Increased goal-directed activity",
+   "paraphrase": "More goal-directed activity (social, work, study or sexual), or aimless restless agitation.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.goal_directed_activity"
+   },
+   "notes": "",
+   "same_as": "MANIA.B6",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "HYPO.B7",
+   "disorder": "HYPO",
+   "criterion": "B7",
+   "label": "Risky activities",
+   "paraphrase": "Excessive risky activity likely to cause harm, such as spending sprees or reckless investments.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.risky_activity"
+   },
+   "notes": "",
+   "same_as": "MANIA.B7",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "HYPO.C",
+   "disorder": "HYPO",
+   "criterion": "C",
+   "label": "Clear change in functioning",
+   "paraphrase": "An unmistakable change in functioning, unlike the person when well.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.functioning_change_elevated"
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "HYPO.D",
+   "disorder": "HYPO",
+   "criterion": "D",
+   "label": "Observable by others",
+   "paraphrase": "Other people can notice the mood change and the change in functioning.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.observed_by_others"
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "HYPO.E",
+   "disorder": "HYPO",
+   "criterion": "E",
+   "label": "Not severe enough to be manic",
+   "paraphrase": "Not severe enough for marked impairment or hospitalisation; psychotic features would make it manic.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "structural",
+   "model_assessed": true,
+   "satisfied_by": null,
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "HYPO.F",
+   "disorder": "HYPO",
+   "criterion": "F",
+   "label": "Not due to a substance or medical condition",
+   "paraphrase": "Not explained by a substance, medication or medical condition.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "exclusion",
+   "model_assessed": true,
+   "satisfied_by": null,
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "BP1.A",
+   "disorder": "BP1",
+   "criterion": "A",
+   "label": "Manic episode present",
+   "paraphrase": "At least one manic episode, current or past.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "structural",
+   "model_assessed": true,
+   "satisfied_by": null,
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "BP1.B",
+   "disorder": "BP1",
+   "criterion": "B",
+   "label": "Not a psychotic disorder",
+   "paraphrase": "Not better explained by schizoaffective or another psychotic disorder.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "exclusion",
+   "model_assessed": true,
+   "satisfied_by": null,
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "BP2.A",
+   "disorder": "BP2",
+   "criterion": "A",
+   "label": "Hypomanic and depressive episodes",
+   "paraphrase": "At least one hypomanic and one major depressive episode, current or past.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "structural",
+   "model_assessed": true,
+   "satisfied_by": null,
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "BP2.B",
+   "disorder": "BP2",
+   "criterion": "B",
+   "label": "Never manic",
+   "paraphrase": "There has never been a manic episode.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "structural",
+   "model_assessed": true,
+   "satisfied_by": null,
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "BP2.C",
+   "disorder": "BP2",
+   "criterion": "C",
+   "label": "Not a psychotic disorder",
+   "paraphrase": "Not better explained by schizoaffective or another psychotic disorder.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "exclusion",
+   "model_assessed": true,
+   "satisfied_by": null,
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "BP2.D",
+   "disorder": "BP2",
+   "criterion": "D",
+   "label": "Distress or impairment",
+   "paraphrase": "Depression, or frequent switching between depression and hypomania, causes significant distress or impairment.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "impairment",
+   "model_assessed": true,
+   "satisfied_by": {
+    "any_of": [
+     {
+      "feature": "imp.social",
+      "context": [
+       "low_mood",
+       "elevated_period"
+      ]
+     },
+     {
+      "feature": "imp.occupational",
+      "context": [
+       "low_mood",
+       "elevated_period"
+      ]
+     },
+     {
+      "feature": "imp.other",
+      "context": [
+       "low_mood",
+       "elevated_period"
+      ]
+     }
+    ]
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "CYC.A",
+   "disorder": "CYC",
+   "criterion": "A",
+   "label": "Two-year subthreshold course",
+   "paraphrase": "For at least two years, many periods of hypomanic and depressive symptoms below episode thresholds.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "structural",
+   "model_assessed": true,
+   "satisfied_by": null,
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "CYC.B",
+   "disorder": "CYC",
+   "criterion": "B",
+   "label": "Persistence of the course",
+   "paraphrase": "Those symptoms present at least half the time, never absent for more than two months.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "judgement",
+   "model_assessed": true,
+   "satisfied_by": null,
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "CYC.C",
+   "disorder": "CYC",
+   "criterion": "C",
+   "label": "No full episodes",
+   "paraphrase": "Full depressive, manic or hypomanic episode criteria have never been met.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "structural",
+   "model_assessed": true,
+   "satisfied_by": null,
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "CYC.D",
+   "disorder": "CYC",
+   "criterion": "D",
+   "label": "Not a psychotic disorder",
+   "paraphrase": "Not better explained by a psychotic disorder.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "exclusion",
+   "model_assessed": true,
+   "satisfied_by": null,
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "CYC.E",
+   "disorder": "CYC",
+   "criterion": "E",
+   "label": "Not due to a substance or medical condition",
+   "paraphrase": "Not explained by a substance, medication or medical condition.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "exclusion",
+   "model_assessed": true,
+   "satisfied_by": null,
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "CYC.F",
+   "disorder": "CYC",
+   "criterion": "F",
+   "label": "Distress or impairment",
+   "paraphrase": "The symptoms cause significant distress or impairment.",
+   "chapter": "Bipolar and Related Disorders",
+   "kind": "impairment",
+   "model_assessed": true,
+   "satisfied_by": {
+    "any_of": [
+     {
+      "feature": "imp.social"
+     },
+     {
+      "feature": "imp.occupational"
+     },
+     {
+      "feature": "imp.other"
+     }
+    ]
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "PDD.A",
+   "disorder": "PDD",
+   "criterion": "A",
+   "label": "Long-standing depressed mood",
+   "paraphrase": "Depressed mood most of the day, more days than not, for at least two years.",
+   "chapter": "Depressive Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.depressed_mood"
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "PDD.B",
+   "disorder": "PDD",
+   "criterion": "B",
+   "label": "Associated symptom count",
+   "paraphrase": "While depressed, two or more of B1–B6.",
+   "chapter": "Depressive Disorders",
+   "kind": "stem",
+   "model_assessed": true,
+   "satisfied_by": null,
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "PDD.B1",
+   "disorder": "PDD",
+   "criterion": "B1",
+   "label": "Poor appetite or overeating",
+   "paraphrase": "Poor appetite or overeating.",
+   "chapter": "Depressive Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.appetite_weight"
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "PDD.B2",
+   "disorder": "PDD",
+   "criterion": "B2",
+   "label": "Insomnia or hypersomnia",
+   "paraphrase": "Sleeping too little or too much.",
+   "chapter": "Depressive Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.sleep_insomnia_hypersomnia"
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "PDD.B3",
+   "disorder": "PDD",
+   "criterion": "B3",
+   "label": "Low energy",
+   "paraphrase": "Low energy or fatigue.",
+   "chapter": "Depressive Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.fatigue"
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "PDD.B4",
+   "disorder": "PDD",
+   "criterion": "B4",
+   "label": "Low self-esteem",
+   "paraphrase": "Low self-esteem.",
+   "chapter": "Depressive Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.low_self_esteem"
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "PDD.B5",
+   "disorder": "PDD",
+   "criterion": "B5",
+   "label": "Poor concentration",
+   "paraphrase": "Poor concentration or difficulty making decisions.",
+   "chapter": "Depressive Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.concentration"
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "PDD.B6",
+   "disorder": "PDD",
+   "criterion": "B6",
+   "label": "Hopelessness",
+   "paraphrase": "Feeling hopeless.",
+   "chapter": "Depressive Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.hopelessness"
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "PDD.C",
+   "disorder": "PDD",
+   "criterion": "C",
+   "label": "No long symptom-free gaps",
+   "paraphrase": "Never free of these symptoms for more than two months during the two years.",
+   "chapter": "Depressive Disorders",
+   "kind": "judgement",
+   "model_assessed": true,
+   "satisfied_by": null,
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "PDD.E",
+   "disorder": "PDD",
+   "criterion": "E",
+   "label": "Never manic or hypomanic",
+   "paraphrase": "There has never been a manic or hypomanic episode.",
+   "chapter": "Depressive Disorders",
+   "kind": "structural",
+   "model_assessed": true,
+   "satisfied_by": null,
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "PDD.F",
+   "disorder": "PDD",
+   "criterion": "F",
+   "label": "Not a psychotic disorder",
+   "paraphrase": "Not better explained by a psychotic disorder.",
+   "chapter": "Depressive Disorders",
+   "kind": "exclusion",
+   "model_assessed": true,
+   "satisfied_by": null,
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "PDD.G",
+   "disorder": "PDD",
+   "criterion": "G",
+   "label": "Not due to a substance or medical condition",
+   "paraphrase": "Not explained by a substance, medication or medical condition.",
+   "chapter": "Depressive Disorders",
+   "kind": "exclusion",
+   "model_assessed": true,
+   "satisfied_by": null,
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "PDD.H",
+   "disorder": "PDD",
+   "criterion": "H",
+   "label": "Distress or impairment",
+   "paraphrase": "The symptoms cause significant distress or impairment.",
+   "chapter": "Depressive Disorders",
+   "kind": "impairment",
+   "model_assessed": true,
+   "satisfied_by": {
+    "any_of": [
+     {
+      "feature": "imp.social",
+      "context": [
+       "low_mood"
+      ]
+     },
+     {
+      "feature": "imp.occupational",
+      "context": [
+       "low_mood"
+      ]
+     },
+     {
+      "feature": "imp.other",
+      "context": [
+       "low_mood"
+      ]
+     }
+    ]
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "GAD.A",
+   "disorder": "GAD",
+   "criterion": "A",
+   "label": "Excessive worry",
+   "paraphrase": "Excessive anxiety and worry about several events or activities, more days than not, for at least six months.",
+   "chapter": "Anxiety Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.worry_excessive"
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "GAD.B",
+   "disorder": "GAD",
+   "criterion": "B",
+   "label": "Worry hard to control",
+   "paraphrase": "The person finds the worry hard to control.",
+   "chapter": "Anxiety Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.worry_uncontrollable"
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "GAD.C",
+   "disorder": "GAD",
+   "criterion": "C",
+   "label": "Associated symptom count",
+   "paraphrase": "Three or more C-items linked to the anxiety, some present more days than not for six months.",
+   "chapter": "Anxiety Disorders",
+   "kind": "stem",
+   "model_assessed": true,
+   "satisfied_by": null,
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "GAD.C1",
+   "disorder": "GAD",
+   "criterion": "C1",
+   "label": "Restless or on edge",
+   "paraphrase": "Restless, keyed up or on edge.",
+   "chapter": "Anxiety Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "any_of": [
+     {
+      "feature": "feat.restlessness",
+      "context": [
+       "worry_anxiety"
+      ]
+     },
+     {
+      "feature": "feat.keyed_up_tense",
+      "context": [
+       "worry_anxiety"
+      ]
+     }
+    ]
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "GAD.C2",
+   "disorder": "GAD",
+   "criterion": "C2",
+   "label": "Easily fatigued",
+   "paraphrase": "Tiring easily.",
+   "chapter": "Anxiety Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.fatigue",
+    "context": [
+     "worry_anxiety"
+    ]
+   },
+   "notes": "Counts only when linked to the anxiety or worry.",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "GAD.C3",
+   "disorder": "GAD",
+   "criterion": "C3",
+   "label": "Concentration difficulty",
+   "paraphrase": "Trouble concentrating, or mind going blank.",
+   "chapter": "Anxiety Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.concentration",
+    "context": [
+     "worry_anxiety"
+    ]
+   },
+   "notes": "Counts only when linked to the anxiety or worry.",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "GAD.C4",
+   "disorder": "GAD",
+   "criterion": "C4",
+   "label": "Irritability",
+   "paraphrase": "Irritability.",
+   "chapter": "Anxiety Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.irritability",
+    "context": [
+     "worry_anxiety"
+    ]
+   },
+   "notes": "An ongoing anxiety symptom, not a distinct elevated or irritable mood period.",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "GAD.C5",
+   "disorder": "GAD",
+   "criterion": "C5",
+   "label": "Muscle tension",
+   "paraphrase": "Muscle tension.",
+   "chapter": "Anxiety Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.muscle_tension"
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "GAD.C6",
+   "disorder": "GAD",
+   "criterion": "C6",
+   "label": "Sleep disturbance with worry",
+   "paraphrase": "Trouble falling or staying asleep, or restless, unsatisfying sleep.",
+   "chapter": "Anxiety Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.sleep_worry",
+    "context": [
+     "worry_anxiety"
+    ]
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "GAD.D",
+   "disorder": "GAD",
+   "criterion": "D",
+   "label": "Distress or impairment",
+   "paraphrase": "Anxiety, worry or physical symptoms cause significant distress or impaired functioning.",
+   "chapter": "Anxiety Disorders",
+   "kind": "impairment",
+   "model_assessed": true,
+   "satisfied_by": {
+    "any_of": [
+     {
+      "feature": "imp.social",
+      "context": [
+       "worry_anxiety"
+      ]
+     },
+     {
+      "feature": "imp.occupational",
+      "context": [
+       "worry_anxiety"
+      ]
+     },
+     {
+      "feature": "imp.other",
+      "context": [
+       "worry_anxiety"
+      ]
+     }
+    ]
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "GAD.E",
+   "disorder": "GAD",
+   "criterion": "E",
+   "label": "Not due to a substance or medical condition",
+   "paraphrase": "Not explained by a substance, medication or medical condition such as an overactive thyroid.",
+   "chapter": "Anxiety Disorders",
+   "kind": "exclusion",
+   "model_assessed": true,
+   "satisfied_by": null,
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "GAD.F",
+   "disorder": "GAD",
+   "criterion": "F",
+   "label": "Not better explained by another disorder",
+   "paraphrase": "Not better explained by another disorder's focus of worry, such as judgement fears in social anxiety.",
+   "chapter": "Anxiety Disorders",
+   "kind": "judgement",
+   "model_assessed": true,
+   "satisfied_by": null,
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "SAD.A",
+   "disorder": "SAD",
+   "criterion": "A",
+   "label": "Fear of social scrutiny",
+   "paraphrase": "Marked fear or anxiety in social situations where others might scrutinise the person.",
+   "chapter": "Anxiety Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.social_fear_scrutiny"
+   },
+   "notes": "Needs cited fear, anxiety or embarrassment about being observed or judged. Avoidance alone, or avoidance explained by low energy or low mood, does not count.",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "SAD.B",
+   "disorder": "SAD",
+   "criterion": "B",
+   "label": "Fear of negative evaluation",
+   "paraphrase": "Fears acting, or showing anxiety, in ways others will judge as embarrassing, humiliating or rejectable.",
+   "chapter": "Anxiety Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.fear_negative_evaluation"
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "SAD.C",
+   "disorder": "SAD",
+   "criterion": "C",
+   "label": "Situations reliably provoke fear",
+   "paraphrase": "Those social situations almost always trigger fear or anxiety.",
+   "chapter": "Anxiety Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.social_fear_consistent"
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "SAD.D",
+   "disorder": "SAD",
+   "criterion": "D",
+   "label": "Avoided or endured with fear",
+   "paraphrase": "The situations are avoided, or endured with intense fear or anxiety.",
+   "chapter": "Anxiety Disorders",
+   "kind": "symptom",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.social_avoidance",
+    "context": [
+     "social_fear"
+    ]
+   },
+   "notes": "Counts only when the avoidance is driven by social fear.",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "SAD.E",
+   "disorder": "SAD",
+   "criterion": "E",
+   "label": "Out of proportion",
+   "paraphrase": "The fear is out of proportion to the actual threat and the sociocultural context.",
+   "chapter": "Anxiety Disorders",
+   "kind": "judgement",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.fear_disproportionate"
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "SAD.F",
+   "disorder": "SAD",
+   "criterion": "F",
+   "label": "Persistent, typically ≥ 6 months",
+   "paraphrase": "Fear, anxiety or avoidance persists, typically six months or more.",
+   "chapter": "Anxiety Disorders",
+   "kind": "structural",
+   "model_assessed": true,
+   "satisfied_by": null,
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "SAD.G",
+   "disorder": "SAD",
+   "criterion": "G",
+   "label": "Distress or impairment",
+   "paraphrase": "Causes significant distress or impaired social, work or other functioning.",
+   "chapter": "Anxiety Disorders",
+   "kind": "impairment",
+   "model_assessed": true,
+   "satisfied_by": {
+    "any_of": [
+     {
+      "feature": "imp.social",
+      "context": [
+       "social_fear"
+      ]
+     },
+     {
+      "feature": "imp.occupational",
+      "context": [
+       "social_fear"
+      ]
+     },
+     {
+      "feature": "imp.other",
+      "context": [
+       "social_fear"
+      ]
+     }
+    ]
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "SAD.H",
+   "disorder": "SAD",
+   "criterion": "H",
+   "label": "Not due to a substance or medical condition",
+   "paraphrase": "Not explained by a substance, medication or medical condition.",
+   "chapter": "Anxiety Disorders",
+   "kind": "exclusion",
+   "model_assessed": true,
+   "satisfied_by": null,
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "SAD.I",
+   "disorder": "SAD",
+   "criterion": "I",
+   "label": "Not better explained by another disorder",
+   "paraphrase": "Not better explained by another mental disorder, such as panic disorder or autism.",
+   "chapter": "Anxiety Disorders",
+   "kind": "judgement",
+   "model_assessed": true,
+   "satisfied_by": null,
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "SAD.J",
+   "disorder": "SAD",
+   "criterion": "J",
+   "label": "Unrelated to a medical condition",
+   "paraphrase": "If a medical condition is present, the fear is unrelated to it or clearly excessive.",
+   "chapter": "Anxiety Disorders",
+   "kind": "judgement",
+   "model_assessed": true,
+   "satisfied_by": null,
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "id": "SAD.PERF",
+   "disorder": "SAD",
+   "criterion": "PERF",
+   "label": "Performance only",
+   "paraphrase": "Specifier: fear limited to speaking or performing in public.",
+   "chapter": "Anxiety Disorders",
+   "kind": "specifier",
+   "model_assessed": true,
+   "satisfied_by": {
+    "feature": "feat.performance_only"
+   },
+   "notes": "",
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  }
+ ]
+}

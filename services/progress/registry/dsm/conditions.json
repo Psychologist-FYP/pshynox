@@ -1,0 +1,796 @@
+{
+ "kind": "dsm_conditions",
+ "version": "1.0.0",
+ "source": "Paraphrased by the project team from the DSM-5-TR criteria structure; not APA text. Pending clinical verification.",
+ "enabled_conditions": [
+  "mdd",
+  "bipolar_i",
+  "bipolar_ii",
+  "gad",
+  "sad"
+ ],
+ "differential_conditions": [
+  "pdd",
+  "cyclothymic"
+ ],
+ "episode_conditions": [
+  "mde",
+  "manic",
+  "hypomanic"
+ ],
+ "excluded_by_proposal": [
+  "bulimia_nervosa"
+ ],
+ "label_footer": "Hypothesis for clinician review; not a diagnosis.",
+ "conditions": [
+  {
+   "key": "mde",
+   "label": "Major depressive episode",
+   "role": "episode",
+   "chapter": "Depressive Disorders",
+   "icd10cm": "Part of F32.x / F33.x / F31.x coding",
+   "icd11": "Episode within 6A70 / 6A71 / 6A6x",
+   "core": "MDE.A",
+   "per_period": true,
+   "elements": [
+    {
+     "id": "MDE.A",
+     "type": "count",
+     "ask": "Which depressive symptoms were present together, and was low mood or loss of interest among them?",
+     "items": [
+      "MDE.A1",
+      "MDE.A2",
+      "MDE.A3",
+      "MDE.A4",
+      "MDE.A5",
+      "MDE.A6",
+      "MDE.A7",
+      "MDE.A8",
+      "MDE.A9"
+     ],
+     "min": 5,
+     "must_include_any": [
+      "MDE.A1",
+      "MDE.A2"
+     ]
+    },
+    {
+     "id": "MDE.A.duration",
+     "type": "duration",
+     "ask": "Have these symptoms lasted at least two weeks?",
+     "min_days": 14,
+     "label": "Duration ≥ 2 weeks"
+    },
+    {
+     "id": "MDE.B",
+     "type": "item",
+     "ask": "How have the symptoms affected work, study, relationships or self-care?",
+     "item": "MDE.B"
+    },
+    {
+     "id": "MDE.C",
+     "type": "exclusion",
+     "ask": "Any alcohol, drugs, new medication or medical illness (for example thyroid) that could explain the symptoms?",
+     "features": [
+      "excl.substance",
+      "excl.medical"
+     ],
+     "item": "MDE.C"
+    },
+    {
+     "id": "MDE.loss",
+     "type": "note",
+     "ask": "Has there been a recent bereavement or major loss? Clinical judgement applies.",
+     "features": [
+      "excl.recent_loss"
+     ]
+    }
+   ],
+   "differentials": [
+    {
+     "label": "Bipolar disorder",
+     "why": "Depressive episodes also occur in bipolar disorder; ask about past high or irritable periods."
+    },
+    {
+     "label": "Persistent depressive disorder",
+     "why": "Low mood for two years or more points to PDD as well as, or instead of, MDE."
+    },
+    {
+     "label": "Adjustment difficulties or expected response to loss",
+     "why": "Low mood after a clear stressor may not reach episode thresholds."
+    }
+   ],
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "key": "manic",
+   "label": "Manic episode",
+   "role": "episode",
+   "chapter": "Bipolar and Related Disorders",
+   "icd10cm": "Part of F31.x coding",
+   "icd11": "Episode within 6A60",
+   "core": "MANIA.A",
+   "per_period": true,
+   "elements": [
+    {
+     "id": "MANIA.A",
+     "type": "item",
+     "ask": "Has there been a distinct period of unusually high or irritable mood with raised energy?",
+     "item": "MANIA.A"
+    },
+    {
+     "id": "MANIA.A.duration",
+     "type": "duration",
+     "ask": "How long did that period last (at least a week), and was a hospital admission needed?",
+     "min_days": 7,
+     "hospitalised_any": true,
+     "label": "Duration ≥ 1 week or hospitalised"
+    },
+    {
+     "id": "MANIA.B",
+     "type": "count",
+     "ask": "During that period, which of the B-symptoms (grandiosity, less need for sleep, talkativeness, racing thoughts, distractibility, more activity, risky behaviour) were present?",
+     "items": [
+      "MANIA.B1",
+      "MANIA.B2",
+      "MANIA.B3",
+      "MANIA.B4",
+      "MANIA.B5",
+      "MANIA.B6",
+      "MANIA.B7"
+     ],
+     "min": 3,
+     "min_if_only": {
+      "present": "feat.irritable_period",
+      "absent": "feat.elevated_mood",
+      "min": 4
+     }
+    },
+    {
+     "id": "MANIA.C",
+     "type": "item",
+     "ask": "Did that period cause marked problems at work or socially, need hospitalisation, or include psychotic symptoms?",
+     "item": "MANIA.C"
+    },
+    {
+     "id": "MANIA.D",
+     "type": "exclusion",
+     "ask": "Could a substance, medication or medical condition explain that period?",
+     "features": [
+      "excl.substance",
+      "excl.medical"
+     ],
+     "item": "MANIA.D"
+    }
+   ],
+   "differentials": [
+    {
+     "label": "Hypomanic episode",
+     "why": "A shorter or less severe period without marked impairment is hypomanic."
+    },
+    {
+     "label": "Substance- or medication-induced mood change",
+     "why": "Stimulants, steroids or antidepressants can produce elevated periods."
+    }
+   ],
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "key": "hypomanic",
+   "label": "Hypomanic episode",
+   "role": "episode",
+   "chapter": "Bipolar and Related Disorders",
+   "icd10cm": "Part of F31.x coding",
+   "icd11": "Episode within 6A61",
+   "core": "HYPO.A",
+   "per_period": true,
+   "elements": [
+    {
+     "id": "HYPO.A",
+     "type": "item",
+     "ask": "Has there been a distinct period of unusually high or irritable mood with raised energy?",
+     "item": "HYPO.A"
+    },
+    {
+     "id": "HYPO.A.duration",
+     "type": "duration",
+     "ask": "Did that period last at least four consecutive days?",
+     "min_days": 4,
+     "label": "Duration ≥ 4 consecutive days"
+    },
+    {
+     "id": "HYPO.B",
+     "type": "count",
+     "ask": "During that period, which of the B-symptoms were present?",
+     "items": [
+      "HYPO.B1",
+      "HYPO.B2",
+      "HYPO.B3",
+      "HYPO.B4",
+      "HYPO.B5",
+      "HYPO.B6",
+      "HYPO.B7"
+     ],
+     "min": 3,
+     "min_if_only": {
+      "present": "feat.irritable_period",
+      "absent": "feat.elevated_mood",
+      "min": 4
+     }
+    },
+    {
+     "id": "HYPO.C",
+     "type": "item",
+     "ask": "Was the person clearly functioning differently from usual during that period?",
+     "item": "HYPO.C"
+    },
+    {
+     "id": "HYPO.D",
+     "type": "item",
+     "ask": "Did other people notice the change?",
+     "item": "HYPO.D"
+    },
+    {
+     "id": "HYPO.E",
+     "type": "absence",
+     "ask": "Was the period severe enough for marked impairment, hospitalisation or psychotic symptoms? If so it is manic.",
+     "items": [
+      "MANIA.C"
+     ],
+     "on_present": "not_met",
+     "item": "HYPO.E"
+    },
+    {
+     "id": "HYPO.F",
+     "type": "exclusion",
+     "ask": "Could a substance, medication or medical condition explain that period?",
+     "features": [
+      "excl.substance",
+      "excl.medical"
+     ],
+     "item": "HYPO.F"
+    }
+   ],
+   "differentials": [
+    {
+     "label": "Manic episode",
+     "why": "Marked impairment, hospitalisation or psychotic features make the period manic."
+    },
+    {
+     "label": "Cyclothymic disorder",
+     "why": "Repeated milder high periods over two years without full episodes."
+    }
+   ],
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "key": "mdd",
+   "label": "Major depressive disorder",
+   "role": "target",
+   "chapter": "Depressive Disorders",
+   "icd10cm": "F32.x (single episode) or F33.x (recurrent)",
+   "icd11": "6A70 (single episode) or 6A71 (recurrent)",
+   "core": "MDD.A",
+   "per_period": false,
+   "group": "depression",
+   "elements": [
+    {
+     "id": "MDD.A",
+     "type": "episode",
+     "ask": "",
+     "condition": "mde",
+     "item": "MDD.A"
+    },
+    {
+     "id": "MDD.D",
+     "type": "exclusion",
+     "ask": "Any history suggesting a psychotic disorder?",
+     "features": [
+      "excl.psychotic_disorder"
+     ],
+     "item": "MDD.D"
+    },
+    {
+     "id": "MDD.E",
+     "type": "never_episode",
+     "ask": "Has there ever been a period of unusually high or irritable mood with raised energy lasting several days?",
+     "conditions": [
+      "manic",
+      "hypomanic"
+     ],
+     "item": "MDD.E"
+    }
+   ],
+   "specifiers": [
+    "severity",
+    "anxious_distress"
+   ],
+   "differentials": [
+    {
+     "label": "Bipolar I or II disorder",
+     "why": "Any past manic or hypomanic episode changes the diagnosis."
+    },
+    {
+     "label": "Persistent depressive disorder",
+     "why": "Check whether low mood has lasted two years or more."
+    },
+    {
+     "label": "Generalized anxiety disorder",
+     "why": "Worry, poor sleep, fatigue and poor concentration overlap with depression."
+    }
+   ],
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "key": "bipolar_i",
+   "label": "Bipolar I disorder",
+   "role": "target",
+   "chapter": "Bipolar and Related Disorders",
+   "icd10cm": "F31.x (by current or most recent episode, severity and remission)",
+   "icd11": "6A60",
+   "core": "BP1.A",
+   "per_period": false,
+   "group": "bipolar",
+   "elements": [
+    {
+     "id": "BP1.A",
+     "type": "episode",
+     "ask": "",
+     "condition": "manic",
+     "item": "BP1.A"
+    },
+    {
+     "id": "BP1.B",
+     "type": "exclusion",
+     "ask": "Any history suggesting schizoaffective or another psychotic disorder?",
+     "features": [
+      "excl.psychotic_disorder"
+     ],
+     "item": "BP1.B"
+    }
+   ],
+   "differentials": [
+    {
+     "label": "Major depressive disorder",
+     "why": "Without a manic episode, depressive episodes alone suggest MDD."
+    },
+    {
+     "label": "Substance-induced bipolar disorder",
+     "why": "Rule out substances or medications as the cause of elevated periods."
+    }
+   ],
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "key": "bipolar_ii",
+   "label": "Bipolar II disorder",
+   "role": "target",
+   "chapter": "Bipolar and Related Disorders",
+   "icd10cm": "F31.81",
+   "icd11": "6A61",
+   "core": "BP2.A",
+   "per_period": false,
+   "group": "bipolar",
+   "elements": [
+    {
+     "id": "BP2.A",
+     "type": "all_episodes",
+     "ask": "Has there been both a hypomanic period and a major depressive episode?",
+     "conditions": [
+      "hypomanic",
+      "mde"
+     ],
+     "item": "BP2.A"
+    },
+    {
+     "id": "BP2.B",
+     "type": "never_episode",
+     "ask": "Has any high period ever been severe enough to be manic?",
+     "conditions": [
+      "manic"
+     ],
+     "item": "BP2.B"
+    },
+    {
+     "id": "BP2.C",
+     "type": "exclusion",
+     "ask": "Any history suggesting a psychotic disorder?",
+     "features": [
+      "excl.psychotic_disorder"
+     ],
+     "item": "BP2.C"
+    },
+    {
+     "id": "BP2.D",
+     "type": "item",
+     "ask": "How have the depression or mood swings affected functioning?",
+     "item": "BP2.D"
+    }
+   ],
+   "differentials": [
+    {
+     "label": "Bipolar I disorder",
+     "why": "Any manic episode makes it bipolar I."
+    },
+    {
+     "label": "Cyclothymic disorder",
+     "why": "Milder periods that never meet full episode thresholds."
+    }
+   ],
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "key": "cyclothymic",
+   "label": "Cyclothymic disorder",
+   "role": "differential",
+   "chapter": "Bipolar and Related Disorders",
+   "icd10cm": "F34.0",
+   "icd11": "6A62",
+   "core": "CYC.A",
+   "per_period": true,
+   "group": "bipolar",
+   "elements": [
+    {
+     "id": "CYC.A",
+     "type": "subthreshold_course",
+     "ask": "Over at least two years, have there been many milder high and low periods?",
+     "groups": [
+      "elevated",
+      "depressive"
+     ],
+     "min_days": 730,
+     "item": "CYC.A"
+    },
+    {
+     "id": "CYC.B",
+     "type": "judgement",
+     "ask": "Were the symptoms present at least half the time, with no gap longer than two months?",
+     "item": "CYC.B"
+    },
+    {
+     "id": "CYC.C",
+     "type": "never_episode",
+     "ask": "",
+     "conditions": [
+      "mde",
+      "manic",
+      "hypomanic"
+     ],
+     "item": "CYC.C"
+    },
+    {
+     "id": "CYC.E",
+     "type": "exclusion",
+     "ask": "Could a substance, medication or medical condition explain the mood changes?",
+     "features": [
+      "excl.substance",
+      "excl.medical"
+     ],
+     "item": "CYC.E"
+    },
+    {
+     "id": "CYC.F",
+     "type": "item",
+     "ask": "How have the mood swings affected functioning?",
+     "item": "CYC.F"
+    }
+   ],
+   "differentials": [
+    {
+     "label": "Bipolar II disorder",
+     "why": "A full hypomanic and a full depressive episode would point to bipolar II."
+    }
+   ],
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "key": "pdd",
+   "label": "Persistent depressive disorder",
+   "role": "differential",
+   "chapter": "Depressive Disorders",
+   "icd10cm": "F34.1",
+   "icd11": "6A72",
+   "core": "PDD.A",
+   "per_period": true,
+   "group": "depression",
+   "elements": [
+    {
+     "id": "PDD.A",
+     "type": "item",
+     "ask": "Has the low mood been present more days than not?",
+     "item": "PDD.A"
+    },
+    {
+     "id": "PDD.A.duration",
+     "type": "duration",
+     "ask": "Has the low mood lasted at least two years?",
+     "min_days": 730,
+     "label": "Duration ≥ 2 years"
+    },
+    {
+     "id": "PDD.B",
+     "type": "count",
+     "ask": "Which associated symptoms (appetite, sleep, energy, self-esteem, concentration, hopelessness) occur while depressed?",
+     "items": [
+      "PDD.B1",
+      "PDD.B2",
+      "PDD.B3",
+      "PDD.B4",
+      "PDD.B5",
+      "PDD.B6"
+     ],
+     "min": 2
+    },
+    {
+     "id": "PDD.C",
+     "type": "judgement",
+     "ask": "Over those two years, has there been any symptom-free stretch longer than two months?",
+     "item": "PDD.C"
+    },
+    {
+     "id": "PDD.E",
+     "type": "never_episode",
+     "ask": "",
+     "conditions": [
+      "manic",
+      "hypomanic"
+     ],
+     "item": "PDD.E"
+    },
+    {
+     "id": "PDD.G",
+     "type": "exclusion",
+     "ask": "Could a substance, medication or medical condition explain the low mood?",
+     "features": [
+      "excl.substance",
+      "excl.medical"
+     ],
+     "item": "PDD.G"
+    },
+    {
+     "id": "PDD.H",
+     "type": "item",
+     "ask": "How has the long-standing low mood affected functioning?",
+     "item": "PDD.H"
+    }
+   ],
+   "differentials": [
+    {
+     "label": "Major depressive disorder",
+     "why": "Full episodes within the two years are recorded as well."
+    }
+   ],
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "key": "gad",
+   "label": "Generalized anxiety disorder",
+   "role": "target",
+   "chapter": "Anxiety Disorders",
+   "icd10cm": "F41.1",
+   "icd11": "6B00",
+   "core": "GAD.A",
+   "per_period": true,
+   "group": "anxiety",
+   "elements": [
+    {
+     "id": "GAD.A",
+     "type": "item",
+     "ask": "Is the worry excessive and about several areas of life, on more days than not?",
+     "item": "GAD.A"
+    },
+    {
+     "id": "GAD.A.duration",
+     "type": "duration",
+     "ask": "Has the worry been present for at least six months?",
+     "min_days": 183,
+     "label": "Duration ≥ 6 months"
+    },
+    {
+     "id": "GAD.B",
+     "type": "item",
+     "ask": "Does the person find the worry hard to control?",
+     "item": "GAD.B"
+    },
+    {
+     "id": "GAD.C",
+     "type": "count",
+     "ask": "Which associated symptoms (restlessness, fatigue, concentration, irritability, tension, sleep) come with the worry?",
+     "items": [
+      "GAD.C1",
+      "GAD.C2",
+      "GAD.C3",
+      "GAD.C4",
+      "GAD.C5",
+      "GAD.C6"
+     ],
+     "min": 3
+    },
+    {
+     "id": "GAD.D",
+     "type": "item",
+     "ask": "How does the worry affect work, study, relationships or daily life?",
+     "item": "GAD.D"
+    },
+    {
+     "id": "GAD.E",
+     "type": "exclusion",
+     "ask": "Any substance, medication or medical condition (for example thyroid) that could explain the anxiety?",
+     "features": [
+      "excl.substance",
+      "excl.medical"
+     ],
+     "item": "GAD.E"
+    },
+    {
+     "id": "GAD.F",
+     "type": "judgement",
+     "ask": "Is the worry better explained by another disorder's focus, such as fear of judgement or panic attacks?",
+     "item": "GAD.F"
+    }
+   ],
+   "differentials": [
+    {
+     "label": "Social anxiety disorder",
+     "why": "Worry focused on being judged by others points to SAD."
+    },
+    {
+     "label": "Panic disorder (not tracked)",
+     "why": "Worry centred on panic attacks is better explained by panic disorder."
+    },
+    {
+     "label": "Depression with anxious distress",
+     "why": "Anxiety confined to depressive episodes."
+    }
+   ],
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  },
+  {
+   "key": "sad",
+   "label": "Social anxiety disorder",
+   "role": "target",
+   "chapter": "Anxiety Disorders",
+   "icd10cm": "F40.10",
+   "icd11": "6B04",
+   "core": "SAD.A",
+   "per_period": true,
+   "group": "anxiety",
+   "elements": [
+    {
+     "id": "SAD.A",
+     "type": "item",
+     "ask": "Is there fear or embarrassment about being watched or judged in social situations?",
+     "item": "SAD.A"
+    },
+    {
+     "id": "SAD.B",
+     "type": "item",
+     "ask": "What does the person fear others will think or see?",
+     "item": "SAD.B"
+    },
+    {
+     "id": "SAD.C",
+     "type": "item",
+     "ask": "Do these situations almost always cause fear?",
+     "item": "SAD.C"
+    },
+    {
+     "id": "SAD.D",
+     "type": "item",
+     "ask": "Are the situations avoided, or endured with intense fear, because of that fear?",
+     "item": "SAD.D"
+    },
+    {
+     "id": "SAD.E",
+     "type": "judgement",
+     "ask": "Is the fear out of proportion to the actual situation and context?",
+     "item": "SAD.E"
+    },
+    {
+     "id": "SAD.F",
+     "type": "duration",
+     "ask": "Has the fear lasted six months or more?",
+     "min_days": 183,
+     "label": "Persistent ≥ 6 months",
+     "item": "SAD.F"
+    },
+    {
+     "id": "SAD.G",
+     "type": "item",
+     "ask": "How does the social fear affect work, study or relationships?",
+     "item": "SAD.G"
+    },
+    {
+     "id": "SAD.H",
+     "type": "exclusion",
+     "ask": "Could a substance, medication or medical condition explain the fear?",
+     "features": [
+      "excl.substance",
+      "excl.medical"
+     ],
+     "item": "SAD.H"
+    },
+    {
+     "id": "SAD.I",
+     "type": "judgement",
+     "ask": "Is it better explained by another disorder (for example panic disorder or autism)?",
+     "item": "SAD.I"
+    },
+    {
+     "id": "SAD.J",
+     "type": "judgement",
+     "ask": "If a medical condition is present, is the fear unrelated to it or clearly excessive?",
+     "item": "SAD.J"
+    }
+   ],
+   "specifiers": [
+    "performance_only"
+   ],
+   "differentials": [
+    {
+     "label": "Agoraphobia (not tracked)",
+     "why": "Fear of places where escape is hard, rather than of scrutiny."
+    },
+    {
+     "label": "Social withdrawal from low mood or low energy",
+     "why": "Avoidance explained by depression is not social anxiety."
+    },
+    {
+     "label": "Panic disorder (not tracked)",
+     "why": "Fear of having panic attacks in public."
+    }
+   ],
+   "verification": {
+    "status": "pending",
+    "verified_by": null,
+    "verified_on": null,
+    "comment": ""
+   }
+  }
+ ]
+}

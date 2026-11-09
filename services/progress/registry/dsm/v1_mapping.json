@@ -1,0 +1,151 @@
+{
+ "kind": "dsm_v1_mapping",
+ "version": "1.0.0",
+ "notes": "v1 domains are never converted automatically. This table explains how earlier tracking relates to DSM items.",
+ "domains": {
+  "low_mood": {
+   "items": [
+    "MDE.A1",
+    "PDD.A"
+   ],
+   "note": ""
+  },
+  "interest": {
+   "items": [
+    "MDE.A2"
+   ],
+   "note": ""
+  },
+  "sleep": {
+   "items": [
+    "MDE.A4",
+    "PDD.B2",
+    "MANIA.B2",
+    "GAD.C6"
+   ],
+   "note": "The v1 direction decides: reduced/increased → MDE.A4/PDD.B2; reduced need without fatigue → MANIA.B2; disrupted with worry → GAD.C6."
+  },
+  "appetite": {
+   "items": [
+    "MDE.A3",
+    "PDD.B1"
+   ],
+   "note": ""
+  },
+  "energy": {
+   "items": [
+    "MDE.A6",
+    "PDD.B3",
+    "GAD.C2"
+   ],
+   "note": "GAD.C2 only when linked to worry."
+  },
+  "self_worth": {
+   "items": [
+    "MDE.A7",
+    "PDD.B4"
+   ],
+   "note": "v1 merged guilt and self-esteem; DSM separates them."
+  },
+  "concentration": {
+   "items": [
+    "MDE.A8",
+    "PDD.B5",
+    "GAD.C3",
+    "ANXD.3"
+   ],
+   "note": "Related but different: MANIA.B5 distractibility."
+  },
+  "psychomotor": {
+   "items": [
+    "MDE.A5",
+    "GAD.C1",
+    "ANXD.2"
+   ],
+   "note": "Observable slowing or agitation → MDE.A5; felt restlessness → GAD.C1/ANXD.2."
+  },
+  "elevated_mood": {
+   "items": [
+    "MANIA.A",
+    "HYPO.A"
+   ],
+   "note": "Mood part of criterion A."
+  },
+  "irritability": {
+   "items": [
+    "MANIA.A",
+    "HYPO.A",
+    "GAD.C4"
+   ],
+   "note": "A distinct irritable period → MANIA.A/HYPO.A; ongoing irritability with worry → GAD.C4."
+  },
+  "racing_thoughts_pressured_speech": {
+   "items": [
+    "MANIA.B3",
+    "MANIA.B4"
+   ],
+   "note": "Split into two DSM items."
+  },
+  "increased_goal_directed_activity_risky_behaviour": {
+   "items": [
+    "MANIA.B6",
+    "MANIA.B7",
+    "MANIA.A"
+   ],
+   "note": "Split; the energy part belongs to criterion A."
+  },
+  "grandiosity": {
+   "items": [
+    "MANIA.B1"
+   ],
+   "note": ""
+  },
+  "worry": {
+   "items": [
+    "GAD.A",
+    "GAD.B"
+   ],
+   "note": ""
+  },
+  "restlessness_tension": {
+   "items": [
+    "GAD.C1",
+    "GAD.C5",
+    "ANXD.1",
+    "ANXD.2"
+   ],
+   "note": ""
+  },
+  "social_fear_avoidance": {
+   "items": [
+    "SAD.A",
+    "SAD.B",
+    "SAD.C",
+    "SAD.D"
+   ],
+   "note": "Split: fear → SAD.A–C; avoidance → SAD.D. Avoidance alone is not SAD.A."
+  },
+  "performance_fear": {
+   "items": [
+    "SAD.A",
+    "SAD.PERF"
+   ],
+   "note": ""
+  },
+  "social_functioning": {
+   "items": [],
+   "impairment": "imp.social",
+   "note": "No DSM symptom equivalent: impairment evidence for each condition's impairment criterion."
+  },
+  "academic_work_functioning": {
+   "items": [],
+   "impairment": "imp.occupational",
+   "note": "No DSM symptom equivalent: impairment evidence."
+  },
+  "self_care": {
+   "items": [],
+   "impairment": "imp.other",
+   "note": "No DSM symptom equivalent: impairment evidence."
+  }
+ }
+}

@@ -1,0 +1,48 @@
+{
+ "kind": "dsm_risk",
+ "version": "1.0.0",
+ "notes": "Risk content is surfaced for clinician review, never scored. Absence of flags is not a safety conclusion.",
+ "flags": [
+  {
+   "key": "suicidal_ideation_passive",
+   "label": "Passive suicidal thoughts",
+   "definition": "Wishing to be dead, not wanting to wake up, or wanting everything to stop, without intent or plan."
+  },
+  {
+   "key": "suicidal_ideation_active",
+   "label": "Active suicidal thoughts",
+   "definition": "Thoughts of killing oneself, with or without a method, intent or plan."
+  },
+  {
+   "key": "self_harm_past",
+   "label": "Past self-harm",
+   "definition": "Self-harm or a suicide attempt described as in the past."
+  },
+  {
+   "key": "self_harm_recent",
+   "label": "Recent or current self-harm",
+   "definition": "Self-harm or urges to self-harm described as recent or ongoing."
+  },
+  {
+   "key": "harm_to_others",
+   "label": "Harm to others",
+   "definition": "Thoughts, threats or acts of harming another person."
+  }
+ ],
+ "supporting": [
+  {
+   "key": "protective_factor",
+   "label": "Protective factor",
+   "definition": "Reasons for living, support or coping the client describes."
+  },
+  {
+   "key": "denial_of_plan_or_intent",
+   "label": "Denial of plan or intent",
+   "definition": "The client denies a plan, intent or self-harm. Record ambiguity (for example 'not yet')."
+  }
+ ],
+ "queries": [
+  "die dead death suicide suicidal kill hurt harm myself cutting overdose end it all better off gone stop everything mar jaun khudkushi",
+  "reasons living family support cope"
+ ]
+}

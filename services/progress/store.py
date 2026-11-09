@@ -17,7 +17,7 @@ from sqlalchemy.orm import Session as DbSession
 
 from services.api.db import (
     AuditEventRecord, ChangeEventRecord, ConditionPredictionRecord, CriterionFindingRecord,
-    DomainObservationRecord, DomainObservationVersionRecord, InstrumentScoreRecord, NoteDraftRecord,
+    DomainObservationRecord, DomainObservationVersionRecord, DsmFindingRecord, DsmPredictionRecord, InstrumentScoreRecord, NoteDraftRecord,
     PatientRecord, PlanFollowupRecord, ProgressEvidenceLinkRecord, RegistryVersionRecord, RiskStatementRecord,
     SegmentSourceRecord, SessionRecord, TranscriptSegmentRecord, utc_now,
 )
@@ -34,7 +34,34 @@ RESEARCH_ONLY_NOTE = "Calibrated probability is research-only (LongCounsel-8 dat
 OWNER_MODELS = {
     "domain_observation": DomainObservationRecord, "instrument_score": InstrumentScoreRecord,
     "prediction": ConditionPredictionRecord, "risk_statement": RiskStatementRecord, "plan_followup": PlanFollowupRecord,
+    "dsm_finding": DsmFindingRecord, "dsm_prediction": DsmPredictionRecord,
 }
+RISK_CATEGORIES = {"self_harm", "suicidal_ideation", "harm_to_others", "other_safety", "suicidal_ideation_passive", "suicidal_ideation_active",
+                   "self_harm_past", "self_harm_recent", "protective_factor", "denial_of_plan_or_intent"}
+
+
+class _Instruments:
+    """v1 instruments (PHQ-9, GAD-7; benchmark-bound, unchanged) plus the clinician-only instruments of registry v2."""
+
+    def __init__(self):
+        from services.progress.dsm.registry import dsm_registry
+        self.instruments = list(registry().instruments.instruments) + list(dsm_registry().instruments)
+        self.extra = {i.key for i in dsm_registry().instruments}
+        self.meta = dsm_registry().instrument_meta
+
+    def get(self, key: str):
+        for instrument in self.instruments:
+            if instrument.key == key:
+                return instrument
+        raise KeyError(key)
+
+    def tag(self, key: str) -> str:
+        from services.progress.dsm.registry import dsm_registry
+        return dsm_registry().tag if key in self.extra else registry().tag("instruments")
+
+
+def instruments() -> _Instruments:
+    return _Instruments()
 
 
 def error(status: int, code: str, message: str) -> HTTPException:
@@ -162,6 +189,12 @@ def segments_of(db: DbSession, rec) -> list[str]:
         return loads(rec.segment_ids_json, [])
     if isinstance(rec, PlanFollowupRecord):
         return loads(rec.evidence_segment_ids_json, [])
+    if isinstance(rec, DsmFindingRecord):
+        from services.progress.dsm.store import finding_segments
+        return finding_segments(rec)
+    if isinstance(rec, DsmPredictionRecord):
+        from services.progress.dsm.store import prediction_segments
+        return prediction_segments(rec)
     if isinstance(rec, ConditionPredictionRecord):
         ids = [sid for sentence in loads(rec.rationale_json, []) for sid in sentence.get("segment_ids", [])]
         for finding in db.scalars(select(CriterionFindingRecord).where(CriterionFindingRecord.prediction_id == rec.id)):
@@ -217,7 +250,7 @@ def score_totals(instrument, items: dict[str, int | None]) -> tuple[int | None, 
 
 
 def to_score(db: DbSession, rec: InstrumentScoreRecord) -> InstrumentScore:
-    instrument = registry().instruments.get(rec.instrument_key)
+    instrument = instruments().get(rec.instrument_key)
     items = [InstrumentItemScore.model_validate(i) for i in loads(rec.item_scores_json, [])]
     ids = [s for i in items for s in i.evidence_segment_ids]
     basis = {s: i.basis for i in items for s in i.evidence_segment_ids}
@@ -266,6 +299,8 @@ def to_prediction(db: DbSession, rec: ConditionPredictionRecord, *, details: boo
 def to_risk(db: DbSession, rec: RiskStatementRecord) -> RiskStatement:
     ids = loads(rec.segment_ids_json, [])
     return RiskStatement(id=rec.id, patient_id=rec.patient_id, session_id=rec.session_id, category=rec.category, basis=rec.basis,
+                         categories=loads(rec.categories_json, []) or [rec.category], note_kind=rec.note_kind or "flag",
+                         registry_kind=rec.registry_kind or "v1",
                          evidence=resolve_evidence(db, rec.patient_id, ids, strict=False, basis={i: rec.basis for i in ids}),
                          **_review(db, rec, rec.session_id))
 
@@ -337,6 +372,8 @@ def build_items(instrument, items: dict[str, int | None], *, ai: bool) -> list[d
         score = items.get(item.id)
         if ai and item.id not in instrument.ai_estimable_items and score is not None:
             raise error(422, "CLINICIAN_ONLY_ITEM", f"{instrument.label} item {item.id} is clinician-entered only.")
+        if score is not None and not instrument.item_min <= score <= instrument.item_max:
+            raise error(422, "INVALID_ITEM_SCORE", f"{instrument.label} items are scored {instrument.item_min}-{instrument.item_max}.")
         out.append({"item_id": item.id, "score": score, "evidence_segment_ids": [], "basis": "",
                     "status": "rated" if score is not None else "not_administered"})
     return out
@@ -350,7 +387,7 @@ def apply_score_items(rec: InstrumentScoreRecord, instrument, item_rows: list[di
 
 def add_manual_score(db: DbSession, patient: PatientRecord, value: InstrumentScoreInput) -> InstrumentScoreRecord:
     try:
-        instrument = registry().instruments.get(value.instrument_key)
+        instrument = instruments().get(value.instrument_key)
     except KeyError:
         raise error(404, "INSTRUMENT_NOT_FOUND", "Unknown instrument.") from None
     if value.session_id:
@@ -358,7 +395,7 @@ def add_manual_score(db: DbSession, patient: PatientRecord, value: InstrumentSco
         ensure_unlocked(db, value.session_id)
     now = utc_now()
     rec = InstrumentScoreRecord(id=new_id("iscore"), patient_id=patient.id, session_id=value.session_id,
-                                instrument_key=instrument.key, registry_version=registry().tag("instruments"),
+                                instrument_key=instrument.key, registry_version=instruments().tag(instrument.key),
                                 administered_at=datetime.combine(value.administered_at, time(12), tzinfo=timezone.utc) if value.administered_at else None,
                                 provenance="MANUAL", review_status="accepted", reviewer_name=value.actor, reviewed_at=now,
                                 is_active=True, source_revisions_json="{}", created_at=now, updated_at=now)
@@ -401,6 +438,9 @@ def review(db: DbSession, rec, payload: ProgressReview, *, kind: str, patient_id
     before = rec.review_status
     if isinstance(rec, DomainObservationRecord):
         add_version(db, rec, "history", payload.actor)
+    if isinstance(rec, DsmFindingRecord):
+        from services.progress.dsm.store import add_version as add_dsm_version
+        add_dsm_version(db, rec, "history", payload.actor)
     if payload.action == "edit":
         apply_edit(rec, payload.value or {})
         rec.review_status = "edited"
@@ -441,7 +481,7 @@ def edit_domain(rec: DomainObservationRecord, value: dict) -> None:
 
 def make_score_editor(db: DbSession):
     def edit(rec: InstrumentScoreRecord, value: dict) -> None:
-        instrument = registry().instruments.get(rec.instrument_key)
+        instrument = instruments().get(rec.instrument_key)
         incoming = value.get("items")
         if not isinstance(incoming, dict):
             raise error(422, "INVALID_REVIEW_VALUE", "Provide items as {item_id: score|null}.")
@@ -452,8 +492,8 @@ def make_score_editor(db: DbSession):
                 raise error(422, "UNKNOWN_ITEM", f"Unknown item {item_id}.")
             if item_id not in instrument.ai_estimable_items and score is not None:
                 raise error(422, "CLINICIAN_ONLY_ITEM", "Clinician-only items cannot be added to an AI estimate; enter an administration instead.")
-            if score is not None and (not isinstance(score, int) or not 0 <= score <= 3):
-                raise error(422, "INVALID_REVIEW_VALUE", "Item scores must be integers 0-3.")
+            if score is not None and (not isinstance(score, int) or not instrument.item_min <= score <= instrument.item_max):
+                raise error(422, "INVALID_REVIEW_VALUE", f"Item scores must be integers {instrument.item_min}-{instrument.item_max}.")
             by_id[item_id].update(score=score, status="rated" if score is not None else "insufficient_evidence")
         apply_score_items(rec, instrument, rows)
     return edit
@@ -473,9 +513,12 @@ def edit_prediction(rec: ConditionPredictionRecord, value: dict) -> None:
 
 def edit_risk(rec: RiskStatementRecord, value: dict) -> None:
     category = value.get("category", rec.category)
-    if category not in {"self_harm", "suicidal_ideation", "harm_to_others", "other_safety"}:
+    if category not in RISK_CATEGORIES:
         raise error(422, "INVALID_REVIEW_VALUE", "Unknown risk category.")
     rec.category = category
+    if rec.categories_json:
+        rest = [c for c in loads(rec.categories_json, []) if c != category]
+        rec.categories_json = dumps([category] + rest)
     rec.basis = str(value.get("basis", rec.basis))[:600]
 
 
@@ -545,7 +588,8 @@ def build_progress(db: DbSession, patient_id: str) -> PatientProgress:
     scores = list(db.scalars(select(InstrumentScoreRecord).where(InstrumentScoreRecord.patient_id == patient_id,
                                                                  InstrumentScoreRecord.is_active.is_(True))))
     instruments = []
-    for instrument in reg.instruments.instruments:
+    catalogue = _Instruments()
+    for instrument in catalogue.instruments:
         metric = instrument.chart_subtotal
         series_out = []
         for series, provenance in (("administered", "MANUAL"), ("ai_estimate", "AI_GENERATED")):
@@ -581,10 +625,14 @@ def build_progress(db: DbSession, patient_id: str) -> PatientProgress:
                             "metric_max": next((s.max for s in instrument.subtotals if s.key == metric), instrument.total_max),
                             "bands": [b.model_dump() for b in next((s.bands for s in instrument.subtotals if s.key == metric), instrument.bands)],
                             "reliable_change_threshold": instrument.reliable_change_threshold, "series": series_out,
-                            "items": [i.model_dump() for i in instrument.items]})
+                            "items": [i.model_dump() for i in instrument.items], "item_min": instrument.item_min, "item_max": instrument.item_max,
+                            "clinician_only": instrument.key in catalogue.extra, "reporting_period": instrument.reporting_period,
+                            "licence_note": instrument.licence_note if instrument.key in catalogue.extra else "",
+                            "followup_domains": catalogue.meta.get("followup_domains", {}).get(instrument.key, [])})
 
     # Domains.
-    observations = list(db.scalars(select(DomainObservationRecord).where(DomainObservationRecord.patient_id == patient_id)))
+    observations = list(db.scalars(select(DomainObservationRecord).where(DomainObservationRecord.patient_id == patient_id,
+                                                                         DomainObservationRecord.retired_batch_id.is_(None))))
     by_cell = {(o.session_id, o.domain_key): o for o in observations}
     domains = []
     for domain in reg.domains.domains:
@@ -633,6 +681,10 @@ def build_progress(db: DbSession, patient_id: str) -> PatientProgress:
         if candidates:
             latest.append(to_prediction(db, max(candidates, key=lambda p: order.get(p.as_of_session_id, -1))))
 
+    from services.progress.dsm.registry import registry_kind
+    from services.progress.dsm.store import build_dsm_block
+    dsm_block, dsm_changes = build_dsm_block(db, patient_id, sessions)
+    computed_changes += dsm_changes
     events = sync_change_events(db, patient_id, computed_changes)
     risks = list(db.scalars(select(RiskStatementRecord).where(RiskStatementRecord.patient_id == patient_id,
                                                               RiskStatementRecord.is_active.is_(True)).order_by(RiskStatementRecord.created_at)))
@@ -645,6 +697,7 @@ def build_progress(db: DbSession, patient_id: str) -> PatientProgress:
         "risk_statements": sum(r.review_status in {"pending", "stale"} for r in risks),
         "plan_followups": sum(p.review_status in {"pending", "stale"} for p in plans),
     }
+    pending.update(dsm_block["pending"])
     pending["total"] = sum(pending.values())
     db.commit()
     return PatientProgress(
@@ -652,7 +705,8 @@ def build_progress(db: DbSession, patient_id: str) -> PatientProgress:
         pending_review_counts=pending, instruments=instruments, domains=domains,
         domain_groups=[g.model_dump() for g in reg.domains.groups], change_events=events, predictions=latest,
         prediction_timeline=timeline, risk_statements=[to_risk(db, r) for r in risks],
-        plan_followups=[to_plan(db, p) for p in plans], instrument_scores=[to_score(db, r) for r in scores])
+        plan_followups=[to_plan(db, p) for p in plans], instrument_scores=[to_score(db, r) for r in scores],
+        registry_kind=registry_kind(), dsm=dsm_block)
 
 
 # ---------------------------------------------------------------- Stage A persistence

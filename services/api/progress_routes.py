@@ -39,8 +39,9 @@ def build_progress_router(db_dependency) -> APIRouter:
 
     @router.get("/progress/registry")
     def registry_view():
+        from services.progress.dsm.registry import dsm_registry, registry_kind
         reg = registry()
-        return {"versions": {k: v.tag for k, v in reg.versions.items()},
+        return {"active": registry_kind(), "dsm_version": dsm_registry().tag, "versions": {k: v.tag for k, v in reg.versions.items()},
                 "instruments": reg.instruments.model_dump(), "domains": reg.domains.model_dump(),
                 "conditions": reg.conditions.model_dump()}
 
@@ -174,7 +175,10 @@ def build_progress_router(db_dependency) -> APIRouter:
     @router.post("/patients/{patient_id}/condition-predictions", status_code=202)
     def start_prediction(patient_id: str, payload: PredictionRequest, db=Depends(db_dependency)):
         store.session_or_404(db, payload.as_of_session_id, patient_id)
-        unknown = set(payload.condition_keys or []) - set(registry().conditions.enabled_conditions)
+        from services.progress.dsm.registry import dsm_registry, registry_kind
+        allowed = (dsm_registry().conditions.enabled_conditions + dsm_registry().conditions.differential_conditions
+                   if registry_kind() == "dsm" else registry().conditions.enabled_conditions)
+        unknown = set(payload.condition_keys or []) - set(allowed)
         if unknown:
             raise store.error(422, "UNKNOWN_CONDITION", f"Unknown or disabled conditions: {sorted(unknown)}")
         return {"job_id": jobs.start_job("prediction", session_id=payload.as_of_session_id,

@@ -169,3 +169,32 @@ def trajectory(values: list[float | None], threshold: float | None) -> str | Non
 
 def series_trajectory(points: list[Point], threshold: float | None) -> str | None:
     return trajectory([p.value for p in activate(points) if p.assessed], threshold)
+
+
+# ---------------------------------------------------------------- registry v2 (DSM criterion items)
+
+RULE_CRITERION_STATUS = "criterion.status_change"
+RULE_CONDITION_LABEL = "condition.label_change"
+_PRESENT = {"present"}
+_ABSENT = {"absent", "explicit_denial"}
+
+
+def criterion_changes(points: list[Point]) -> list[Change]:
+    """A criterion item moving between present and absent/denied across consecutive *assessed* sessions.
+
+    ``label`` carries the item status; insufficient evidence, conflicting and subthreshold values are not assessed for
+    this rule, and missing sessions stay gaps (never carried forward).
+    """
+    assessed = [p for p in activate(points) if p.gap_reason is None and p.label in _PRESENT | _ABSENT]
+    changes = []
+    for a, b in zip(assessed, assessed[1:]):
+        if (a.label in _PRESENT) != (b.label in _PRESENT):
+            changes.append(Change(RULE_CRITERION_STATUS, a.slot, b.slot, None, a.label, b.label, input_provenance(a, b)))
+    return changes
+
+
+def condition_changes(points: list[Point]) -> list[Change]:
+    """The code-computed DSM label changes between consecutive as_of sessions."""
+    assessed = [p for p in activate(points) if p.assessed and p.label is not None]
+    return [Change(RULE_CONDITION_LABEL, a.slot, b.slot, None, a.label, b.label, input_provenance(a, b))
+            for a, b in zip(assessed, assessed[1:]) if a.label != b.label]

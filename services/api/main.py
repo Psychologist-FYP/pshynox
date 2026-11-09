@@ -725,6 +725,8 @@ app.include_router(build_meeting_router(db_dependency, session_factory))
 
 from services.api.progress_routes import build_progress_router
 app.include_router(build_progress_router(db_dependency))
+from services.api.dsm_routes import build_dsm_router
+app.include_router(build_dsm_router(db_dependency))
 
 
 @app.middleware("http")

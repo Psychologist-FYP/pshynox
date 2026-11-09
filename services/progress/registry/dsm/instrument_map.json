@@ -1,0 +1,92 @@
+{
+ "kind": "dsm_instrument_map",
+ "version": "1.0.0",
+ "notes": "Instrument items mapped to DSM criterion items, for display and cross-reference only. The PHQ-9 order differs from the MDE.A order.",
+ "maps": {
+  "phq9": {
+   "1": [
+    "MDE.A2"
+   ],
+   "2": [
+    "MDE.A1"
+   ],
+   "3": [
+    "MDE.A4"
+   ],
+   "4": [
+    "MDE.A6"
+   ],
+   "5": [
+    "MDE.A3"
+   ],
+   "6": [
+    "MDE.A7"
+   ],
+   "7": [
+    "MDE.A8"
+   ],
+   "8": [
+    "MDE.A5"
+   ],
+   "9": [
+    "MDE.A9"
+   ]
+  },
+  "gad7": {
+   "1": [
+    "GAD.A",
+    "GAD.C1"
+   ],
+   "2": [
+    "GAD.B"
+   ],
+   "3": [
+    "GAD.A"
+   ],
+   "4": [
+    "GAD.C1",
+    "GAD.C5"
+   ],
+   "5": [
+    "GAD.C1"
+   ],
+   "6": [
+    "GAD.C4"
+   ],
+   "7": [
+    "ANXD.4"
+   ]
+  },
+  "asrm": {
+   "1": [
+    "MANIA.A"
+   ],
+   "2": [
+    "MANIA.B1"
+   ],
+   "3": [
+    "MANIA.B2"
+   ],
+   "4": [
+    "MANIA.B3"
+   ],
+   "5": [
+    "MANIA.B6"
+   ]
+  }
+ },
+ "a9_sources": {
+  "phq9_item": "9",
+  "risk_categories": [
+   "suicidal_ideation_passive",
+   "suicidal_ideation_active",
+   "self_harm_past",
+   "self_harm_recent",
+   "suicidal_ideation",
+   "self_harm"
+  ]
+ },
+ "notes_per_item": {
+  "gad7:7": "No GAD criterion; closest is the apprehensive expectation in GAD.A. Mapped to the anxious-distress item ANXD.4."
+ }
+}

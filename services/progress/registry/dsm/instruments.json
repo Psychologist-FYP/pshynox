@@ -1,0 +1,435 @@
+{
+ "kind": "dsm_instruments",
+ "version": "1.0.0",
+ "notes": "Clinician-administered instruments enabled after the user confirmed permission (9 Nov 2026). The model never estimates them. PHQ-9 and GAD-7 stay in the v1 registry unchanged.",
+ "instruments": [
+  {
+   "key": "whodas12",
+   "label": "WHODAS 2.0 (12-item)",
+   "licence_confirmed": true,
+   "licence_note": "User confirmed permission to use this instrument (9 Nov 2026). Clinician-administered only; administer with the official form. Item labels here are short descriptors, not the official wording.",
+   "item_min": 0,
+   "item_max": 4,
+   "reporting_period": "last 30 days",
+   "items": [
+    {
+     "id": "1",
+     "label": "Standing for long periods",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "2",
+     "label": "Household responsibilities",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "3",
+     "label": "Learning a new task",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "4",
+     "label": "Joining community activities",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "5",
+     "label": "Emotionally affected by health problems",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "6",
+     "label": "Concentrating for about ten minutes",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "7",
+     "label": "Walking a long distance",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "8",
+     "label": "Washing the whole body",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "9",
+     "label": "Getting dressed",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "10",
+     "label": "Dealing with people you do not know",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "11",
+     "label": "Maintaining a friendship",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "12",
+     "label": "Day-to-day work or school",
+     "domain": null,
+     "clinician_only": true
+    }
+   ],
+   "ai_estimable_items": [],
+   "total_max": 48,
+   "bands": [],
+   "subtotals": [],
+   "chart_subtotal": null,
+   "reliable_change_threshold": null,
+   "reliable_change_source": "WHO WHODAS 2.0 manual: simple sum scoring of the 12-item version (0–48); no reliable-change threshold set."
+  },
+  {
+   "key": "ccsm1",
+   "label": "DSM-5-TR Level 1 Cross-Cutting Symptom Measure (adult)",
+   "licence_confirmed": true,
+   "licence_note": "User confirmed permission to use this instrument (9 Nov 2026). Clinician-administered only; administer with the official form. Item labels here are short descriptors, not the official wording.",
+   "item_min": 0,
+   "item_max": 4,
+   "reporting_period": "past 2 weeks",
+   "items": [
+    {
+     "id": "1",
+     "label": "Little interest or pleasure in doing things",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "2",
+     "label": "Feeling down, depressed or hopeless",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "3",
+     "label": "More irritated, grouchy or angry than usual",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "4",
+     "label": "Sleeping less than usual but still lots of energy",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "5",
+     "label": "Starting more projects or doing riskier things than usual",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "6",
+     "label": "Nervous, anxious, frightened, worried or on edge",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "7",
+     "label": "Feeling panic or being frightened",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "8",
+     "label": "Avoiding situations that make you anxious",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "9",
+     "label": "Unexplained aches and pains",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "10",
+     "label": "Feeling illnesses are not taken seriously enough",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "11",
+     "label": "Thoughts of actually hurting yourself",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "12",
+     "label": "Hearing things other people could not hear",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "13",
+     "label": "Feeling someone could hear your thoughts, or hearing others' thoughts",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "14",
+     "label": "Problems with sleep that affected sleep quality",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "15",
+     "label": "Problems with memory or with finding your way",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "16",
+     "label": "Unpleasant thoughts, urges or images that repeatedly enter your mind",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "17",
+     "label": "Feeling driven to perform certain behaviours or mental acts over and over",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "18",
+     "label": "Feeling detached from yourself, your body or surroundings",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "19",
+     "label": "Not knowing who you really are or what you want out of life",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "20",
+     "label": "Not feeling close to other people or enjoying relationships",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "21",
+     "label": "Drinking at least four drinks of alcohol in a single day",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "22",
+     "label": "Smoking or using tobacco products",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "23",
+     "label": "Using medicines or drugs on your own or beyond prescription",
+     "domain": null,
+     "clinician_only": true
+    }
+   ],
+   "ai_estimable_items": [],
+   "total_max": 92,
+   "bands": [],
+   "subtotals": [],
+   "chart_subtotal": null,
+   "reliable_change_threshold": null,
+   "reliable_change_source": "DSM-5-TR Section III: a domain needs further inquiry when its highest item reaches the domain threshold; no total-score bands."
+  },
+  {
+   "key": "asrm",
+   "label": "Altman Self-Rating Mania Scale (ASRM)",
+   "licence_confirmed": true,
+   "licence_note": "User confirmed permission to use this instrument (9 Nov 2026). Clinician-administered only; administer with the official form. Item labels here are short descriptors, not the official wording.",
+   "item_min": 0,
+   "item_max": 4,
+   "reporting_period": "past week",
+   "items": [
+    {
+     "id": "1",
+     "label": "Feeling happier or more cheerful than usual",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "2",
+     "label": "Feeling more self-confident than usual",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "3",
+     "label": "Needing less sleep than usual",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "4",
+     "label": "Talking more than usual",
+     "domain": null,
+     "clinician_only": true
+    },
+    {
+     "id": "5",
+     "label": "Being more active than usual (socially, sexually, at work, home or school)",
+     "domain": null,
+     "clinician_only": true
+    }
+   ],
+   "ai_estimable_items": [],
+   "total_max": 20,
+   "bands": [
+    {
+     "min": 0,
+     "max": 5,
+     "label": "below cut-off"
+    },
+    {
+     "min": 6,
+     "max": 20,
+     "label": "at or above cut-off (≥ 6): further assessment"
+    }
+   ],
+   "subtotals": [],
+   "chart_subtotal": null,
+   "reliable_change_threshold": null,
+   "reliable_change_source": "Altman et al. (1997), Biological Psychiatry 42(10): cut-off ≥ 6; no reliable-change threshold set."
+  }
+ ],
+ "followup_domains": {
+  "ccsm1": [
+   {
+    "domain": "I",
+    "label": "Depression",
+    "items": [
+     "1",
+     "2"
+    ],
+    "threshold": 2
+   },
+   {
+    "domain": "II",
+    "label": "Anger",
+    "items": [
+     "3"
+    ],
+    "threshold": 2
+   },
+   {
+    "domain": "III",
+    "label": "Mania",
+    "items": [
+     "4",
+     "5"
+    ],
+    "threshold": 2
+   },
+   {
+    "domain": "IV",
+    "label": "Anxiety",
+    "items": [
+     "6",
+     "7",
+     "8"
+    ],
+    "threshold": 2
+   },
+   {
+    "domain": "V",
+    "label": "Somatic symptoms",
+    "items": [
+     "9",
+     "10"
+    ],
+    "threshold": 2
+   },
+   {
+    "domain": "VI",
+    "label": "Suicidal ideation",
+    "items": [
+     "11"
+    ],
+    "threshold": 1
+   },
+   {
+    "domain": "VII",
+    "label": "Psychosis",
+    "items": [
+     "12",
+     "13"
+    ],
+    "threshold": 1
+   },
+   {
+    "domain": "VIII",
+    "label": "Sleep problems",
+    "items": [
+     "14"
+    ],
+    "threshold": 2
+   },
+   {
+    "domain": "IX",
+    "label": "Memory",
+    "items": [
+     "15"
+    ],
+    "threshold": 2
+   },
+   {
+    "domain": "X",
+    "label": "Repetitive thoughts and behaviours",
+    "items": [
+     "16",
+     "17"
+    ],
+    "threshold": 2
+   },
+   {
+    "domain": "XI",
+    "label": "Dissociation",
+    "items": [
+     "18"
+    ],
+    "threshold": 2
+   },
+   {
+    "domain": "XII",
+    "label": "Personality functioning",
+    "items": [
+     "19",
+     "20"
+    ],
+    "threshold": 2
+   },
+   {
+    "domain": "XIII",
+    "label": "Substance use",
+    "items": [
+     "21",
+     "22",
+     "23"
+    ],
+    "threshold": 1
+   }
+  ]
+ },
+ "item_sensitive": {
+  "ccsm1": [
+   "11"
+  ]
+ }
+}

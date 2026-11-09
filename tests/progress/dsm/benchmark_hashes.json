@@ -1,0 +1,19 @@
+{
+ "source": "data/research/progress-runs/val12-v2-retrieval-current/config.json (code_stage_a + code_stage_b), 9 Nov 2026",
+ "files": {
+  "services/progress/prompts.py": "6bd03cf5431c142a67e1ec172ca37c19cb499d35509dd6adced3fbcf9688e71f",
+  "services/progress/extraction.py": "1d7d1cdcedc4de2f935c2762f8598ed8417d46d2c167c0060ddc9c42f3274c2c",
+  "services/progress/validation.py": "dc6207b161f4fa794a9cc24cb5dcc2ef734dcd28934cad711856f0e24ed8d30b",
+  "services/progress/evidence.py": "49fde069c49a0f72cac3af9ed0ac17a7a1545c5a92517d903a1e122b338e3306",
+  "services/progress/registry/loader.py": "83483d0153ed441408e5c3c248bee6a1ecac273aa722c36b3772f9555418748c",
+  "services/progress/registry/domains.json": "133f268b4324f00928ae89bf9e316b5c7003561e175d537567313be1d9b26c47",
+  "services/progress/registry/instruments.json": "c8847296251a49b8d221270046c0cf28f1b251c430c75247957ba933a5b61928",
+  "services/note_generation/runtime.py": "49ef286ab9d5f2eea05bc27ad2ac1bf19172416df1fd0d98af390c738613569a",
+  "services/note_generation/recovery.py": "8d7c8e9f8f79eb59bc1a5756c9a4f6c582d4e735e4524b4bfba50273b295cb8c",
+  "services/retrieval/engine.py": "4fe6b365e6486ea6274ef987394775677cf48ac69e7efe15b147fd183d43f199",
+  "services/retrieval/query.py": "7864188f8ad4fae9ba8b0a7376af19587582467286678bf5829c3d3054f351da",
+  "services/progress/prediction.py": "d17e05a509f57d086299adc133f9837fb23b90ed7689cdc35faef9f640093e7a",
+  "services/progress/postprocess.py": "477c9d0b86f9abc7fddaed40ff26e2912fe01061c1e2f3d309c7a21bb0070e37",
+  "services/progress/registry/conditions.json": "8ecfc9a5b5028f15d193fd7d3e48258888a8216a7361ee9a62d0cf14d36d38ba"
+ }
+}

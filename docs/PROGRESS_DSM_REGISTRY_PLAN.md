@@ -1,6 +1,6 @@
 # Progress monitoring: DSM-5-TR criteria registry (registry v2): implementation plan
 
-**Status (9 November 2026):** Phase 0 plan, **waiting for approval**. No code changed.
+**Status (9 November 2026):** approved; see the progress log (§12).
 **Branch:** `feat/progress-dsm`, created from `feat/internet-meetings` at `3920843` (that branch already contains all of
 `progress-monitoring`).
 **Persistent rules:** the "DSM registry (progress v2)" section of the root [`CLAUDE.md`](../CLAUDE.md), and the
@@ -801,3 +801,73 @@ in the turns). Mark it as a fictional role-play.
   - The PHQ-9 order differs from the MDE.A order (§3.8).
   - Usage terms for WHODAS 2.0 and the Level 1 measure could not be confirmed, so both are extension points.
 - **Next:** wait for approval and answers to Q1–Q10, then Phase 1.
+
+### Phase 0 addendum: approval, 9 November 2026
+- **Approved.** Answers:
+  - Q1 yes (branch `feat/progress-dsm`).
+  - Q2 yes: unassessed exclusions go to "information still needed".
+  - Q3 yes: `MDE.A9` only from PHQ-9 item 9 or an accepted risk statement.
+  - **Q4 no:** PHQ-9 and GAD-7 AI estimates stay as their own separate calls; they are not derived from findings.
+  - **Q5:** sessions with decided notes are not re-analysed. For re-analysed sessions, the earlier model output can be
+    removed from the dashboard (implemented as "retired", restorable by revert, never deleted).
+  - **Q6:** the ASR flag is dropped.
+  - Q7 yes (fixture).
+  - Q8 yes (vignette labels use DSM ids).
+  - Q9 undecided: panic disorder and agoraphobia are text-only differentials, not tracked.
+  - **Q10:** the user has permission for WHODAS 2.0, the Level 1 Cross-Cutting measure and a mania scale. These are
+    enabled as clinician-administered instruments (no AI estimates): WHODAS 2.0 12-item, the DSM-5-TR Level 1 adult
+    measure and the ASRM.
+- The user asked for all phases in this session.
+
+### Phase 1: 9 November 2026 (registry, rule engine, migration, contracts, export/import)
+- **Built:**
+  - `services/progress/registry/dsm/`:
+    - `items.json`: 93 criterion items, all `pending`;
+    - `features.json`: 46 features, with `separate_from` reasons;
+    - `conditions.json`: 10 conditions, each a declarative rule;
+    - `instruments.json`: WHODAS 2.0 12-item, Level 1 CCSM adult, ASRM; clinician-only, with short item descriptors,
+      not official wording;
+    - `instrument_map.json`, `v1_mapping.json`, `risk.json`.
+  - `services/progress/dsm/registry.py`: Pydantic loader with cross-checks, a 20-word limit, content hashes and
+    `PROGRESS_REGISTRY`.
+  - `dsm/rules.py`: the rule engine:
+    - element types: item, count, duration, exclusion, judgement, absence, episode, all_episodes, never_episode,
+      subthreshold_course, note;
+    - per-period episodes;
+    - denial → conflicting;
+    - context and degree gating;
+    - labels, checklist lines, specifiers (severity, anxious distress, performance only), codes, information needed.
+  - `dsm/verification.py`: CSV and printable HTML export, a CSV import bound to content hashes, and a CLI.
+  - `dsm/store.py`: findings and versions, manual entry, review edit, risk persistence with categories, DSM
+    predictions, A9 sources, batches with retire and revert, and the dashboard block (criteria grid, feature cells,
+    hypotheses, timeline, verification summary).
+  - Migration `0010_dsm_registry` (additive): `dsm_findings`, `dsm_finding_versions`, `dsm_predictions`,
+    `registry_verifications`, `dsm_batches`; `retired_batch_id` on four v1 tables; risk `categories_json`,
+    `note_kind`, `registry_kind`.
+  - ORM; additive contracts (`DsmFinding`, `DsmFindingInput`, `DsmPrediction`, `RegistryImportResult`,
+    `CounterEvidence`; widened `RiskCategory`, `PredictionLabel` and `ChangeEvent.measure_kind`; `PatientProgress.dsm`
+    and `registry_kind`).
+  - `services/api/dsm_routes.py`.
+  - v1 store hooks: staleness owners, combined instrument catalogue with per-instrument item ranges, retired-row
+    filtering, risk categories, DSM finding history on review.
+  - trends: `criterion.status_change`, `condition.label_change`.
+  - `docs/PROGRESS_REGISTRY_V1_TO_DSM.md`.
+- **Tests:** 401 passed (+46).
+  - Rule engine: MDE 4 vs 5, missing core, both cores denied, duration, substance cause vs unassessed, denial →
+    conflicting, A9, irritable-only mania, hypomania vs mania, periods not combined, BP1 from a past episode, BP2,
+    GAD 6 months, GAD context gating, SAD avoidance without fear, avoidance alone, full SAD with performance only,
+    specifiers, footer, cyclothymic, empty input.
+  - Registry: ids, 20 words, long-paraphrase rejection, verbatim tripwire, verification, cross-check rejection,
+    shared and separated features, v1 mapping, instrument map, instruments.
+  - Benchmark guard: 14 pinned hashes; evaluation modules never import `dsm`.
+  - API: manual and AI findings, review edit with immutable original, lock, staleness, grid gaps and change events,
+    export/import round trip, revert.
+  - The frontend build passes.
+- **Deviations:**
+  - DSM hypotheses use a new `dsm_predictions` table instead of new columns on `condition_predictions`: v1 endpoints
+    look every row up in the v1 registry, so sharing the table would break them.
+  - The CSV import takes a JSON body (`{actor, csv}`), so no `python-multipart` dependency is needed.
+  - `InstrumentScoreInput` allows 0–4, with the exact range checked per instrument in the store.
+  - `PROGRESS_REGISTRY` defaults to `v1` until Phase 3.
+- **No new dependencies.** None of the 14 benchmark-bound files changed (guard test).
+- **Next:** Phase 2, the Stage A and B DSM prompts and pipeline, jobs, re-analysis, and the role-play fixture.
