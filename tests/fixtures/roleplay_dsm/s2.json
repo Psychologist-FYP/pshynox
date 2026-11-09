@@ -1,0 +1,97 @@
+{
+ "session": 2,
+ "note": "Fictional counselling role-play recorded by the project team (no real patient). Transcript turns only: no intake data, no names.",
+ "turns": [
+  {
+   "turn_id": 1,
+   "speaker": "CLINICIAN",
+   "start_ms": 3141,
+   "end_ms": 15741,
+   "text": "Welcome back, all this week mean."
+  },
+  {
+   "turn_id": 2,
+   "speaker": "CLIENT",
+   "start_ms": 3141,
+   "end_ms": 20781,
+   "text": "a little better, actually I did the walk on 5 days, I felt it in most nights, I am sleeping"
+  },
+  {
+   "turn_id": 3,
+   "speaker": "CLINICIAN",
+   "start_ms": 15741,
+   "end_ms": 25221,
+   "text": "That's good and the sleep diary."
+  },
+  {
+   "turn_id": 4,
+   "speaker": "CLIENT",
+   "start_ms": 20781,
+   "end_ms": 29661,
+   "text": "about 5 or 6 hours now, better than before, still low most days, but the mornings are"
+  },
+  {
+   "turn_id": 5,
+   "speaker": "CLINICIAN",
+   "start_ms": 25221,
+   "end_ms": 41421,
+   "text": "How is your mood and your appetite?"
+  },
+  {
+   "turn_id": 6,
+   "speaker": "CLIENT",
+   "start_ms": 29661,
+   "end_ms": 37761,
+   "text": "as heavy, I watched a cricket match with my roommate on Saturday, I enjoyed part of it,"
+  },
+  {
+   "turn_id": 7,
+   "speaker": "CLIENT",
+   "start_ms": 37761,
+   "end_ms": 52861,
+   "text": "about the same, I still skipped lunch, once on a Tuesday night it was weaker and I didn't"
+  },
+  {
+   "turn_id": 8,
+   "speaker": "CLINICIAN",
+   "start_ms": 41421,
+   "end_ms": 46621,
+   "text": "Last week you mentioned that everyone would be better off without you."
+  },
+  {
+   "turn_id": 9,
+   "speaker": "CLINICIAN",
+   "start_ms": 46621,
+   "end_ms": 62781,
+   "text": "Don't forget to like, and don't forget to subscribe to my channel."
+  },
+  {
+   "turn_id": 10,
+   "speaker": "CLIENT",
+   "start_ms": 52861,
+   "end_ms": 60221,
+   "text": "hurt myself, I haven't seen, no not yet."
+  },
+  {
+   "turn_id": 11,
+   "speaker": "CLINICIAN",
+   "start_ms": 63141,
+   "end_ms": 72781,
+   "text": "that's real progress let's keep the walk and diary going and I'll share the psychiatrist"
+  },
+  {
+   "turn_id": 12,
+   "speaker": "CLIENT",
+   "start_ms": 63141,
+   "end_ms": 66981,
+   "text": "I went to all my classes this week but I still find it hard to focus."
+  },
+  {
+   "turn_id": 13,
+   "speaker": "CLINICIAN",
+   "start_ms": 72781,
+   "end_ms": 74021,
+   "text": "these days today."
+  }
+ ]
+}

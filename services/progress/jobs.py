@@ -105,9 +105,18 @@ def _write(job: dict) -> None:
 
 
 def start_job(kind: str, *, session_id: str, request: dict) -> str:
-    """kind: 'extraction' (Stage A then Stage B for that session) or 'prediction' (Stage B as of session_id)."""
+    """kind: 'extraction' (Stage A then Stage B for that session), 'prediction' (Stage B as of session_id) or
+    'reanalysis' (registry v2: DSM Stage A on several past sessions, then Stage B as of the last one)."""
     from services.api.main import session_factory
-    if kind == "extraction":
+    from services.progress.dsm.registry import registry_kind
+    request = {**request, "registry": request.get("registry") or registry_kind()}
+    if kind == "reanalysis":
+        with session_factory() as db:
+            session = guard_session(db, session_id)
+            context = {"patient_id": session.patient_id, "names": []}
+        snapshot, scope = None, None
+        request["registry"] = "dsm"
+    elif kind == "extraction":
         if not request.get("transcript_reviewed"):
             raise HTTPException(422, detail={"code": "TRANSCRIPT_REVIEW_REQUIRED", "message": "Confirm that you reviewed the transcript first."})
         snapshot, scope, context = clinical_snapshot(session_id)
@@ -141,10 +150,13 @@ def start_job(kind: str, *, session_id: str, request: dict) -> str:
         try:
             stage("waiting for model memory")
             with memory_slot(cancel):
-                if kind == "extraction":
-                    run_extraction(job, runtime, folder, snapshot, scope, context, stage)
-                if kind == "prediction" or request.get("predict", True):
-                    run_prediction_stage(job, runtime, folder, session_id, stage, request.get("condition_keys"))
+                dsm = request["registry"] == "dsm"
+                if kind == "reanalysis":
+                    run_reanalysis(job, runtime, folder, stage)
+                elif kind == "extraction":
+                    (run_dsm_extraction if dsm else run_extraction)(job, runtime, folder, snapshot, scope, context, stage)
+                if kind == "prediction" or (kind == "extraction" and request.get("predict", True)):
+                    (run_dsm_prediction_stage if dsm else run_prediction_stage)(job, runtime, folder, session_id, stage, request.get("condition_keys"))
                 if cancel.is_set():
                     raise GenerationError("Cancelled by user")
                 job["status"] = "completed"
@@ -203,6 +215,116 @@ def run_prediction_stage(job, runtime, folder, as_of_session_id, stage, conditio
     counts, limitations = predict_patient(job, runtime, folder, as_of_session_id, condition_keys=condition_keys, progress=stage)
     job["counts"] = {**job.get("counts", {}), **counts}
     job["limitations"] = list(dict.fromkeys(job.get("limitations", []) + limitations))
+
+
+def _dsm_extract_and_save(job, runtime, folder, snapshot, scope, context, stage, batch_id):
+    from services.api.db import SessionRecord
+    from services.api.main import session_factory
+    from services.progress import store
+    from services.progress.dsm import store as dsm_store
+    from services.progress.dsm.extraction import extract_session_dsm
+    with session_factory() as db:
+        session = db.get(SessionRecord, snapshot["session_id"])
+        origin, plans = store.previous_plans(db, session)
+    if hasattr(runtime, "deadline"):
+        import time
+        runtime.deadline = time.monotonic() + float(os.getenv("NOTE_JOB_TIMEOUT", "1800"))
+    result = extract_session_dsm(snapshot, runtime, folder, evidence_mode=job["request"].get("evidence_mode", "auto"), plans=plans,
+                                 names=context["names"], progress=stage, scope=scope)
+    latest, _, _ = clinical_snapshot(snapshot["session_id"])
+    if latest["revision"] != snapshot["revision"]:
+        raise GenerationError("Transcript changed during analysis; result withheld. Run the analysis again.")
+    write(folder / f"dsm-extraction-{snapshot['session_id']}.json", result)
+    stage("saving DSM findings")
+    with session_factory() as db:
+        session = db.get(SessionRecord, snapshot["session_id"])
+        retired = dsm_store.retire_v1_for_session(db, session.id, batch_id)
+        counts = dsm_store.persist_findings(db, session, result["findings"], job_id=job["id"], batch_id=batch_id)
+        # Questionnaire estimates and plan follow-ups use the unchanged v1 persistence. It replaces the session's unreviewed
+        # risk flags, so the DSM flags are written after it.
+        legacy = store.persist_extraction(db, session, {"domains": {}, "phq_items": result["phq_items"], "gad7_items": result["gad7_items"],
+                                                        "risk_statements": [], "plan_followups": result["plan_followups"],
+                                                        "limitations": result["limitations"], "version": result["version"]},
+                                          job_id=job["id"], origin_session_id=origin, plans=plans)
+        counts["risk_saved"] = dsm_store.persist_risks(db, session, result["risk_statements"], job_id=job["id"])
+        db.commit()
+    counts.update({k: v for k, v in legacy.items() if k.startswith(("scores", "plans"))}, **{f"retired_{k}": v for k, v in retired.items()})
+    return counts, result["limitations"]
+
+
+def run_dsm_extraction(job, runtime, folder, snapshot, scope, context, stage):
+    from services.api.main import session_factory
+    from services.progress.dsm import store as dsm_store
+    with session_factory() as db:
+        batch = dsm_store.create_batch(db, context["patient_id"], "extraction", job["id"], [snapshot["session_id"]], [])
+        db.commit()
+        job["batch_id"] = batch.id
+    counts, limitations = _dsm_extract_and_save(job, runtime, folder, snapshot, scope, context, stage, job["batch_id"])
+    job["counts"] = counts
+    job["limitations"] = limitations
+    _finish_batch(job["batch_id"], "completed")
+
+
+def _finish_batch(batch_id, status):
+    from services.api.db import DsmBatchRecord
+    from services.api.main import session_factory
+    with session_factory() as db:
+        batch = db.get(DsmBatchRecord, batch_id)
+        if batch is not None and batch.status == "running":
+            batch.status = status
+            db.commit()
+
+
+def run_dsm_prediction_stage(job, runtime, folder, as_of_session_id, stage, condition_keys=None):
+    from services.progress.dsm.prediction import predict_patient_dsm
+    stage("predicting conditions (DSM criteria)")
+    counts, limitations = predict_patient_dsm(job, runtime, folder, as_of_session_id, condition_keys=condition_keys,
+                                              batch_id=job.get("batch_id"), progress=stage)
+    job["counts"] = {**job.get("counts", {}), **counts}
+    job["limitations"] = list(dict.fromkeys(job.get("limitations", []) + limitations))
+
+
+def run_reanalysis(job, runtime, folder, stage):
+    """DSM Stage A on each chosen past session (decided-note and empty sessions are skipped and listed), then Stage B."""
+    from services.api.db import NoteDraftRecord
+    from services.api.main import session_factory
+    from services.progress.dsm import store as dsm_store
+    session_ids = job["request"]["session_ids"]
+    skipped, eligible = [], []
+    with session_factory() as db:
+        for sid in session_ids:
+            note = db.scalar(select(NoteDraftRecord).where(NoteDraftRecord.session_id == sid))
+            if note and note.workflow_status != "DRAFT":
+                skipped.append({"session_id": sid, "reason": "note decided: left as it is"})
+            else:
+                eligible.append(sid)
+    analysed, counts, limitations = [], {}, []
+    with session_factory() as db:
+        batch = dsm_store.create_batch(db, job["patient_id"], "reanalysis", job["id"], eligible, skipped)
+        db.commit()
+        job["batch_id"] = batch.id
+    for n, sid in enumerate(eligible, start=1):
+        stage(f"re-analysing session {n} of {len(eligible)}")
+        try:
+            snapshot, scope, context = clinical_snapshot(sid)
+        except HTTPException as exc:
+            skipped.append({"session_id": sid, "reason": (exc.detail or {}).get("message", "not eligible") if isinstance(exc.detail, dict) else str(exc.detail)})
+            continue
+        part, notes = _dsm_extract_and_save(job, runtime, folder, snapshot, scope, context, stage, job["batch_id"])
+        analysed.append(sid)
+        for k, v in part.items():
+            counts[k] = counts.get(k, 0) + v
+        limitations += notes
+    job["counts"], job["limitations"] = counts, list(dict.fromkeys(limitations))
+    job["skipped"] = skipped
+    with session_factory() as db:
+        from services.api.db import DsmBatchRecord
+        batch = db.get(DsmBatchRecord, job["batch_id"])
+        batch.session_ids_json, batch.skipped_json = json.dumps(analysed), json.dumps(skipped)
+        db.commit()
+    if analysed:
+        run_dsm_prediction_stage(job, runtime, folder, analysed[-1], stage)
+    _finish_batch(job["batch_id"], "completed")
 
 
 def cancel_job(job_id: str) -> None:

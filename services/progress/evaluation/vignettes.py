@@ -95,6 +95,21 @@ class ConditionLabel(BaseModel):
     note: str = ""
 
 
+class DsmConditionLabel(BaseModel):
+    """Consultant label against registry v2: the DSM criteria pattern and, optionally, criterion items."""
+    model_config = ConfigDict(extra="forbid")
+    label: Literal["likely", "possible", "insufficient_evidence", "not_met"]
+    items: dict[str, Literal["present", "subthreshold", "absent", "explicit_denial", "insufficient_evidence", "conflicting"]] = Field(default_factory=dict)
+    note: str = ""
+
+
+class DsmLabels(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    registry_version: str = Field(min_length=1)
+    conditions: dict[str, DsmConditionLabel] = Field(default_factory=dict)
+    session_items: dict[str, dict[str, Literal["present", "subthreshold", "absent", "explicit_denial", "insufficient_evidence", "conflicting"]]] = Field(default_factory=dict)
+
+
 class Labels(BaseModel):
     model_config = ConfigDict(extra="forbid")
     case_id: str
@@ -103,6 +118,7 @@ class Labels(BaseModel):
     blind_to_model_output: Literal[True]
     conditions: dict[str, ConditionLabel]
     session_domains: dict[str, dict[str, int | Literal["insufficient_evidence"]]] = Field(default_factory=dict)
+    dsm: DsmLabels | None = None  # registry v2 labels (DSM-5-TR criterion ids); the v1 runner ignores them
     notes: str = ""
 
 
@@ -138,6 +154,29 @@ def check_labels(labels: Labels, sessions: list[SessionFile]) -> list[str]:
                 errors.append(f"session_domains[{idx}]: unknown domain {dk!r}")
             if isinstance(v, int) and not 0 <= v <= 3:
                 errors.append(f"session_domains[{idx}].{dk}: rating must be 0-3")
+    if labels.dsm is not None:
+        errors += check_dsm_labels(labels.dsm, indexes)
+    return errors
+
+
+def check_dsm_labels(dsm, indexes: set[str]) -> list[str]:
+    """DSM labels use registry v2 ids. Only the registry (JSON) is read here; the benchmark code never imports it."""
+    from services.progress.dsm.registry import dsm_registry
+    reg = dsm_registry()
+    errors = []
+    conditions = {c.key: c for c in reg.conditions.conditions}
+    item_ids = {i.id for i in reg.items.items}
+    for key, lab in dsm.conditions.items():
+        cond = conditions.get(key)
+        if cond is None:
+            errors.append(f"dsm: unknown condition {key!r}")
+            continue
+        own = {i for e in cond.elements for i in ([e.item] if e.item else []) + e.items}
+        errors += [f"dsm.{key}: item {i!r} does not belong to this condition" for i in lab.items if i not in own]
+    for idx, items in dsm.session_items.items():
+        if idx not in indexes:
+            errors.append(f"dsm.session_items: no session {idx}")
+        errors += [f"dsm.session_items[{idx}]: unknown item {i!r}" for i in items if i not in item_ids]
     return errors
 
 

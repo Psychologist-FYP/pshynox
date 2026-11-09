@@ -1,0 +1,706 @@
+{
+ "session": 1,
+ "note": "Fictional counselling role-play recorded by the project team (no real patient). Transcript turns only: no intake data, no names.",
+ "turns": [
+  {
+   "turn_id": 1,
+   "speaker": "CLINICIAN",
+   "start_ms": 2382,
+   "end_ms": 14382,
+   "text": "Okay, before we start the stuff, we may record it on just in future only our new one and parts. It's that okay."
+  },
+  {
+   "turn_id": 2,
+   "speaker": "CLIENT",
+   "start_ms": 3454,
+   "end_ms": 21854,
+   "text": "[name] Yes, that's fine."
+  },
+  {
+   "turn_id": 3,
+   "speaker": "CLINICIAN",
+   "start_ms": 14382,
+   "end_ms": 23382,
+   "text": "Good, so tell me what brings you here today."
+  },
+  {
+   "turn_id": 4,
+   "speaker": "CLIENT",
+   "start_ms": 21854,
+   "end_ms": 27454,
+   "text": "Honestly, I've just been feeling very low."
+  },
+  {
+   "turn_id": 5,
+   "speaker": "CLIENT",
+   "start_ms": 27454,
+   "end_ms": 31734,
+   "text": "It started around two months ago, maybe a bit more, after my metas."
+  },
+  {
+   "turn_id": 6,
+   "speaker": "CLIENT",
+   "start_ms": 31734,
+   "end_ms": 43734,
+   "text": "Most of the time I wake up feeling happy, like there's no point getting up."
+  },
+  {
+   "turn_id": 7,
+   "speaker": "CLINICIAN",
+   "start_ms": 32382,
+   "end_ms": 43382,
+   "text": "Most days for about two months. Is it there for most of the days as well?"
+  },
+  {
+   "turn_id": 8,
+   "speaker": "CLINICIAN",
+   "start_ms": 43382,
+   "end_ms": 52382,
+   "text": "What about things you use to enjoy?"
+  },
+  {
+   "turn_id": 9,
+   "speaker": "CLIENT",
+   "start_ms": 43734,
+   "end_ms": 44734,
+   "text": "Pretty much."
+  },
+  {
+   "turn_id": 10,
+   "speaker": "CLIENT",
+   "start_ms": 44734,
+   "end_ms": 52454,
+   "text": "Evening's a little better, but morning are the worst."
+  },
+  {
+   "turn_id": 11,
+   "speaker": "CLIENT",
+   "start_ms": 52454,
+   "end_ms": 54954,
+   "text": "I used to play cricket with my friends every weekend."
+  },
+  {
+   "turn_id": 12,
+   "speaker": "CLIENT",
+   "start_ms": 54954,
+   "end_ms": 55954,
+   "text": "I loved it."
+  },
+  {
+   "turn_id": 13,
+   "speaker": "CLIENT",
+   "start_ms": 55954,
+   "end_ms": 62954,
+   "text": "No, I just make excuses. Even watching matches feel like nothing."
+  },
+  {
+   "turn_id": 14,
+   "speaker": "CLINICIAN",
+   "start_ms": 62382,
+   "end_ms": 65142,
+   "text": "Hmm, how has your sleep been?"
+  },
+  {
+   "turn_id": 15,
+   "speaker": "CLIENT",
+   "start_ms": 62382,
+   "end_ms": 71382,
+   "text": "i go to bed around midnight but i lie awake till 3 or 4"
+  },
+  {
+   "turn_id": 16,
+   "speaker": "CLIENT",
+   "start_ms": 63454,
+   "end_ms": 71454,
+   "text": "i go to bed around midnight mid i lie awake till 3 or 4"
+  },
+  {
+   "turn_id": 17,
+   "speaker": "CLINICIAN",
+   "start_ms": 65142,
+   "end_ms": 80982,
+   "text": "And your appetite?"
+  },
+  {
+   "turn_id": 18,
+   "speaker": "CLIENT",
+   "start_ms": 71382,
+   "end_ms": 74382,
+   "text": "and then i wake up at 6 and can't sleep again"
+  },
+  {
+   "turn_id": 19,
+   "speaker": "CLIENT",
+   "start_ms": 71454,
+   "end_ms": 74454,
+   "text": "and then i wake up at 6 and can't sleep again"
+  },
+  {
+   "turn_id": 20,
+   "speaker": "CLIENT",
+   "start_ms": 74382,
+   "end_ms": 77382,
+   "text": "so maybe 3 or 4 or the night"
+  },
+  {
+   "turn_id": 21,
+   "speaker": "CLIENT",
+   "start_ms": 74454,
+   "end_ms": 76454,
+   "text": "so maybe 3, 4 or the night"
+  },
+  {
+   "turn_id": 22,
+   "speaker": "CLIENT",
+   "start_ms": 76454,
+   "end_ms": 82454,
+   "text": "i skip means a lot"
+  },
+  {
+   "turn_id": 23,
+   "speaker": "CLIENT",
+   "start_ms": 77382,
+   "end_ms": 82382,
+   "text": "i skip meals a lot"
+  },
+  {
+   "turn_id": 24,
+   "speaker": "CLIENT",
+   "start_ms": 82382,
+   "end_ms": 85382,
+   "text": "my mother noticed i have lost weight"
+  },
+  {
+   "turn_id": 25,
+   "speaker": "CLIENT",
+   "start_ms": 82454,
+   "end_ms": 85454,
+   "text": "my mother noticed i have lost weight"
+  },
+  {
+   "turn_id": 26,
+   "speaker": "CLIENT",
+   "start_ms": 85382,
+   "end_ms": 89382,
+   "text": "i think about 4 kg since this summer"
+  },
+  {
+   "turn_id": 27,
+   "speaker": "CLIENT",
+   "start_ms": 85454,
+   "end_ms": 88454,
+   "text": "i think about 4 kilos since this summer"
+  },
+  {
+   "turn_id": 28,
+   "speaker": "CLINICIAN",
+   "start_ms": 91102,
+   "end_ms": 93302,
+   "text": "How is your energy during that day?"
+  },
+  {
+   "turn_id": 29,
+   "speaker": "CLINICIAN",
+   "start_ms": 93302,
+   "end_ms": 104222,
+   "text": "I notice you're speaking quite slowly and softly today"
+  },
+  {
+   "turn_id": 30,
+   "speaker": "CLIENT",
+   "start_ms": 93382,
+   "end_ms": 95382,
+   "text": "always tired"
+  },
+  {
+   "turn_id": 31,
+   "speaker": "CLIENT",
+   "start_ms": 93454,
+   "end_ms": 96454,
+   "text": "always tired, even a shower feels like effort"
+  },
+  {
+   "turn_id": 32,
+   "speaker": "CLIENT",
+   "start_ms": 95382,
+   "end_ms": 97382,
+   "text": "even a shower feels like effort"
+  },
+  {
+   "turn_id": 33,
+   "speaker": "CLIENT",
+   "start_ms": 96454,
+   "end_ms": 98454,
+   "text": "i am tired right now"
+  },
+  {
+   "turn_id": 34,
+   "speaker": "CLIENT",
+   "start_ms": 97382,
+   "end_ms": 99382,
+   "text": "i am tired"
+  },
+  {
+   "turn_id": 35,
+   "speaker": "CLIENT",
+   "start_ms": 98454,
+   "end_ms": 112454,
+   "text": "yeah my roommates is i have become very slow"
+  },
+  {
+   "turn_id": 36,
+   "speaker": "CLIENT",
+   "start_ms": 99382,
+   "end_ms": 113382,
+   "text": "yeah my roommates become very slow"
+  },
+  {
+   "turn_id": 37,
+   "speaker": "CLINICIAN",
+   "start_ms": 104222,
+   "end_ms": 105902,
+   "text": "and you haven't logged up much."
+  },
+  {
+   "turn_id": 38,
+   "speaker": "CLINICIAN",
+   "start_ms": 105902,
+   "end_ms": 108902,
+   "text": "Does that feel like how you've been lately?"
+  },
+  {
+   "turn_id": 39,
+   "speaker": "CLINICIAN",
+   "start_ms": 108902,
+   "end_ms": 120022,
+   "text": "How are your studies going?"
+  },
+  {
+   "turn_id": 40,
+   "speaker": "CLIENT",
+   "start_ms": 112454,
+   "end_ms": 115454,
+   "text": "like i am moving through water"
+  },
+  {
+   "turn_id": 41,
+   "speaker": "CLIENT",
+   "start_ms": 113382,
+   "end_ms": 116382,
+   "text": "like i am moving through water"
+  },
+  {
+   "turn_id": 42,
+   "speaker": "CLIENT",
+   "start_ms": 115454,
+   "end_ms": 117454,
+   "text": "water"
+  },
+  {
+   "turn_id": 43,
+   "speaker": "CLIENT",
+   "start_ms": 116382,
+   "end_ms": 118382,
+   "text": "water"
+  },
+  {
+   "turn_id": 44,
+   "speaker": "CLIENT",
+   "start_ms": 117454,
+   "end_ms": 122454,
+   "text": "not good, i can't concentrate"
+  },
+  {
+   "turn_id": 45,
+   "speaker": "CLIENT",
+   "start_ms": 120382,
+   "end_ms": 121382,
+   "text": "Not good."
+  },
+  {
+   "turn_id": 46,
+   "speaker": "CLINICIAN",
+   "start_ms": 121102,
+   "end_ms": 122382,
+   "text": "[BLANK_AUDIO]"
+  },
+  {
+   "turn_id": 47,
+   "speaker": "CLIENT",
+   "start_ms": 121382,
+   "end_ms": 122382,
+   "text": "I can't"
+  },
+  {
+   "turn_id": 48,
+   "speaker": "CLINICIAN",
+   "start_ms": 122382,
+   "end_ms": 142882,
+   "text": "How do you feel about yourself when this happens?"
+  },
+  {
+   "turn_id": 49,
+   "speaker": "CLIENT",
+   "start_ms": 122382,
+   "end_ms": 127462,
+   "text": "concentrate I read the same page five times and nothing stays I missed about six"
+  },
+  {
+   "turn_id": 50,
+   "speaker": "CLIENT",
+   "start_ms": 122454,
+   "end_ms": 123454,
+   "text": "I read"
+  },
+  {
+   "turn_id": 51,
+   "speaker": "CLIENT",
+   "start_ms": 123454,
+   "end_ms": 127934,
+   "text": "the same page five times and nothing stays. I missed about six classes this month and"
+  },
+  {
+   "turn_id": 52,
+   "speaker": "CLIENT",
+   "start_ms": 127462,
+   "end_ms": 137922,
+   "text": "classes this month and I have paid one quiz I would normally pass easily like a"
+  },
+  {
+   "turn_id": 53,
+   "speaker": "CLIENT",
+   "start_ms": 127934,
+   "end_ms": 137454,
+   "text": "I've failed one quiz. I would normally pass easily."
+  },
+  {
+   "turn_id": 54,
+   "speaker": "CLIENT",
+   "start_ms": 137454,
+   "end_ms": 141934,
+   "text": "Like a failure, my parents are spending so much on my degree and I'm just wasting it."
+  },
+  {
+   "turn_id": 55,
+   "speaker": "CLIENT",
+   "start_ms": 137922,
+   "end_ms": 142502,
+   "text": "failure my parents are spending so much on my degree and I am just wasting it I"
+  },
+  {
+   "turn_id": 56,
+   "speaker": "CLIENT",
+   "start_ms": 141934,
+   "end_ms": 151734,
+   "text": "I feel guilty all the time. Not really. It's not that I'm scared of them or worried what"
+  },
+  {
+   "turn_id": 57,
+   "speaker": "CLIENT",
+   "start_ms": 142502,
+   "end_ms": 146222,
+   "text": "feel guilty all the time"
+  },
+  {
+   "turn_id": 58,
+   "speaker": "CLINICIAN",
+   "start_ms": 142882,
+   "end_ms": 154882,
+   "text": "Are you still seeing your friends?"
+  },
+  {
+   "turn_id": 59,
+   "speaker": "CLIENT",
+   "start_ms": 147662,
+   "end_ms": 153382,
+   "text": "not really it's not that I'm scared of them or worried what they'll think I just"
+  },
+  {
+   "turn_id": 60,
+   "speaker": "CLIENT",
+   "start_ms": 151734,
+   "end_ms": 156514,
+   "text": "they'll think. I just don't have the energy to talk."
+  },
+  {
+   "turn_id": 61,
+   "speaker": "CLIENT",
+   "start_ms": 153382,
+   "end_ms": 156862,
+   "text": "don't have then a dear dog"
+  },
+  {
+   "turn_id": 62,
+   "speaker": "CLINICIAN",
+   "start_ms": 154882,
+   "end_ms": 157882,
+   "text": "That's an important difference."
+  },
+  {
+   "turn_id": 63,
+   "speaker": "CLIENT",
+   "start_ms": 156514,
+   "end_ms": 166694,
+   "text": "Not really worrying. Mostly I just feel empty."
+  },
+  {
+   "turn_id": 64,
+   "speaker": "CLIENT",
+   "start_ms": 156862,
+   "end_ms": 167102,
+   "text": "not really worrying mostly I just feel empty"
+  },
+  {
+   "turn_id": 65,
+   "speaker": "CLINICIAN",
+   "start_ms": 157882,
+   "end_ms": 158882,
+   "text": "Thank you."
+  },
+  {
+   "turn_id": 66,
+   "speaker": "CLINICIAN",
+   "start_ms": 158882,
+   "end_ms": 166882,
+   "text": "Did you find yourself worrying a lot about many different things?"
+  },
+  {
+   "turn_id": 67,
+   "speaker": "CLIENT",
+   "start_ms": 166694,
+   "end_ms": 176534,
+   "text": "My sister has anxiety. She takes medicine for it."
+  },
+  {
+   "turn_id": 68,
+   "speaker": "CLINICIAN",
+   "start_ms": 166882,
+   "end_ms": 176882,
+   "text": "Is there anyone in your family who has had something familiar?"
+  },
+  {
+   "turn_id": 69,
+   "speaker": "CLIENT",
+   "start_ms": 167102,
+   "end_ms": 177062,
+   "text": "my sister has anxiety she takes medicine for it"
+  },
+  {
+   "turn_id": 70,
+   "speaker": "CLINICIAN",
+   "start_ms": 176882,
+   "end_ms": 182382,
+   "text": "Have you felt like this before?"
+  },
+  {
+   "turn_id": 71,
+   "speaker": "CLIENT",
+   "start_ms": 177662,
+   "end_ms": 182302,
+   "text": "Once in second year."
+  },
+  {
+   "turn_id": 72,
+   "speaker": "CLIENT",
+   "start_ms": 179374,
+   "end_ms": 183454,
+   "text": "Once in 2nd year, it lasted about month and year."
+  },
+  {
+   "turn_id": 73,
+   "speaker": "CLINICIAN",
+   "start_ms": 182382,
+   "end_ms": 192782,
+   "text": "Have you ever had the opposite of a period where you felt extremely energetic, needed"
+  },
+  {
+   "turn_id": 74,
+   "speaker": "CLIENT",
+   "start_ms": 182382,
+   "end_ms": 190542,
+   "text": "It lasted about months and got better on its own."
+  },
+  {
+   "turn_id": 75,
+   "speaker": "CLIENT",
+   "start_ms": 190542,
+   "end_ms": 207802,
+   "text": "No, never, I wish."
+  },
+  {
+   "turn_id": 76,
+   "speaker": "CLINICIAN",
+   "start_ms": 192782,
+   "end_ms": 203302,
+   "text": "very little sleep and felt on top of the world for days?"
+  },
+  {
+   "turn_id": 77,
+   "speaker": "CLINICIAN",
+   "start_ms": 203302,
+   "end_ms": 211462,
+   "text": "Any alcohol drugs or medicines you have started recently and any recent medical checkup?"
+  },
+  {
+   "turn_id": 78,
+   "speaker": "CLIENT",
+   "start_ms": 207802,
+   "end_ms": 215982,
+   "text": "No alcohol or drugs, I did blood test last month because I was so tired and the doctor"
+  },
+  {
+   "turn_id": 79,
+   "speaker": "CLINICIAN",
+   "start_ms": 211462,
+   "end_ms": 224582,
+   "text": "[name], when people feel this low, they sometimes have thoughts of hurting themselves or not"
+  },
+  {
+   "turn_id": 80,
+   "speaker": "CLIENT",
+   "start_ms": 215982,
+   "end_ms": 229722,
+   "text": "said my thyroid and everything was normal."
+  },
+  {
+   "turn_id": 81,
+   "speaker": "CLINICIAN",
+   "start_ms": 224582,
+   "end_ms": 226342,
+   "text": "wanting to be alive."
+  },
+  {
+   "turn_id": 82,
+   "speaker": "CLINICIAN",
+   "start_ms": 226342,
+   "end_ms": 237862,
+   "text": "Have you had those thoughts like that?"
+  },
+  {
+   "turn_id": 83,
+   "speaker": "CLIENT",
+   "start_ms": 229722,
+   "end_ms": 233182,
+   "text": "Sometimes at night I think everyone would be better off without me."
+  },
+  {
+   "turn_id": 84,
+   "speaker": "CLIENT",
+   "start_ms": 233182,
+   "end_ms": 236482,
+   "text": "I don't want to die exactly, I just want everything to stop."
+  },
+  {
+   "turn_id": 85,
+   "speaker": "CLINICIAN",
+   "start_ms": 237862,
+   "end_ms": 242042,
+   "text": "Thank you for telling me. Have you ever acted on those thoughts or heard yourself?"
+  },
+  {
+   "turn_id": 86,
+   "speaker": "CLINICIAN",
+   "start_ms": 242382,
+   "end_ms": 261282,
+   "text": "Do you have any plan or intention to end your life?"
+  },
+  {
+   "turn_id": 87,
+   "speaker": "CLIENT",
+   "start_ms": 242382,
+   "end_ms": 250382,
+   "text": "Once, about three weeks ago, I heard myself when everything felt too much. I haven't done it since."
+  },
+  {
+   "turn_id": 88,
+   "speaker": "CLIENT",
+   "start_ms": 250382,
+   "end_ms": 258382,
+   "text": "No, no plan. I couldn't do it to my mother."
+  },
+  {
+   "turn_id": 89,
+   "speaker": "CLINICIAN",
+   "start_ms": 261282,
+   "end_ms": 281402,
+   "text": "I'm glad you told me. Let's agree on some steps first if those thoughts get stronger"
+  },
+  {
+   "turn_id": 90,
+   "speaker": "CLIENT",
+   "start_ms": 266382,
+   "end_ms": 272382,
+   "text": "Let's go, okay, I have only got a session in."
+  },
+  {
+   "turn_id": 91,
+   "speaker": "CLIENT",
+   "start_ms": 272382,
+   "end_ms": 276382,
+   "text": "No, no, no, no."
+  },
+  {
+   "turn_id": 92,
+   "speaker": "CLINICIAN",
+   "start_ms": 281402,
+   "end_ms": 286762,
+   "text": "you'll call me or tell your sister straight away and we'll write that safety plan down"
+  },
+  {
+   "turn_id": 93,
+   "speaker": "CLINICIAN",
+   "start_ms": 286762,
+   "end_ms": 301962,
+   "text": "before you so I can I'd like to keep a simple sleep diary this week third of 15 minutes"
+  },
+  {
+   "turn_id": 94,
+   "speaker": "CLIENT",
+   "start_ms": 292382,
+   "end_ms": 296382,
+   "text": "Let's go, okay."
+  },
+  {
+   "turn_id": 95,
+   "speaker": "CLINICIAN",
+   "start_ms": 301962,
+   "end_ms": 302382,
+   "text": "to walk"
+  },
+  {
+   "turn_id": 96,
+   "speaker": "CLINICIAN",
+   "start_ms": 302382,
+   "end_ms": 312142,
+   "text": "every evening. Does that sound doable? And telling your sister, \"It thinks get worse.\""
+  },
+  {
+   "turn_id": 97,
+   "speaker": "CLIENT",
+   "start_ms": 302382,
+   "end_ms": 316142,
+   "text": "the sleep diary in the walk yes I can do that. I'm not sure I don't want to worry here"
+  },
+  {
+   "turn_id": 98,
+   "speaker": "CLINICIAN",
+   "start_ms": 312142,
+   "end_ms": 325422,
+   "text": "That's fair. I'd also like you to see a psychiatrist for a medication, a pen. And we can talk about"
+  },
+  {
+   "turn_id": 99,
+   "speaker": "CLIENT",
+   "start_ms": 316142,
+   "end_ms": 334262,
+   "text": "I'll think about it. Okay next week is fine. Okay get lost."
+  },
+  {
+   "turn_id": 100,
+   "speaker": "CLINICIAN",
+   "start_ms": 325422,
+   "end_ms": 334862,
+   "text": "that next week. Thank you [name], you did well."
+  }
+ ]
+}

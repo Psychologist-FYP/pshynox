@@ -137,6 +137,29 @@ leak:
 
   Domain keys are in `services/progress/registry/domains.json`. Only a few key domains per session are needed.
 
+### DSM-5-TR labels (registry v2)
+
+Label against the DSM criterion ids of registry v2 (`/workspace/registry` lists every id and paraphrase). Add an optional
+`dsm` block to `labels.json`. The v1 `conditions` block stays valid and is what the current vignette runner scores.
+
+```json
+"dsm": {
+  "registry_version": "dsm@1.0.0",
+  "conditions": {
+    "mdd": {"label": "likely", "items": {"MDE.A1": "present", "MDE.A2": "present", "MDE.A4": "present"}},
+    "sad": {"label": "not_met", "items": {"SAD.A": "explicit_denial"}}
+  },
+  "session_items": {"1": {"MDE.A1": "present", "GAD.A": "absent"}}
+}
+```
+
+- `label`: `likely`, `possible`, `insufficient_evidence` or `not_met` (the DSM label definitions in
+  `docs/PROGRESS_DSM_REGISTRY_PLAN.md` §4.2).
+- `items` and `session_items` statuses: `present`, `subthreshold`, `absent`, `explicit_denial`,
+  `insufficient_evidence` or `conflicting`.
+- `validate` rejects unknown conditions, items that do not belong to the condition, and unknown sessions.
+- Scoring the DSM labels needs a DSM vignette runner, which is not built yet. The labels can be written now.
+
 ## 5. Running the evaluation
 
 ```bash

@@ -104,13 +104,16 @@ principles above still apply.
 3. **Protect the benchmark.** Never edit the 14 files listed in `STAGE_A_FILES`/`STAGE_B_FILES` of
    `services/progress/evaluation/benchmark.py`, and never edit the v1 registry. A test pins their hashes to the
    `val12` run configs. The DSM pipeline lives in new files (`services/progress/dsm/`,
-   `services/progress/registry/dsm/`) and may import v1 helpers but not change them. Nothing under
-   `services/progress/evaluation/` imports the DSM code. If a change would alter a bound hash, stop and ask.
+   `services/progress/registry/dsm/`) and may import v1 helpers but not change them. The benchmark, `run_final` and the
+   other evaluation modules never import the DSM code; only `vignettes.py` reads the DSM registry, to validate DSM labels.
+   If a change would alter a bound hash, stop and ask.
 4. **Code computes labels.** The model proposes criterion statuses with citations; `dsm/rules.py` computes every label,
    specifier and checklist line. A cited client denial makes a criterion `conflicting`. Labels: likely, possible,
    insufficient evidence or not met, always with the footer "Hypothesis for clinician review; not a diagnosis."
 5. **Selection.** `PROGRESS_REGISTRY=v1|dsm`. The clinical default becomes `dsm` only after Phase 3 passes. The
    benchmark always uses v1. v1 rows are never converted; they are shown as "Earlier (non-DSM) tracking".
-6. **Prompt versions:** `progress-extract-dsm-v1`, `condition-predict-dsm-v1`. No instrument is enabled until its
-   usage terms are confirmed (WHODAS 2.0, the Level 1 Cross-Cutting measure and mania scales are extension points).
+6. **Prompt versions:** `progress-extract-dsm-v1`, `condition-predict-dsm-v1`. PHQ-9 and GAD-7 AI estimates stay
+   separate calls with the unchanged v2 item prompt. WHODAS 2.0 (12-item), the DSM-5-TR Level 1 Cross-Cutting measure
+   and the ASRM are enabled as clinician-administered instruments only (user confirmed permission, 9 Nov 2026); the
+   model never estimates them.
 7. Commit messages carry no co-author trailer (user preference).

@@ -140,3 +140,23 @@ def test_research_api_lists_vignette_runs_and_serves_reports(env, monkeypatch):
         body = client.get("/api/v1/research/progress/vignette-runs/v1/report").json()
         assert body["conditions"]["gad"]["at_possible"]["tp"] == 1
         assert client.get("/api/v1/research/progress/vignette-runs/..%2Fx/report").status_code == 404
+
+
+def test_dsm_labels_are_validated_against_registry_v2(tmp_path):
+    import json
+    import shutil
+    from services.progress.evaluation import vignettes
+    src = next(iter(vignettes.case_folders(Path(__file__).resolve().parents[2] / "fixtures" / "vignettes_mini")))
+    case = tmp_path / src.name
+    shutil.copytree(src, case)
+    labels = json.loads((case / "labels.json").read_text())
+    labels["dsm"] = {"registry_version": "dsm@1.0.0", "conditions": {"gad": {"label": "possible", "items": {"GAD.A": "present", "GAD.B": "present"}}},
+                     "session_items": {"1": {"GAD.A": "present"}}}
+    (case / "labels.json").write_text(json.dumps(labels))
+    assert vignettes.load_case(case, with_labels=True)["labels"]["dsm"]["conditions"]["gad"]["label"] == "possible"
+    labels["dsm"]["conditions"]["gad"]["items"]["MDE.A1"] = "present"
+    labels["dsm"]["session_items"]["9"] = {"NOPE.X": "present"}
+    (case / "labels.json").write_text(json.dumps(labels))
+    with pytest.raises(ValueError) as err:
+        vignettes.load_case(case, with_labels=True)
+    assert "does not belong" in str(err.value) and "no session 9" in str(err.value) and "unknown item" in str(err.value)

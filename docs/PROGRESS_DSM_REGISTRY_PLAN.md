@@ -871,3 +871,49 @@ in the turns). Mark it as a fictional role-play.
   - `PROGRESS_REGISTRY` defaults to `v1` until Phase 3.
 - **No new dependencies.** None of the 14 benchmark-bound files changed (guard test).
 - **Next:** Phase 2, the Stage A and B DSM prompts and pipeline, jobs, re-analysis, and the role-play fixture.
+
+### Phase 2: 9 November 2026 (DSM Stage A and B, risk, jobs, re-analysis, regression)
+- **Built:**
+  - `dsm/prompts.py` (`progress-extract-dsm-v1`, `condition-predict-dsm-v1`).
+  - `dsm/extraction.py`, Stage A:
+    - six feature groups planned into chunks that fit the budget; full transcript or BM25 retrieval over feature and
+      counter-evidence queries;
+    - grammar-constrained schema with enum refs and typed counter refs;
+    - validation reusing the v1 `Checker` (aliases, attribution, other-person, quotation and name guards), with a
+      required `counter_check` for `present`, client-only denials, and qualifiers and degree checked against the
+      registry;
+    - DSM risk categories with supporting notes, de-duplicated by shared segment or near-identical overlapping turns;
+    - PHQ-9 and GAD-7 items and plan follow-ups as **separate calls with the unchanged v2 prompt**, via v1 functions.
+  - `dsm/prediction.py`, Stage B:
+    - cross-session feature proposals with typed counter-evidence;
+    - Stage A client denials added as counter-evidence;
+    - a periods call that gets extra onset and duration retrieval and keeps those turns longest when fitting the
+      budget;
+    - the rule engine computes every label; the model's own labels are logged in `postprocess.model_label` only;
+    - only cited hypotheses are stored.
+  - `jobs.py`: dispatch on `PROGRESS_REGISTRY`; DSM extraction creates a batch, retires the session's unreviewed v1
+    output and saves findings, questionnaires, plans and risk flags; a `reanalysis` job kind (decided-note sessions
+    skipped and listed; Stage B as of the last analysed session); `POST /patients/{id}/dsm-reanalysis`.
+  - Vignette labels: an optional `dsm` block (conditions with DSM labels and items; per-session items), validated
+    against registry v2. The authoring guide is updated. The vignette runner stays v1.
+  - Fixture `tests/fixtures/roleplay_dsm/` (two sessions, transcript turns only). Three spoken first names in the
+    turns were replaced with `[name]`.
+- **Tests:** 408 passed (+7).
+  - Role-play regression with mocked outputs: MDE and MDD `likely` (8 of 9 items with A1 and A2; 60 days cited;
+    substances and thyroid ruled out); **SAD `not_met`** (avoidance explained by low energy, fear denied; the model's
+    own "possible" logged only); GAD `not_met`; bipolar I `insufficient_evidence`; MDD.E history listed as needed;
+    severity specifier; passive suicidal-thoughts flags merged into one; recent self-harm flagged; protective factor
+    and denial merged into one supporting note.
+  - A Stage A denial contradicting a Stage B proposal.
+  - Jobs end to end: findings, questionnaires as separate calls, risks, hypotheses with resolved citations, review
+    edit with immutable original.
+  - Re-analysis: decided session skipped, v1 retired, revert restores it.
+  - Review acknowledgement required.
+  - DSM vignette labels validated.
+- **Deviations:**
+  - Stage B proposes per *feature* (each feature maps to one or more criterion items in code), not per criterion
+    item. It is cheaper, and shared items stay consistent.
+  - Counter-evidence is a single pass (in the same call), as planned.
+  - Plan follow-ups are re-evaluated in place on re-analysis, so a revert does not restore them.
+- **No new dependencies.** Bound files unchanged.
+- **Next:** Phase 3, the UI.
