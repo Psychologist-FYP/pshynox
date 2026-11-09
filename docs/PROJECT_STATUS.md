@@ -332,3 +332,19 @@ GPU acceleration, model semantic reliability and human quality evaluation remain
 See [implementation/verification details](NOTE_GENERATION.md) and
 [the NVIDIA Secure Boot diagnosis](NVIDIA_LOCAL_FIX.md). Existing labels and held-out
 retrieval evaluation artifacts were not changed.
+
+## 9 November 2026: progress monitoring follows DSM-5-TR criteria (registry v2)
+
+- **Why:** a clinical adviser asked that every tracked symptom and condition follow DSM-5-TR.
+- **What changed:** the clinical app now tracks DSM-5-TR criterion items (93 paraphrased items, pending clinical
+  verification). Code computes every hypothesis label from cited criterion findings, with the fixed footer
+  "Hypothesis for clinician review; not a diagnosis."
+- **Where to look:**
+  - `/workspace/registry` exports and imports the clinician review.
+  - The progress page shows checklist hypothesis cards and a criteria grid.
+  - Earlier 20-domain values stay readable as "Earlier (non-DSM) tracking".
+- **Benchmark:** the LongCounsel-8 benchmark keeps registry v1 and its pinned code hashes.
+- **First check:** a real-model run on the fictional role-play gave depression `likely`, and social anxiety `not_met`
+  where v1 had said "possible".
+- **Details:** [PROGRESS_DSM_REGISTRY_PLAN.md](PROGRESS_DSM_REGISTRY_PLAN.md) and
+  [PROGRESS_MONITORING.md](PROGRESS_MONITORING.md) §0.

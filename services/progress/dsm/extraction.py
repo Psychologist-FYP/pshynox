@@ -31,6 +31,7 @@ FEATURE_OUTPUT, RISK_OUTPUT, BASE_OUTPUT, MIN_OUTPUT = 190, 300, 150, 320
 FREQUENCIES = ["nearly every day", "more days than not", "most of the day", "occasional", "unclear"]
 TIME_FRAMES = ["current_episode", "past_episode", "unclear"]
 DEGREES = ["marked", "clinically_significant"]
+EMPTY_CHECK = {"searched": True, "alternative_explanation": ""}
 
 
 def chunk_output(tasks: list[dict]) -> int:
@@ -147,13 +148,15 @@ def validate_findings(value, data: dict, checker: Checker) -> dict:
             sources = checker.refs("feature", key, item.get("refs", []))
             if sources is None:
                 continue
+            if status in {"absent", "explicit_denial"} and not sources:
+                # An uncited absence or denial is no evidence at all: record it as a gap, never as "absent".
+                checker.limitations.append(f"{key}: {status} without a cited turn was recorded as insufficient evidence")
+                status, item = "insufficient_evidence", {**item, "status": "insufficient_evidence"}
             if status != "insufficient_evidence" and not sources:
                 checker.withhold("feature", key, f"{status} needs cited turns", item)
                 continue
             who = item.get("who") or "client_report"
             if status in V1_STATUS and not checker.attributable("feature", key, V1_STATUS[status], who, sources):
-                continue
-            if status == "absent" and not sources:
                 continue
             counter_check = item.get("counter_check") if isinstance(item.get("counter_check"), dict) else {}
             if status == "present" and not counter_check.get("searched"):

@@ -1,6 +1,6 @@
 # Progress monitoring: DSM-5-TR criteria registry (registry v2): implementation plan
 
-**Status (9 November 2026):** approved; see the progress log (§12).
+**Status (9 November 2026):** all phases (0–4) done; see the progress log and final report (§12).
 **Branch:** `feat/progress-dsm`, created from `feat/internet-meetings` at `3920843` (that branch already contains all of
 `progress-monitoring`).
 **Persistent rules:** the "DSM registry (progress v2)" section of the root [`CLAUDE.md`](../CLAUDE.md), and the
@@ -958,3 +958,110 @@ in the turns). Mark it as a fictional role-play.
   - The v1 progress suite (`playwright.progress.config.ts`) still passes 4/4.
   - Pages checked by screenshot.
 - **Next:** Phase 4, the real-model role-play run.
+
+### Phase 4: 9 November 2026 (real-model role-play run, comparison with v1, docs)
+- **Run:**
+  - Command: `python -m services.progress.dsm.fixture_run --fixture tests/fixtures/roleplay_dsm --out data/research/progress-runs/dsm-roleplay`.
+  - Model and hardware: Qwen3-4B Q4_K_M on a GTX 1650 (37/37 layers on GPU, peak 3.0 GiB VRAM), 4,096 context.
+  - No clinical database writes. Outputs are local (`data/research/` is git-ignored).
+- **Runtime: about 44 GPU-minutes**, against the 20–30 min estimated.
+  - Stage A: session 1 851 s; session 2 377 s; 49 calls in total.
+  - Stage B: 1,411 s, 45 calls.
+  - Stage B was the underestimate: about 9 feature chunks plus the periods call, each at about 3.5k input tokens.
+- **Fixes found by the run:**
+  1. Stage B packed its sources until only 270 output tokens were left, and one feature's answer needed more, so
+     the run stopped with "minimum useful source span". Calls now always reserve at least 640 output tokens and drop
+     the oldest retrieved turns instead.
+  2. The model often says "absent" without citing a turn (19 and 33 withheld items in the two sessions). An uncited
+     absence or denial is now recorded as `insufficient_evidence` with one summary note: a gap, not "absent". Stage B's
+     cache key covers only the findings it reads.
+  3. PDD showed `possible` with "about 2 months cited, needs 2 years". For the chronic-course differentials (PDD,
+     cyclothymic), a cited shorter course now means `not_met`. Episodes keep `possible` for a short cited duration.
+  4. Repeated "not linked" notes on one checklist line were reduced to one.
+  - Labels were recomputed from the cached model answers (no new calls) after fixes 3 and 4.
+- **Results (DSM, real model) compared with v1** (v1 values: the patient's active predictions as of session 2 in the
+  local DB):
+
+| Condition | v1 (`condition-predict-v1`) | DSM (code-computed) | Model's own DSM reading (logged only) |
+|---|---|---|---|
+| Depression | depressive episode `likely` (6 of 5) | **MDE `likely`** (A: 8 of 9 incl. A1, A2; ~2 months cited; B present; C: substances and thyroid ruled out, cited) · **MDD `likely`** (D, E cited) · severity suggested *severe* (8 of 9, project rule) | MDD likely |
+| Social anxiety | **`possible` (4 of 5)** | **`not_met`**: A, B, C denied by the client; D avoidance linked to low mood, not social fear | **likely** |
+| GAD | `insufficient_evidence` | `not_met`: worry below threshold, 1 of 6 C-items | possible |
+| Bipolar | `insufficient_evidence` (depressive features only) | manic and hypomanic episodes `not_met` (elevated periods cited absent: "No, never, I wish") → bipolar I and II `not_met` | insufficient evidence |
+| PDD (differential) | — | `not_met` (~2 months cited) | not met |
+| Risk statements | 3 rows (self-harm ×2, suicidal ideation), duplicates | Session 1: passive suicidal thoughts (merged over 2 turns), active suicidal thoughts + recent self-harm, past self-harm, a protective factor (supporting note). Session 2: passive suicidal thoughts; self-harm past/recent + denial of plan, on the ambiguous "no, not yet" turn; a protective factor | — |
+
+- **Reading:**
+  - The adviser's concern is resolved. The model itself read the transcript as social anxiety "likely", and the code
+    rule, using the client's cited denial and avoidance linked to low energy, gives `not_met`.
+  - Depression is consistent with v1, now with an explicit criterion checklist.
+- **Caveats:**
+  - **This is one fictional role-play, not an evaluation.**
+  - The model also attached `harm_to_others` to the passive suicidal-thoughts statement (a spurious category; the
+    clinician review panel shows both categories). It linked session-1 sleep to worry once, and session-2 interest to
+    worry once.
+  - "Severe" comes from a count-based project rule that is pending the adviser's verification.
+  - A9 was not counted, because the fixture run has no clinician-accepted risk statement or PHQ-9 item 9.
+- **Tests:**
+  - Backend: 410 passed in four consecutive full runs.
+  - One full run earlier this session (and one in Phase 1) had a single failure that did not reproduce, and pytest
+    did not name it. It is recorded as an unexplained intermittent failure; a job-polling timeout is the likely
+    candidate.
+  - Frontend build passes; Playwright DSM 4/4 and v1 progress 4/4.
+- **Docs:** `docs/PROGRESS_MONITORING.md` §0 (registry v2), and a `docs/PROJECT_STATUS.md` addendum.
+
+## 13. Final report (9 November 2026)
+
+**What changed:**
+- **Registry v2** (DSM-5-TR):
+  - 93 criterion items (≤ 20-word paraphrases, chapters, ICD-10-CM / ICD-11 codes), all pending clinical
+    verification;
+  - 46 extraction features with documented sharing and separation;
+  - 10 conditions as declarative rules;
+  - clinician review export (CSV, printable HTML) and import bound to content hashes;
+  - the v1 → DSM mapping;
+  - clinician-only WHODAS 2.0 12-item, Level 1 CCSM and ASRM.
+- **Pipeline:**
+  - Stage A `progress-extract-dsm-v1`: findings with a required counter-evidence check, context links, DSM risk
+    categories with de-duplication; PHQ-9 and GAD-7 stay separate.
+  - Stage B `condition-predict-dsm-v1`: cited feature proposals and periods; **every label computed in code**; the
+    model's label logged only.
+  - Re-analysis with revert.
+- **UI:** checklist hypothesis cards (two clicks from a criterion to the turn and audio), the criteria grid, a session
+  findings panel, `/workspace/registry`, print view, and the collapsed earlier-tracking section. DSM is the clinical
+  default; the benchmark stays on v1.
+- **Benchmark protection:** the 14 bound files are unchanged and pinned by a test, so the two completed `val12` arms
+  can still be frozen and used for the final run.
+
+**Test results:** 410 backend tests passed (four consecutive runs; one unexplained intermittent failure noted in Phase 4). Frontend build passes. Playwright DSM suite 4/4; v1 progress suite 4/4.
+
+**Unsure how to paraphrase or structure (for the adviser):**
+- `MANIA.A`/`HYPO.A` combine mood and energy in one item, with the duration as a separate rule element.
+- `MDE.A9` counts only from clinician sources.
+- `CYC.B`, `PDD.C`, `GAD.F`, `SAD.E`, `SAD.I` and `SAD.J` are "clinical judgement" lines that never downgrade a label.
+- `HYPO.E` is modelled as "the absence of `MANIA.C`".
+- `PDD.D` is a note, not an item.
+- The anxious-distress items are shared with GAD.C1 (keyed up, restless).
+- The severity rule is a count-based approximation of a qualitative specifier.
+- Bereavement is a note only.
+
+**Questions for the clinical adviser:**
+1. Verify every paraphrase line by line (`/workspace/registry` → printable review sheet), and return the CSV.
+2. Context gating: GAD.C items and impairment count only when linked to worry; SAD.D only with social fear;
+   MANIA.C impairment only when marked and linked to the elevated period. Agree?
+3. Label definitions:
+   - `possible` when the core criterion is met but another required element is unmet or unknown;
+   - `not_met` when the core criterion is cited absent or denied, or (for PDD and cyclothymic) a shorter course is
+     cited;
+   - unassessed exclusions go to "information still needed".
+4. Severity specifier: is the count rule (5–6 mild, 7 moderate, 8–9 severe, marked impairment +1) acceptable, or
+   should severity stay clinician-only?
+5. How should past episodes recalled by the client be dated and accepted (for example "once in second year, about a
+   month")?
+6. Should `subthreshold` be defined per item (frequency or degree)?
+7. Can irritability in GAD and in a hypomanic period be told apart reliably from transcripts?
+8. Bereavement and recent loss: a note only, or a rule?
+9. Is it acceptable for panic disorder and agoraphobia to appear only as named differentials?
+10. Vignette case mix for DSM labels: bipolar I with a past manic period, bipolar II, unipolar depression as a bipolar
+    differential, GAD, SAD, GAD + SAD, avoidance-from-low-mood (the role-play pattern), subthreshold and no-disorder
+    controls.

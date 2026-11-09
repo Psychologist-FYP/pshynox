@@ -115,3 +115,20 @@ def test_stage_a_denial_contradicts_a_present_proposal(tmp_path):
     assert worry["status"] == "present"
     gad_a = next(e for e in out["results"]["gad"]["elements"] if e["id"] == "GAD.A")
     assert gad_a["items"][0]["status"] == "conflicting" and "denial" in gad_a["detail"]
+
+
+def test_uncited_absence_is_a_gap_and_present_needs_the_counter_check():
+    from services.progress.dsm.extraction import EMPTY_CHECK, validate_findings
+    from services.progress.validation import Checker
+    rows = {"T0": {"id": "x0", "speaker_role": "CLIENT", "text": "I sleep fine.", "alias": "T0"}}
+    data = {"requested": {"features": [{"key": "feat.fatigue"}, {"key": "feat.grandiosity"}, {"key": "feat.depressed_mood"}]}}
+    base = {"who": "client_report", "frequency": "unclear", "onset_or_duration": "", "time_frame": "unclear", "period_label": "",
+            "qualifier": None, "degree": None, "contexts": [], "counter_refs": [], "basis": ""}
+    value = {"features": {"feat.fatigue": {**base, "status": "absent", "refs": [], "counter_check": EMPTY_CHECK},
+                          "feat.grandiosity": {**base, "status": "explicit_denial", "refs": [], "counter_check": EMPTY_CHECK},
+                          "feat.depressed_mood": {**base, "status": "present", "refs": ["T0"], "counter_check": {"searched": False, "alternative_explanation": ""}}},
+             "limitations": []}
+    checker = Checker(rows)
+    out = validate_findings(value, data, checker)["findings"]
+    assert out["feat.fatigue"]["status"] == "insufficient_evidence" and out["feat.grandiosity"]["status"] == "insufficient_evidence"
+    assert "feat.depressed_mood" not in out and any("counter-evidence check" in w["reason"] for w in checker.withheld)

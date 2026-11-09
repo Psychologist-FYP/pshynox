@@ -92,7 +92,7 @@ def item_status(reg: DsmRegistry, item_id: str, period: dict, extras: dict) -> d
     evidence = [e for _, p in used for e in p.get("evidence", [])]
     counter = [e for _, p in used for e in p.get("counter_evidence", [])]
     frequency = next((p.get("frequency") for _, p in used if p.get("frequency") and p.get("frequency") != "unclear"), "")
-    return {"item": item_id, "status": status, "note": "; ".join(dict.fromkeys(notes)), "evidence": _unique(evidence),
+    return {"item": item_id, "status": status, "note": notes[0] if notes else "", "evidence": _unique(evidence),
             "counter_evidence": _unique(counter), "frequency": frequency}
 
 
@@ -265,6 +265,11 @@ def label_for(cond, elements: list[dict]) -> str:
     cited_core = bool(core["evidence"] or core["counter_evidence"] or any(r.get("evidence") for r in core["items"]))
     if core["status"] == "not_met" and cited_core:
         return "not_met"
+    if cond.role == "differential":
+        # A differential defined by its long course (PDD, cyclothymic) is not met when a shorter course is cited.
+        for el, res in zip(cond.elements, elements):
+            if el.type in {"duration", "subthreshold_course"} and res["status"] == "not_met" and res["evidence"]:
+                return "not_met"
     rule_out = {"absence", "never_episode"}
     for el, res in zip(cond.elements, elements):
         if el.type in rule_out and res["status"] == "contradicted" and (el.on_present or "not_met") == "not_met":

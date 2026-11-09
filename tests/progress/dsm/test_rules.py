@@ -189,3 +189,13 @@ def test_nothing_supplied_is_insufficient_evidence_everywhere():
     res = run([])
     assert {v["label"] for v in res.values()} == {"insufficient_evidence"}
     assert not any(v["has_evidence"] for v in res.values())
+
+
+def test_chronic_differential_is_not_met_when_a_shorter_course_is_cited():
+    from .helpers import period
+    p = depressive(6, days=60).copy()
+    res = run([p])
+    assert res["pdd"]["label"] == "not_met" and res["mde"]["label"] == "likely"
+    assert run([depressive(6, days=60, extra={})], keys=None)["mde"]["label"] == "likely"
+    assert run([depressive(6, days=None)])["pdd"]["label"] == "possible"  # duration unknown: still possible, ask
+    assert period

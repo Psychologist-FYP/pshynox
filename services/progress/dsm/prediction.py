@@ -26,7 +26,13 @@ from .registry import STATUSES, DsmRegistry, dsm_registry
 RETRIEVAL_K = 2
 DURATION_QUERY = "started began since ago lasted weeks months years days period episode before first time hospital admitted"
 DURATION_K = 3
-FEATURE_OUTPUT, BASE_OUTPUT, PERIODS_OUTPUT = 150, 120, 650
+# Measured on the role-play run (Qwen3-4B): one feature with three cited turns can take ~270+ tokens, so a call always
+# reserves room for a complete answer and older retrieved turns are dropped instead.
+FEATURE_OUTPUT, BASE_OUTPUT, MIN_OUTPUT, PERIODS_OUTPUT = 230, 150, 640, 650
+
+
+def features_output(n: int) -> int:
+    return max(MIN_OUTPUT, BASE_OUTPUT + FEATURE_OUTPUT * n)
 TIME_FRAMES = ["current", "past", "both", "unclear"]
 LABELS = list(rules.LABEL_TEXT)
 ORDER_GROUPS = ["depressive", "elevated", "anxiety", "social", "impairment", "exclusion"]
@@ -255,7 +261,8 @@ def predict_dsm(sessions: list[dict], runtime, folder, *, keys: list[str] | None
     runtime.load("qwen")
     retriever = retriever or Retriever()
     features = needed_features(reg, keys)
-    revision = digest([[s["session_id"], digest(s["segments"])] for s in sessions] + [digest([s.get("findings", []) for s in sessions])])
+    used = [[f for f in s.get("findings", []) if f["status"] != "insufficient_evidence" and f.get("review_status") not in {"rejected", "stale"}] for s in sessions]
+    revision = digest([[s["session_id"], digest(s["segments"])] for s in sessions] + [digest(used)])  # only what Stage B reads
     recovery = Recovery(runtime, folder, revision, PREDICT_DSM_VERSION, progress, schema_factory=response_schema)
     rows_by_id = {seg["id"]: {**seg, "session_id": s["session_id"]} for s in sessions for seg in s["segments"]}
     proposals: dict[str, dict] = {}
@@ -270,7 +277,7 @@ def predict_dsm(sessions: list[dict], runtime, folder, *, keys: list[str] | None
                                       "findings": compact_findings(sessions, [t["key"] for t in chunk], alias_of),
                                       "sources": [model_row(a, rows[a], rows[a]["session_index"]) for g in lists for a in g]}
         for task in tasks:
-            if runtime.fits(PREDICT_DSM_FEATURES, probe(current + [task], per_session), BASE_OUTPUT + FEATURE_OUTPUT * (len(current) + 1)) or not current:
+            if not current or runtime.fits(PREDICT_DSM_FEATURES, probe(current + [task], per_session), features_output(len(current) + 1)):
                 current.append(task)
             else:
                 plan.append(current)
@@ -278,7 +285,7 @@ def predict_dsm(sessions: list[dict], runtime, folder, *, keys: list[str] | None
         if current:
             plan.append(current)
         for chunk in plan:
-            output = BASE_OUTPUT + FEATURE_OUTPUT * len(chunk)
+            output = features_output(len(chunk))
             data, lists = fit_payload(runtime, PREDICT_DSM_FEATURES, lambda ls, c=chunk: probe(c, ls), [list(g) for g in per_session], output, notes,
                                       f"dsm {chunk[0]['key']}")
             allowed = {r["id"]: {**rows[r["id"]], "alias": r["id"]} for r in data["sources"]}

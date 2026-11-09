@@ -15,6 +15,64 @@ log are in [PROGRESS_MONITORING_PLAN.md](PROGRESS_MONITORING_PLAN.md).
 > criterion-level condition hypotheses. They are labelled as AI hypotheses for clinician review, not diagnoses. The
 > supervisor and the clinical consultant must agree to the scope change before the final report; see plan §1.
 
+## 0. Registry v2: DSM-5-TR criteria (clinical default since 9 November 2026)
+
+A clinical adviser asked for every tracked symptom and condition to follow DSM-5-TR. The clinical app now uses
+**registry v2** (`PROGRESS_REGISTRY=dsm`, the default). The plan and progress log are in
+[PROGRESS_DSM_REGISTRY_PLAN.md](PROGRESS_DSM_REGISTRY_PLAN.md), and the mapping from the earlier 20 domains is in
+[PROGRESS_REGISTRY_V1_TO_DSM.md](PROGRESS_REGISTRY_V1_TO_DSM.md). Sections 1–7 below describe registry v1. v1 is still
+used by the LongCounsel-8 benchmark, and its data appears under **Earlier (non-DSM) tracking**.
+
+**Registry.**
+- Every tracked item is a DSM-5-TR criterion item (`MDE.A4`, `MANIA.B2`, `GAD.C6`, `SAD.A`, …; 93 items).
+- Each item has a paraphrase of at most 20 words in our own words, its chapter and ICD-10-CM / ICD-11 codes.
+- Every item and rule shows "Paraphrased from DSM-5-TR · pending clinical verification" until a clinician verifies it.
+- `/workspace/registry` lists everything. It exports a CSV and a printable review sheet, and imports the clinician's
+  decisions (bound to each entry's content hash; ids never change).
+- Conditions: MDE and MDD, manic and hypomanic episodes, bipolar I and II, GAD and SAD as targets; persistent depressive
+  disorder and cyclothymic disorder as differentials. Panic disorder and agoraphobia are named as differentials but not
+  tracked.
+
+**Pipeline.**
+1. **Stage A (`progress-extract-dsm-v1`), per session.**
+   - 46 *features* are extracted, each linked to every criterion item it can satisfy. One concentration finding counts
+     for `MDE.A8`, `PDD.B5`, and (only when linked to worry) `GAD.C3`. Features with different meanings stay
+     separate, for example the three kinds of sleep problem.
+   - Statuses: present, subthreshold, absent, explicit denial, insufficient evidence, conflicting. Each finding has a
+     frequency, timeframe, period, contexts, citations and a required counter-evidence check.
+   - Risk statements use the categories passive or active suicidal thoughts, past or recent self-harm and harm to
+     others, plus supporting notes (protective factor, denial of plan or intent). They are de-duplicated by segment and
+     never scored.
+   - PHQ-9 and GAD-7 AI estimates are separate calls with the unchanged v2 item prompt.
+2. **Stage B (`condition-predict-dsm-v1`), per patient.**
+   - The model proposes feature statuses across sessions with citations, and groups them into periods.
+   - **Code computes every label** (`services/progress/dsm/rules.py`): counts, core items, same-period episodes,
+     duration, impairment, exclusions, never-manic rules and specifiers.
+   - A cited client denial makes a criterion *conflicting*. Exclusions nobody asked about go to "information still
+     needed" and never downgrade a label.
+   - The model's own label is logged, never used.
+3. **Labels:** "Criteria pattern consistent with <condition>: likely / possible / insufficient evidence / not met",
+   always with "Hypothesis for clinician review; not a diagnosis."
+
+**On the progress page.**
+- Hypothesis cards show the rule as a checklist. A line opens its cited turns and counter-evidence; ▶ plays the audio.
+- The criteria grid shows condition → criterion letter → item × session, or the shared findings once.
+- A hypothesis timeline.
+- **Re-analyse earlier sessions with DSM criteria**: decided-note sessions are skipped. Earlier unreviewed model
+  output for re-analysed sessions leaves the dashboard, and **Revert** restores it.
+- **More questionnaires** (clinician-administered only, permission confirmed): WHODAS 2.0 12-item, the DSM-5-TR
+  Level 1 Cross-Cutting measure (domains needing further inquiry) and the ASRM.
+
+**First real-model check (fictional role-play, 2 sessions; about 44 GPU-minutes on a GTX 1650).**
+- Depression: MDE and MDD `likely` (8 of 9 items; about 2 months cited; substances and thyroid ruled out).
+- Social anxiety `not_met`: the client denied fear, and their avoidance was linked to low energy. The model's own
+  reading was "likely", which shows the code rule overriding it. Registry v1 had given social anxiety "possible".
+- GAD `not_met`; bipolar `not_met`; risk statements categorised and de-duplicated.
+- This is one fictional case, not an evaluation (plan §12, Phase 4).
+
+**Benchmark protection.** The 14 files the LongCounsel-8 runs are bound to are unchanged, and a test pins their hashes.
+The benchmark and `run_final` never import the DSM code.
+
 ## 1. What the clinician sees
 
 On a patient's **Progress** tab (`/workspace/patients/<id>/progress`):
