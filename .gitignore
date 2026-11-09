@@ -79,3 +79,6 @@ apps/web/playwright-report/
 !/data/research/vignettes/
 /data/research/vignettes/*
 !/data/research/vignettes/README.md
+
+# Copyrighted reference book (APA). Read locally only; never commit.
+docs/DSM*.pdf

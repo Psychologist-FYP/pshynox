@@ -87,3 +87,30 @@ phase per session: commit, update the progress log, stop. Ask before adding depe
    - Never print secrets in logs, test output or messages. Report a value only as "set" or "missing".
 6. **Local only for processing.** No hosted transcription or inference. No CDN assets in the patient page.
 7. Commit messages carry no co-author trailer (user preference).
+
+## DSM registry (progress v2)
+
+**Plan and handover document:** [`docs/PROGRESS_DSM_REGISTRY_PLAN.md`](docs/PROGRESS_DSM_REGISTRY_PLAN.md). Read all of
+it, including its open questions and progress log, before starting a phase. Work on branch `feat/progress-dsm`. Do one
+phase per session: commit, update the progress log, stop. Ask before adding dependencies. The progress-module
+principles above still apply.
+
+1. **No verbatim DSM-5-TR text.** Store DSM ids, ≤ 20-word paraphrases in our own words, chapter names and ICD codes.
+   Never copy criteria wording, tables or text. `docs/DSM*.pdf` is git-ignored and must never be committed. Use it only
+   to check criteria structure.
+2. **Verification.** Every criterion item and condition rule has `verification` (`pending|verified|changed`). All start
+   `pending`. Clinician decisions are stored in `registry_verifications`, bound to the item's content hash. The import
+   never changes ids.
+3. **Protect the benchmark.** Never edit the 14 files listed in `STAGE_A_FILES`/`STAGE_B_FILES` of
+   `services/progress/evaluation/benchmark.py`, and never edit the v1 registry. A test pins their hashes to the
+   `val12` run configs. The DSM pipeline lives in new files (`services/progress/dsm/`,
+   `services/progress/registry/dsm/`) and may import v1 helpers but not change them. Nothing under
+   `services/progress/evaluation/` imports the DSM code. If a change would alter a bound hash, stop and ask.
+4. **Code computes labels.** The model proposes criterion statuses with citations; `dsm/rules.py` computes every label,
+   specifier and checklist line. A cited client denial makes a criterion `conflicting`. Labels: likely, possible,
+   insufficient evidence or not met, always with the footer "Hypothesis for clinician review; not a diagnosis."
+5. **Selection.** `PROGRESS_REGISTRY=v1|dsm`. The clinical default becomes `dsm` only after Phase 3 passes. The
+   benchmark always uses v1. v1 rows are never converted; they are shown as "Earlier (non-DSM) tracking".
+6. **Prompt versions:** `progress-extract-dsm-v1`, `condition-predict-dsm-v1`. No instrument is enabled until its
+   usage terms are confirmed (WHODAS 2.0, the Level 1 Cross-Cutting measure and mania scales are extension points).
+7. Commit messages carry no co-author trailer (user preference).
