@@ -37,6 +37,7 @@ export function WorkspaceShell({ health, children, active = "Patients", patientI
           <a className={active === "Patients" ? "active" : ""} href="/workspace"><Icon name="grid" /> All patients</a>
           <a href="/workspace/patients/new"><Icon name="file" /> Add patient</a>
           <a href="/workspace/research"><Icon name="search" /> Research evaluation</a>
+          <a className={active === "DSM registry" ? "active" : ""} href="/workspace/registry"><Icon name="file" /> DSM registry</a>
         </nav>
         <div className="sidebar-patient-heading"><p className="sidebar-label">Patients</p><span>{patients.length}</span></div>
         <label className="sr-only" htmlFor="sidebar-patient-search">Find a patient</label>

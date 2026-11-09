@@ -70,7 +70,8 @@ export function RiskList({ risks, sessionLabels, decided, onReview, editForm }: 
     const first = r.evidence[0];
     return <li key={r.id} className="risk-item">
       <div className="risk-meta">
-        <span className="risk-category">{RISK_LABEL[r.category]}</span>
+        {(r.categories?.length ? r.categories : [r.category]).map(c => <span key={c} className={`risk-category${["protective_factor", "denial_of_plan_or_intent"].includes(c) ? " is-supporting" : ""}`}>{RISK_LABEL[c] ?? c}</span>)}
+        {r.note_kind === "supporting" && <span className="small-note">Supporting note (not a flag)</span>}
         <span>{[sessionLabels?.[r.session_id], first ? `at ${formatTimestamp(first.start_ms)}` : ""].filter(Boolean).join(" ")}</span>
         <span className={`risk-status risk-status-${status.tone}`}>{status.label}</span>
       </div>
@@ -84,15 +85,16 @@ export function RiskList({ risks, sessionLabels, decided, onReview, editForm }: 
 }
 
 export function RiskReport({ id, title, risks, rejected, children }: { id: string; title: string; risks: RiskStatement[]; rejected: RiskStatement[]; children: ReactNode }) {
+  const flags = risks.filter(r => r.note_kind !== "supporting");
   const pending = risks.filter(r => r.review_status === "pending" || r.review_status === "stale").length;
   return <section className="risk-report" aria-labelledby={id}>
     <header className="risk-bar">
       <h3 id={id}>{title}</h3>
-      <span>{risks.length ? `${risks.length} flagged · ${pending} awaiting review` : "None flagged"}</span>
+      <span>{risks.length ? `${flags.length} flagged${risks.length > flags.length ? ` · ${risks.length - flags.length} supporting note${risks.length - flags.length === 1 ? "" : "s"}` : ""} · ${pending} awaiting review` : "None flagged"}</span>
     </header>
     <p className="risk-disclaimer">Statements the model flagged for clinician review. The model does not score risk, and the absence of flags does not establish safety.</p>
     {children}
     {rejected.length > 0 && <details className="risk-rejected"><summary>Rejected flags kept in history ({rejected.length})</summary>
-      <ul>{rejected.map(r => <li key={r.id}>{RISK_LABEL[r.category]} · {r.reviewer_name ?? "reviewer"}: {r.reviewer_comment}</li>)}</ul></details>}
+      <ul>{rejected.map(r => <li key={r.id}>{RISK_LABEL[r.category] ?? r.category} · {r.reviewer_name ?? "reviewer"}: {r.reviewer_comment}</li>)}</ul></details>}
   </section>;
 }

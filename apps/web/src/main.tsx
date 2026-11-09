@@ -2,6 +2,7 @@ import { ResearchNotesPage } from "./features/notes/LocalDraftPanel";
 import { StrictMode, Suspense, lazy, useEffect, useState } from "react";
 // Recharts is only bundled into the progress dashboard chunk.
 const ProgressPage = lazy(() => import("./features/progress/ProgressPage").then(m => ({ default: m.ProgressPage })));
+const RegistryPage = lazy(() => import("./features/progress/RegistryPage").then(m => ({ default: m.RegistryPage })));
 const ResearchProgressPage = lazy(() => import("./features/progress/ResearchProgressPage").then(m => ({ default: m.ResearchProgressPage })));
 import { createRoot } from "react-dom/client";
 import { LandingPage } from "./features/landing/LandingPage";
@@ -48,6 +49,7 @@ function App() {
   if (parts[1] === "research-notes") return <ResearchNotesPage />;
   if (parts[1] === "research-progress") return <Suspense fallback={<div className="state-panel" role="status">Loading results…</div>}><ResearchProgressPage health={health} /></Suspense>;
   if (parts[1] === "research") return <ResearchPage health={health} />;
+  if (parts[1] === "registry") return <Suspense fallback={<div className="state-panel" role="status">Loading registry…</div>}><PatientDirectory><RegistryPage health={health} /></PatientDirectory></Suspense>;
   let page;
   if (parts[1] === "sessions" && parts[2]) page = <SessionRoute key={parts[2]} id={parts[2]} health={health} />;
   else if (parts[1] === "patients" && parts[2] === "new") page = <PatientPage health={health} />;

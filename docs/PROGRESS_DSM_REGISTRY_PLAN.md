@@ -917,3 +917,44 @@ in the turns). Mark it as a fictional role-play.
   - Plan follow-ups are re-evaluated in place on re-analysis, so a revert does not restore them.
 - **No new dependencies.** Bound files unchanged.
 - **Next:** Phase 3, the UI.
+
+### Phase 3: 9 November 2026 (UI)
+- **Built** (`apps/web/src/features/progress/`):
+  - `Dsm.tsx`:
+    - **hypothesis cards**: label line, fixed footer, review badge, required-criteria count, period, ICD codes; the DSM
+      rule as a checklist. Each line opens its items, cited turns and counter-evidence (client denial or alternative
+      explanation) with ▶ play and "Open in transcript": card → line → turn/audio in two clicks. Also specifiers,
+      information still needed, differentials, and the model's own label shown as "logged, never used". Target
+      conditions first; episodes and differentials collapsed.
+    - **criteria grid**: condition → disorder → letter → item, with DSM id, label, paraphrase and verification badge;
+      per-session cells for present, subthreshold, absent, denied, insufficient, conflicting, not linked and stale,
+      with frequency, a review corner mark and gaps as "—". A "Shared findings once" toggle. A finding drawer with
+      citations, counter-evidence, review and edit.
+    - **hypothesis timeline**.
+    - **re-analysis panel**: review acknowledgement, start, and a batch list with revert.
+    - **Earlier (non-DSM) tracking**: a collapsed section holding the v1 hypotheses, domain grid and timeline.
+  - `DsmSessionPanel.tsx`: the session page shows DSM findings when the active registry is `dsm`, with analyse,
+    manual entry (clinician intensity 0–3 only here), review, questionnaire items and flagged statements.
+  - `RegistryPage.tsx` at `/workspace/registry` (sidebar "DSM registry"): conditions with rule summaries and codes,
+    items with filter and status, features with separation reasons, CSV export, printable review sheet, CSV import with
+    a result summary.
+  - Risk panel: several categories per statement, supporting notes, a flag count excluding supporting notes.
+  - Instruments: per-instrument item ranges (0–4 for WHODAS, CCSM, ASRM), the licence note, a collapsed "More
+    questionnaires" section, and CCSM domains for further inquiry.
+  - Print view: DSM checklists with turn references and footer, the criteria grid with verification status, earlier
+    tracking.
+- **Rules tweaks found while checking the UI:**
+  - A duration element is not evaluated until the condition's core criterion is met or partly met. A period's duration
+    belongs to whatever was happening then, and GAD showed "6 weeks, needs 6 months" when nothing pointed to GAD.
+  - The "not linked" wording now names both contexts ("linked to low mood, not worry or anxiety").
+- **Default switched:** `PROGRESS_REGISTRY` defaults to `dsm` for the clinical app. The v1 Playwright suite and the v1
+  job tests pin `v1`. The benchmark never reads the setting. `.env.example` documents it.
+- **Tests:**
+  - 408 backend tests passed; the frontend build passes.
+  - New Playwright suite `npx playwright test -c playwright.dsm.config.ts` (fictional seed
+    `tests/progress/dsm/e2e_seed_dsm.py`): 4/4. It checks the criteria grid statuses, gap and badges; the
+    shared-findings toggle; a checklist line opening its cited turn; the denial giving SAD "Not met"; the footer;
+    earlier tracking collapsed then expanded; a finding accept changing the badge; the registry page and CSV export.
+  - The v1 progress suite (`playwright.progress.config.ts`) still passes 4/4.
+  - Pages checked by screenshot.
+- **Next:** Phase 4, the real-model role-play run.

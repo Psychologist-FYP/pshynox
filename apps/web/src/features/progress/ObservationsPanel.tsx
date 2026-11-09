@@ -4,6 +4,7 @@ import { Citations, ReviewActions, ReviewBadge } from "./common";
 import { DomainEditFields } from "./panels";
 import { RiskList, RiskReport } from "./RiskStatements";
 import { JobStatus, useProgressJob } from "./jobs";
+import { DsmSessionPanel } from "./DsmSessionPanel";
 import "./progress.css";
 
 type Registry = Awaited<ReturnType<typeof progressApi.registry>>;
@@ -29,6 +30,7 @@ export function ObservationsPanel({ sessionId, patientId, decided, onChanged }: 
   useEffect(() => { progressApi.registry().then(setRegistry).catch(() => {}); void load(); }, [load]);
   useEffect(() => { progressApi.sessionJobs(sessionId).then(jobs => { const running = jobs.find(j => j.status === "running"); if (running) job.attach(running.id); }).catch(() => {}); }, [sessionId]); // eslint-disable-line react-hooks/exhaustive-deps
   if (!patientId) return <section className="panel progress-panel"><h3>Observations</h3><p className="small-note">Link this session to a patient to record progress observations.</p></section>;
+  if (registry?.active === "dsm") return <DsmSessionPanel sessionId={sessionId} patientId={patientId} decided={decided} onChanged={onChanged} />;
   const pending = [...observations, ...scores, ...risks].filter(v => v.review_status === "pending" || v.review_status === "stale").length;
   const stale = [...observations, ...scores, ...risks].filter(v => v.review_status === "stale").length;
   const byDomain = new Map(observations.map(o => [o.domain_key, o]));

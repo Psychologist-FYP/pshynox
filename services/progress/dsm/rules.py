@@ -29,6 +29,8 @@ LABEL_TEXT = {"likely": "Likely", "possible": "Possible", "insufficient_evidence
 REQUIRED = {"item", "count", "duration", "episode", "all_episodes", "subthreshold_course"}
 MARK = {"met": "✓", "not_met": "✕", "unknown": "?", "partial": "~", "contradicted": "!", "info": "·"}
 NOT_SATISFIED = {"absent", "explicit_denial", "subthreshold", "not_linked"}
+CONTEXT_TEXT = {"low_mood": "low mood", "worry_anxiety": "worry or anxiety", "social_fear": "social fear", "elevated_period": "a high or irritable period",
+                "physical_or_substance": "a physical cause or substance", "other": "another cause"}
 SEVERITY_CODES = {"mild": "F32.0 / F33.0", "moderate": "F32.1 / F33.1", "severe": "F32.2 / F33.2"}
 
 
@@ -45,7 +47,7 @@ def leaf_status(leaf: Leaf, proposal: dict | None) -> tuple[str, str]:
         if _denied(proposal):
             return "conflicting", "contradicted by a cited client denial"
         if leaf.context and not set(proposal.get("contexts", [])) & set(leaf.context):
-            return "not_linked", f"present, but not linked to {' or '.join(c.replace('_', ' ') for c in leaf.context)}"
+            return "not_linked", f"present, but linked to {' or '.join(CONTEXT_TEXT.get(c, c) for c in proposal.get('contexts', [])) or 'nothing stated'}, not {' or '.join(CONTEXT_TEXT.get(c, c) for c in leaf.context)}"
         if leaf.degree == "marked" and proposal.get("degree") != "marked":
             return "subthreshold", "present, but not cited as marked"
     return status, ""
@@ -286,6 +288,14 @@ def evaluate_condition(reg: DsmRegistry, key: str, periods: list[dict], extras: 
     evaluations = []
     for period in candidates:
         elements = [evaluate_element(reg, el, period, extras, results) for el in cond.elements]
+        core = next(e for e in elements if e["id"] == cond.core)
+        if core["status"] not in {"met", "partial"}:
+            # A period's duration belongs to whatever was happening then; it says nothing about this condition until its core
+            # criterion is established, so it is not shown as met or unmet.
+            for el, res in zip(cond.elements, elements):
+                if el.type == "duration":
+                    res.update(status="unknown", detail="not assessed until the core criterion is established", evidence=[], ask=el.ask,
+                               line=f"{short_id(el.id)}: not assessed until the core criterion is established {MARK['unknown']}")
         evaluations.append((label_for(cond, elements), period, elements))
     label, period, elements = min(evaluations, key=lambda x: ORDER.index(x[0]))
     required = [res for el, res in zip(cond.elements, elements) if el.type in REQUIRED]

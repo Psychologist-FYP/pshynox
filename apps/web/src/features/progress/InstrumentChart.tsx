@@ -84,7 +84,18 @@ export function InstrumentChart({ block, sessions, changes, patientId, onSaved }
         {present.some(s => s.series === "ai_estimate") ? " AI estimates come from the session transcript and stay pending until a clinician reviews them." : ""}</figcaption>
     </figure>}
     {hasData && table && <InstrumentTable block={block} rows={rows} />}
+    {hasData && !!block.followup_domains?.length && <FollowupDomains block={block} rows={rows} />}
   </section>;
+}
+
+/** Level 1 Cross-Cutting measure: a domain needs further inquiry when its highest item reaches the domain threshold. */
+function FollowupDomains({ block, rows }: { block: InstrumentBlock; rows: Row[] }) {
+  const latest = [...rows].reverse().find(r => r.points.administered?.items);
+  if (!latest) return null;
+  const items = latest.points.administered!.items!;
+  const flagged = block.followup_domains!.filter(d => d.items.some(i => (items[i] ?? -1) >= d.threshold));
+  return <div className="followup-domains"><p className="small-note"><strong>{latest.label}: domains for further inquiry</strong> (highest item at or above the domain threshold; not a diagnosis)</p>
+    {flagged.length ? <ul>{flagged.map(d => <li key={d.domain}>{d.domain}. {d.label} (threshold {d.threshold}: highest item {Math.max(...d.items.map(i => items[i] ?? 0))})</li>)}</ul> : <p className="small-note">None at threshold.</p>}</div>;
 }
 
 function PointTooltip({ active, payload, block }: { active?: boolean; payload?: { payload: Row }[]; block: InstrumentBlock }) {
@@ -125,7 +136,8 @@ function AdministrationForm({ block, sessions, patientId, onDone }: { block: Ins
     <div className="form-row"><label>Clinician<input required value={actor} onChange={e => setActor(e.target.value)} /></label>
       <label>Session<select value={sessionId} onChange={e => setSessionId(e.target.value)}><option value="">Between sessions (enter date)</option>{sessions.map(s => <option key={s.id} value={s.id}>Session {s.index} · {formatDate(s.created_at)}</option>)}</select></label>
       {!sessionId && <label>Date<input type="date" required value={date} onChange={e => setDate(e.target.value)} /></label>}</div>
-    <div className="item-grid">{block.items.map(i => <label key={i.id}><span>{i.id}. {i.label}</span><select aria-label={`Item ${i.id}`} value={items[i.id] ?? ""} onChange={e => setItems({ ...items, [i.id]: e.target.value })}><option value="">Not administered</option>{[0, 1, 2, 3].map(v => <option key={v} value={v}>{v}</option>)}</select></label>)}</div>
+    <div className="item-grid">{block.items.map(i => <label key={i.id}><span>{i.id}. {i.label}</span><select aria-label={`Item ${i.id}`} value={items[i.id] ?? ""} onChange={e => setItems({ ...items, [i.id]: e.target.value })}><option value="">Not administered</option>{Array.from({ length: (block.item_max ?? 3) - (block.item_min ?? 0) + 1 }, (_, n) => n + (block.item_min ?? 0)).map(v => <option key={v} value={v}>{v}</option>)}</select></label>)}</div>
+    {block.licence_note && <p className="small-note">{block.licence_note}{block.reporting_period ? ` Reporting period: ${block.reporting_period}.` : ""}</p>}
     <button className="button button-small" type="submit">Save administration</button>{error && <p className="form-error" role="alert">{error}</p>}
   </form>;
 }

@@ -145,7 +145,7 @@ def test_social_avoidance_without_fear_does_not_satisfy_a():
          "imp.social": prop(contexts=["low_mood"])}
     res = run([period(p)])["sad"]
     assert res["label"] == "not_met"
-    assert el(res, "SAD.D")["status"] == "not_met" and "not linked" in el(res, "SAD.D")["detail"]
+    assert el(res, "SAD.D")["status"] == "not_met" and "linked to low mood, not social fear" in el(res, "SAD.D")["detail"]
 
 
 def test_avoidance_alone_is_never_possible_social_anxiety():

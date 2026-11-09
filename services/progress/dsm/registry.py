@@ -28,8 +28,8 @@ ElementType = Literal["item", "count", "duration", "exclusion", "judgement", "ab
 
 
 def registry_kind() -> str:
-    """PROGRESS_REGISTRY=v1|dsm. Clinical default v1 until the DSM UI (Phase 3) passes; the benchmark never reads this."""
-    value = os.getenv("PROGRESS_REGISTRY", "v1").strip().lower()
+    """PROGRESS_REGISTRY=v1|dsm. The clinical default is dsm (since Phase 3, 9 Nov 2026); the benchmark never reads this."""
+    value = os.getenv("PROGRESS_REGISTRY", "dsm").strip().lower()
     if value not in {"v1", "dsm"}:
         raise ValueError("PROGRESS_REGISTRY must be v1 or dsm")
     return value
