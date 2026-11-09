@@ -158,7 +158,7 @@ def resolve_evidence(db: DbSession, patient_id: str, segment_ids: list[str], *, 
             continue
         seg, _, recording = item
         out.append(CitedEvidence(segment_id=seg.id, session_id=seg.session_id, start_ms=seg.start_ms, end_ms=seg.end_ms,
-                                 speaker_role=seg.speaker_role, basis=(basis or {}).get(seg.id, ""), text=seg.text,
+                                 speaker_role=seg.speaker_role, basis=(basis or {}).get(seg.id, "")[:300], text=seg.text,
                                  recording_id=recording, revision=seg.revision).model_dump(mode="json"))
     return out
 

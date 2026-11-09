@@ -138,3 +138,19 @@ def test_revert_restores_retired_v1_values_and_deactivates_dsm_rows():
             assert db.get(DsmBatchRecord, batch_id).status == "reverted"
         assert client.post(f"{API}/patients/{pid}/dsm-batches/{batch_id}/revert", json={"actor": "Dr Demo"}).status_code == 409
         assert utc_now()
+
+
+def test_merged_risk_statement_with_a_long_basis_still_renders():
+    # Regression: merged flags join their reasons (up to 600 characters); each cited turn shows at most 300.
+    with TestClient(app) as client:
+        pid, (s1, _, _) = make_patient(client)
+        seg = add_segment(s1, "Sometimes I think everyone would be better off without me.")
+        with session_factory() as db:
+            from services.api.db import SessionRecord
+            dsm_store.persist_risks(db, db.get(SessionRecord, s1), [{"categories": ["suicidal_ideation_passive", "self_harm_recent"], "note_kind": "flag",
+                                                                    "segment_ids": [seg], "basis": "x" * 590}], job_id="job-test")
+            db.commit()
+        r = client.get(f"{API}/patients/{pid}/progress")
+        assert r.status_code == 200, r.text
+        flag = next(x for x in r.json()["risk_statements"] if x["registry_kind"] == "dsm")
+        assert len(flag["basis"]) == 590 and len(flag["evidence"][0]["basis"]) == 300
