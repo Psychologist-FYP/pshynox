@@ -1,0 +1,171 @@
+/* Progress monitoring. Status is always text + shape, never colour alone. */
+.progress-page{display:grid;gap:18px;padding-bottom:48px}
+.progress-panel{padding:18px;background:var(--white);display:grid;gap:12px;min-width:0}
+.progress-panel .panel-heading{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}
+.progress-panel h3{margin:2px 0}.progress-panel h4{margin:6px 0}.progress-panel h5{margin:10px 0 4px;font-size:.85rem}
+.panel-tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.progress-header{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;padding:18px;background:#fbefc9}
+.progress-header h2{margin:2px 0 4px;font-family:Georgia,serif;font-weight:500}
+.header-stats{display:grid;gap:6px;max-width:520px}
+.button-small{padding:6px 12px;font-size:.8rem;min-height:0}
+.button-ghost{background:transparent;color:var(--ink)}
+.small-note{font-size:.78rem;color:#6d6252}
+.empty-note{padding:12px;border:1.5px dashed #b7a783;border-radius:6px;background:#fbf6e6;color:#5d5548;font-size:.88rem}
+.form-error{color:#9a3027;font-size:.82rem}
+
+.review-badge{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.01em;padding:2px 8px;border-radius:999px;border:1.5px solid;white-space:nowrap;line-height:1.5}
+.review-badge.is-compact{font-size:.65rem;padding:1px 6px}
+.review-pending{border-color:#c98500;color:#6b4700;background:transparent}
+.review-pending::before{content:"◌ "}
+.review-reviewed{border-color:#376966;background:#376966;color:#fffaf0}
+.review-reviewed::before{content:"✓ "}
+.review-edited{border-color:#376966;background:#e0e9dc;color:#24504c}
+.review-edited::before{content:"✎ "}
+.review-rejected{border-color:#8a8174;background:#efe9dc;color:#5d5548;text-decoration:line-through}
+.review-stale{border-color:#a3372c;background:#fff0e5;color:#86271f;border-style:dashed}
+.review-stale::before{content:"! "}
+
+.review-actions{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:4px}
+.reviewer-input{width:150px;padding:5px 8px;border:1px solid #bcae90;border-radius:4px;background:var(--white);font-size:.8rem}
+.review-inline,.domain-edit{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end;width:100%;padding:8px;background:#f7f1de;border-radius:5px}
+.domain-edit label,.review-inline label,.form-row label,.inline-field{display:grid;gap:3px;font-size:.75rem;color:#5d5548}
+.domain-edit .wide{flex:1 1 220px}
+.domain-edit input,.domain-edit select,.review-inline input,.form-row input,.form-row select,.item-grid select,.inline-field input{padding:5px 7px;border:1px solid #bcae90;border-radius:4px;background:var(--white);font-size:.82rem}
+
+.citation-list{list-style:none;margin:6px 0;padding:0;display:grid;gap:6px}
+.citation-row{padding:7px 9px;border-left:3px solid #b7a783;background:#fbf6e6;border-radius:0 5px 5px 0}
+.citation-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:.75rem;color:#5d5548}
+.citation-basis{margin:4px 0 0;font-size:.85rem}
+.citation-text{margin:3px 0 0;font-size:.8rem;color:#5d5548;font-style:italic}
+.role-tag{font-weight:700;padding:0 6px;border-radius:3px;border:1px solid #b7a783}
+.role-client{background:#e0e9dc}.role-clinician{background:#f1d985}
+
+.hypothesis-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.hypothesis-card{border:1.5px solid #b7a783;border-radius:6px 9px 6px 5px;padding:12px;background:#fffdf6;display:grid;gap:6px;align-content:start;border-left-width:6px}
+.hypothesis-card.label-likely{border-left-color:#a3372c}.hypothesis-card.label-possible{border-left-color:#c98500}
+.hypothesis-card.label-unlikely{border-left-color:#376966}.hypothesis-card.label-insufficient_evidence,.hypothesis-card.is-empty{border-left-color:#b7a783;border-left-style:dashed}
+.hypothesis-card .card-head{display:flex;justify-content:space-between;gap:6px;align-items:flex-start;flex-wrap:wrap}
+.hypothesis-label{margin:0;font-size:1.05rem}
+.hypothesis-facts{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;margin:0;font-size:.78rem}
+.hypothesis-facts dt{color:#6d6252}.hypothesis-facts dd{margin:0;font-weight:600}
+.hypothesis-detail{display:grid;gap:4px;border-top:1px solid #d0c3a4;padding-top:6px}
+.criteria-list{margin:0;padding-left:18px;display:grid;gap:8px}
+.criterion-head{font-size:.85rem}.criterion-status{font-weight:700;white-space:nowrap}
+.criterion.status-met .criterion-status{color:#24504c}.criterion.status-not_met .criterion-status{color:#5d5548}
+.criterion.status-conflicting .criterion-status{color:#86271f}.criterion.status-insufficient_evidence .criterion-status{color:#6b4700}
+.missing-list li::marker{content:"? "}
+
+.card-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.plan-card,.obs-card{padding:10px;border:1px solid #d0c3a4;border-radius:5px;background:#fffdf6}
+.card-head{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+
+.instrument-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:18px}
+/* Charts: a neutral white surface independent of the app theme (see chartTheme.ts). */
+.chart-frame{min-width:0}
+.chart-surface{--chart-ink:#1f2328;--chart-muted:#6e7781;--chart-line:#e5e7eb;margin:0;min-width:0;background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:12px 8px 10px 8px;
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;color:var(--chart-ink)}
+.chart-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;padding:0 6px 6px}
+.chart-axis-title{font-size:.72rem;color:var(--chart-muted)}
+.chart-legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.78rem;color:var(--chart-ink)}
+.chart-legend span{display:inline-flex;gap:6px;align-items:center}
+.legend-note{color:var(--chart-muted)}
+.chart-note{margin:6px 6px 0;font-size:.72rem;line-height:1.45;color:var(--chart-muted)}
+.chart-surface .recharts-text{font-family:inherit}
+.chart-tooltip{background:#fff;border:1px solid #d0d7de;border-radius:6px;padding:8px 10px;font-size:.78rem;display:grid;gap:6px;max-width:300px;
+  box-shadow:0 4px 12px rgba(31,35,40,.12);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#1f2328}
+.chart-tooltip strong{font-weight:600}
+.tooltip-series{display:grid;gap:2px}
+.tooltip-line{display:flex;align-items:center;gap:6px}.tooltip-line b{margin-left:auto;padding-left:12px;font-variant-numeric:tabular-nums}
+.tooltip-badge{font-size:.7rem;color:#57606a}.tooltip-items{font-size:.68rem;color:#6e7781;word-spacing:3px;font-variant-numeric:tabular-nums}
+.table-scroll{overflow-x:auto;max-width:100%}
+.progress-table{border-collapse:collapse;width:100%;font-size:.8rem}
+.progress-table th,.progress-table td{border-bottom:1px solid #e3d9bf;padding:5px 7px;text-align:left;vertical-align:top}
+.progress-table.compact td,.progress-table.compact th{padding:2px 5px}
+.gap-mark{color:#8a8174;font-style:italic}
+.administration-form{display:grid;gap:8px;padding:10px;background:#f7f1de;border-radius:5px}
+.form-row{display:flex;gap:10px;flex-wrap:wrap}
+.item-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:6px}
+.item-grid label{display:grid;gap:2px;font-size:.75rem}
+
+/* Domain heatmap: one-hue sequential scale (0 lightest → 3 darkest); every cell is also labelled. */
+.domain-grid{border-collapse:separate;border-spacing:2px;font-size:.78rem;min-width:100%;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#1f2328;background:#fff}
+.domain-grid th{text-align:left;font-weight:600;padding:4px 8px;white-space:nowrap}
+.domain-grid thead th{font-size:.75rem;color:#1f2328;border-bottom:1px solid #d0d7de}
+.domain-grid thead .small-note{color:#6e7781;font-weight:400}
+.domain-grid .group-row th{background:#f6f8fa;color:#57606a;font-size:.7rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:6px 8px;border-top:1px solid #e5e7eb}
+.domain-grid tbody th[scope=row]{font-weight:500;color:#1f2328}
+.domain-cell{padding:0;min-width:78px}
+.cell-button{width:100%;min-height:40px;display:grid;justify-items:center;align-content:center;gap:1px;padding:3px 4px;border:1px solid #e5e7eb;border-radius:3px;background:#fff;cursor:pointer;position:relative;font:inherit;color:inherit}
+.cell-button:hover{outline:2px solid #1f2328;outline-offset:-1px}
+.cell-button:focus-visible{outline:2px solid #2a78d6;outline-offset:1px}
+.cell-main{font-weight:600;font-size:.86rem;font-variant-numeric:tabular-nums}.cell-sub{display:block;font-size:.62rem;color:#57606a;text-align:center;line-height:1.2}
+.cell-badge{position:absolute;top:2px;right:3px;font-size:.55rem;font-weight:700;color:#6e7781;letter-spacing:.02em}
+.badge-pending{color:#6e7781}.badge-accepted,.badge-reviewed,.badge-edited{color:#1a7f37}.badge-stale{color:#cf222e}
+.cell-empty .cell-button{background:#fff;border-style:dashed;color:#8c959f}
+.cell-rating-0 .cell-button,.cell-explicit_denial .cell-button{background:#eef5fd;border-color:#dbe8f8}
+.cell-rating-1 .cell-button{background:#b7d3f6;border-color:#b7d3f6}
+.cell-rating-2 .cell-button{background:#6da7ec;border-color:#6da7ec}
+.cell-rating-3 .cell-button{background:#1c5cab;border-color:#1c5cab;color:#fff}
+.cell-rating-2 .cell-sub,.cell-rating-2 .cell-badge{color:#0d2a4f}.cell-rating-3 .cell-sub,.cell-rating-3 .cell-badge{color:#e6efff}
+.cell-conflicting .cell-button{background:repeating-linear-gradient(45deg,#fff,#fff 4px,#eaeef2 4px,#eaeef2 8px);border-color:#d0d7de}
+.cell-insufficient_evidence .cell-button{background:#fff;color:#8c959f}
+.cell-insufficient_evidence .cell-main{font-weight:400;font-size:.74rem}
+.cell-stale .cell-button{border:1.5px dashed #cf222e}
+.cell-rejected .cell-button{text-decoration:line-through;color:#8c959f;background:#fff}
+.heatmap-key{display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:.72rem;color:#57606a;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+.heatmap-key span{display:inline-flex;gap:4px;align-items:center}
+.heatmap-key i{display:inline-block;width:16px;height:12px;border-radius:2px;border:1px solid #d0d7de}
+.evidence-drawer{border:1.5px solid #302c29;border-radius:6px;padding:14px;background:#fffaf0;display:grid;gap:8px;box-shadow:4px 4px 0 #d9c394}
+.history-list{font-size:.75rem;margin:4px 0;padding-left:18px}
+
+.inputs-tag{font-size:.7rem;padding:1px 6px;border-radius:3px;border:1px solid #b7a783}
+.inputs-ai{border-style:dashed}.inputs-reviewed{background:#e0e9dc}.inputs-mixed{background:#f7f1de}
+.timeline-cell strong{display:block}
+.stale-banner{padding:8px 10px;border:1.5px dashed #a3372c;background:#fff0e5;color:#86271f;border-radius:5px;font-size:.85rem}
+.analyse-bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:.82rem}
+.job-status{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:.8rem;padding:6px 8px;background:#f7f1de;border-radius:5px}
+.obs-group h4{font-family:Georgia,serif;font-weight:500}
+
+@media (max-width:640px){
+  .progress-panel{padding:12px}
+  .hypothesis-facts{grid-template-columns:1fr}
+  .reviewer-input{width:100%}
+}
+@media print{.review-actions,.panel-tools,.analyse-bar{display:none}}
+
+/* Flagged statements (harm to self or others): a plain clinical alert, independent of the app theme. */
+.risk-report{--risk:#b42318;--risk-ink:#7a271a;--risk-row:#fef1f0;--risk-mark:#f9cdc8;margin-top:20px;background:#fff;border:1px solid var(--risk);border-radius:4px;overflow:hidden;color:#1f2328;font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+.risk-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 16px;background:var(--risk);color:#fff}
+.risk-bar h3{margin:0;color:#fff;font-size:.95rem;font-weight:650;letter-spacing:0}
+.risk-bar span{font-size:.8rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+.risk-disclaimer{margin:0;padding:8px 16px;background:#fef3f2;border-bottom:1px solid #f4c7c3;color:var(--risk-ink);font-size:.78rem;line-height:1.45}
+.risk-list{list-style:none;margin:0;padding:0}
+.risk-item{display:grid;grid-template-columns:168px minmax(0,1fr);gap:18px;padding:14px 16px;border-top:1px solid #eaecef}
+.risk-item:first-child{border-top:0}
+.risk-meta{display:flex;flex-direction:column;gap:4px;font-size:.78rem;color:#57606a}
+.risk-category{color:var(--risk);font-size:.8rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.risk-status{margin-top:4px;font-size:.74rem}
+.risk-status-pending,.risk-status-stale{color:var(--risk-ink);font-weight:600}
+.risk-excerpt{width:100%;border-collapse:collapse;font-size:.86rem;line-height:1.5}
+.risk-excerpt td,.risk-excerpt th{padding:6px 8px;text-align:left;vertical-align:top;border-bottom:1px solid #f0f1f3}
+.risk-time{width:48px;color:#6e7781;font-size:.76rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+.risk-speaker{width:72px;color:#57606a;font-size:.76rem;font-weight:600}
+.risk-text{color:#57606a}
+.risk-excerpt tr.is-flagged td,.risk-excerpt tr.is-flagged th{background:var(--risk-row);border-bottom-color:#f4c7c3}
+.risk-excerpt tr.is-flagged .risk-speaker{color:var(--risk)}
+.risk-excerpt tr.is-flagged .risk-time{color:var(--risk-ink)}
+.risk-excerpt mark{padding:1px 2px;background:var(--risk-mark);color:#1f2328;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.risk-gap td{padding:0 8px;color:#9aa1a9;text-align:center;line-height:1.1}
+.risk-links{display:flex;gap:14px;margin-top:5px}
+.risk-link{padding:0;border:0;background:none;color:var(--risk);font:inherit;font-size:.75rem;font-weight:600;text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+.risk-reason{margin:8px 0 0;color:#57606a;font-size:.8rem;line-height:1.45}
+.risk-reason span{color:#1f2328;font-weight:600}
+.risk-empty{margin:0;padding:14px 16px;color:#57606a;font-size:.85rem}
+.risk-rejected{padding:8px 16px 12px;border-top:1px solid #eaecef;color:#57606a;font-size:.78rem}
+.risk-rejected ul{margin:6px 0 0;padding-left:18px}
+.risk-report .review-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px}
+.risk-report .review-actions .button{padding:5px 12px;border:1px solid #c9ced6;border-radius:4px;background:#fff;color:#1f2328;box-shadow:none;transform:none;font-family:inherit;font-size:.78rem;font-weight:600;line-height:1.3}
+.risk-report .review-actions .button:hover:not(:disabled){background:#f6f7f9;border-color:#9aa1a9}
+.risk-report .review-actions .button-ghost{color:var(--risk)}
+.risk-report .reviewer-input,.risk-report .review-inline input,.risk-report .review-inline select{padding:5px 8px;line-height:1.3;border:1px solid #c9ced6;border-radius:4px;background:#fff;font:inherit;font-size:.78rem}
+@media(max-width:700px){.risk-item{grid-template-columns:1fr;gap:10px}.risk-meta{flex-direction:row;flex-wrap:wrap;gap:4px 10px}.risk-bar{flex-wrap:wrap}.risk-speaker{width:auto}}

@@ -1,5 +1,8 @@
 export type Speaker = "CLINICIAN" | "CLIENT";
-export type AudioChunk = { id: string; meetingId: string; role: Speaker; offset: number; blob: Blob };
+export type Source = "clinician_local" | "patient_device" | "network_received";
+// hold: a network-received fallback kept locally; uploaded only if patient-device chunks do not cover its window.
+export type AudioChunk = { id: string; meetingId: string; role: Speaker; offset: number; blob: Blob; source?: Source; hold?: boolean;
+  duration?: number; uncertainty?: number; rtt?: number };
 
 function database(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
@@ -32,10 +35,12 @@ export function wavBlob(pcm: Int16Array, rate: number): Blob {
   return new Blob([buffer], { type: "audio/wav" });
 }
 
-export async function captureAudio(context: AudioContext, streams: [Speaker, MediaStream][], offset: number,
+export async function captureAudio(context: AudioContext, streams: [Speaker, MediaStream][], offsetAt: number | (() => number),
   onChunk: (role: Speaker, offset: number, blob: Blob) => Promise<void>, onError: (message: string) => void) {
   await context.audioWorklet.addModule("/meeting-pcm.js");
   const epoch = Math.round(context.currentTime * context.sampleRate);
+  // The meeting clock is read at the same moment as the audio epoch (after the worklet module has loaded).
+  const offset = typeof offsetAt === "function" ? offsetAt() : offsetAt;
   const pending = new Set<Promise<void>>();
   const captures = streams.map(([role, stream]) => {
     const source = context.createMediaStreamSource(new MediaStream(stream.getAudioTracks()));

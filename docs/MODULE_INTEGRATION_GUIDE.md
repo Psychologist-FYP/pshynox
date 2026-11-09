@@ -209,6 +209,25 @@ Module C remains responsible for:
 
 Module C should not duplicate the ASR/IR algorithms inside API route functions. Keep route handlers thin and delegate to module service interfaces.
 
+## 6a. Progress monitoring module (added 8 November 2026)
+
+`services/progress/` adds session observations, questionnaire estimates, flagged statements and condition hypotheses.
+User documentation is in [PROGRESS_MONITORING.md](PROGRESS_MONITORING.md); the design is in
+[PROGRESS_MONITORING_PLAN.md](PROGRESS_MONITORING_PLAN.md). The integration points are:
+
+| Boundary | Rule |
+|---|---|
+| Module A → progress | Consumes stored `TranscriptSegment` rows (id, role, start/end, revision, text) only. Edited segments mark dependent progress values *stale* through the same `update_transcript_segment` path that marks note excerpts stale. |
+| Module B → progress | Uses `EvidenceRetrievalProvider.search` (BM25 by default) per session, for Stage A packets and Stage B criterion retrieval. No changes to Module B contracts. |
+| LLM runtime | Shares `services/note_generation/runtime.py`, its lock and the memory slot with note drafting. There is no second runtime, and only one model job runs at a time. |
+| Cores vs persistence | `extraction.py`, `prediction.py`, `postprocess.py` and `trends.py` take plain snapshots and return results without touching SQLite. Persistence is only in `services/progress/store.py` and `services/api/progress_routes.py`. The same cores run on research data (`services/progress/evaluation/`). |
+| Contracts | Additive models in `services/api/schemas.py`. One approved change: `AuditEvent.session_id` is optional and `patient_id` was added. Migration `0008_progress_monitoring` is additive. |
+| Research data | LongCounsel-8 and the vignette set stay under `data/research/`. They enter the clinical DB only as labelled `lc8-demo-` patients via `import_longcounsel_demo`. Labels never enter the DB or a prompt. |
+
+**Scope change:** condition hypotheses are automatic. They are labelled as AI hypotheses for clinician review, not
+diagnoses. Earlier statements that the system does not diagnose need the supervisor's and the consultant's agreement
+before the final report (plan §1).
+
 ## 7. Git workflow and merge rules
 
 ### Start cleanly from `main`

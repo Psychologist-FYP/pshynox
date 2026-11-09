@@ -5,8 +5,15 @@ import wave
 from array import array
 from pathlib import Path
 
-MAX_SECONDS = 300
-MAX_BYTES = 100 * 1024 * 1024
+# One recording (browser recording or imported file) may be up to 45 minutes. 600 MiB fits a 45-minute 48 kHz stereo
+# 16-bit WAV (about 520 MB); browser recordings (Opus) are far smaller. Online meetings are unaffected: they upload
+# separate one-minute chunks.
+MAX_MINUTES = 45
+MAX_SECONDS = MAX_MINUTES * 60
+MAX_BYTES = 600 * 1024 * 1024
+MAX_MB = MAX_BYTES // (1024 * 1024)
+DECODE_TIMEOUT = 300
+SILENCE_BLOCK_FRAMES = 16000 * 10
 
 
 class SpeechError(Exception):
@@ -29,7 +36,7 @@ def run_media(args: list[str], timeout: int = 60) -> str:
 
 def inspect_audio(path: Path) -> dict:
     if not path.is_file() or not 0 < path.stat().st_size <= MAX_BYTES:
-        raise SpeechError("INVALID_AUDIO", "Audio must be nonempty and at most 100 MB.")
+        raise SpeechError("INVALID_AUDIO", f"Audio must be nonempty and at most {MAX_MB} MB.")
     try:
         info = json.loads(run_media([
             "ffprobe", "-v", "error", "-protocol_whitelist", "file,pipe", "-format_whitelist", "wav,matroska,webm,ogg,mov", "-show_streams",
@@ -45,7 +52,7 @@ def inspect_audio(path: Path) -> dict:
             raise ValueError()
         return {"duration_ms": round(duration * 1000), "sample_rate": int(stream["sample_rate"]), "channels": channels}
     except (KeyError, ValueError, TypeError) as exc:
-        raise SpeechError("INVALID_AUDIO", "Use audio with one or two channels, no video, and at most five minutes.") from exc
+        raise SpeechError("INVALID_AUDIO", f"Use audio with one or two channels, no video, and at most {MAX_MINUTES} minutes.") from exc
 
 
 def decode_audio(path: Path, output: Path, channel: int | None = None) -> dict:
@@ -57,13 +64,20 @@ def decode_audio(path: Path, output: Path, channel: int | None = None) -> dict:
     if channel is not None:
         args += ["-af", f"pan=mono|c0=c{channel}"]
     args += ["-ac", "1", "-ar", "16000", "-c:a", "pcm_s16le", str(output)]
-    run_media(args)
+    run_media(args, timeout=DECODE_TIMEOUT)
     with wave.open(str(output), "rb") as wav:
         duration = wav.getnframes() / wav.getframerate()
         if not 0 < duration <= MAX_SECONDS + .1:
-            raise SpeechError("INVALID_DURATION", "Recording must contain audio and be no longer than five minutes.")
-        samples = array("h", wav.readframes(wav.getnframes()))
+            raise SpeechError("INVALID_DURATION", f"Recording must contain audio and be no longer than {MAX_MINUTES} minutes.")
+        # Reject digital silence before ASR, rather than inventing speech in empty audio. Read in blocks and stop at
+        # the first audible one, so long recordings are not held in memory as one array.
+        silent = True
+        while silent:
+            block = wav.readframes(SILENCE_BLOCK_FRAMES)
+            if not block:
+                break
+            samples = array("h", block)
+            silent = max(map(abs, samples), default=0) <= 8
     info["duration_ms"] = round(duration * 1000)
-    # Reject digital silence before ASR, rather than inventing speech in empty audio.
-    info["silent"] = not samples or max(abs(v) for v in samples) <= 8
+    info["silent"] = silent
     return info

@@ -6,11 +6,15 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "test:meeting": "playwright test"
+    "test:meeting": "playwright test",
+    "build:meeting": "tsc -b && vite build --config vite.meeting.config.ts",
+    "test:unit": "node --experimental-strip-types --no-warnings --import ./unit/register.mjs --test unit/*.test.mjs",
+    "test:meeting:internet": "playwright test -c playwright.internet.config.ts"
   },
   "dependencies": {
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "recharts": "^3.10.1"
   },
   "devDependencies": {
     "@playwright/test": "^1.64.1",

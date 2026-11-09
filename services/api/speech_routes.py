@@ -14,7 +14,7 @@ from starlette.concurrency import run_in_threadpool
 
 from services.api.db import (SessionRecord, RecordingRecord, TranscriptionJobRecord,
                             TranscriptSegmentRecord, SegmentSourceRecord, NoteDraftRecord, MeetingChunkRecord, utc_now)
-from services.speech.audio import MAX_BYTES, SpeechError, decode_audio
+from services.speech.audio import MAX_BYTES, MAX_MB, SpeechError, decode_audio
 
 
 class TranscribeRequest(BaseModel):
@@ -74,7 +74,9 @@ def build_router(db_dependency):
             chunk = db.scalar(select(MeetingChunkRecord).where(MeetingChunkRecord.recording_id == r.id))
             result.append({**recording_view(r), "offset_ms": chunk.offset_ms if chunk else 0,
                            "speaker_role": chunk.speaker_role if chunk else "UNKNOWN",
-                           "meeting_id": chunk.meeting_id if chunk else None})
+                           "meeting_id": chunk.meeting_id if chunk else None,
+                           # clinician_local | patient_device | network_received; legacy meeting chunks have no source.
+                           "source": (chunk.source or ("clinician_local" if chunk.speaker_role == "CLINICIAN" else "network_received")) if chunk else "upload"})
         return result
 
     @router.post("/sessions/{sid}/recordings", status_code=201)
@@ -99,7 +101,7 @@ def build_router(db_dependency):
                 async for chunk in request.stream():
                     total += len(chunk)
                     if total > MAX_BYTES:
-                        fail("AUDIO_TOO_LARGE", "Recording exceeds the 100 MB limit.", 413)
+                        fail("AUDIO_TOO_LARGE", f"Recording exceeds the {MAX_MB} MB limit.", 413)
                     target.write(chunk)
                     digest.update(chunk)
             with tempfile.TemporaryDirectory(prefix="pshynox-validate-") as temp:

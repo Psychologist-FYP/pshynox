@@ -61,7 +61,7 @@ export type NoteField = {
 };
 export type NoteDraft = { sources_stale: boolean; id: string; session_id: string; fields: NoteField[]; created_at: string; updated_at: string; workflow_status: "DRAFT" | "APPROVED" | "REJECTED"; risk_review_status: "PENDING" | "COMPLETED"; reviewer_name?: string | null; decision_actor_name?: string | null; };
 export type ReviewState = { session_id: string; note_draft_id: string | null; workflow_status: "DRAFT" | "APPROVED" | "REJECTED"; risk_review_status: "PENDING" | "COMPLETED"; reviewer_name?: string | null; risk_review_completed_at?: string | null; review_note?: string | null; decision_actor_name?: string | null; decision_at?: string | null; rejection_reason?: string | null };
-export type AuditEvent = { id: string; session_id: string; note_draft_id: string | null; event_type: string; actor_name: string; occurred_at: string; metadata: Record<string, string> };
+export type AuditEvent = { id: string; session_id: string | null; patient_id?: string | null; note_draft_id: string | null; event_type: string; actor_name: string; occurred_at: string; metadata: Record<string, string> };
 
 export class ApiError extends Error {
   constructor(
@@ -99,7 +99,7 @@ export type PatientInput = {
 };
 export type Patient = PatientInput & { id: string; created_at: string; updated_at: string };
 
-export type Recording = { id: string; session_id: string; duration_ms: number; channels: number; offset_ms?: number; speaker_role?: string; meeting_id?: string | null };
+export type Recording = { id: string; session_id: string; duration_ms: number; channels: number; offset_ms?: number; speaker_role?: string; meeting_id?: string | null; source?: "clinician_local" | "patient_device" | "network_received" | "upload"; };
 export type SpeechJob = { id: string; recording_id: string; status: "QUEUED" | "RUNNING" | "SUCCEEDED" | "FAILED"; error_message: string | null; metrics: Record<string, unknown> };
 
 export const api = {

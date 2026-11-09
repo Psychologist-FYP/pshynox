@@ -1,6 +1,6 @@
 export type MeetingInfo = {
   id: string; role: "CLINICIAN" | "CLIENT"; status: string; expires_ms: number;
-  session_id?: string; ice_servers: RTCIceServer[];
+  session_id?: string; ice_servers?: RTCIceServer[]; audio_only?: boolean;
   jobs?: { id: string; status: string; error_message: string | null }[];
 };
 export async function meetingRequest<T>(path: string, token = "", init: RequestInit = {}): Promise<T> {
@@ -18,7 +18,7 @@ export function tokenFor(id: string) {
   const token = hash.get("token");
   if (token) {
     sessionStorage.setItem(`meeting-token-${id}`, token);
-    history.replaceState(null, "", location.pathname);
+    history.replaceState(null, "", location.pathname + location.search);
   }
   return token || sessionStorage.getItem(`meeting-token-${id}`) || "";
 }

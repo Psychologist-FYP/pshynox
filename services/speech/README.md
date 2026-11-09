@@ -17,7 +17,7 @@ The CLI reads exported `WHISPER_*` settings or defaults; it does not read `.env`
 automatically. Start the application with the root README's `--env-file .env`
 command to apply file-based configuration to the API and worker.
 
-The adapter is CPU-only. Input is limited to five minutes / 100 MB; ordinary
+The adapter is CPU-only. Input is limited to 45 minutes / 600 MB; ordinary
 stereo is mixed for ASR, originals are preserved, and speaker roles start UNKNOWN.
 Local model absence and decoding/inference errors are explicit; no hosted fallback
 is used. Whisper/quantized-model language quality and Jetson runtime compatibility

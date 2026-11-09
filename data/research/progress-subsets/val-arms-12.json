@@ -1,0 +1,56 @@
+{
+  "name": "val-arms-12",
+  "edition": "longcounsel-8-gpt-5.4-mini-low",
+  "split": "val",
+  "seed": 42,
+  "n": 12,
+  "run_ids": [
+    "1799_pdt_031",
+    "196_cbt_095",
+    "2358_pdt_034",
+    "2620_cbt_043",
+    "2632_cbt_084",
+    "3477_pmt_037",
+    "4117_bt_027",
+    "4144_bt_009",
+    "4587_pmt_025",
+    "4640_cbt_124",
+    "4871_cbt_068",
+    "972_het_042"
+  ],
+  "purpose": "development arm comparison",
+  "strata": {
+    "population": {
+      "decreasing": 6,
+      "fluctuating": 8,
+      "increasing": 3,
+      "stable": 20
+    },
+    "selected": {
+      "decreasing": 2,
+      "fluctuating": 3,
+      "increasing": 1,
+      "stable": 6
+    }
+  },
+  "trajectory_types": {
+    "1799_pdt_031": "stable",
+    "196_cbt_095": "increasing",
+    "2358_pdt_034": "fluctuating",
+    "2620_cbt_043": "decreasing",
+    "2632_cbt_084": "stable",
+    "3477_pmt_037": "stable",
+    "4117_bt_027": "stable",
+    "4144_bt_009": "fluctuating",
+    "4587_pmt_025": "stable",
+    "4640_cbt_124": "decreasing",
+    "4871_cbt_068": "fluctuating",
+    "972_het_042": "stable"
+  },
+  "large_change_transitions": 6,
+  "rule": "derived_type = trends.trajectory(ground-truth PHQ-8 totals over 5 sessions, T=5): endpoint change <= -5 decreasing, >= +5 increasing, else range >= 5 fluctuating, else stable. Proportional allocation by largest remainder (ties by stratum name), stratum members sorted by run_id then shuffled with random.Random(seed).",
+  "rule_sha256": "15cf07e91fc27d85cbf932939f411264cf3b77f23494a7d202eb481cdb081d2e",
+  "split_file_sha256": "3a8a85fff598a1d1e7728ae4dcc80324146476316f7bb6935c32e837f2d09f2c",
+  "labels_sha256": "59b96fd3128ec526c968aaa1c7d49e814a082877d2d40c08d2dd7a02f304fe96",
+  "created_at": "2026-11-06T21:52:09.050481+00:00"
+}

@@ -1,0 +1,5 @@
+{"session_index": 1, "days_since_first": 0, "turns": [
+ {"turn_id": 1, "speaker": "CLINICIAN", "text": "What has been on your mind since we last spoke?"},
+ {"turn_id": 2, "speaker": "CLIENT", "text": "I worry about everything, exams, money, my parents, and I cannot switch it off."},
+ {"turn_id": 3, "speaker": "CLINICIAN", "text": "How long has it been like that?"},
+ {"turn_id": 4, "speaker": "CLIENT", "text": "Most days for about a year now. I lie awake at night going over it."}]}

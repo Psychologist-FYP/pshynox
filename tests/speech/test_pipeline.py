@@ -216,3 +216,32 @@ def test_stereo_adapter_mixes_without_modifying_original(monkeypatch, tmp_path):
     segments, metrics = transcriber.transcribe_with_metrics(source, session_id="test", config=Config("fake", "fake"))
     assert len(segments) == 1 and metrics["channel_mode"] == "stereo_mix"
     assert source.read_bytes() == original
+
+
+def test_recording_limit_is_45_minutes_and_research_clips_stay_at_5(tmp_path, monkeypatch):
+    import services.speech.audio as audio
+    from services.retrieval import prepare_audio
+    assert audio.MAX_SECONDS == 45 * 60 and audio.MAX_BYTES == 600 * 1024 * 1024
+    assert prepare_audio.MAX_SECONDS == 300                    # research clip length unchanged
+    # Over-limit audio is still refused (limit patched down so the test needs no 45-minute file).
+    source = tmp_path / "one-second.wav"
+    source.write_bytes(wav_bytes())
+    monkeypatch.setattr(audio, "MAX_SECONDS", 0.5)
+    with pytest.raises(SpeechError, match="45 minutes"):
+        decode_audio(source, tmp_path / "out.wav")
+
+
+def test_silence_check_reads_in_blocks_and_finds_sound_after_silence(tmp_path, monkeypatch):
+    import services.speech.audio as audio
+    monkeypatch.setattr(audio, "SILENCE_BLOCK_FRAMES", 4000)    # several blocks for a one-second file
+    output = io.BytesIO()
+    with wave.open(output, "wb") as wav:
+        wav.setnchannels(1); wav.setsampwidth(2); wav.setframerate(16000)
+        for i in range(16000):                                   # silent for 0.9 s, then a tone
+            wav.writeframesraw(struct.pack("<h", 0 if i < 14400 else int(1000 * math.sin(i * .1))))
+    late = tmp_path / "late-sound.wav"
+    late.write_bytes(output.getvalue())
+    assert decode_audio(late, tmp_path / "a.wav")["silent"] is False
+    quiet = tmp_path / "quiet.wav"
+    quiet.write_bytes(wav_bytes(silent=True))
+    assert decode_audio(quiet, tmp_path / "b.wav")["silent"] is True

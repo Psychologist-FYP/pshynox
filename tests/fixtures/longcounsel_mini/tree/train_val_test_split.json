@@ -1,0 +1,34 @@
+{
+ "dataset_name": "lc8-mini",
+ "split_rule": "fixture",
+ "seed": 42,
+ "ratios": {},
+ "counts": {},
+ "trend_counts": {},
+ "runs": [
+  {
+   "trend_name": "lc8-mini",
+   "profile_id": "a",
+   "run_id": "mini_a",
+   "split": "val"
+  },
+  {
+   "trend_name": "lc8-mini",
+   "profile_id": "b",
+   "run_id": "mini_b",
+   "split": "val"
+  },
+  {
+   "trend_name": "lc8-mini",
+   "profile_id": "c",
+   "run_id": "mini_c",
+   "split": "test"
+  },
+  {
+   "trend_name": "lc8-mini",
+   "profile_id": "t",
+   "run_id": "mini_t",
+   "split": "train"
+  }
+ ]
+}

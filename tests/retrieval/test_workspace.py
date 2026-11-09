@@ -8,6 +8,7 @@ import pytest
 
 from services.retrieval.prepare import digest, prepare, select_pilot, write_json
 from services.retrieval.workspace import ResearchError, ResearchStore
+from tests.local_data import needs_starter_pack
 
 
 def create_research_fixture(root):
@@ -99,6 +100,7 @@ def test_identity_and_source_groups_cannot_cross_splits_and_selection_is_reprodu
     assert any(set(g) == {'0', '1'} for g in a['groups'])
 
 
+@needs_starter_pack
 def test_preparation_verifies_actual_pack_preserves_progress_and_separates_data(tmp_path):
     prepare(output=tmp_path)
     store = ResearchStore(tmp_path)

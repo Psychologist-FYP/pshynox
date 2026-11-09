@@ -72,16 +72,17 @@ def test_simultaneous_join_recording_status_chat_and_duplicate_participant():
                 guest.send_json({'token': room['guest_token'], 'recording_consent': True})
                 assert guest.receive_json()['role'] == 'CLIENT'
                 assert guest.receive_json()['type'] == host.receive_json()['type'] == 'ready'
-                # Regression: bool recording messages used to close the socket.
+                # Chat, media and recording control moved to the encrypted data channel: signaling drops them
+                # (without closing the socket) and relays only offer/answer/ice/leave.
                 for value in [False, True]:
                     host.send_json({'type': 'recording', 'data': value})
-                    event = guest.receive_json()
-                    assert event['type'] == 'recording' and event['data'] is value
+                host.send_json({'type': 'media', 'data': {'camera': True, 'mic': True}})
                 host.send_json({'type': 'offer', 'data': {'type': 'offer', 'sdp': 'fictional-sdp'}})
-                assert guest.receive_json()['type'] == 'offer'
+                assert guest.receive_json()['type'] == 'offer'          # the dropped messages never arrived
                 guest.send_json({'type': 'chat', 'data': 'Fictional hello', 'role': 'CLINICIAN'})
+                guest.send_json({'type': 'ice', 'data': {'candidate': 'fictional'}})
                 message = host.receive_json()
-                assert message['role'] == 'CLIENT' and message['data'] == 'Fictional hello'
+                assert message['type'] == 'ice' and message['role'] == 'CLIENT' and 'Fictional hello' not in str(message)
                 guest.send_json({'type': 'leave'})
                 assert host.receive_json()['type'] == 'peer-left'
 
@@ -142,3 +143,53 @@ def test_end_revokes_join():
         with c.websocket_connect(f"/api/v1/meetings/{room['id']}/signal") as ws:
             ws.send_json({'token': room['guest_token'], 'recording_consent': True})
             with pytest.raises(WebSocketDisconnect): ws.receive_json()
+
+
+def test_verification_confirmation_is_audited_host_only():
+    from services.api.db import AuditEventRecord
+    with TestClient(app) as c:
+        _, room = create(c)
+        url = f"/api/v1/meetings/{room['id']}/verification"
+        assert c.post(url, json={'matched': True}, headers=headers(room, guest=True)).status_code == 403
+        assert c.post(url, json={'matched': True, 'code': '123456'}, headers=headers(room)).status_code == 422   # the code is never sent
+        assert c.post(url, json={'matched': False}, headers=headers(room)).status_code == 200
+        assert c.post(url, json={'matched': True}, headers=headers(room)).status_code == 200
+        with session_factory() as db:
+            assert db.get(MeetingRecord, room['id']).verification_confirmed_at is not None
+            events = [e.event_type for e in db.query(AuditEventRecord).filter(AuditEventRecord.event_type.like('MEETING_VERIFICATION%'))]
+        assert 'MEETING_VERIFICATION_MISMATCH' in events and 'MEETING_VERIFICATION_CONFIRMED' in events
+
+
+def test_chunk_source_and_clock_fields_are_validated_stored_and_listed():
+    from services.api.db import MeetingChunkRecord
+    with TestClient(app) as c:
+        sid, room = create(c)
+        consent_pair(c, room)
+        def up(cid, role, query):
+            return c.post(f"/api/v1/meetings/{room['id']}/chunks/{cid}?speaker_role={role}&offset_ms=60000{query}",
+                          content=wav_bytes(), headers={**headers(room), 'Content-Type': 'audio/wav'})
+        cid = uuid4()
+        assert up(cid, 'CLIENT', '&source=patient_device&offset_uncertainty_ms=12&rtt_ms=24').status_code == 201
+        assert up(cid, 'CLIENT', '&source=patient_device&offset_uncertainty_ms=12&rtt_ms=24').status_code == 201      # idempotent retry
+        assert up(cid, 'CLIENT', '&source=network_received').status_code == 409                                       # same id, other source
+        assert up(uuid4(), 'CLINICIAN', '&source=patient_device').status_code == 422                                  # source must match speaker
+        assert up(uuid4(), 'CLIENT', '&source=clinician_local').status_code == 422
+        assert up(uuid4(), 'CLIENT', '&source=somewhere').status_code == 422
+        assert up(uuid4(), 'CLIENT', '&source=patient_device&rtt_ms=999999').status_code == 422
+        legacy = chunk(c, room, role='CLIENT', offset=0)                                                              # LAN clients send no source
+        assert legacy.status_code == 201
+        with session_factory() as db:
+            saved = db.get(MeetingChunkRecord, str(cid))
+            assert (saved.source, saved.offset_uncertainty_ms, saved.rtt_ms) == ('patient_device', 12, 24)
+        sources = {r['offset_ms']: r['source'] for r in c.get(f'/api/v1/sessions/{sid}/recordings').json()}
+        assert sources == {60000: 'patient_device', 0: 'network_received'}
+        while process_one(session_factory, fake_transcriber):     # leave no queued jobs for later tests
+            pass
+
+
+def test_patient_device_chunks_require_patient_consent_first():
+    with TestClient(app) as c:
+        _, room = create(c)
+        response = c.post(f"/api/v1/meetings/{room['id']}/chunks/{uuid4()}?speaker_role=CLIENT&offset_ms=0&source=patient_device",
+                          content=wav_bytes(), headers={**headers(room), 'Content-Type': 'audio/wav'})
+        assert response.status_code == 403 and (response.json().get('error') or response.json().get('detail'))['code'] == 'CONSENT_REQUIRED'

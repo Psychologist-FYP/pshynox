@@ -30,7 +30,7 @@ export function LandingPage({ health, error }: { health: Health | null; error: s
         <ExampleWorkspace />
       </section>
       <section className="section-wrap about-section" id="about"><div className="about-mark"><img src="/images/katz.png" alt="" /></div><div><p className="eyebrow">A familiar face. Same chair.</p><h2>He brought a notebook. We took the hint.</h2><p>Inspired by the illustrated world of Dr. Katz, Professional Therapist: a comfortable chair, a patient listener, and the suspicion that the paperwork is multiplying. We handle the organizing. Clinical decisions stay with the clinician.</p></div></section>
-      <section className="section-wrap scope-section" id="scope"><div><p className="eyebrow">Honest scope</p><h2>Documentation support, not autonomous judgment.</h2></div><p>This workspace helps organize and review fictional session material. It does not diagnose, predict risk, recommend treatment, or replace professional judgment.</p></section>
+      <section className="section-wrap scope-section" id="scope"><div><p className="eyebrow">Honest scope</p><h2>Documentation support, not autonomous judgment.</h2></div><p>This workspace helps organize and review fictional session material. It can produce AI-generated condition hypotheses with cited evidence for clinician review; these are not diagnoses. It does not score risk, recommend treatment, or replace professional judgment.</p></section>
     </main>
     <footer className="site-footer section-wrap"><Brand /><div><a href="/workspace">Workspace</a><a href="/#workflow">Workflow</a><a href="/#about">About</a></div><span>The office is local. The paperwork is persistent.</span></footer>
   </div>;

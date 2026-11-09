@@ -89,6 +89,8 @@ async def lifespan(_: FastAPI):
         from services.api.note_generation_routes import shutdown_notes
         shutdown_notes()
         shutdown_research()
+        from services.progress.jobs import shutdown_progress
+        shutdown_progress()
         if worker and worker.poll() is None:
             os.killpg(worker.pid, signal.SIGTERM)
             worker.wait(timeout=10)
@@ -97,7 +99,8 @@ async def lifespan(_: FastAPI):
 app = FastAPI(
     title="Psychologist-FYP Module C API",
     version=APP_VERSION,
-    description="Offline documentation support API. Not a diagnostic system.",
+    description=("Offline documentation support API with AI-generated, evidence-cited condition hypotheses for clinician review. "
+                 "Hypotheses are not diagnoses; no risk scores or treatment recommendations."),
     lifespan=lifespan,
 )
 app.include_router(build_research_router())
@@ -372,6 +375,9 @@ def update_transcript_segment(
                     field["review_status"] = "PENDING"
             draft.fields_json = json.dumps(fields)
         reset_review(draft)
+    # Same path as note excerpts: progress values citing this segment become stale.
+    from services.progress.store import mark_stale
+    mark_stale(db, segment_id)
     if payload.text is not None:
         record.text = payload.text
     if payload.speaker_role is not None:
@@ -613,7 +619,7 @@ def audit_events(session_id: str, db: DbSession = Depends(db_dependency)) -> lis
     records = db.scalars(select(AuditEventRecord).where(AuditEventRecord.session_id == session_id).order_by(AuditEventRecord.occurred_at, AuditEventRecord.id)).all()
     return [
         AuditEvent(
-            id=item.id, session_id=item.session_id, note_draft_id=item.note_draft_id,
+            id=item.id, session_id=item.session_id, patient_id=item.patient_id, note_draft_id=item.note_draft_id,
             event_type=item.event_type, actor_name=item.actor_name, occurred_at=item.occurred_at,
             metadata=json.loads(item.metadata_json),
         )
@@ -717,6 +723,10 @@ from services.api.meeting_routes import build_meeting_router
 app.include_router(build_meeting_router(db_dependency, session_factory))
 
 
+from services.api.progress_routes import build_progress_router
+app.include_router(build_progress_router(db_dependency))
+
+
 @app.middleware("http")
 async def protect_lan_workspace(request, call_next):
     """LAN invitees get capability-scoped meeting access, never patient records.
@@ -739,7 +749,12 @@ async def protect_lan_workspace(request, call_next):
         except ValueError:
             local = False
     path = request.url.path
-    if not local and not re.fullmatch(r"/api/v1/meetings/meeting-[a-f0-9]{32}(?:/(?:end|chunks/[a-f0-9-]{36}))?", path):
+    from services.api.meeting_core import clinician_request_allowed, meeting_mode
+    # Internet mode: patients use the separate public meeting server; this API answers only loopback-addressed,
+    # unproxied requests, so a tunnel pointed here by mistake gets 403 on every route.
+    if not clinician_request_allowed(request.headers) or (not local and meeting_mode() == "internet"):
+        return JSONResponse(status_code=403, content={"error": {"code": "LOCAL_WORKSPACE_ONLY", "message": "The clinician workspace is available only on the hosting computer."}})
+    if not local and not re.fullmatch(r"/api/v1/meetings/meeting-[a-f0-9]{32}(?:/(?:end|consent|ice-servers|chunks/[a-f0-9-]{36}))?", path):
         return JSONResponse(status_code=403, content={"error": {"code": "LOCAL_WORKSPACE_ONLY", "message": "The clinician workspace is available only on the hosting computer. Use your meeting invitation to join."}})
     response = await call_next(request)
     response.headers["Cache-Control"] = "no-store"

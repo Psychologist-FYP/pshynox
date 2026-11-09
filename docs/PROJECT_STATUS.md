@@ -1,5 +1,108 @@
 # Pshynox — Current Project Status
 
+## Update, 8 November 2026 (evening): internet meetings (branch `feat/internet-meetings`)
+
+Two-person meetings now also work over the internet; same-Wi-Fi meetings are unchanged for users. See
+[INTERNET_MEETINGS.md](INTERNET_MEETINGS.md).
+
+| Item | Status |
+|---|---|
+| Public meeting-only server | Built. A separate app on its own loopback port, reached through Tailscale Funnel, serves only the patient page, consent, signaling and ICE. The clinician API is never exposed: it also refuses public-host and forwarded requests in internet mode. |
+| NAT traversal | Cloudflare TURN credentials issued server side (short-lived, TTL ≤ invitation, revoked at the end); optional Metered; STUN-only fallback with a warning; audio-only option; connection type and monthly relayed-traffic estimate. |
+| Encrypted data channel | Chat, media state and recording control moved off signaling. A 6-digit verification code from both DTLS fingerprints; the clinician's confirmation is audited. |
+| Patient-side clean recording | The patient's browser records its own microphone and sends 60 s chunks over the data channel: encrypted at rest until acknowledged, SHA-256-verified, clock-aligned. Network-received audio is a labelled fallback. |
+| Pre-existing chunk-gap bug | Fixed: skipped audio render quanta are padded in the worklet. |
+| Single-recording limit | Raised from 5 to **45 minutes** (and 100 MB to 600 MB) for browser recordings and imported files; the panel stops and saves automatically at the limit. Online meetings were never limited to 5 minutes (they upload 1-minute chunks). Research clips stay at 5 minutes. |
+| Verification | Backend 337 passed; unit 14; LAN meeting Playwright 4/4; internet-mode Playwright 1/1 (two browsers, HTTPS public server, mocked ICE). |
+| **Unverified** | Real networks: Funnel WebSockets, mobile data, TURN relaying, 30-minute calls, recovery from a network drop, transcript quality by source. See [the manual checklist](INTERNET_MEETINGS_TEST_CHECKLIST.md). |
+
+---
+
+
+## Update, 8 November 2026: progress-monitoring plan complete (Phase 6)
+
+All implementation phases of the [progress-monitoring plan](PROGRESS_MONITORING_PLAN.md) are now built. User
+documentation is in [PROGRESS_MONITORING.md](PROGRESS_MONITORING.md).
+
+| Item | Status |
+|---|---|
+| Vignette-set infrastructure | Built: schema and validator, resumable run (Stage A + all four conditions), report, results view on `/workspace/research-progress`, one fictional test fixture, [authoring guide](VIGNETTE_AUTHORING_GUIDE.md). **No clinical cases or consultant labels exist yet.** |
+| Print view | Completed: hypotheses with criterion checklist, cited references and "information still needed"; flagged statements with transcript text; questionnaires; domains; changes; plans and follow-up |
+| Plans and follow-up thread | Built (Phase 2 UI, Phase 3 producer) |
+| Scope-change wording | API description, workspace footer, landing page and README now describe AI condition hypotheses for clinician review, not diagnoses (draft wording; see below) |
+| Benchmark | Both retrieval arms on `val-arms-12` complete. **Full-transcript arms not run (user decision, 8 November).** Reports, freeze, calibration and the final `test-final-37` run are optional user-run steps, not done. |
+
+**Scope-change addendum.** §1 below says the system "does not implement automated diagnosis". That is no longer true
+in the same sense. The progress module automatically produces criterion-level condition hypotheses (bipolar, GAD,
+social anxiety, depressive episode) from transcripts:
+
+- each hypothesis cites transcript turns;
+- each is labelled *AI-generated · human review pending*;
+- the clinician remains the decision-maker;
+- risk is flagged, never scored.
+
+The new wording is a draft. It needs agreement from the supervisor and the clinical consultant before the final report
+(plan §1).
+
+**Verification (8 November 2026):** backend `pytest` 302 passed; frontend build passes; progress Playwright tests 4/4
+pass.
+
+**Still open:**
+
+- the consultant's verification of criteria, domains, thresholds and label definitions (plan §13);
+- writing and labelling the vignette set, then running it;
+- the optional LongCounsel-8 reports, freeze and final run;
+- authentication and encryption at rest;
+- Urdu evaluation.
+
+---
+
+## Update, 7 November 2026 (branch `progress-monitoring`)
+
+This section summarises the current state. The sections below it keep the October baseline assessment and the earlier
+dated updates unchanged. Setup on a new laptop is now one command, `./scripts/setup.sh`; see the [README](../README.md).
+
+| Area | Status | Notes |
+|---|---|---|
+| Patient workspace, sessions, consent | Implemented | Unchanged since October. |
+| Recording, WAV import, local transcription (Module A) | Implemented | whisper.cpp v1.8.3, CPU, multilingual base model. Urdu quality not evaluated. |
+| Evidence retrieval (Module B) | Implemented: 5 methods | BM25 (default), TF-IDF, optional E5 and hybrid, plus a research annotation workspace. Human relevance annotation and real-dataset quality numbers are outstanding. |
+| AI note drafts | Implemented | Qwen3-4B-Instruct-2507 Q4_K_M via llama.cpp. GPU verified on a GTX 1650 (37/37 layers, about 3 GiB VRAM). Structured v3 note with explicit review. Clinical quality is not evaluated. |
+| Same-Wi-Fi meetings | Implemented for LAN demo | Unchanged. |
+| Progress monitoring (dashboard, trends, review badges) | Implemented (phases 1–2) | PHQ-9/PHQ-8 and GAD-7 trend charts, domain heatmap, change markers, manual entry, accept/edit/reject review with audit, staleness. Charts restyled in a neutral clinical palette (7 Nov). |
+| Stage A extraction (per-session observations) | Implemented (phase 3) | Domains, questionnaire item estimates, risk statements, plan follow-ups; every value cites segment IDs. Prompt `progress-extract-v2` is the default and passed its pre-registered pilot (5/5 criteria). |
+| Stage B condition hypotheses | Implemented (phase 4) | Bipolar features, GAD, social anxiety, major depressive episode. Criterion-level findings with citations; explicit abstention. Bipolar, GAD and SAD are **unvalidated**. |
+| LongCounsel-8 benchmark tooling | Implemented (phase 5) | Preparation, fixed subsets, resumable benchmark arms, reports with bootstrap CIs, calibration, freeze, `run_final`, research results page, labelled demo-patient import (optionally with a run's AI outputs). |
+| Benchmark execution | In progress (user-run) | Both v2 retrieval arms on `val-arms-12` completed 60/60 sessions. Reports, freeze, calibration and the final half-test run are **not done yet**. |
+| Phase 6 | Not started | Vignette set and authoring guide, plans/follow-up thread, print view, final docs. |
+| Clinician authentication, encryption at rest | Not implemented | Reviewer names are self-reported. |
+| Jetson deployment | Unverified | Laptop only. |
+
+**Preliminary benchmark observations.** These come from inspecting the run checkpoints; no official report has been
+generated yet.
+
+- In most arm sessions the model marked the depression core criteria (depressed mood, anhedonia) as insufficient
+  evidence.
+- Post-processing therefore downgraded most Stage B depression labels, as designed. That makes the label metrics
+  uninformative for now.
+- The PHQ-8 AUROC is computed from the Stage A item total, not from the label.
+- With prior-session history at 4,096 context, Stage B in the `retrieval-prior` arm failed on the later sessions.
+- Treat these as development findings until the reports exist (`docs/PROGRESS_BENCHMARK_RUNBOOK.md`, steps 4–5).
+
+**Verification on 7 November 2026:**
+
+- backend `pytest`: **287 passed** on the development machine. On a fresh clone: 282 passed, 5 skipped; the skipped
+  tests need the local retrieval starter pack and review-experiment files, which are not in Git;
+- frontend build passes;
+- progress Playwright tests 4/4 pass;
+- `scripts/setup.sh` ran end to end in a fresh clone (CPU runtime).
+
+**Next:** generate the two arm reports, then apply the pre-declared freeze rule ([PROGRESS_FREEZE_RULE.md](PROGRESS_FREEZE_RULE.md)),
+then calibration, then the final `test-final-37` run (all user-run). Phase 6 follows. Questions for the clinical
+consultant are listed in [PROGRESS_MONITORING_PLAN.md §13](PROGRESS_MONITORING_PLAN.md).
+
+---
+
 **Retrieval update, 2 November 2026:** The assessment below records the October
 baseline. Module B now includes five retrieval methods and a separate research
 annotation/evaluation workspace. Datasets are present and verified; human relevance

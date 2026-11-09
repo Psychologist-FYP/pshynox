@@ -1,5 +1,13 @@
 # Online meetings on the same Wi-Fi
 
+> **Update (8 November 2026).** Meetings over the internet (Tailscale Funnel, optional Cloudflare TURN) are described in
+> [INTERNET_MEETINGS.md](INTERNET_MEETINGS.md). The following changes apply to same-Wi-Fi calls too:
+> - Chat, camera/microphone state and recording control travel on an encrypted WebRTC data channel; the signaling
+>   socket carries only offer, answer, ICE and leave.
+> - Both screens show a verification code for the clinician to confirm.
+> - The patient's browser records its own microphone and sends the chunks over the data channel. The clinician keeps
+>   the network-received patient audio only as a fallback (labelled in the recording list).
+
 This is a two-person academic demo: one clinician on the hosting laptop and one
 patient on another device on the same Wi-Fi. An invitation does not expose the
 patient directory, notes, or other sessions. More than two participants per room
@@ -114,7 +122,9 @@ and create another one. Do not close it while recording/uploading is in progress
 
 WebRTC sends camera/microphone media directly between browsers. The clinician's
 browser captures its local microphone and the received patient audio as separate
-mono streams. AudioWorklet continuously captures PCM and emits standalone WAV
+mono streams; the patient's browser also records its own microphone and sends it
+over the encrypted data channel. The received copy is uploaded only where the
+patient's own chunks do not cover a minute (see INTERNET_MEETINGS.md). AudioWorklet continuously captures PCM and emits standalone WAV
 files after 60 seconds of samples; stopping flushes the final partial file. There
 is no intentional overlap or stop/start gap. Both tracks use the same audio clock.
 The patient track reflects network arrival/playout timing, not a perfectly

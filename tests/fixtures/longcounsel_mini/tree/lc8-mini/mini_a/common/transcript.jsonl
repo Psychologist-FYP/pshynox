@@ -1,0 +1,40 @@
+{"session_id": 1, "turn_id": 1, "speaker": "Counselor", "text": "How has your mood been this week?", "message_id": "mini_a_s001_t001_counselor"}
+{"session_id": 1, "turn_id": 1, "speaker": "Client", "text": "Pretty low most days, I feel empty.", "message_id": "mini_a_s001_t001_client", "phq_score": 12, "trend": "decreasing", "hidden_state": {"severity_band": "moderate"}}
+{"session_id": 1, "turn_id": 2, "speaker": "Counselor", "text": "And sleep?", "message_id": "mini_a_s001_t002_counselor"}
+{"session_id": 1, "turn_id": 2, "speaker": "Client", "text": "I wake up at four and cannot get back to sleep.", "message_id": "mini_a_s001_t002_client"}
+{"session_id": 1, "turn_id": 3, "speaker": "Counselor", "text": "What about things you used to enjoy?", "message_id": "mini_a_s001_t003_counselor"}
+{"session_id": 1, "turn_id": 3, "speaker": "Client", "text": "Nothing really interests me right now.", "message_id": "mini_a_s001_t003_client"}
+{"session_id": 1, "turn_id": 4, "speaker": "Counselor", "text": "How is your energy?", "message_id": "mini_a_s001_t004_counselor"}
+{"session_id": 1, "turn_id": 4, "speaker": "Client", "text": "I am tired all the time.", "message_id": "mini_a_s001_t004_client"}
+{"session_id": 2, "turn_id": 1, "speaker": "Counselor", "text": "How has your mood been this week?", "message_id": "mini_a_s002_t001_counselor"}
+{"session_id": 2, "turn_id": 1, "speaker": "Client", "text": "Pretty low most days, I feel empty.", "message_id": "mini_a_s002_t001_client"}
+{"session_id": 2, "turn_id": 2, "speaker": "Counselor", "text": "And sleep?", "message_id": "mini_a_s002_t002_counselor"}
+{"session_id": 2, "turn_id": 2, "speaker": "Client", "text": "I wake up at four and cannot get back to sleep.", "message_id": "mini_a_s002_t002_client"}
+{"session_id": 2, "turn_id": 3, "speaker": "Counselor", "text": "What about things you used to enjoy?", "message_id": "mini_a_s002_t003_counselor"}
+{"session_id": 2, "turn_id": 3, "speaker": "Client", "text": "Nothing really interests me right now.", "message_id": "mini_a_s002_t003_client"}
+{"session_id": 2, "turn_id": 4, "speaker": "Counselor", "text": "How is your energy?", "message_id": "mini_a_s002_t004_counselor"}
+{"session_id": 2, "turn_id": 4, "speaker": "Client", "text": "I am tired all the time.", "message_id": "mini_a_s002_t004_client"}
+{"session_id": 3, "turn_id": 1, "speaker": "Counselor", "text": "How have things been since last time?", "message_id": "mini_a_s003_t001_counselor"}
+{"session_id": 3, "turn_id": 1, "speaker": "Client", "text": "A bit better, some days are okay.", "message_id": "mini_a_s003_t001_client"}
+{"session_id": 3, "turn_id": 2, "speaker": "Counselor", "text": "Sleep?", "message_id": "mini_a_s003_t002_counselor"}
+{"session_id": 3, "turn_id": 2, "speaker": "Client", "text": "Sleeping a little more, still restless some nights.", "message_id": "mini_a_s003_t002_client"}
+{"session_id": 3, "turn_id": 3, "speaker": "Counselor", "text": "Interest in activities?", "message_id": "mini_a_s003_t003_counselor"}
+{"session_id": 3, "turn_id": 3, "speaker": "Client", "text": "I went for a walk with a friend once.", "message_id": "mini_a_s003_t003_client"}
+{"session_id": 3, "turn_id": 4, "speaker": "Counselor", "text": "Energy?", "message_id": "mini_a_s003_t004_counselor"}
+{"session_id": 3, "turn_id": 4, "speaker": "Client", "text": "Up and down.", "message_id": "mini_a_s003_t004_client"}
+{"session_id": 4, "turn_id": 1, "speaker": "Counselor", "text": "How have things been since last time?", "message_id": "mini_a_s004_t001_counselor"}
+{"session_id": 4, "turn_id": 1, "speaker": "Client", "text": "A bit better, some days are okay.", "message_id": "mini_a_s004_t001_client"}
+{"session_id": 4, "turn_id": 2, "speaker": "Counselor", "text": "Sleep?", "message_id": "mini_a_s004_t002_counselor"}
+{"session_id": 4, "turn_id": 2, "speaker": "Client", "text": "Sleeping a little more, still restless some nights.", "message_id": "mini_a_s004_t002_client"}
+{"session_id": 4, "turn_id": 3, "speaker": "Counselor", "text": "Interest in activities?", "message_id": "mini_a_s004_t003_counselor"}
+{"session_id": 4, "turn_id": 3, "speaker": "Client", "text": "I went for a walk with a friend once.", "message_id": "mini_a_s004_t003_client"}
+{"session_id": 4, "turn_id": 4, "speaker": "Counselor", "text": "Energy?", "message_id": "mini_a_s004_t004_counselor"}
+{"session_id": 4, "turn_id": 4, "speaker": "Client", "text": "Up and down.", "message_id": "mini_a_s004_t004_client"}
+{"session_id": 5, "turn_id": 1, "speaker": "Counselor", "text": "How has the week been?", "message_id": "mini_a_s005_t001_counselor"}
+{"session_id": 5, "turn_id": 1, "speaker": "Client", "text": "Mostly fine, I have been keeping busy.", "message_id": "mini_a_s005_t001_client"}
+{"session_id": 5, "turn_id": 2, "speaker": "Counselor", "text": "Sleep?", "message_id": "mini_a_s005_t002_counselor"}
+{"session_id": 5, "turn_id": 2, "speaker": "Client", "text": "Sleeping well, around seven hours.", "message_id": "mini_a_s005_t002_client"}
+{"session_id": 5, "turn_id": 3, "speaker": "Counselor", "text": "Enjoying things?", "message_id": "mini_a_s005_t003_counselor"}
+{"session_id": 5, "turn_id": 3, "speaker": "Client", "text": "Yes, I started painting again.", "message_id": "mini_a_s005_t003_client"}
+{"session_id": 5, "turn_id": 4, "speaker": "Counselor", "text": "Energy?", "message_id": "mini_a_s005_t004_counselor"}
+{"session_id": 5, "turn_id": 4, "speaker": "Client", "text": "Good most days.", "message_id": "mini_a_s005_t004_client"}

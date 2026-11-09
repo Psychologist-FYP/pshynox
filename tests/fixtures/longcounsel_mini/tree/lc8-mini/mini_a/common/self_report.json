@@ -1,0 +1,111 @@
+{
+ "run_id": "mini_a",
+ "scale": "PHQ-8",
+ "sessions": [
+  {
+   "session_id": 1,
+   "session_index": 1,
+   "captured_at": "2026-01-01T00:00:00Z",
+   "self_report_score": {
+    "scale": "PHQ-8",
+    "symptom_scores": {
+     "anhedonia": 1.375,
+     "depressed_mood": 1.375,
+     "sleep": 1.375,
+     "fatigue": 1.375,
+     "appetite": 1.375,
+     "self_worth": 1.375,
+     "concentration": 1.375,
+     "psychomotor": 1.375
+    },
+    "overall_score": 11.0,
+    "sample_count": 0,
+    "samples": []
+   }
+  },
+  {
+   "session_id": 2,
+   "session_index": 2,
+   "captured_at": "2026-01-01T00:00:00Z",
+   "self_report_score": {
+    "scale": "PHQ-8",
+    "symptom_scores": {
+     "anhedonia": 1.125,
+     "depressed_mood": 1.125,
+     "sleep": 1.125,
+     "fatigue": 1.125,
+     "appetite": 1.125,
+     "self_worth": 1.125,
+     "concentration": 1.125,
+     "psychomotor": 1.125
+    },
+    "overall_score": 9.0,
+    "sample_count": 0,
+    "samples": []
+   }
+  },
+  {
+   "session_id": 3,
+   "session_index": 3,
+   "captured_at": "2026-01-01T00:00:00Z",
+   "self_report_score": {
+    "scale": "PHQ-8",
+    "symptom_scores": {
+     "anhedonia": 0.875,
+     "depressed_mood": 0.875,
+     "sleep": 0.875,
+     "fatigue": 0.875,
+     "appetite": 0.875,
+     "self_worth": 0.875,
+     "concentration": 0.875,
+     "psychomotor": 0.875
+    },
+    "overall_score": 7.0,
+    "sample_count": 0,
+    "samples": []
+   }
+  },
+  {
+   "session_id": 4,
+   "session_index": 4,
+   "captured_at": "2026-01-01T00:00:00Z",
+   "self_report_score": {
+    "scale": "PHQ-8",
+    "symptom_scores": {
+     "anhedonia": 0.625,
+     "depressed_mood": 0.625,
+     "sleep": 0.625,
+     "fatigue": 0.625,
+     "appetite": 0.625,
+     "self_worth": 0.625,
+     "concentration": 0.625,
+     "psychomotor": 0.625
+    },
+    "overall_score": 5.0,
+    "sample_count": 0,
+    "samples": []
+   }
+  },
+  {
+   "session_id": 5,
+   "session_index": 5,
+   "captured_at": "2026-01-01T00:00:00Z",
+   "self_report_score": {
+    "scale": "PHQ-8",
+    "symptom_scores": {
+     "anhedonia": 0.375,
+     "depressed_mood": 0.375,
+     "sleep": 0.375,
+     "fatigue": 0.375,
+     "appetite": 0.375,
+     "self_worth": 0.375,
+     "concentration": 0.375,
+     "psychomotor": 0.375
+    },
+    "overall_score": 3.0,
+    "sample_count": 0,
+    "samples": []
+   }
+  }
+ ]
+}

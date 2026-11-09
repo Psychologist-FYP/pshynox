@@ -1,335 +1,405 @@
 # Pshynox
 
-Offline-first psychological session documentation with a React interface, FastAPI,
-SQLite and local Whisper transcription. The current workspace supports patient
-intake records, session history, microphone recording/WAV import, editable
-transcripts, source-linked excerpt drafts and clinician review.
+Offline-first documentation support for psychological sessions. It has a React interface, a FastAPI backend, SQLite
+storage, local Whisper transcription and a local LLM (Qwen3-4B through llama.cpp). Everything runs on the laptop: no
+hosted inference, no API keys, and no network access after setup.
 
-This is an FYP prototype for documentation support. It does not diagnose or
-recommend treatment. Use fictional data for development and demonstrations.
+The workspace covers:
 
-For a dated assessment of implemented features, module progress, remaining work,
-and verification results, see [Current project status](docs/PROJECT_STATUS.md).
+- patient intake and session history;
+- microphone recording, WAV import and same-Wi-Fi online meetings;
+- editable transcripts with speaker roles;
+- source-linked evidence retrieval;
+- AI note drafts;
+- longitudinal progress monitoring with evidence-cited condition hypotheses.
 
-## What you need
+> **FYP prototype.** Pshynox supports documentation. Its condition hypotheses (bipolar, GAD, social anxiety,
+> depression) are AI-generated, criterion by criterion with cited transcript turns, for clinician review. They are
+> not diagnoses. It does not score risk or recommend treatment. Every AI output is labelled *AI-generated · human
+> review pending* until a clinician reviews it. Use fictional or synthetic data only.
 
-| Requirement | Purpose |
-|---|---|
-| Linux, or a Linux distribution inside WSL2 | Current background speech worker uses Linux process/file locking. Native Windows and macOS are not supported by this worker yet. |
-| Python **3.11+**, pip and virtual environment support | Backend and tests |
-| Node.js/npm | Frontend; development here uses Node **22** |
-| Git, curl, C/C++ compiler, make and CMake | Download/build the local speech runtime |
-| FFmpeg **and ffprobe** on `PATH` | Validate and decode recordings |
-| `whisper.cpp` **v1.8.3** CPU build | Local speech inference |
-| Multilingual **`ggml-base.bin`** model | English/Urdu transcription; downloaded separately, excluded from Git |
-| Browser and microphone, or a WAV recording | Record or import audio |
+**Status:** [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) (dated assessment, latest update 8 November 2026).
+**Active branch:** `progress-monitoring`.
 
-A GPU and API key are not required. Internet access is needed for initial installs
-and model downloads; transcription runs locally afterward. Jetson deployment
-still requires testing on the exact board; these commands describe the laptop setup.
+---
 
-**Dependency files:** [`requirements.txt`](requirements.txt) installs the Python
-application and test dependencies through [`pyproject.toml`](pyproject.toml).
-Frontend versions are recorded in [`apps/web/package-lock.json`](apps/web/package-lock.json).
-System programs, the C++ runtime and model weights require the separate steps below;
-`pip install` does not install them.
+## Quick start on a new laptop
 
-## First-time setup
-
-Run the following steps once. Commands assume Bash on Linux and start from the
-repository root. If you already have this checkout, skip the clone step.
-
-### 1. Install system programs
-
-Ubuntu/Debian (also applicable inside Ubuntu on WSL2):
-
-```bash
-sudo apt update
-sudo apt install -y python3 python3-venv python3-pip git curl build-essential cmake ffmpeg nodejs npm
-```
-
-Fedora:
-
-```bash
-sudo dnf install -y python3 python3-pip git curl gcc gcc-c++ make cmake ffmpeg-free nodejs npm
-```
-
-Check versions before continuing. If your distribution supplies an older Python or
-Node version, install a compatible version first. Python must be at least 3.11;
-Node 22 is the development version used for this project.
-
-```bash
-python3 --version
-node --version
-npm --version
-cmake --version
-ffmpeg -version
-ffprobe -version
-```
-
-On WSL2, run the backend/build/install commands inside Linux and open the UI in
-Windows at the localhost address below. Microphone access depends on the browser;
-WAV import is available as an alternative.
-
-### 2. Clone and install Python/frontend dependencies
+Requirements: Linux or WSL2 (Ubuntu 22.04+/Debian 12+/Fedora 39+), about **5 GiB** free disk, 8 GB RAM (16 GB
+recommended), and internet access for the first setup. An NVIDIA GPU with 4 GB of VRAM or more is optional; the AI
+features also run on the CPU, only more slowly.
 
 ```bash
 git clone https://github.com/Psychologist-FYP/pshynox.git
 cd pshynox
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-npm ci --prefix apps/web
+git checkout progress-monitoring           # until it is merged into main
+./scripts/setup.sh                         # asks once for sudo to install system packages
+./scripts/run.py --no-reload
 ```
 
-`requirements.txt` includes the development extra, so it installs `pytest` and
-`httpx` as well as FastAPI, SQLAlchemy, Alembic, Pydantic and Uvicorn. It uses the
-project's declared version constraints rather than duplicating them.
+Then open **<http://127.0.0.1:5173/workspace>**. Press **Ctrl+C** in that terminal to stop everything.
 
-[`scripts/requirements-laptop-tested.txt`](scripts/requirements-laptop-tested.txt)
-is a snapshot of one development environment, including platform-specific
-packages. Use the root `requirements.txt` for normal installation; that snapshot
-is not a portable Jetson lockfile.
+`scripts/setup.sh` does the whole installation. Each step is skipped when it is already done, so it is safe to re-run.
 
-### 3. Build the local speech runtime
-
-From the repository root:
-
-```bash
-mkdir -p data/tools
-git clone --depth 1 --branch v1.8.3 https://github.com/ggml-org/whisper.cpp.git data/tools/whisper.cpp
-cmake -S data/tools/whisper.cpp -B data/tools/whisper.cpp/build \
-  -DCMAKE_BUILD_TYPE=Release -DGGML_CUDA=OFF -DWHISPER_BUILD_TESTS=OFF
-cmake --build data/tools/whisper.cpp/build --config Release -j 4
-```
-
-If `data/tools/whisper.cpp` already exists, skip cloning and run the CMake commands.
-The expected executable is:
-
-```text
-data/tools/whisper.cpp/build/bin/whisper-cli
-```
-
-The tested v1.8.3 source commit is `2eeeba56e9edd762b4b38467bab96c2517163158`.
-The source and build stay under the ignored `data/` directory. A fresh checkout
-needs its own native build; do not copy x86 binaries to an ARM64 Jetson.
-
-### 4. Download the required local model
-
-**The model is not uploaded to GitHub. Every fresh installation must download it.**
-Use multilingual `base`, rather than `base.en`, for English and Urdu.
-
-```bash
-mkdir -p models
-curl -L --fail --retry 3 \
-  -o models/ggml-base.bin \
-  https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.bin
-sha256sum models/ggml-base.bin
-```
-
-The expected SHA-256 is:
-
-```text
-60ed5bc3dd14eea856493d334349b405782ddcaf0028d4b5df4088345fba2efe
-```
-
-The file is about 142 MiB. If its hash does not match, download it again before
-using it. Model files belong under `models/` and are ignored by Git, along with
-common weight formats placed elsewhere. This download is also documented in
-`requirements.txt` because the model is required to transcribe audio.
-
-Optional: produce a smaller quantized model with the runtime you just built:
-
-```bash
-data/tools/whisper.cpp/build/bin/whisper-quantize \
-  models/ggml-base.bin models/ggml-base-q5_0.bin q5_0
-```
-
-To use it, change `WHISPER_MODEL` in `.env` to `./models/ggml-base-q5_0.bin`, then
-restart the backend. Quantized-model language quality still needs evaluation.
-
-### 5. Create local configuration
-
-```bash
-cp .env.example .env
-```
-
-Do this once; keep your existing `.env` if you have already configured it.
-The supplied defaults use your saved records, CPU inference and the model/runtime
-paths created above. `.env` is private and ignored by Git.
-
-## Run the application
-
-Start the whole project in **one terminal**:
-
-```bash
-./scripts/run.py
-```
-
-The launcher uses `.venv/bin/python` automatically, creates a missing `.env` from
-`.env.example`, and preserves an existing `.env`. It checks launch dependencies and
-ports, then starts the backend and frontend with automatic reload. SQLite migrations
-run at backend startup, and the backend manages the local speech worker according
-to `.env`. Logs from both servers appear in the same terminal. **Ctrl+C stops both**;
-if either server exits, the launcher stops the other and reports the failure.
-
-You can also use `python3 scripts/run.py`, or invoke the script by its absolute
-path from another directory. Restart it after changing `.env` or model settings.
-To choose different ports, use `./scripts/run.py --api-port 8001 --web-port 5174`;
-the frontend API proxy follows the selected backend port automatically.
-
-Open **<http://127.0.0.1:5173/workspace>** in your browser.
-
-- API health: <http://127.0.0.1:8000/api/v1/health>
-- API documentation: <http://127.0.0.1:8000/docs>
-- The frontend proxies `/api` requests to backend port `8000`.
-
-On later runs, use just `./scripts/run.py`; dependency installation, runtime builds
-and model downloads do not need repeating. For HTTPS Wi-Fi meetings, continue to
-use the separate `scripts/run_lan.py` launcher described in [the meeting guide](docs/ONLINE_MEETINGS.md).
-
-## Research evaluation
-
-Open **<http://127.0.0.1:5173/workspace/research>** for dataset browsing, human
-relevance annotation, development exploration and benchmark results. The supplied
-AnnoMI/PriMock datasets are separate from clinical records. Reproduce their verified
-imports with `.venv/bin/python -m services.retrieval.prepare`; no downloads or
-automatic patient creation occur. See [the research walkthrough](docs/RESEARCH_EVALUATION.md)
-for the pilot, keyboard controls, evaluation, exports and PriMock audio clips.
-For collaborating on the `annotation` branch, see the
-[team annotation workflow](docs/TEAM_ANNOTATION.md): prepared transcripts and
-conversation-level annotation files are shared through Git, including partial progress.
-For AI-label review, direct-evidence metrics, method-specific threshold experiments,
-and the independent human final packet, see [review experiments](docs/RETRIEVAL_REVIEW_EXPERIMENTS.md).
-
-## Use the workspace
-
-1. Select **Add patient**, enter intake details and save. Only the name is required;
-   the remaining details can be collected and edited later.
-2. Open the patient from the workspace or left sidebar. Their page contains intake
-   details, previous sessions and **Start new session**.
-3. Choose initial assessment or follow-up and start a session.
-4. Confirm recording consent. Select a microphone and record, or import a WAV.
-   Each recording can be up to five minutes and 100 MB in this MVP.
-5. Click **Transcribe locally** on a saved recording. Every recording has its own
-   status; additional transcripts append without replacing earlier text edits.
-6. Review the transcript and set speaker labels to `CLIENT`, `CLINICIAN` or
-   `UNKNOWN`. Timestamp buttons play the corresponding source recording.
-7. Select **Populate / refresh patient excerpts** to fill the draft's subjective
-   section from confirmed client excerpts. Review and save the note.
-8. Complete clinician review before approval. If source text changes, review or
-   refresh the affected excerpts first.
-
-Stereo WAV files are mixed to mono for transcription; originals retain their
-channels. This does not identify speakers automatically. A future dedicated
-patient/psychologist two-microphone mode requires separate implementation.
-
-Earlier sessions appear under **Unassigned sessions**. Open one and link it to a
-patient to include it in their history. See [patient workspace details](docs/PATIENT_WORKSPACE.md).
-
-## Configuration and storage
-
-The backend reads process environment variables. The documented Uvicorn command
-loads `.env` explicitly with `--env-file`; plain Python/CLI commands do not load it
-automatically. Already-exported environment variables take precedence over `.env`.
-
-| Variable | Default / example | Meaning |
+| Step | What it installs or creates | Size |
 |---|---|---|
-| `FIXTURE_MODE` | `false` in `.env.example` | `true` additionally exposes the checked-in demo session |
-| `DATABASE_URL` | `sqlite:///./data/pshynox.db` | Local SQLite database |
-| `LOCAL_DATA_DIR` | `./data` | Recordings and worker lock files |
-| `SPEECH_WORKER_ENABLED` | `true` | Start the local worker with the Linux backend |
-| `WHISPER_BINARY` | `./data/tools/whisper.cpp/build/bin/whisper-cli` | Native runtime executable |
-| `WHISPER_MODEL` | `./models/ggml-base.bin` | Local multilingual model |
-| `WHISPER_LANGUAGE` | `auto` | Automatic detection; `en` or `ur` can be tested explicitly |
-| `WHISPER_THREADS` | `4` | CPU inference threads |
-| `WHISPER_TIMEOUT_SECONDS` | `1800` | Maximum inference time per recording |
+| 1. System packages | Python 3, venv, git, curl, C/C++ compiler, CMake, FFmpeg, zstd, sqlite3, Node.js/npm (apt or dnf) | – |
+| 2. Python and frontend | `.venv` from `requirements.txt`, `apps/web/node_modules` from `package-lock.json` | ~0.5 GiB |
+| 3. Configuration | `.env` from `.env.example` (an existing `.env` is kept) | – |
+| 4. Speech runtime | builds whisper.cpp **v1.8.3** (CPU) in `data/tools/whisper.cpp` | – |
+| 5. Speech model | `models/ggml-base.bin`, multilingual Whisper base | 142 MiB |
+| 6. Local LLM | llama.cpp **b12079** release: CUDA 12.8 build if `nvidia-smi` works, otherwise the CPU build. Writes `NOTE_LLAMA_SERVER`, `NOTE_LIBRARY_PATH` and `NOTE_GPU_LAYERS` into `.env`. Also downloads `Qwen3-4B-Instruct-2507-Q4_K_M.gguf`. | 0.75 GiB CUDA or 22 MiB CPU, plus 2.4 GiB |
+| 7. Research dataset | LongCounsel-8 primary edition from Hugging Face (`hiddensev/LongCounsel-8`), then `longcounsel prepare` | 3 MiB |
+| 8. Database and demo patients | migrates `data/pshynox.db` and imports 16 synthetic **LongCounsel demo** patients (5 sessions each) | – |
+| 9. Verification | backend tests, frontend build, then `--check` | – |
 
-Without a `.env` file, code defaults still enable fixture mode; follow the setup
-above to use the persisted-only workspace.
-
-Patient intake, sessions, transcripts, notes and job status are stored in SQLite.
-Recordings stay under `data/recordings/`; the DB stores their paths and source
-links. Preserve the database and its recordings together when backing up. SQLite
-alone does not provide encryption or authenticated access.
-
-`.gitignore` excludes models, local runtime builds, recordings, databases, virtual
-environments and `.env`. Check before pushing:
+Every download is pinned to a fixed revision and checked by SHA-256 before use. Useful options:
 
 ```bash
-git check-ignore models/ggml-base.bin models/ggml-base-q5_0.bin data/pshynox.db .env
-git status --short
+./scripts/setup.sh --check          # report what is installed or missing; changes nothing
+./scripts/setup.sh --gpu cpu        # force the CPU LLM runtime (or --gpu cuda)
+./scripts/setup.sh --no-system      # you installed system packages yourself (no sudo)
+./scripts/setup.sh --no-llm         # skip llama.cpp and Qwen (AI drafts and progress analysis unavailable)
+./scripts/setup.sh --demo-limit 30  # more demo patients
+./scripts/setup.sh --dense          # optional E5 dense retrieval (installs PyTorch)
+./scripts/setup.sh --skip-tests -y  # unattended, no tests
+./scripts/setup.sh --help
 ```
 
-## Tests and useful commands
+**Python or Node too old?**
 
-From the repository root with the virtual environment activated:
+- The script stops with a fix if Python is older than 3.11 or Node older than 20. Ubuntu 22.04 ships both too old.
+- Install Node 22 with [nvm](https://github.com/nvm-sh/nvm) (`nvm install 22`), and Python 3.12 from the deadsnakes PPA.
+- Then re-run `./scripts/setup.sh --no-system`.
+
+**NVIDIA GPU:**
+
+- The CUDA build needs a driver that supports CUDA 12.8 or newer; `nvidia-smi` must work.
+- On Secure Boot laptops the driver may be installed but not loaded. See [docs/NVIDIA_LOCAL_FIX.md](docs/NVIDIA_LOCAL_FIX.md).
+- Without a working driver the script uses the CPU build automatically (`NOTE_GPU_LAYERS=0`).
+
+**WSL2:** run everything inside Linux and open the URL in a Windows browser. If the microphone is unavailable there,
+import a WAV instead.
+
+---
+
+## What you can try
+
+| Page | URL | What to do |
+|---|---|---|
+| Workspace | `/workspace` | Add a patient, start a session, record or import a WAV, **Transcribe locally**, edit speaker roles, draft and review the note. |
+| Patient progress | `/workspace/patients/<id>/progress` (the **Progress** tab on a patient) | Questionnaire trends (PHQ-9/PHQ-8, GAD-7), symptom and functioning heatmap, change markers, risk statements, condition hypotheses with criteria and cited source turns. |
+| Session observations | **Observations** panel inside a session | **Analyse this session** runs Stage A extraction. Values can be entered manually and reviewed (accept, edit or reject). |
+| Research: retrieval | `/workspace/research` | AnnoMI/PriMock dataset browser, relevance annotation, retrieval benchmarks. |
+| Research: notes | `/workspace/research-notes` | AI note drafting on development conversations. |
+| Research: progress benchmark | `/workspace/research-progress` | LongCounsel-8 benchmark reports (after a report is generated, see below). |
+| API docs | <http://127.0.0.1:8000/docs> | All endpoints. Health check: `/api/v1/health`. |
+
+### Demo patients (LongCounsel-8)
+
+Setup imports synthetic patients named **"LongCounsel demo · &lt;trajectory&gt;"**, each with five ordered sessions of
+counselling transcript from the LongCounsel-8 **validation** split. They are research data, clearly labelled, and not
+real patients. Only transcripts are imported: no ground-truth labels or scores.
+
+To fill a demo patient's dashboard:
+
+1. Open the patient and one of its sessions.
+2. Tick the transcript review and click **Analyse this session**.
+3. Then use **Re-run hypotheses** on the Progress page.
+
+On a GTX 1650, Stage A takes about 3.5 minutes per session and the depression hypothesis about 1.5 minutes. It is
+slower on the CPU (not measured).
 
 ```bash
-python -m pytest -q
-npm run build --prefix apps/web
+.venv/bin/python -m services.api.import_longcounsel_demo --split validation --limit 16   # add more (never overwrites)
+.venv/bin/python -m services.api.import_longcounsel_demo --with-results <run-id>          # attach a local benchmark run's AI outputs
+```
+
+`--with-results` only works on a machine that has run the benchmark: run folders stay local and are not in Git. The
+database is backed up to `data/backups/` before every import. The held-out test split is always refused.
+
+---
+
+## Progress monitoring and condition hypotheses
+
+All phases of the plan (0–6) are built on `progress-monitoring`. User guide:
+[docs/PROGRESS_MONITORING.md](docs/PROGRESS_MONITORING.md).
+
+- **Target conditions:**
+  - bipolar disorder (manic, hypomanic and depressive episode features);
+  - generalized anxiety disorder;
+  - social anxiety disorder;
+  - major depressive episode.
+
+  The list is configurable in the registry (`services/progress/registry/`).
+- **Stage A** extracts per-session observations from the transcript: symptom and functioning domains, PHQ-9/GAD-7 item
+  estimates, risk statements and plan follow-ups. Every value cites transcript segment IDs.
+- **Stage B** assesses each condition criterion by criterion across all sessions. A prediction is built only from cited
+  findings. Abstention ("insufficient evidence") is explicit, never turned into "absent".
+- **Display and review rules:**
+  - AI values appear in charts and trends at full weight with the badge *AI-generated · human review pending*.
+  - Rejected values leave the active series.
+  - Edited values replace the AI value, and the original is kept.
+  - A changed source turn marks dependent values *stale*.
+- **Risk statements** are flagged for clinician review. They are never scored and never summarised as "no risk".
+- **Evaluation** uses LongCounsel-8, which is synthetic and covers depression only. Bipolar, GAD and social-anxiety
+  hypotheses are **unvalidated**. Criterion summaries are paraphrased and await clinical consultant verification.
+
+Documents:
+
+- [module guide](docs/PROGRESS_MONITORING.md): what the clinician sees, rules, pipeline, API, evaluation status;
+- [plan, principles and progress log](docs/PROGRESS_MONITORING_PLAN.md);
+- [benchmark runbook](docs/PROGRESS_BENCHMARK_RUNBOOK.md): exact commands for subsets, arms, reports, freeze, calibration and the final test run;
+- [prompt v2 pilot](docs/PROGRESS_PROMPT_V2_PILOT.md);
+- [freeze rule](docs/PROGRESS_FREEZE_RULE.md);
+- [vignette authoring guide](docs/VIGNETTE_AUTHORING_GUIDE.md): the clinician-labelled cases needed to evaluate bipolar, GAD and social anxiety.
+
+Benchmark runs are long GPU jobs: on a GTX 1650 they take about 4.8 h for `retrieval-current` and 1.4 h for
+`retrieval-prior`. They checkpoint every session and
+resume automatically. Example:
+
+```bash
+source .venv/bin/activate
+python -m services.progress.evaluation.benchmark run \
+  --subset data/research/progress-subsets/val-arms-12.json --arm retrieval-current --run-id val12-v2-retrieval-current
+python -m services.progress.evaluation.report --run-id val12-v2-retrieval-current   # then open /workspace/research-progress
+```
+
+Read the runbook before running anything. The held-out test split runs only through `run_final` after the
+configuration is frozen.
+
+---
+
+## Manual setup (what the script does, step by step)
+
+Use this when you cannot run `scripts/setup.sh` or want to control each step. Commands run from the repository root.
+
+<details>
+<summary><b>1. System packages</b></summary>
+
+```bash
+# Ubuntu / Debian / WSL2 Ubuntu
+sudo apt update
+sudo apt install -y python3 python3-venv python3-pip python3-dev git curl ca-certificates build-essential cmake ffmpeg zstd sqlite3 nodejs npm
+# Fedora
+sudo dnf install -y python3 python3-pip python3-devel git curl gcc gcc-c++ make cmake ffmpeg-free zstd sqlite nodejs npm
+```
+
+Python must be **3.11+** and Node **20+** (22 is used in development). Check them with `python3 --version`,
+`node --version`, `ffmpeg -version` and `ffprobe -version`.
+</details>
+
+<details>
+<summary><b>2. Python and frontend dependencies</b></summary>
+
+```bash
+python3 -m venv .venv
+.venv/bin/python -m pip install --upgrade pip
+.venv/bin/python -m pip install -r requirements.txt     # project + dev extra (pytest, httpx) from pyproject.toml
+npm ci --prefix apps/web
+cp -n .env.example .env
+```
+
+[`scripts/requirements-laptop-tested.txt`](scripts/requirements-laptop-tested.txt) is a snapshot of one development
+environment. It is not a portable lockfile.
+</details>
+
+<details>
+<summary><b>3. Speech runtime and model</b></summary>
+
+```bash
+mkdir -p data/tools models
+git clone --depth 1 --branch v1.8.3 https://github.com/ggml-org/whisper.cpp.git data/tools/whisper.cpp
+cmake -S data/tools/whisper.cpp -B data/tools/whisper.cpp/build -DCMAKE_BUILD_TYPE=Release -DGGML_CUDA=OFF -DWHISPER_BUILD_TESTS=OFF
+cmake --build data/tools/whisper.cpp/build --config Release -j 4
+curl -L --fail -o models/ggml-base.bin https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.bin
+sha256sum models/ggml-base.bin   # 60ed5bc3dd14eea856493d334349b405782ddcaf0028d4b5df4088345fba2efe
+```
+
+Use multilingual `base`, not `base.en`, for English and Urdu. Tested whisper.cpp commit:
+`2eeeba56e9edd762b4b38467bab96c2517163158`. Build natively on each machine; do not copy x86 binaries to an ARM board.
+</details>
+
+<details>
+<summary><b>4. Local LLM: llama.cpp and Qwen3-4B</b></summary>
+
+```bash
+B=https://github.com/ggml-org/llama.cpp/releases/download/b12079
+# NVIDIA GPU (driver for CUDA 12.8+):
+mkdir -p models/llama-cuda-b12079 && cd models/llama-cuda-b12079
+curl -L --fail -o runtime.tar.gz $B/llama-b12079-bin-ubuntu-cuda-12.8-x64.tar.gz   # sha256 7965e1f2…3f668f
+curl -L --fail -o cudart.tar.gz  $B/cudart-llama-b12079-bin-ubuntu-cuda-12.8-x64.tar.gz   # sha256 d810d53b…99f413
+tar -xzf runtime.tar.gz && tar -xzf cudart.tar.gz && cd ../..
+# CPU only: llama-b12079-bin-ubuntu-x64.tar.gz (sha256 52e7d5b6…4039c7) into models/llama-cpu-b12079
+
+mkdir -p models/note_generation/qwen
+curl -L --fail -o models/note_generation/qwen/Qwen3-4B-Instruct-2507-Q4_K_M.gguf \
+  https://huggingface.co/unsloth/Qwen3-4B-Instruct-2507-GGUF/resolve/a06e946bb6b655725eafa393f4a9745d460374c9/Qwen3-4B-Instruct-2507-Q4_K_M.gguf
+sha256sum models/note_generation/qwen/Qwen3-4B-Instruct-2507-Q4_K_M.gguf   # 3605803b982cb64aead44f6c1b2ae36e3acdb41d8e46c8a94c6533bc4c67e597
+```
+
+Then add these lines to `.env`, using absolute paths:
+
+```bash
+NOTE_LLAMA_SERVER='/abs/path/pshynox/models/llama-cuda-b12079/llama-b12079/llama-server'
+NOTE_LIBRARY_PATH='/abs/path/pshynox/models/llama-cuda-b12079/llama-b12079:/abs/path/pshynox/models/llama-cuda-b12079/cudart-llama-b12079-bin-ubuntu-cuda-12.8-x64'
+NOTE_GPU_LAYERS='99'        # 0 for the CPU build
+NOTE_BATCH_SIZE='256'
+NOTE_UBATCH_SIZE='128'
+```
+
+The full SHA-256 values are in `scripts/setup.sh`. Details, measurements and the from-source CPU build are in
+[docs/NOTE_GENERATION.md](docs/NOTE_GENERATION.md).
+</details>
+
+<details>
+<summary><b>5. LongCounsel-8 dataset and demo patients</b></summary>
+
+```bash
+R=https://huggingface.co/datasets/hiddensev/LongCounsel-8/resolve/ad75f7e2e4248b055764487586a0d6590877fd5f
+D=data/research/datasets/longcounsel-8/raw
+mkdir -p $D/longcounsel-8-gpt-5.4-mini-low
+for f in README.md LICENSE manifest.json longcounsel-8-gpt-5.4-mini-low/data.tar.zst longcounsel-8-gpt-5.4-mini-low/train_val_test_split.json; do
+  curl -L --fail -o $D/$f $R/$f; done
+.venv/bin/python -m services.progress.evaluation.longcounsel prepare          # verifies the manifest SHA-256 values
+.venv/bin/python -m services.api.import_longcounsel_demo --split validation --limit 16
+```
+
+LongCounsel-8 is licensed CC BY-NC 4.0 (non-commercial, attribution; [paper](https://arxiv.org/abs/2609.03507)). Its
+raw and prepared copies, benchmark runs and calibration stay local and are not committed. Only the fixed subset
+manifests in `data/research/progress-subsets/` are in Git.
+</details>
+
+<details>
+<summary><b>6. Optional: dense retrieval (E5)</b></summary>
+
+```bash
+.venv/bin/python -m pip install -e '.[dense]'
+.venv/bin/python -m services.retrieval.cache_model --revision 614241f622f53c4eeff9890bdc4f31cfecc418b3
+```
+
+Then set `RETRIEVAL_METHOD=e5` or `hybrid` in `.env`. See [docs/RETRIEVAL.md](docs/RETRIEVAL.md).
+</details>
+
+---
+
+## Running
+
+```bash
+./scripts/run.py               # the whole project; internet meetings + Tailscale Funnel too when configured (below)
+./scripts/run.py --local       # workspace only (backend :8000 + frontend :5173, auto-reload)
+./scripts/run.py --no-reload   # recommended when using the local LLM (long-running jobs)
+./scripts/run.py --api-port 8001 --web-port 5174
+python scripts/run_lan.py      # HTTPS on the local Wi-Fi for two-device meetings (docs/ONLINE_MEETINGS.md)
+```
+
+The launcher re-runs itself with `.venv/bin/python`, creates `.env` if it is missing, checks the ports and runs the
+database migrations at backend startup. Restart it after changing `.env`. Ctrl+C stops everything.
+
+**Internet meetings.** When `.env` sets `MEETING_PUBLIC_ORIGIN=https://<name>.ts.net` and Tailscale is installed and
+connected, the same `./scripts/run.py` also:
+
+1. builds the patient page;
+2. starts the public meeting-only server on 127.0.0.1:8443;
+3. turns on **Tailscale Funnel for that server only**;
+4. checks that no clinician route is reachable publicly;
+5. turns Funnel off again when you stop.
+
+In this mode the backend does not auto-reload. Setup, TURN keys and the threat model are in
+[docs/INTERNET_MEETINGS.md](docs/INTERNET_MEETINGS.md).
+
+## Tests
+
+```bash
+.venv/bin/python -m pytest -q                     # backend (temporary DB, fake LLM runtime; no GPU needed)
+npm run build --prefix apps/web                   # TypeScript check + production build
+cd apps/web && npx playwright test -c playwright.progress.config.ts   # progress browser tests; need Google Chrome
 git diff --check
 ```
 
-Tests use a temporary database and disable the automatic worker. The frontend
-build checks TypeScript and writes `apps/web/dist/`. Uvicorn currently serves the
-API; the two-terminal instructions above are the supported application run path.
+On a fresh clone, 5 retrieval tests are skipped. They need files that are not in Git: the AnnoMI/PriMock starter pack
+under `docs/Pshynox_Retrieval_Starter/data/` and `data/research/review-experiments/`. Copy those folders from a
+machine that has them to run the tests.
 
-Optional real-model check using the public sample bundled with whisper.cpp:
+Optional real-model checks:
+
+- `python -m services.speech data/tools/whisper.cpp/samples/jfk.wav`
+- `python scripts/smoke_speech.py data/tools/whisper.cpp/samples/jfk.wav`
+
+## Configuration and storage
+
+`.env` is private and ignored by Git; [`.env.example`](.env.example) documents every setting. The main ones:
+
+| Variable | Default | Meaning |
+|---|---|---|
+| `DATABASE_URL` | `sqlite:///./data/pshynox.db` | Local SQLite database |
+| `LOCAL_DATA_DIR` / `RESEARCH_DATA_DIR` | `./data`, `./data/research` | Recordings, jobs, research data |
+| `FIXTURE_MODE` | `false` | `true` also exposes the checked-in demo session |
+| `WHISPER_BINARY`, `WHISPER_MODEL` | `./data/tools/whisper.cpp/build/bin/whisper-cli`, `./models/ggml-base.bin` | Speech runtime and model |
+| `WHISPER_LANGUAGE`, `WHISPER_THREADS` | `auto`, `4` | Language detection (`en`/`ur` to force) and CPU threads |
+| `RETRIEVAL_METHOD` | `bm25` | `bm25`, `tfidf`, `e5`, `hybrid` or `fixture` |
+| `NOTE_LLAMA_SERVER`, `NOTE_LIBRARY_PATH` | set by setup | llama-server binary and its shared libraries |
+| `NOTE_GPU_LAYERS` | `0` | `99` = all layers on the GPU; `0` = CPU |
+| `NOTE_CONTEXT` | `4096` | Prompt + output tokens per call |
+| `PROGRESS_EXTRACT_PROMPT` | `v2` | Stage A prompt version (`v1` kept for reproducibility) |
+
+The following never enter Git:
+
+- recordings (`data/recordings/`);
+- the database;
+- models and weights;
+- runtime builds;
+- benchmark runs;
+- `.env`.
+
+Back up `data/pshynox.db` together with `data/recordings/`. SQLite provides no encryption or authentication.
+
+Before pushing, check:
 
 ```bash
-python -m services.speech data/tools/whisper.cpp/samples/jfk.wav
-python scripts/smoke_speech.py data/tools/whisper.cpp/samples/jfk.wav
+git check-ignore models/ggml-base.bin data/pshynox.db .env
+git status --short
 ```
-
-The CLI uses default model paths or exported environment variables. The integration
-smoke test starts a worker, saves transcripts and a draft in a temporary database,
-and checks persistence after restart. No personal recording is needed.
-
-To apply migrations explicitly (the default database path):
-
-```bash
-python -m alembic upgrade head
-```
-
-Alembic does not automatically read `.env`. Export `DATABASE_URL` first if you use
-a custom database; the normal Uvicorn startup applies migrations with its loaded
-configuration.
 
 ## Troubleshooting
 
 | Problem | What to check |
 |---|---|
-| Missing runtime/model | Complete setup steps 3–4. Verify `.env` paths and restart the backend. |
-| Audio cannot be decoded | Confirm both `ffmpeg` and `ffprobe` run in the backend terminal. Use a valid WAV or browser audio recording within the duration/size limits. |
-| Microphone access denied | Allow microphone access on localhost in your browser, check the selected input, or import a WAV. |
-| Job stays queued | Ensure `SPEECH_WORKER_ENABLED=true`, use Linux/WSL2, and check backend terminal output. Restart the backend if its worker stopped. |
-| Job failed during restart | Use **Retry transcription** on the existing recording. |
-| Port already in use | Stop the earlier server with `Ctrl+C`; keep backend `8000` and frontend `5173` for these instructions. |
-| Frontend cannot reach API | Start both terminals and check the health URL. |
-| Changed `.env` has no effect | Restart the backend and check for exported variables overriding the file. |
-| Browser shows old UI | Refresh the page after starting the current frontend server. |
+| Anything missing | `./scripts/setup.sh --check` lists each part. Re-run `./scripts/setup.sh`; finished steps are skipped. |
+| "Missing llama-server" / "Missing model" | Re-run setup without `--no-llm`, or check `NOTE_LLAMA_SERVER` in `.env`. Restart `run.py`. |
+| "GPU offload was requested but no layers were confirmed" | The driver is not loaded ([NVIDIA_LOCAL_FIX.md](docs/NVIDIA_LOCAL_FIX.md)). Set `NOTE_GPU_LAYERS=0` to run on the CPU. |
+| `MODEL_BUSY` / memory slot busy | Another model job (transcription, note draft, analysis, benchmark) is running. Wait for it to finish. |
+| "The local API could not complete that request." | Look at the backend output in the `run.py` terminal for the traceback. |
+| Audio cannot be decoded | `ffmpeg` and `ffprobe` must run in the same terminal. Use a valid WAV within 45 min / 600 MB. |
+| Microphone denied | Allow it for localhost in the browser, or import a WAV. |
+| Transcription job stays queued | `SPEECH_WORKER_ENABLED=true`, Linux/WSL2, and check the backend output. |
+| Port already in use | Stop the earlier `run.py`, or pass `--api-port` / `--web-port`. |
+| `.env` change has no effect | Restart `run.py`. Exported shell variables override `.env`. |
+| LongCounsel prepare fails on `.tar.zst` | Install `zstd` (or use Python 3.14+). |
 
-## Architecture and project status
+## Architecture
 
 ```text
-React / TypeScript / Vite (apps/web)
-                 |
-         FastAPI (services/api)
-          |               |
-     SQLite + audio   local speech worker
-                          |
-                  whisper.cpp CPU process
+React 19 / TypeScript / Vite / Recharts (apps/web)
+                     |
+            FastAPI (services/api) ── SQLite (Alembic migrations) + local audio files
+          /          |            \
+ speech worker   retrieval       note generation / progress (Stage A, Stage B)
+ whisper.cpp     BM25/TF-IDF/E5         |
+                                 llama-server (llama.cpp) + Qwen3-4B GGUF, one model at a time
 ```
 
-Module A provides audio preparation and local speech transcription. Module C owns
-patient records, sessions, persistence, UI, review and orchestration. The current
-evidence provider now uses local BM25 with Boolean/phrase search, metadata filters,
-revision invalidation, and source-linked conversation context. Module B also provides
-TF-IDF, optional local multilingual E5, experimental hybrid RRF, and a benchmark
-command. See [retrieval setup and evaluation](docs/RETRIEVAL.md). Draft population
-uses exact excerpts, so a chat LLM or vector database is not required.
+| Path | Contents |
+|---|---|
+| `apps/web/src/features/` | UI: patients, sessions, notes, research, progress |
+| `services/api/` | routes, `schemas.py` (canonical API contracts), DB models, importers |
+| `services/speech/`, `services/retrieval/`, `services/note_generation/` | Modules A and B, note drafting, shared LLM runtime |
+| `services/progress/` | registry, Stage A/B prompts, post-processing, trends, `evaluation/` benchmark tooling |
+| `alembic/versions/` | database migrations |
+| `tests/` | backend tests (pytest) with fixtures and a scripted fake LLM |
+| `docs/` | plans, status, runbooks and module documentation |
+| `services/meeting_public/` | Public meeting-only server for internet meetings (patient page, consent, signaling, ICE) |
+| `scripts/` | `setup.sh`, `run.py`, `run_lan.py`, `run_internet.py`, benchmark and verification helpers |
 
 | Owner | Module |
 |---|---|
@@ -337,22 +407,21 @@ uses exact excerpts, so a chat LLM or vector database is not required.
 | Muhammad Ayyan | B — Information Retrieval |
 | Muhammad Talha | C — Clinical Application |
 
-The canonical API schemas are in `services/api/schemas.py`, migrations in
-`alembic/versions/`, and fictional fixtures in `packages/contracts/fixtures/`.
-See [module integration guide](docs/MODULE_INTEGRATION_GUIDE.md) for module
-boundaries, and [Plan.txt](Plan.txt) for the implementation plan. Work on a feature
-branch and include relevant verification in pull requests. Do not commit personal
-records, model weights or local databases.
+## Documentation
 
-## Online meetings on the same Wi-Fi
+| Document | Topic |
+|---|---|
+| [PROJECT_STATUS.md](docs/PROJECT_STATUS.md) | What is built, verified and outstanding |
+| [PROGRESS_MONITORING.md](docs/PROGRESS_MONITORING.md) | Progress monitoring and condition hypotheses: user and team guide |
+| [PROGRESS_MONITORING_PLAN.md](docs/PROGRESS_MONITORING_PLAN.md) | Progress-monitoring design, principles, progress log, open questions |
+| [VIGNETTE_AUTHORING_GUIDE.md](docs/VIGNETTE_AUTHORING_GUIDE.md) | Writing and labelling vignette cases; running their evaluation |
+| [PROGRESS_BENCHMARK_RUNBOOK.md](docs/PROGRESS_BENCHMARK_RUNBOOK.md) | LongCounsel-8 benchmark commands and runtimes |
+| [NOTE_GENERATION.md](docs/NOTE_GENERATION.md), [NOTE_FORMULATION_REVIEW.md](docs/NOTE_FORMULATION_REVIEW.md) | Local AI note drafts |
+| [RETRIEVAL.md](docs/RETRIEVAL.md), [RESEARCH_EVALUATION.md](docs/RESEARCH_EVALUATION.md), [TEAM_ANNOTATION.md](docs/TEAM_ANNOTATION.md) | Module B retrieval, research workspace, annotation workflow |
+| [PATIENT_WORKSPACE.md](docs/PATIENT_WORKSPACE.md), [ONLINE_MEETINGS.md](docs/ONLINE_MEETINGS.md) | Workspace and LAN meetings |
+| [INTERNET_MEETINGS.md](docs/INTERNET_MEETINGS.md), [checklist](docs/INTERNET_MEETINGS_TEST_CHECKLIST.md), [plan](docs/INTERNET_MEETINGS_PLAN.md) | Internet meetings: setup, threat model, manual real-network checks |
+| [MODULE_INTEGRATION_GUIDE.md](docs/MODULE_INTEGRATION_GUIDE.md), [Plan.txt](docs/Plan.txt) | Module boundaries and the original plan |
+| [NVIDIA_LOCAL_FIX.md](docs/NVIDIA_LOCAL_FIX.md) | NVIDIA driver and Secure Boot on Fedora |
 
-Run `python scripts/run_lan.py` from the activated project environment to start the
-HTTPS LAN demo. Open the clinician workspace at the printed localhost address;
-share the patient invitation with another device on the same Wi-Fi. Both devices
-must trust the generated public CA certificate before using microphone/camera.
-The session supports two participants, chat, separate speaker recordings, and
-minute-by-minute local transcription. See [setup, testing, and limitations](docs/ONLINE_MEETINGS.md).
-
-Local English AI note drafts: [setup, review, measurements and comparison](docs/NOTE_GENERATION.md).
-Start with `./scripts/run.py --no-reload`; research-only demo: `/workspace/research-notes`.
-[NVIDIA Secure Boot diagnosis for this laptop](docs/NVIDIA_LOCAL_FIX.md).
+Work on a feature branch and include verification results in pull requests. Never commit personal records, model
+weights, local databases or LongCounsel-8 data.

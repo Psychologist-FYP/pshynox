@@ -7,8 +7,10 @@ from services.retrieval.import_data import import_primock
 from services.retrieval.prepare import STARTER
 from services.retrieval.prepare_audio import boundaries, prepare_consultation
 from services.speech.audio import inspect_audio
+from tests.local_data import needs_starter_pack
 
 
+@needs_starter_pack
 def test_actual_primock_clips_are_synchronized_bounded_and_preserve_all_sources(tmp_path):
     for name in ('day1_consultation01', 'day1_consultation02'):
         csv = STARTER / 'data/primock57' / f'{name}_transcript.csv'
