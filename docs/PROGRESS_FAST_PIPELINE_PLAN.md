@@ -1,6 +1,6 @@
 # Progress monitoring: fast DSM pipeline (`dsm-fast`): implementation plan
 
-**Status (10 November 2026):** Phase 0 (this plan). Waiting for approval and answers to §11.
+**Status (10 November 2026):** Phases 0 and 1 done (see the progress log). Next: Phase 2.
 **Branch:** `feat/progress-fast`, created from `feat/progress-dsm` at `04ee367` (Q1).
 **Persistent rules:** the "Fast DSM pipeline" section of the root [`CLAUDE.md`](../CLAUDE.md), plus the progress-module
 principles and the DSM-registry rules above it. Every session reads that section and this whole document first.
@@ -316,6 +316,45 @@ Each setting records prefill and generation tokens/s, peak VRAM, and whether rep
 current settings. Results go into this document. The model stays fully on the GPU (37/37 layers). Settings that change
 outputs are allowed in `dsm-fast` only, and are covered by the §8 comparison.
 
+**Phase 1 results (measured 10 Nov 2026, `bench.py`; raw data in `data/research/progress-runs/dsm-fast-bench/`):**
+
+`llama-bench`, Qwen3-4B Q4_K_M, all 37 layers on the GPU, 2 repetitions:
+
+| Setting | Prefill (2,048 tokens) | Generation (128 tokens) |
+|---|---:|---:|
+| `-b 256 -ub 128` (today), flash attention on | 142.1 tok/s | — |
+| every `-b` 256/512/1024 × `-ub` 128/256/512, and 1024/1024 | 140.5–143.9 tok/s | — |
+| `-b 512 -ub 512`, KV f16 | 140.5 tok/s | 45.1 tok/s |
+| `-b 512 -ub 512`, KV q8_0, at depth 0 / 3,000 / 7,000 tokens | 139.9 / **99.4 / 71.8** tok/s | 45.5 / **35.3 / 26.7** tok/s |
+| CPU threads 4 vs 8 | — | 45.1 vs 45.0 tok/s |
+| flash attention off, at depth 3,000 | out of memory (4 GiB) | — |
+
+Real-call replay (the exact `dsm-v1` Stage A calls of role-play session 1):
+
+| Setting | Call | Prompt | Reused | Prefill | Generated | Wall | Output identical |
+|---|---|---:|---:|---|---|---:|---|
+| today | depressive chunk 1 (cold) | 3,126 | 0 | 3,126 @ 130/s | 603 @ 30.7/s | 43.8 s | reference |
+| today | depressive chunk 2 (same packet) | 3,179 | 2,797 | 382 @ 109/s | 621 @ 30.6/s | 23.9 s | reference |
+| today | chunk 2, alias enum → pattern grammar | 3,179 | 3,178 | 1 | 627 @ 31.9/s | 19.8 s | reference |
+| KV q8_0 | chunks 1 / 2 | same | same | same speed | 597 / 621 @ 31.8–32.1/s | 42.9 / 22.9 s | **no** (slightly different text) |
+| KV q8_0, 8,192 context | two groups on one whole-transcript packet: depressive (cold), elevated | 6,593 / 6,708 | 743 / **6,264** | 5,850 @ 101/s / 444 @ 77/s | 710 / 548 @ 25.1–25.5/s | 86.2 / 27.3 s | — |
+
+Conclusions:
+- **Server flags do not help on this GPU.** Prefill is compute-bound at ≈ 142 tokens/s whatever the batch sizes
+  (the GTX 1650 has no tensor cores); threads do nothing; q8_0 KV gains ≈ 3% and changes outputs. `TUNED` = today's
+  server with flash attention pinned on. A q8_0 KV cache is kept only as the way to reach 8,192 context if needed.
+- **Prompt depth is the real cost**: prefill and generation both slow by ≈ 25–30% at 3,000 tokens of depth and ≈ 40–50%
+  at 7,000. So prompts must be short: compact turn lines and windows of ≈ 2,500 transcript tokens at 4,096 context,
+  not one large 8,192 window.
+- **Prefix caching across groups works on the existing prompts** (6,264 of 6,708 tokens reused; the second group's
+  prefill took 6 s instead of ≈ 55 s). It saves ≈ 20–25 s per group start, about 2.5 minutes of the role-play's
+  20-minute Stage A, but the longer whole-transcript prompt slows generation to ≈ 25 tokens/s. Alone, it is worth ≈ 5%.
+- **The grammar is not the cause of the slow session-1 generation.** The same call that ran at 22.9 tokens/s in the
+  9 November run ran at 30.7 tokens/s today with the same grammar and settings; a pattern instead of the 100-alias enum
+  gains only ≈ 4%. The 9 November slowdown is unexplained (likely GPU clocks or another process). Integer ids are still
+  used in `dsm-fast`, because they are shorter.
+- **Where the time must come from:** Stage B in code (Phase 2) and many fewer generated tokens (Phase 3).
+
 ### 4.9 Speculative decoding (task 1.8, experiment)
 
 This build supports draft-free n-gram speculation (`--spec-type ngram-simple|ngram-map-k|ngram-mod|ngram-cache`) and
@@ -419,6 +458,10 @@ recall is ≥ 98% overall and whose denial recall is ≥ 95%, ties broken toward
 
 ### 7.3 `dsm-v1` baseline runs (you run them)
 
+> **Amendment (10 Nov 2026, your decision, before any results): no `dsm-v1` baseline runs.** The previous pipeline is
+> taken as ≈ 45 min for the role-play (measured 43 min, §1). The commands below are kept for reference only and
+> `reference.py` is not built.
+
 `reference.py` (Phase 1) runs the current `dsm-v1` pipeline, unchanged, with today's server settings and the
 instrumented wrapper. Each session writes a done marker; Stage A and B checkpoints use the existing `cache-v4` cache, so
 an interrupted run resumes where it stopped.
@@ -445,6 +488,13 @@ The `dev` run is needed before Phase 3 (thresholds); the `reference` run before 
 ---
 
 ## 8. Acceptance criteria (pre-registered 10 November 2026; not changed after results)
+
+> **Amendment (10 Nov 2026, your decision, before any results).** No comparison runs against `dsm-v1`. What is still
+> measured: **speed (criterion 6)** from the call logs; **citations (5)** by tests; and, at no GPU cost, the risk rows
+> and labels on the role-play fixture against the `dsm-v1` outputs that already exist (§1). Criteria 1–4 on the
+> LongCounsel-8 reference set are not run; `dsm-fast` PHQ-8 MAE against ground truth is reported for information only.
+> The default switches to `dsm-fast` when the speed targets are met, the role-play risk flags are all found and the
+> tests pass.
 
 All are measured with `compare.py` on the sets in §7.1, `dsm-fast` against `dsm-v1`, same sessions. **Every criterion
 must pass** to switch the default to `dsm-fast`.
@@ -568,3 +618,39 @@ re-run and reported alongside, never instead.
   - Proposed: whole transcript always, triage for gating only (Q3); `A`, `c`, `x`/`a`, `mod` and an optional `b` added
     to the compact schema (§4.3); slot save/restore not planned (§4.1).
 - **Next:** wait for approval and answers to Q1–Q8, then Phase 1.
+
+### Phase 0 addendum: approval, 10 November 2026
+- **Approved.** Answers:
+  - Q1 yes (branch `feat/progress-fast`).
+  - Q2 yes: PHQ-8 and GAD-7 AI estimates are derived from findings in `dsm-fast` (DSM-plan Q4 reversed for this path).
+  - Q3 yes: whole transcript always (windowed); triage gates features and groups.
+  - Q4–Q8: "no need to compare, just do the changes and report the time". So: the ≤ 12-word basis is implemented with
+    no ablation; the cross-session policy (Q5) and risk matching (Q6) are as recommended; **no `dsm-v1` baseline runs**
+    (Q7; the previous pipeline is taken as ≈ 45 min); synthetic long transcripts are used for speed only (Q8).
+  - Q9 no: no draft-model download; speculative decoding is tried with n-gram modes only.
+- §7.3 and §8 carry the resulting amendments (written before any results).
+
+### Phase 1: 10 November 2026 (instrumentation, runtime tuning, prefix caching on the existing prompts)
+- **Built:**
+  - `services/progress/dsm/fast/runtime.py`: `ServerSettings` (context, batch, micro-batch, flash attention, KV types,
+    threads, cache reuse, n-gram speculation; validated and hashed); `scoped_env` (sets `NOTE_*`/`LLAMA_ARG_*` only
+    around `Runtime.load()` and restores them); `CallLog` (append-only `calls.jsonl`: prompt, reused, prefilled and
+    generated tokens, prefill and generation ms, stage, group, window, settings/schema/prompt hashes; context fields are
+    restricted to a text-free list; timed phases; the `cache.reuse_low` check); `Instrumented` mixin and `FastRuntime`.
+    `settings=None` leaves today's server untouched.
+  - `services/progress/dsm/fast/bench.py`: `sweep` (llama-bench) and `replay` (the exact `dsm-v1` Stage A calls of
+    role-play session 1, replayed under each setting with output hashes).
+- **Measured:** §4.8 "Phase 1 results". GPU time: sweep 12.5 min, replay 7 min.
+- **Time result after Phase 1:** no end-to-end change. No server setting helps by more than ≈ 3%; prefix caching alone
+  on the existing prompts is worth ≈ 5% of Stage A. The role-play still takes ≈ 43–45 min with the `dsm-v1` prompts.
+- **Tests:** 426 backend tests passed (+15 in `tests/progress/dsm/fast/test_fast_runtime.py`: settings, scoped env,
+  text-free rows, reuse detection and the loud failure when reuse drops to 0 within a window, failed calls logged,
+  summaries). Frontend build passes. The benchmark hash pin test passes (no bound file changed).
+- **Deviations:**
+  - `reference.py` was not built (no `dsm-v1` baseline runs, your decision).
+  - The grammar hypothesis from Phase 0 did not reproduce (see conclusions).
+  - Context stays 4,096 by default; windows will be sized from the depth measurements.
+  - Flash-attention-off could not be measured at depth (out of memory), and is not needed.
+- **No new dependencies.**
+- **Next:** Phase 2, Stage B in code with the duration parser (no GPU).
+
