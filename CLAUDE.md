@@ -117,3 +117,27 @@ principles above still apply.
    and the ASRM are enabled as clinician-administered instruments only (user confirmed permission, 9 Nov 2026); the
    model never estimates them.
 7. Commit messages carry no co-author trailer (user preference).
+
+## Fast DSM pipeline (`dsm-fast`)
+
+**Plan and handover document:** [`docs/PROGRESS_FAST_PIPELINE_PLAN.md`](docs/PROGRESS_FAST_PIPELINE_PLAN.md). Read all of
+it, including its open questions and progress log, before starting a phase. Work on branch `feat/progress-fast`. Do one
+phase per session: commit, update the progress log, stop. Ask before adding dependencies or downloading models. The
+progress-module principles and the DSM-registry rules above still apply.
+
+1. **`dsm-v1` stays reproducible.** The new path is `progress-extract-dsm-fast-v1`, selected by
+   `PROGRESS_DSM_PIPELINE=dsm-v1|dsm-fast` (default `dsm-v1` until every criterion in plan §8 passes). Its code lives in
+   `services/progress/dsm/fast/`. Never edit the 14 benchmark-bound files or the DSM registry content; server flags
+   change only through `FastRuntime` (`LLAMA_ARG_*` around `Runtime.load()`), and `dsm-v1` keeps today's settings.
+2. **Risk is never gated.** The risk + plans call runs on every window of every session with every turn present. Every
+   reference risk flag must be found (100% recall).
+3. **Measure everything.** Every model call appends a row to `calls.jsonl` (prompt, reused, prefilled and generated
+   tokens; prefill and generation ms; stage, group, window). No transcript or model text in the log. Speed claims come
+   only from these logs.
+4. **Pre-registered criteria.** Plan §8 is fixed. Never change it after seeing results; a fix is a new version reported
+   alongside the failed one.
+5. **Data.** Tune thresholds and prompts on the dev set only; the 10 reference sessions are for §8 only. Never use
+   `test-final-37` or `val-arms-12`. Research data never enters the clinical DB.
+6. **GPU time.** State the expected runtime before any GPU run over 10 minutes. The user runs the long `dsm-v1` baseline
+   runs (tmux, resumable commands in plan §7.3).
+7. Commit messages carry no co-author trailer (user preference).
