@@ -131,3 +131,17 @@ model, language, device, VAD, notices and segments, and saves nothing.
 ```
 
 `python -m services.speech <file> --mode english|urdu_mixed` prints full segments and metrics as JSON.
+
+## Database migration and other branches
+
+Migration `0010_asr_language_models` follows `0009_internet_meetings`. The DSM branches (`feat/progress-dsm`,
+`feat/progress-fast`) also add a migration after `0009` (`0010_dsm_registry`). A database upgraded on one of them
+therefore cannot start on this branch. Start-up says so instead of failing with a traceback.
+
+- **While the branches stay separate,** run this branch on its own copy: `data/pshynox-asr.db`. It was copied from
+  `data/pshynox.db` on 11 November 2026 and marked as being at `0009`; the DSM tables and columns stay in it, unused.
+  ```bash
+  DATABASE_URL=sqlite:///./data/pshynox-asr.db .venv/bin/python scripts/run.py
+  ```
+- **When both reach `main`,** the second merge needs an Alembic merge revision (`alembic merge -m "asr + dsm" heads`)
+  or this migration re-parented onto `0010_dsm_registry`. Both migrations are additive, so the order does not matter.

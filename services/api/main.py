@@ -11,6 +11,8 @@ from typing import Literal
 
 from alembic import command
 from alembic.config import Config
+from alembic.util.exc import CommandError
+from services.api.db import database_url as db_url
 from fastapi import Depends, FastAPI, HTTPException, Query
 from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
@@ -74,7 +76,17 @@ retrieval_provider = create_retrieval_provider()
 
 def migrate() -> None:
     config = Config(str(ROOT / "alembic.ini"))
-    command.upgrade(config, "head")
+    try:
+        command.upgrade(config, "head")
+    except CommandError as exc:
+        if "Can't locate revision" not in str(exc):
+            raise
+        # The database was upgraded by a checkout with migrations this one lacks (for example another feature branch).
+        # Alembic cannot go on safely, so say what to do instead of failing with a traceback.
+        raise SystemExit(
+            f"The database ({db_url()}) is at a migration this checkout does not have: {exc}. "
+            "It was probably upgraded on another branch. Switch back to that branch, or run this one with its own "
+            "database, e.g. DATABASE_URL=sqlite:///./data/pshynox-<branch>.db") from None
 
 
 @asynccontextmanager
