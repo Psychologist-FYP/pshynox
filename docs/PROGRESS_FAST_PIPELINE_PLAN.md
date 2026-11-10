@@ -679,3 +679,41 @@ re-run and reported alongside, never instead.
   the episode window; past periods not combined; hospitalisation; per-condition durations; the onset rule; the fallback
   call only when it can change a label, cited only; the mocked role-play in code). Frontend build passes.
 - **Next:** Phase 3, the fast Stage A.
+
+
+### Phase 3: 10 November 2026 (fast Stage A)
+- **Built** (`services/progress/dsm/fast/`): `config.json` (`dsm-fast-config-v1`: 46 features with two-letter codes
+  and one-line definitions, five groups, output budgets, windows, risk lexicon in English, Roman Urdu and Urdu script,
+  triage thresholds); `config.py` (validated against the registry; `PROGRESS_DSM_PIPELINE`, default `dsm-v1`);
+  `triage.py` (BM25 group gating, risk-lexicon hits, candidate-turn pointers; E5 off: 0 of 40 groups were skippable by
+  it); `prompts.py` (`progress-extract-dsm-fast-v1`: one static system prompt, per-call task with definitions and
+  pointers; grammar requires every code; cite first, then a short paraphrase `b`, then the status); `extract.py` (windows,
+  ≤ 5 codes per call, checkpointed calls with one repair and an output-limit split, risk + plans call first in every
+  window, a risk recheck for uncited lexicon turns, the `dsm-v1` citation guards, merge, `attach_questions`, derived
+  questionnaires); `questionnaires.py` (PHQ-8/GAD-7 from findings; PHQ-9 item 9 never derived); `run.py` (role-play,
+  reference, dev and long runs with timings); `jobs.py` dispatch for `dsm-fast` (Stage A fast, Stage B in code).
+- **Role-play iterations (real model), against the existing `dsm-v1` run:**
+
+  | Attempt | Change | S1 Stage A | S2 Stage A | Labels same | Risk flags found |
+  |---|---|---|---|---|---|
+  | 1 | first version | 247 s | 70 s | 0/10 | 3/5 |
+  | 2 | output budgets, fewer codes per call | 116 s | 45 s | 0/10 | 4/5 |
+  | 3 | stricter "N" rule | 79 s | 31 s | 1/10 | 4/5 |
+  | 4 | definitions in the task | 111 s | 32 s | 1/10 | 4/5 |
+  | 5 | candidate-turn pointers | 127 s | 37 s | 1/10 | 4/5 |
+  | 6 | paraphrase before status; denial rules | 318 s* | 73 s* | 5/10 | 4/5 → **5/5** with `attach_questions` |
+
+  \*Attempt 6 ran on battery (power profile "quiet"): every call generated at ≈ 18 tokens/s instead of 34–39, and
+  the longer rows hit the output budget (depressive group split into 10 calls). The budget is now 90 tokens per code.
+  Its timing is not valid; the speed runs (Phase 5) must run on mains power.
+- **Labels (attempt 6, as of session 2):** MDE, MDD and SAD as `dsm-v1` (likely, likely, not met). Manic, hypomanic,
+  bipolar I and II and GAD are "insufficient evidence" where `dsm-v1` has "not met": `dsm-fast` leaves the elevated
+  and worry features as "not discussed" where `dsm-v1` recorded denials or absence. Safer direction (a gap, never a
+  false "not met"), listed for your review.
+- **Risk:** all 5 `dsm-v1` flags found. The last one (`dsm-v1` cites the clinician's question at t85) is found because
+  `attach_questions` now also cites the clinician risk question(s) right before a flagged client answer. Difference
+  for review (Q6): `dsm-v1` adds harm-to-others at t83–84; `dsm-fast` has passive ideation only there.
+- **Tests:** 510 backend tests passed (+38: config coverage, static prompt, schema, windows, checkpoint cache, row
+  mapping and guards, merge, risk coverage and recheck, `attach_questions`, derived questionnaires, job dispatch).
+  Frontend build passes.
+- **Next:** Phase 4 (n-gram speculation, context size) and Phase 5 (timed runs), both on mains power.

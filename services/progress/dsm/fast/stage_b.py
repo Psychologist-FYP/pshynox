@@ -64,6 +64,28 @@ def _proposal(f: dict, rows: dict[str, dict], time_frame: str) -> dict:
                                  for t in dict.fromkeys((f.get("onset_or_duration_text"), f.get("period_label"))) if t]}
 
 
+TURN_ONSET = re.compile(r"\b(ago|since|started|began|for the (past|last)|for (about|almost|nearly|over|more than)|pehle|se)\b|سے|پہلے", re.IGNORECASE)
+NEIGHBOURS = 2
+
+
+def turn_sources(p: dict, order: dict[str, tuple[str, int]], by_pos: dict[tuple[str, int], dict]) -> list[dict]:
+    """Duration phrases in the finding's cited turns, or in nearby client turns that state an onset (cited as evidence)."""
+    out, seen = [], set()
+    for e in p["evidence"] + p.get("earlier_evidence", []):
+        if e["segment_id"] not in order:
+            continue
+        sid, pos = order[e["segment_id"]]
+        for d in range(-NEIGHBOURS, NEIGHBOURS + 1):
+            row = by_pos.get((sid, pos + d))
+            if row is None or row["id"] in seen:
+                continue
+            if d and (row["speaker_role"] != "CLIENT" or not TURN_ONSET.search(row.get("text") or "")):
+                continue
+            seen.add(row["id"])
+            out.append({"text": row.get("text") or "", "session_id": sid, "evidence": [_cite(row)], "from_turn": True})
+    return out
+
+
 ONSET = re.compile(r"\b(ago|since|started|began|back|pehle|pehlay|se|shuru)\b|سے|پہلے|شروع", re.IGNORECASE)
 
 
@@ -124,10 +146,16 @@ def build_periods(sessions: list[dict], *, window_days: int = WINDOW_DAYS) -> tu
             p = current.get(f["feature_key"])
             if p is None or not _usable(f) or f.get("_session_id", s["session_id"]) == p["session_id"] and TIME_FRAME.get(f.get("time_frame") or "unclear") != "past":
                 continue
+            earlier = [_cite(rows[i]) for i in f.get("evidence_segment_ids", []) if i in rows]
             for t in dict.fromkeys((f.get("onset_or_duration_text"), f.get("period_label"))):
                 if t and (ONSET.search(t) or TIME_FRAME.get(f.get("time_frame") or "unclear") == "current") and t not in {x["text"] for x in p["duration_sources"]}:
-                    p["duration_sources"].append({"text": t, "session_id": s["session_id"],
-                                                  "evidence": [_cite(rows[i]) for i in f.get("evidence_segment_ids", []) if i in rows]})
+                    p["duration_sources"].append({"text": t, "session_id": s["session_id"], "evidence": earlier})
+            p.setdefault("earlier_evidence", []).extend(e for e in earlier if e["segment_id"] not in {x["segment_id"] for x in p["evidence"]})
+    order = {seg["id"]: (s["session_id"], i) for s in sessions for i, seg in enumerate(s.get("segments", []))}
+    by_pos = {(s["session_id"], i): {**seg, "session_id": s["session_id"]} for s in sessions for i, seg in enumerate(s.get("segments", []))}
+    for group in [current] + [g["proposals"] for g in past]:
+        for p in group.values():
+            p["turn_sources"] = turn_sources(p, order, by_pos)
     periods = [{"id": "current", "label": "Current", "time_frame": "current", "proposals": current}]
     for i, g in enumerate(reversed(past), 1):
         periods.append({"id": f"past{i}", "label": g["label"] or "Past (undated)", "time_frame": "past", "proposals": g["proposals"]})
@@ -152,10 +180,20 @@ def period_durations(period: dict, sessions: list[dict]) -> dict:
                 parsed = parse(src["text"], dates.get(src["session_id"]))
                 if parsed is None:
                     if src["text"] not in {"current_episode", "past_episode", "unclear"}:
-                        unresolved.append({"feature": key, "text": src["text"]})
+                        unresolved.append({"feature": key, "text": src["text"], "evidence": src["evidence"]})
                     continue
                 if best is None or parsed["days"] > best["days"]:
                     best = {**parsed, "feature": key, "evidence": src["evidence"]}
+        if best is None:
+            # No stated duration in the findings: look for one in the core findings' cited turns (and nearby onset turns).
+            for key in features:
+                p = period["proposals"].get(key)
+                if not p or p["status"] not in {"present", "subthreshold"}:
+                    continue
+                for src in p.get("turn_sources", []):
+                    parsed = parse(src["text"], dates.get(src["session_id"]))
+                    if parsed is not None and (best is None or parsed["days"] > best["days"]):
+                        best = {**parsed, "feature": key, "evidence": src["evidence"], "source": "cited turn"}
         out[cond] = best or {"days": None, "evidence": [], "unresolved": unresolved}
     return out
 
@@ -189,7 +227,7 @@ def resolve_durations(runtime, pairs: list[tuple[str, dict]], rows: dict[str, di
         for u in period["durations"][key]["unresolved"]:
             p = period["proposals"][u["feature"]]
             turns = []
-            for e in p["evidence"][:3]:
+            for e in (u.get("evidence") or p["evidence"])[:3]:
                 if e["segment_id"] not in turn_ids:
                     turn_ids[e["segment_id"]] = len(turn_ids)
                 row = rows[e["segment_id"]]
@@ -261,6 +299,41 @@ def predict_rules(sessions: list[dict], *, keys: list[str] | None = None, a9: di
         res.update(as_of_session_id=sessions[-1]["session_id"], prompt_version=VERSION, schema_version=SCHEMA_VERSION, registry_version=reg.tag,
                    model_version="rules" if not model_calls else f"rules+qwen:{getattr(runtime, 'model', {}).get('sha256', '')[:16]}",
                    periods=public,
-                   proposals={k: {kk: vv for kk, vv in p.items() if kk not in {"evidence", "counter_evidence", "duration_sources"}} for k, p in periods[0]["proposals"].items()},
+                   proposals={k: {kk: vv for kk, vv in p.items() if kk not in {"evidence", "counter_evidence", "duration_sources", "turn_sources", "earlier_evidence"}} for k, p in periods[0]["proposals"].items()},
                    postprocess={"model_label": None, "method": "rules-only", "notes": list(dict.fromkeys(notes))})
     return {"results": results, "periods": periods, "notes": notes, "model_calls": model_calls, "seconds": round(time.monotonic() - started, 3)}
+
+
+# ---------------------------------------------------------------- clinical job (DB layer)
+
+def predict_patient_rules(job: dict, runtime, folder, as_of_session_id: str, *, condition_keys=None, batch_id=None):
+    """Stage B in code for the clinical app: same inputs, storage and evidence rule as ``predict_patient_dsm``."""
+    from services.api.db import SessionRecord
+    from services.api.main import session_factory
+
+    from .. import store as dsm_store
+    from ..prediction import session_inputs_dsm
+    with session_factory() as db:
+        session = db.get(SessionRecord, as_of_session_id)
+        inputs = session_inputs_dsm(db, session.patient_id, as_of_session_id)
+        dates = {s.id: s.created_at.date() for s in db.query(SessionRecord).filter(SessionRecord.id.in_([i["session_id"] for i in inputs]))
+                 if getattr(s, "created_at", None) is not None}
+        a9 = dsm_store.a9_status(db, as_of_session_id)
+    for i in inputs:
+        if i["session_id"] in dates:
+            i["date"] = dates[i["session_id"]]
+    counts, limitations = {"predictions_saved": 0, "predictions_without_evidence": 0, "predictions_failed": 0}, []
+    out = predict_rules(inputs, keys=condition_keys, a9=a9, runtime=runtime, calllog=getattr(runtime, "calllog", None))
+    with session_factory() as db:
+        episodes = set(dsm_registry().conditions.episode_conditions)
+        for key, result in out["results"].items():
+            if not result["has_evidence"]:  # principle 2: a hypothesis with no cited evidence is never stored
+                if key not in episodes:
+                    counts["predictions_without_evidence"] += 1
+                    limitations.append(f"{key}: no cited evidence, so no hypothesis was stored")
+                continue
+            dsm_store.persist_dsm_prediction(db, session.patient_id, result, job_id=job["id"], batch_id=batch_id)
+            counts["predictions_saved"] += 1
+        db.commit()
+    counts["stage_b_model_calls"] = out["model_calls"]
+    return counts, limitations

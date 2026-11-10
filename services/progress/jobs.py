@@ -22,6 +22,13 @@ from services.retrieval.engine import SearchScope, digest
 
 ACTIVE: dict[str, tuple[threading.Event, object]] = {}
 RUNTIME_FACTORY = lambda folder, cancel: Runtime(folder, cancel)  # noqa: E731 - replaced in tests
+_DEFAULT_RUNTIME_FACTORY = RUNTIME_FACTORY
+
+
+def _fast_runtime(folder, cancel):
+    """dsm-fast: the same owned runtime with the tuned settings and the per-call log (dsm-v1 keeps today's server)."""
+    from services.progress.dsm.fast.runtime import TUNED, FastRuntime
+    return FastRuntime(folder, cancel, settings=TUNED)
 
 
 def jobs_root() -> Path:
@@ -109,7 +116,9 @@ def start_job(kind: str, *, session_id: str, request: dict) -> str:
     'reanalysis' (registry v2: DSM Stage A on several past sessions, then Stage B as of the last one)."""
     from services.api.main import session_factory
     from services.progress.dsm.registry import registry_kind
+    from services.progress.dsm.fast.config import dsm_pipeline
     request = {**request, "registry": request.get("registry") or registry_kind()}
+    request["pipeline"] = request.get("pipeline") or dsm_pipeline()
     if kind == "reanalysis":
         with session_factory() as db:
             session = guard_session(db, session_id)
@@ -135,7 +144,9 @@ def start_job(kind: str, *, session_id: str, request: dict) -> str:
            "created_at": datetime.now(timezone.utc).isoformat(), "limitations": [], "error": None, "counts": {}}
     cancel = threading.Event()
     try:
-        runtime = RUNTIME_FACTORY(folder, cancel)
+        fast = request["pipeline"] == "dsm-fast" and (request["registry"] == "dsm" or kind == "reanalysis")
+        factory = _fast_runtime if fast and RUNTIME_FACTORY is _DEFAULT_RUNTIME_FACTORY else RUNTIME_FACTORY
+        runtime = factory(folder, cancel)
     except (GenerationError, ValueError) as exc:
         lock.release()
         raise HTTPException(422, detail={"code": "RUNTIME_UNAVAILABLE", "message": str(exc)}) from exc
@@ -229,8 +240,12 @@ def _dsm_extract_and_save(job, runtime, folder, snapshot, scope, context, stage,
     if hasattr(runtime, "deadline"):
         import time
         runtime.deadline = time.monotonic() + float(os.getenv("NOTE_JOB_TIMEOUT", "1800"))
-    result = extract_session_dsm(snapshot, runtime, folder, evidence_mode=job["request"].get("evidence_mode", "auto"), plans=plans,
-                                 names=context["names"], progress=stage, scope=scope)
+    if job["request"].get("pipeline") == "dsm-fast":
+        from services.progress.dsm.fast.extract import extract_session_fast
+        result = extract_session_fast(snapshot, runtime, folder, plans=plans, names=context["names"], progress=stage)
+    else:
+        result = extract_session_dsm(snapshot, runtime, folder, evidence_mode=job["request"].get("evidence_mode", "auto"), plans=plans,
+                                     names=context["names"], progress=stage, scope=scope)
     latest, _, _ = clinical_snapshot(snapshot["session_id"])
     if latest["revision"] != snapshot["revision"]:
         raise GenerationError("Transcript changed during analysis; result withheld. Run the analysis again.")
@@ -278,8 +293,12 @@ def _finish_batch(batch_id, status):
 def run_dsm_prediction_stage(job, runtime, folder, as_of_session_id, stage, condition_keys=None):
     from services.progress.dsm.prediction import predict_patient_dsm
     stage("predicting conditions (DSM criteria)")
-    counts, limitations = predict_patient_dsm(job, runtime, folder, as_of_session_id, condition_keys=condition_keys,
-                                              batch_id=job.get("batch_id"), progress=stage)
+    if job["request"].get("pipeline") == "dsm-fast":
+        from services.progress.dsm.fast.stage_b import predict_patient_rules
+        counts, limitations = predict_patient_rules(job, runtime, folder, as_of_session_id, condition_keys=condition_keys, batch_id=job.get("batch_id"))
+    else:
+        counts, limitations = predict_patient_dsm(job, runtime, folder, as_of_session_id, condition_keys=condition_keys,
+                                                  batch_id=job.get("batch_id"), progress=stage)
     job["counts"] = {**job.get("counts", {}), **counts}
     job["limitations"] = list(dict.fromkeys(job.get("limitations", []) + limitations))
 

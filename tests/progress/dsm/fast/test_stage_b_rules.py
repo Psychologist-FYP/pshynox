@@ -187,3 +187,27 @@ def test_roleplay_labels_in_code(tmp_path):
     assert r["sad"]["label"] == "not_met" and r["gad"]["label"] == "not_met"
     assert r["manic"]["label"] != "likely" and r["bipolar_i"]["label"] in {"insufficient_evidence", "not_met"}  # as dsm-v1
     assert r["pdd"]["label"] == "not_met"  # about two months cited, needs two years
+
+
+def test_duration_read_from_the_cited_turn_when_the_finding_states_none():
+    s1 = depressive_session("s1", onset="")
+    s1["segments"] = [seg(f["evidence_segment_ids"][0], text="I have felt like this for about two months now." if f["feature_key"] == "feat.depressed_mood" else "text")
+                      for f in s1["findings"]]
+    periods, _, _ = build_periods([s1])
+    mde = periods[0]["durations"]["mde"]
+    assert mde["days"] == 61 and mde["source"] == "cited turn" and mde["evidence"][0]["segment_id"] == "s1-feat.depressed_mood"
+    assert predict_rules([s1])["results"]["mde"]["label"] == "likely"
+
+
+def test_nearby_turn_needs_an_onset_cue_and_a_client_speaker():
+    s1 = depressive_session("s1", onset="")
+    ids = [f["evidence_segment_ids"][0] for f in s1["findings"]]
+    segs = []
+    for sid in ids:
+        segs.append(seg(sid))
+        if sid == "s1-feat.depressed_mood":
+            segs.append(seg("n1", role="CLINICIAN", text="It started about six months ago, you said?"))  # clinician: ignored
+            segs.append(seg("n2", text="I played cricket for two hours."))  # no onset cue: ignored
+    s1["segments"] = segs
+    periods, _, _ = build_periods([s1])
+    assert periods[0]["durations"]["mde"]["days"] is None
