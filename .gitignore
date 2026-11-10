@@ -79,3 +79,6 @@ apps/web/playwright-report/
 !/data/research/vignettes/
 /data/research/vignettes/*
 !/data/research/vignettes/README.md
+
+# DSM-5-TR reference PDF: never commit (CLAUDE.md, DSM registry rules)
+docs/DSM*.pdf

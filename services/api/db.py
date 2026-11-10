@@ -34,6 +34,7 @@ class SessionRecord(Base):
     consent_json: Mapped[str] = mapped_column(Text, nullable=False)
     workflow_status: Mapped[str] = mapped_column(String(40), nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    asr_mode: Mapped[str | None] = mapped_column(String(20), nullable=True)  # english | urdu_mixed; NULL = default
     segments: Mapped[list["TranscriptSegmentRecord"]] = relationship(
         back_populates="session", cascade="all, delete-orphan"
     )
@@ -126,6 +127,7 @@ def serialize_record(record: SessionRecord) -> dict[str, Any]:
         "consent": json.loads(record.consent_json),
         "workflow_status": record.workflow_status,
         "created_at": record.created_at,
+        "asr_mode": record.asr_mode or "urdu_mixed",
     }
 
 
@@ -140,6 +142,7 @@ class RecordingRecord(Base):
     sample_rate: Mapped[int] = mapped_column(Integer)
     channels: Mapped[int] = mapped_column(Integer)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    asr_mode: Mapped[str | None] = mapped_column(String(20), nullable=True)  # mode chosen when the audio was saved
 
 
 class TranscriptionJobRecord(Base):
@@ -155,6 +158,8 @@ class TranscriptionJobRecord(Base):
     attempt: Mapped[int] = mapped_column(Integer, default=1)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    asr_mode: Mapped[str | None] = mapped_column(String(20), nullable=True)
+    asr_model: Mapped[str | None] = mapped_column(String(200), nullable=True)  # model actually used (fallback included)
 
 
 class SegmentSourceRecord(Base):
@@ -180,6 +185,8 @@ class MeetingRecord(Base):
     audio_only: Mapped[bool] = mapped_column(Boolean, default=False)
     verification_confirmed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     connection_json: Mapped[str | None] = mapped_column(Text, nullable=True)
+    asr_mode_clinician: Mapped[str | None] = mapped_column(String(20), nullable=True)  # per-track override; NULL = session mode
+    asr_mode_client: Mapped[str | None] = mapped_column(String(20), nullable=True)
 
 
 class MeetingChunkRecord(Base):

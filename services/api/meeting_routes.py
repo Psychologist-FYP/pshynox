@@ -38,9 +38,24 @@ def authorize(db, mid, authorization, host_only=False, allow_ended=False):
         fail(exc.code, exc.message, exc.status)
 
 
+class AsrModes(BaseModel):
+    """Per-track speech recognition mode; a missing track uses the session's mode."""
+    model_config = ConfigDict(extra="forbid")
+    CLINICIAN: Literal["english", "urdu_mixed"] | None = None
+    CLIENT: Literal["english", "urdu_mixed"] | None = None
+
+
 class CreateMeeting(BaseModel):
     recording_consent: Literal[True]
     audio_only: bool | None = None      # default: on in development (keeps relayed traffic small)
+    asr_modes: AsrModes | None = None
+
+
+def asr_modes_view(row, session) -> dict:
+    from services.speech.asr import resolve_mode
+    return {"CLINICIAN": resolve_mode(session.asr_mode, row.asr_mode_clinician),
+            "CLIENT": resolve_mode(session.asr_mode, row.asr_mode_client),
+            "overrides": {"CLINICIAN": row.asr_mode_clinician, "CLIENT": row.asr_mode_client}}
 
 
 class VerificationResult(BaseModel):
@@ -88,12 +103,23 @@ def build_meeting_router(db_dependency, factory):
         row = MeetingRecord(id=f"meeting-{uuid.uuid4().hex}", session_id=sid,
             host_hash=token_hash(host), guest_hash=token_hash(guest), status="OPEN",
             created_ms=now_ms(), expires_ms=now_ms() + core.INVITATION_MS, guest_consented=False, mode=mode,
-            audio_only=audio_only_default() if payload.audio_only is None else payload.audio_only)
+            audio_only=audio_only_default() if payload.audio_only is None else payload.audio_only,
+            asr_mode_clinician=payload.asr_modes.CLINICIAN if payload.asr_modes else None,
+            asr_mode_client=payload.asr_modes.CLIENT if payload.asr_modes else None)
         db.add(row)
         audit(db, row, "MEETING_CREATED", "CLINICIAN")
         db.commit()
         return {"id": row.id, "host_token": host, "guest_token": guest, "mode": mode, "public_origin": core.public_origin(),
-                "audio_only": row.audio_only}
+                "audio_only": row.audio_only, "asr_modes": asr_modes_view(row, session)}
+
+    @router.put("/meetings/{mid}/asr-modes")
+    def set_asr_modes(mid: str, payload: AsrModes, authorization: str = Header(default=""), db=Depends(db_dependency)):
+        """Host only. Applies to chunks saved from now on; earlier chunks keep the mode they were saved with."""
+        row, _ = authorize(db, mid, authorization, host_only=True)
+        writable(db, row.session_id)
+        row.asr_mode_clinician, row.asr_mode_client = payload.CLINICIAN, payload.CLIENT
+        db.commit()
+        return asr_modes_view(row, session_record(db, row.session_id))
 
     @router.post("/sessions/{sid}/meetings/close")
     async def close_session_meetings(sid: str, db=Depends(db_dependency)):
@@ -114,6 +140,7 @@ def build_meeting_router(db_dependency, factory):
         result = {"id": row.id, "role": role, "status": row.status, "expires_ms": row.expires_ms, "audio_only": bool(row.audio_only)}
         if role == "CLINICIAN":
             result["session_id"] = row.session_id
+            result["asr_modes"] = asr_modes_view(row, session_record(db, row.session_id))
             jobs = db.scalars(select(TranscriptionJobRecord).join(MeetingChunkRecord,
                 MeetingChunkRecord.recording_id == TranscriptionJobRecord.recording_id)
                 .where(MeetingChunkRecord.meeting_id == mid)).all()
@@ -232,8 +259,9 @@ def build_meeting_router(db_dependency, factory):
         committed = False
         try:
             path.write_bytes(body)
+            track_mode = asr_modes_view(row, session_record(db, row.session_id))[speaker_role]
             db.add(RecordingRecord(id=rid, session_id=row.session_id, path=str(path), sha256=digest,
-                mime="audio/wav", duration_ms=duration, sample_rate=rate, channels=1, created_at=utc_now()))
+                mime="audio/wav", duration_ms=duration, sample_rate=rate, channels=1, created_at=utc_now(), asr_mode=track_mode))
             db.flush()
             db.add(MeetingChunkRecord(id=cid, meeting_id=mid, recording_id=rid, speaker_role=speaker_role, offset_ms=offset_ms,
                                       source=source, offset_uncertainty_ms=offset_uncertainty_ms, rtt_ms=rtt_ms))

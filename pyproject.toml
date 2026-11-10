@@ -17,6 +17,10 @@ dependencies = [
     "scikit-learn>=1.6,<2",
     # TURN credential requests for internet meetings (approved 8 Nov 2026).
     "httpx>=0.27,<1",
+    # English speech recognition: Parakeet TDT 0.6B v2 through ONNX Runtime, CPU build (approved 11 Nov 2026;
+    # docs/ASR_MODELS.md). The GPU build is onnxruntime-gpu, installed instead of onnxruntime when wanted.
+    "onnxruntime>=1.31,<2",
+    "onnx-asr>=0.12,<0.13",
 ]
 
 [project.optional-dependencies]

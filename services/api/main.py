@@ -308,6 +308,7 @@ def create_session(payload: SessionCreate, db: DbSession = Depends(db_dependency
         consent_json=json.dumps(payload.consent),
         workflow_status=WorkflowStatus.DRAFT.value,
         created_at=utc_now(),
+        asr_mode=payload.asr_mode,
     )
     db.add(record)
     try:
