@@ -19,6 +19,9 @@ from services.speech.asr import chunking, manifest
 from services.speech.audio import SpeechError
 
 MODEL_NAME = "nemo-parakeet-tdt-0.6b-v2"
+# A CPU model lives in system RAM, not in the GPU memory the LLM needs, so the worker keeps it between jobs (meetings
+# send one-minute chunks; loading takes about 8 s). A GPU model is loaded per job and released with the memory slot.
+_CPU_CACHE: dict[tuple[str, str | None], object] = {}
 
 
 def read_wav(path: Path) -> np.ndarray:
@@ -97,6 +100,10 @@ class Parakeet:
         available = onnxruntime.get_available_providers()
         providers = (["CUDAExecutionProvider"] if self.device != "cpu" and "CUDAExecutionProvider" in available else []) + ["CPUExecutionProvider"]
         quant, _ = self._files()
+        key = (str(self.folder.resolve()), quant)
+        if providers[0] == "CPUExecutionProvider" and key in _CPU_CACHE:
+            self._model, self._provider = _CPU_CACHE[key], "CPUExecutionProvider"
+            return self._model
         try:
             model = onnx_asr.load_model(MODEL_NAME, str(self.folder), quantization=quant, providers=providers)
         except Exception as exc:  # noqa: BLE001 - surfaced as a clear error, never silent
@@ -108,6 +115,8 @@ class Parakeet:
                 raise SpeechError("ASR_FAILED", f"Parakeet could not load ({type(exc).__name__}).") from exc
         self._provider = providers[0]
         self._model = model.with_timestamps()
+        if self._provider == "CPUExecutionProvider":
+            _CPU_CACHE[key] = self._model
         return self._model
 
     def windows(self, samples: np.ndarray, wav: Path) -> tuple[list[chunking.Window], str]:

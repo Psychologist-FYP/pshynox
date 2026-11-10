@@ -33,6 +33,14 @@ transcription changes. Code: `services/speech/asr/`. Manifest of every model fil
   - Parakeet uses ONNX Runtime's CUDA provider when `onnxruntime-gpu` is installed, else the CPU.
   - `ASR_DEVICE=cpu` forces the CPU for both.
 
+## Measured on this laptop (11 November 2026; synthetic espeak-ng speech, so accuracy is not measured here)
+
+| Run | Result |
+|---|---|
+| Parakeet int8, CPU, 3.6-minute English sample | 42.8 s with the model load (real-time factor 0.19); 10 VAD windows, 70 segments with continuous timestamps. A 45-minute recording would take about 7–8 min. |
+| Parakeet, later jobs in the same worker | Model kept in RAM: 2.4 s instead of 12.4 s for a 9 s clip. |
+| whisper.cpp Vulkan (GTX 1650), Whisper base, 9 s clip | Runs on the NVIDIA GPU. The first job per worker adds a 3 s device probe. |
+
 ## Models and licences
 
 | File(s) | Size | SHA-256 | Licence | Source |
