@@ -76,7 +76,8 @@ def transcribe_with_metrics(audio_path, *, session_id: str, config: Config | Non
         if result.returncode:
             raise SpeechError("ASR_FAILED", "Local transcription failed. Check model/runtime compatibility and available memory.")
         try:
-            payload = json.loads(output.with_suffix(".json").read_text())
+            from services.speech.asr.whisper_cpp import load_output
+            payload, _ = load_output(output.with_suffix(".json"))
             segments = parse_segments(payload, session_id=session_id, duration_ms=info["duration_ms"])
         except (OSError, KeyError, ValueError, TypeError) as exc:
             raise SpeechError("INVALID_ASR_OUTPUT", "The runtime returned invalid transcript data.") from exc

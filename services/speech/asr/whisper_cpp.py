@@ -56,6 +56,49 @@ def vulkan_device(gpu_binary: str, vad_model: str | None) -> tuple[str, str] | N
     return pick_vulkan_device(out.stdout + out.stderr)
 
 
+def _incomplete_tail(data: bytes) -> int:
+    """Bytes at the end of ``data`` that start a UTF-8 character but do not finish it (0 if none)."""
+    for k in range(1, min(4, len(data)) + 1):
+        byte = data[-k]
+        if byte & 0xC0 == 0x80:          # continuation byte: keep looking for the lead byte
+            continue
+        if byte >= 0xC0:                 # lead byte of a 2-, 3- or 4-byte character
+            need = 2 if byte < 0xE0 else 3 if byte < 0xF0 else 4
+            return k if need > k else 0
+        return 0
+    return 0
+
+
+def repair_texts(texts: list[str]) -> tuple[list[str], int]:
+    """Re-join UTF-8 characters that whisper.cpp split across segments; drop fragments it never completed.
+
+    Whisper's tokens are byte-level, so a segment boundary can fall inside a multi-byte character (Urdu script, for
+    example). The texts come in with undecodable bytes kept as surrogates (``surrogateescape``). A character cut at a
+    boundary is moved whole into the next segment; a fragment that still is not valid UTF-8 is dropped (never shown as
+    "\ufffd"). Returns the texts and the number of bytes dropped."""
+    out, carry, dropped = [], b"", 0
+    for text in texts:
+        data = carry + text.encode("utf-8", "surrogateescape")
+        cut = len(data) - _incomplete_tail(data)
+        carry = data[cut:]
+        clean = data[:cut].decode("utf-8", "ignore")
+        dropped += cut - len(clean.encode("utf-8"))
+        out.append(clean)
+    return out, dropped + len(carry)
+
+
+def load_output(path: Path) -> tuple[dict, int]:
+    """Read whisper.cpp ``-oj`` output, which can hold invalid UTF-8 for non-Latin scripts, and repair its texts."""
+    payload = json.loads(path.read_bytes().decode("utf-8", "surrogateescape"))
+    items = payload.get("transcription") if isinstance(payload, dict) else None
+    if not isinstance(items, list) or not all(isinstance(i, dict) and isinstance(i.get("text"), str) for i in items):
+        return payload, 0
+    texts, dropped = repair_texts([i["text"] for i in items])
+    for item, text in zip(items, texts):
+        item["text"] = text
+    return payload, dropped
+
+
 @dataclass
 class WhisperCpp:
     model: Path
@@ -122,11 +165,12 @@ class WhisperCpp:
         else:
             raise SpeechError("ASR_FAILED", "Local transcription failed. Check model/runtime compatibility and available memory.")
         try:
-            payload = json.loads(output.with_suffix(".json").read_text())
+            payload, dropped = load_output(output.with_suffix(".json"))
             segments = parse_segments(payload, session_id=session_id, duration_ms=info["duration_ms"])
         except (OSError, KeyError, ValueError, TypeError) as exc:
             raise SpeechError("INVALID_ASR_OUTPUT", "The runtime returned invalid transcript data.") from exc
-        return segments, {"device": "gpu" if gpu else "cpu", **({"gpu_device": device_name} if gpu and device_name else {})}
+        return segments, {"device": "gpu" if gpu else "cpu", **({"gpu_device": device_name} if gpu and device_name else {}),
+                          **({"text_bytes_dropped": dropped} if dropped else {})}
 
 
 def parse_segments(payload: dict, *, session_id: str, duration_ms: int) -> list[TranscriptSegment]:

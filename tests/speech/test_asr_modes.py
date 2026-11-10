@@ -286,3 +286,18 @@ def test_vulkan_probe_prefers_the_discrete_gpu_over_the_integrated_one():
              "ggml_vulkan: 1 = NVIDIA GeForce GTX 1650 (NVIDIA) | uma: 0 | fp16: 1 | bf16: 0\n")
     assert pick_vulkan_device(probe) == ("1", "NVIDIA GeForce GTX 1650 (NVIDIA)")
     assert pick_vulkan_device("ggml_vulkan: 0 = Intel(R) Graphics | uma: 1 | fp16: 1") is None
+
+
+def test_urdu_characters_split_across_whisper_segments_are_rejoined_or_dropped(tmp_path):
+    from services.speech.asr.whisper_cpp import load_output, repair_texts
+    word = "سونا".encode()                       # 2-byte Arabic-script characters
+    first, second = word[:3], word[3:]          # cut inside the second character
+    esc = lambda b: b.decode("utf-8", "surrogateescape")  # noqa: E731
+    texts, dropped = repair_texts([esc(b"ab " + first), esc(second + b" cd")])
+    assert texts == ["ab " + word[:2].decode(), word[2:].decode() + " cd"] and dropped == 0   # re-joined
+    texts, dropped = repair_texts([esc(b"x \xd9"), esc(b" \xdb\x81y")])                      # continuation byte lost
+    assert texts == ["x ", " ہy"] and dropped == 1 and "�" not in "".join(texts)
+    raw = b'{"transcription":[{"text":"ab \xd9","offsets":{"from":0,"to":900}},{"text":" \xdb\x81","offsets":{"from":900,"to":1000}}]}'
+    (tmp_path / "out.json").write_bytes(raw)
+    payload, dropped = load_output(tmp_path / "out.json")
+    assert [i["text"] for i in payload["transcription"]] == ["ab ", " ہ"] and dropped == 1
