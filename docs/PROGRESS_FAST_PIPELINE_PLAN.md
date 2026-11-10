@@ -654,3 +654,28 @@ re-run and reported alongside, never instead.
 - **No new dependencies.**
 - **Next:** Phase 2, Stage B in code with the duration parser (no GPU).
 
+
+### Phase 2: 10 November 2026 (Stage B in code)
+- **Built:**
+  - `services/progress/dsm/fast/durations.py`: the deterministic duration parser (English, Roman Urdu, Urdu script
+    and Urdu digits; exact, at-least and approximate readings; vague quantities as lower bounds; a month is 365.25/12
+    days, so "six months" reaches the 183-day threshold; date-relative phrases only with a session date; anything else
+    is unknown, never 0).
+  - `services/progress/dsm/fast/stage_b.py` (`condition-predict-dsm-rules-v1`): findings → current and past periods
+    (latest assessed session wins; earlier sessions fill gaps within 28 days when dates are known; past findings grouped
+    by period label) → per-condition durations from each condition's core findings (an earlier finding's onset phrase,
+    such as "around two months ago", dates the current episode) → the unchanged rule engine. One fallback model call
+    only when a core is met, the duration is unknown and a phrase could not be parsed; an uncited answer is ignored.
+  - `rules.py`, additive only: a period may carry `durations` per condition. `dsm-v1` periods never carry it, so its
+    behaviour is unchanged (all `dsm-v1` tests pass unchanged).
+- **Result on the cached role-play findings (no model calls):** **10 of 10 labels identical to `dsm-v1` Stage B**
+  (MDE and MDD likely; manic, hypomanic, bipolar I and II, GAD, SAD, PDD and cyclothymic not met), in **0.011 s with 0
+  model calls**, against 1,392 s and 45 calls for `dsm-v1` Stage B. The first attempt gave MDE "possible", because the
+  cached `dsm-v1` Stage A had put session 1's low mood in a *past* period labelled "around two months ago"; the onset
+  rule above fixed it.
+- **Time result after Phase 2:** the role-play drops from ≈ 43–45 min to ≈ **20 min** (Stage A unchanged at ≈ 1,207 s;
+  Stage B ≈ 0 s).
+- **Tests:** 472 backend tests passed (+46: 30 parser cases; latest-wins and denial override; rejected/stale ignored;
+  the episode window; past periods not combined; hospitalisation; per-condition durations; the onset rule; the fallback
+  call only when it can change a label, cited only; the mocked role-play in code). Frontend build passes.
+- **Next:** Phase 3, the fast Stage A.

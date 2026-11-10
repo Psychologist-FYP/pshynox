@@ -292,6 +292,11 @@ def evaluate_condition(reg: DsmRegistry, key: str, periods: list[dict], extras: 
         candidates = [p for p in periods if relevant & set(p["proposals"])] or [periods[0] if periods else _empty_period()]
     evaluations = []
     for period in candidates:
+        if key in (period.get("durations") or {}):
+            # dsm-fast (code-computed periods): each condition reads the duration of its own core features. dsm-v1 periods
+            # carry no "durations" and keep the single period duration.
+            own = period["durations"][key]
+            period = {**period, "duration_days": own.get("days"), "duration_evidence": own.get("evidence", [])}
         elements = [evaluate_element(reg, el, period, extras, results) for el in cond.elements]
         core = next(e for e in elements if e["id"] == cond.core)
         if core["status"] not in {"met", "partial"}:
