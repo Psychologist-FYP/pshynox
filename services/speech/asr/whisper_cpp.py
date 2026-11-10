@@ -8,14 +8,52 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import subprocess
 import uuid
+import wave
 from dataclasses import dataclass, field
+from functools import lru_cache
 from pathlib import Path
 
 from services.api.schemas import TranscriptSegment
 from services.speech.asr import manifest
 from services.speech.audio import SpeechError
+
+
+VK_DEVICE = re.compile(r"ggml_vulkan:\s*(\d+)\s*=\s*(.+?)\s*\|\s*uma:\s*(\d)")
+
+
+def pick_vulkan_device(probe_output: str) -> tuple[str, str] | None:
+    """(index, name) of the first discrete GPU (``uma: 0``) in ggml's Vulkan device list, else None.
+
+    On a laptop the integrated GPU is usually device 0, so ggml's default would skip the NVIDIA card."""
+    for index, name, uma in VK_DEVICE.findall(probe_output):
+        if uma == "0":
+            return index, name.strip()
+    return None
+
+
+@lru_cache(maxsize=4)
+def vulkan_device(gpu_binary: str, vad_model: str | None) -> tuple[str, str] | None:
+    """``ASR_VULKAN_DEVICE`` if set, else a one-off probe (cached per process): the GPU build's small VAD tool on
+    0.1 s of silence lists the Vulkan devices in about 3 s."""
+    forced = os.getenv("ASR_VULKAN_DEVICE", "").strip()
+    if forced:
+        return forced, f"Vulkan device {forced} (ASR_VULKAN_DEVICE)"
+    tool = Path(gpu_binary).with_name("whisper-vad-speech-segments")
+    if not tool.is_file() or not vad_model:
+        return None
+    import tempfile
+    with tempfile.TemporaryDirectory(prefix="pshynox-vk-") as temp:
+        wav = Path(temp) / "probe.wav"
+        with wave.open(str(wav), "wb") as f:
+            f.setnchannels(1); f.setsampwidth(2); f.setframerate(16000); f.writeframes(b"\0\0" * 1600)
+        try:
+            out = subprocess.run([str(tool), "-ug", "-vm", vad_model, "-f", str(wav)], capture_output=True, text=True, timeout=60)
+        except (OSError, subprocess.TimeoutExpired):
+            return None
+    return pick_vulkan_device(out.stdout + out.stderr)
 
 
 @dataclass
@@ -57,9 +95,9 @@ class WhisperCpp:
             args += ["--vad", "-vm", str(self.vad_model)]
         return args
 
-    def _run(self, args: list[str]) -> subprocess.CompletedProcess:
+    def _run(self, args: list[str], env: dict | None = None) -> subprocess.CompletedProcess:
         try:
-            return subprocess.run(args, capture_output=True, timeout=self.timeout)
+            return subprocess.run(args, capture_output=True, timeout=self.timeout, **({"env": env} if env else {}))
         except (OSError, subprocess.TimeoutExpired) as exc:
             raise SpeechError("ASR_UNAVAILABLE", "Local transcription could not finish. Check the runtime and timeout settings.") from exc
 
@@ -69,8 +107,14 @@ class WhisperCpp:
         if self.device != "cpu" and self.gpu_binary and self.gpu_binary.is_file():
             attempts.append((self.gpu_binary, True))
         attempts.append((self.cpu_binary, False))
+        device_name = None
         for binary, gpu in attempts:
-            result = self._run(self.command(binary, wav, output, gpu))
+            env = None
+            if gpu and "GGML_VK_VISIBLE_DEVICES" not in os.environ:
+                chosen = vulkan_device(str(binary), str(self.vad_model) if self.vad_model else None)
+                if chosen:
+                    env, device_name = {**os.environ, "GGML_VK_VISIBLE_DEVICES": chosen[0]}, chosen[1]
+            result = self._run(self.command(binary, wav, output, gpu), env)
             if result.returncode == 0:
                 break
             if gpu:
@@ -82,7 +126,7 @@ class WhisperCpp:
             segments = parse_segments(payload, session_id=session_id, duration_ms=info["duration_ms"])
         except (OSError, KeyError, ValueError, TypeError) as exc:
             raise SpeechError("INVALID_ASR_OUTPUT", "The runtime returned invalid transcript data.") from exc
-        return segments, {"device": "gpu" if gpu else "cpu"}
+        return segments, {"device": "gpu" if gpu else "cpu", **({"gpu_device": device_name} if gpu and device_name else {})}
 
 
 def parse_segments(payload: dict, *, session_id: str, duration_ms: int) -> list[TranscriptSegment]:

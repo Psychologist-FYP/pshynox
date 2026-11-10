@@ -27,8 +27,9 @@ transcription changes. Code: `services/speech/asr/`. Manifest of every model fil
   shifted back by each window's start. If the VAD model is missing, transcription runs without it and records a notice.
   Parakeet then cuts audio with an energy detector.
 - **Device.** The two engines take turns with the LLM in the shared memory slot.
-  - whisper.cpp uses the GPU build at `ASR_WHISPER_GPU_BINARY` when it exists. If that build fails, it reruns on the
-    CPU build and records "GPU transcription failed — used CPU".
+  - whisper.cpp uses the GPU build at `ASR_WHISPER_GPU_BINARY` (Vulkan) when it exists, on the discrete GPU. A
+    one-off 3 s probe per worker process finds it, and the job records the GPU's name in `gpu_device`. If that build
+    fails, it reruns on the CPU build and records "GPU transcription failed — used CPU".
   - Parakeet uses ONNX Runtime's CUDA provider when `onnxruntime-gpu` is installed, else the CPU.
   - `ASR_DEVICE=cpu` forces the CPU for both.
 
@@ -104,6 +105,7 @@ All settings are in `.env` (template: `.env.example`) and are read when each job
 | `ASR_VAD_MODEL` | `./models/asr/vad/ggml-silero-v5.1.2.bin` |
 | `WHISPER_BINARY` / `ASR_WHISPER_GPU_BINARY` | CPU build / Vulkan build of whisper.cpp |
 | `ASR_DEVICE` | `auto` (GPU first, CPU fallback) or `cpu` |
+| `ASR_VULKAN_DEVICE` | unset: the first discrete GPU found by a one-off probe (on this laptop the NVIDIA GTX 1650 is Vulkan device 1; device 0 is the Intel iGPU). Set an index to force one. |
 
 To use another model for a mode, point its variable at the file and add an entry for it to `models.json` (path,
 size, SHA-256, licence, source). A file missing from the manifest still runs, but its metrics say

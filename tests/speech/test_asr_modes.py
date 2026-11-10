@@ -277,3 +277,12 @@ def test_meeting_can_be_created_with_track_modes():
         sid = c.post("/api/v1/sessions", json={"session_type": "FOLLOW_UP", "consent": {}}).json()["id"]
         room = c.post(f"/api/v1/sessions/{sid}/meetings", json={"recording_consent": True, "asr_modes": {"CLIENT": "english"}}).json()
         assert room["asr_modes"]["CLIENT"] == "english" and room["asr_modes"]["CLINICIAN"] == "urdu_mixed"
+
+
+def test_vulkan_probe_prefers_the_discrete_gpu_over_the_integrated_one():
+    from services.speech.asr.whisper_cpp import pick_vulkan_device
+    probe = ("ggml_vulkan: Found 2 Vulkan devices:\n"
+             "ggml_vulkan: 0 = Intel(R) Graphics (ADL GT2) (Intel open-source Mesa driver) | uma: 1 | fp16: 1 | bf16: 0\n"
+             "ggml_vulkan: 1 = NVIDIA GeForce GTX 1650 (NVIDIA) | uma: 0 | fp16: 1 | bf16: 0\n")
+    assert pick_vulkan_device(probe) == ("1", "NVIDIA GeForce GTX 1650 (NVIDIA)")
+    assert pick_vulkan_device("ggml_vulkan: 0 = Intel(R) Graphics | uma: 1 | fp16: 1") is None
