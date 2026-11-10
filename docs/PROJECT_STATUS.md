@@ -348,3 +348,17 @@ retrieval evaluation artifacts were not changed.
   where v1 had said "possible".
 - **Details:** [PROGRESS_DSM_REGISTRY_PLAN.md](PROGRESS_DSM_REGISTRY_PLAN.md) and
   [PROGRESS_MONITORING.md](PROGRESS_MONITORING.md) §0.
+
+## 10 November 2026: fast DSM pipeline (`dsm-fast`) is the clinical default
+
+- **Why:** the DSM analysis took about 43 minutes for a 5.5-minute role-play session on the GTX 1650.
+- **What changed:** Stage A sends the whole transcript once per window, with a static cached system prompt. It asks for
+  up to 5 features per short call, skips feature groups with no keyword match and never gates risk. Stage B runs in code
+  with a deterministic duration parser. PHQ-8/GAD-7 AI estimates are derived from the findings.
+- **Measured:** the role-play takes **3.1 min** (session 1: 2.3 min), a 6.7-minute LongCounsel-8 session 1.4–2.1 min,
+  and a 47-minute synthetic transcript **7.9 min**. All 5 role-play risk flags of `dsm-v1` are found.
+- **Trade-offs:** bipolar and GAD come out "insufficient evidence" more often than "not met". The derived PHQ-8 rates
+  far fewer items (15% coverage on 10 reference sessions).
+- **Details:** [PROGRESS_FAST_PIPELINE_PLAN.md](PROGRESS_FAST_PIPELINE_PLAN.md) §12 and
+  [PROGRESS_MONITORING.md](PROGRESS_MONITORING.md) §0.1. `PROGRESS_DSM_PIPELINE=dsm-v1` restores the previous
+  pipeline.

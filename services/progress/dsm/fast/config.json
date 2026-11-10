@@ -82,7 +82,7 @@
   "method": "group gating: BM25 on registry queries (generic denial words removed) or E5 similarity to the triage descriptions",
   "e5": false,
   "e5_threshold": 0.84,
-  "bm25_min_score": 2.5,
+  "bm25_min_score": 2.5, "min_turns_to_gate": 30,
   "pointer_hits": 3,
   "pointer_max": 8,
   "generic_terms": ["no", "not", "never", "fine", "okay", "ok", "good", "normal", "don't", "dont", "haven't", "nahi", "theek", "yes", "i", "a", "the", "and", "is", "my", "me"],

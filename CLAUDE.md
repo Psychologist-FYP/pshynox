@@ -126,7 +126,7 @@ phase per session: commit, update the progress log, stop. Ask before adding depe
 progress-module principles and the DSM-registry rules above still apply.
 
 1. **`dsm-v1` stays reproducible.** The new path is `progress-extract-dsm-fast-v1`, selected by
-   `PROGRESS_DSM_PIPELINE=dsm-v1|dsm-fast` (default `dsm-v1` until every criterion in plan §8 passes). Its code lives in
+   `PROGRESS_DSM_PIPELINE=dsm-v1|dsm-fast` (default `dsm-fast` since 10 Nov 2026, when the amended plan §8 conditions passed; `dsm-v1` stays selectable). Its code lives in
    `services/progress/dsm/fast/`. Never edit the 14 benchmark-bound files or the DSM registry content; server flags
    change only through `FastRuntime` (`LLAMA_ARG_*` around `Runtime.load()`), and `dsm-v1` keeps today's settings.
 2. **Risk is never gated.** The risk + plans call runs on every window of every session with every turn present. Every

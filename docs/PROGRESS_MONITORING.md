@@ -73,6 +73,46 @@ used by the LongCounsel-8 benchmark, and its data appears under **Earlier (non-D
 **Benchmark protection.** The 14 files the LongCounsel-8 runs are bound to are unchanged, and a test pins their hashes.
 The benchmark and `run_final` never import the DSM code.
 
+### 0.1 Fast pipeline `dsm-fast` (clinical default since 10 November 2026)
+
+Plan and measurements: [PROGRESS_FAST_PIPELINE_PLAN.md](PROGRESS_FAST_PIPELINE_PLAN.md). `PROGRESS_DSM_PIPELINE=dsm-v1`
+brings back the pipeline above unchanged.
+
+- **Stage A (`progress-extract-dsm-fast-v1`).** The whole transcript, in windows of at most 1,900 turn tokens with a
+  4-turn overlap, as compact `"<id> C|T: text"` lines. One static system prompt stays in the KV cache, so each call adds
+  only a short task: up to 5 feature codes with one-line definitions and keyword-found candidate turns. The grammar makes
+  the model cite turns first, then paraphrase them, then choose a status. Every requested code must be answered;
+  "not discussed" is a gap, never "absent". The `dsm-v1` citation guards check every row.
+- **Triage.** A feature group with no keyword match in the session is skipped (its features are gaps). Sessions under
+  30 turns are never gated.
+- **Risk is never gated.** The risk + plans call runs first on every window. Risk-lexicon turns (English, Roman Urdu,
+  Urdu script) that no row cites get one recheck call. A flagged client answer also cites the clinician risk question
+  just before it.
+- **Questionnaires.** PHQ-9 items 1–8 and GAD-7 are derived in code from the findings (`dsm-fast-derived-v1`,
+  "indirect" evidence). PHQ-9 item 9 is never derived. These estimates are much sparser than the separate item calls
+  of `dsm-v1` (see below).
+- **Stage B (`condition-predict-dsm-rules-v1`)** runs in code: periods, durations (a deterministic parser for English,
+  Roman Urdu and Urdu), then the unchanged rule engine. There is one cited model call only when an unparsed duration
+  could change a label.
+- **Measured on the GTX 1650 (mains power; every call logged in `calls.jsonl`):**
+
+  | Run | `dsm-fast` |
+  |---|---|
+  | Role-play, both sessions (`dsm-v1`: ≈ 43 min) | **3.1 min** (session 1: 2.3 min; Stage B 0.01 s) |
+  | 10 LongCounsel-8 sessions of 6.7 min | 1.4–2.1 min each (Stage A 73–112 s, Stage B 4–16 s) |
+  | Synthetic 20 / 33 / 47-minute transcripts | 4.8 / 6.0 / 7.9 min |
+
+- **Quality notes.**
+  - Role-play: all 5 `dsm-v1` risk flags found. MDE, MDD and SAD labels match `dsm-v1`. Bipolar and GAD come out
+    "insufficient evidence" where `dsm-v1` said "not met", because the elevated-mood and worry features are left as
+    gaps rather than recorded as denied.
+  - On the 10 reference sessions, the derived PHQ-8 rates only 15% of items (current-score MAE 6.4 against
+    LongCounsel-8 ground truth; the `dsm-v1` item prompt rated 62% in its pilot). MDE is "insufficient evidence" on 9
+    of 10. This is for information; no `dsm-v1` comparison was run on these sessions (user decision).
+- **Not used:** n-gram speculative decoding (12% slower on this GPU). An 8k context with 5,000-token windows makes a
+  45-minute transcript 28% faster (332 s vs 459 s Stage A) but uses 0.6 GB more VRAM, and its quality is not checked.
+  The setting stays at 4k.
+
 ## 1. What the clinician sees
 
 On a patient's **Progress** tab (`/workspace/patients/<id>/progress`):
@@ -193,6 +233,7 @@ Development observations from the arm checkpoints, with no report generated yet:
 | `NOTE_LLAMA_SERVER`, `NOTE_LIBRARY_PATH`, `NOTE_GPU_LAYERS`, `NOTE_CONTEXT` | see `.env.example` | Shared LLM runtime (also used by note drafting) |
 | `NOTE_JOB_TIMEOUT` | `1800` | Seconds per stage, and per condition in Stage B |
 | `PROGRESS_EXTRACT_PROMPT` | `v2` | Stage A prompt (`v1` and `v2-attempt1` kept for reproducibility) |
+| `PROGRESS_DSM_PIPELINE` | `dsm-fast` | DSM pipeline for the clinical app (`dsm-v1` kept for reproducibility; registry v2 only) |
 | `PROGRESS_RUNS_DIR`, `PROGRESS_SESSION_TIMEOUT` | `data/research/progress-runs`, `1800` | Benchmark runs |
 | `PROGRESS_VIGNETTES_DIR`, `PROGRESS_VIGNETTE_RUNS_DIR` | `data/research/vignettes`, `data/research/vignette-runs` | Vignette cases and runs |
 | `PROGRESS_CALIBRATION_DIR` | `data/research/progress-calibration` | Calibration mappings |

@@ -43,8 +43,11 @@ def group_features(group: str) -> list[dict]:
 
 
 def dsm_pipeline() -> str:
-    """PROGRESS_DSM_PIPELINE=dsm-v1|dsm-fast for the clinical app (registry v2 only). The benchmark never reads it."""
-    value = os.getenv("PROGRESS_DSM_PIPELINE", "dsm-v1").strip().lower()
+    """PROGRESS_DSM_PIPELINE=dsm-fast|dsm-v1 for the clinical app (registry v2 only). The benchmark never reads it.
+
+    Default ``dsm-fast`` since 10 November 2026 (plan §8 amendment: speed targets met, all role-play risk flags found,
+    tests pass). ``dsm-v1`` stays available and reproducible."""
+    value = os.getenv("PROGRESS_DSM_PIPELINE", "dsm-fast").strip().lower()
     if value not in {"dsm-v1", "dsm-fast"}:
         raise ValueError("PROGRESS_DSM_PIPELINE must be dsm-v1 or dsm-fast")
     return value

@@ -60,8 +60,8 @@ def test_fast_extraction_saves_findings_risks_derived_questionnaires_and_rule_hy
         assert job["request"]["pipeline"] == "dsm-fast" and job["counts"]["findings_saved"] == 46
         assert job["counts"]["stage_b_model_calls"] == 0  # Stage B in code
         tasks = [r["data"]["task"] for r in fast["runtime"].requests]
-        assert tasks[0].startswith("RISK") and len(tasks) < 6  # risk always; groups without candidate turns are skipped
-        assert not any(t.startswith(group_task("elevated").split(":")[0]) for t in tasks)
+        assert tasks[0].startswith("RISK")  # risk first, always
+        assert any(t.startswith(group_task("elevated").split(":")[0]) for t in tasks)  # a 4-turn session is never gated
         findings = {f["feature_key"]: f for f in client.get(f"{API}/sessions/{s1}/dsm-findings").json()}
         assert findings["feat.anhedonia"]["status"] == "present" and findings["feat.social_fear_scrutiny"]["status"] == "explicit_denial"
         assert findings["feat.elevated_mood"]["status"] == "insufficient_evidence"  # a gap, never "absent"
@@ -77,7 +77,29 @@ def test_fast_extraction_saves_findings_risks_derived_questionnaires_and_rule_hy
         assert phq[0]["items"][8]["score"] is None  # item 9 never derived
 
 
-def test_default_pipeline_is_still_dsm_v1(monkeypatch):
+def test_default_pipeline_is_dsm_fast_and_dsm_v1_stays_selectable(monkeypatch):
     monkeypatch.delenv("PROGRESS_DSM_PIPELINE", raising=False)
     from services.progress.dsm.fast.config import dsm_pipeline
+    assert dsm_pipeline() == "dsm-fast"
+    monkeypatch.setenv("PROGRESS_DSM_PIPELINE", "dsm-v1")
     assert dsm_pipeline() == "dsm-v1"
+
+
+def test_fast_reanalysis_runs_every_undecided_session_and_reverts(fast):
+    from tests.progress.helpers import decide_note
+    with TestClient(app) as client:
+        pid, (s1, s2, s3) = make_patient(client)
+        add_segment(s1, "I feel low and empty most days.")
+        add_segment(s2, "Sometimes I think everyone would be better off without me.")
+        add_segment(s3, "Things are a bit better.")
+        decide_note(s3)
+        r = client.post(f"{API}/patients/{pid}/dsm-reanalysis", json={"transcript_reviewed": True})
+        job = wait(client, r.json()["job_id"])
+        assert job["status"] == "completed", job
+        assert job["request"]["pipeline"] == "dsm-fast" and [x["session_id"] for x in job["skipped"]] == [s3]
+        data = client.get(f"{API}/patients/{pid}/progress").json()
+        assert [x["categories"] for x in data["risk_statements"] if x["registry_kind"] == "dsm"] == [["suicidal_ideation_passive"]]
+        assert {p["prompt_version"] for p in data["dsm"]["predictions"]} == {"condition-predict-dsm-rules-v1"}
+        batch = data["dsm"]["batches"][0]
+        client.post(f"{API}/patients/{pid}/dsm-batches/{batch['id']}/revert", json={"actor": "Dr Demo"})
+        assert client.get(f"{API}/sessions/{s1}/dsm-findings").json() == []

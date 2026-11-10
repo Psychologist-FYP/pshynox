@@ -135,9 +135,13 @@ def triage(segments: list[dict], session_id: str, *, use_e5: bool | None = None,
         keys = [k for k, gk in feature_group.items() if gk == g["key"]]
         lex = [k for k in keys if bm25.get(k, 0) >= t["bm25_min_score"]]
         sem = [k for k in keys if e5.get(k, -1) >= t["e5_threshold"]]
-        call = bool(lex or sem)
+        # Keyword scores mean little in a very short session (every word is in most turns), and calling every group is
+        # cheap there, so short sessions are never gated.
+        short = len(segments) < t.get("min_turns_to_gate", 30)
+        call = bool(lex or sem) or short
         groups[g["key"]] = {"call": call, "lexical": lex, "semantic": sem,
-                            "reason": "candidate turns found" if call else "not discussed (no candidate turns found)"}
+                            "reason": "candidate turns found" if (lex or sem) else "short session: not gated" if short
+                            else "not discussed (no candidate turns found)"}
     return {"groups": groups, "bm25": bm25, "e5": e5, "pointers": pointers(segments, hits, bm25), "lexicon_turns": lexicon_hits(segments), "note": note,
             "seconds": round(time.monotonic() - started, 3), "feature_group": feature_group}
 

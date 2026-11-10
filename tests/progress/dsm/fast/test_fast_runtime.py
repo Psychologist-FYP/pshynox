@@ -157,3 +157,11 @@ def test_summary_totals(tmp_path):
     s = rt.calllog.summary()
     assert s["calls"] == 2 and s["generated_tokens"] == 40 and s["generation_s"] == 1.2 and "triage" in s["phases"]
     assert s["cache_tokens"] > 0 and s["prefill_tokens"] < s["prompt_tokens"]
+
+
+def test_named_settings_compose_tuned_with_ngram_and_context():
+    from services.progress.dsm.fast.bench import setting
+    assert setting("tuned").flash_attn == "on"
+    assert setting("tuned+ngram-mod").env()["LLAMA_ARG_SPEC_TYPE"] == "ngram-mod"
+    assert setting("tuned+ngram").spec_type == "ngram-simple"
+    assert setting("tuned+ctx8192").context == 8192

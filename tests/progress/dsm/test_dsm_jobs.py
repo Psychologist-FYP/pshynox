@@ -21,6 +21,7 @@ B = {"feat.depressed_mood": {"refs_text": ["low and empty"], "contexts": ["low_m
 
 @pytest.fixture
 def runtime(monkeypatch):
+    monkeypatch.setenv("PROGRESS_DSM_PIPELINE", "dsm-v1")  # these scripts answer dsm-v1 prompts; dsm-fast has its own tests
     holder = {"respond": combined(stage_a(A, [{"category": "suicidal_ideation_passive", "refs_text": ["better off without me"]}],
                                           items={"phq9:2": {"score": 2, "refs_text": ["low and empty"]}}), stage_b(B, []))}
     monkeypatch.setattr(jobs, "RUNTIME_FACTORY", lambda folder, cancel: FakeRuntime(lambda s, d: holder["respond"](s, d)))

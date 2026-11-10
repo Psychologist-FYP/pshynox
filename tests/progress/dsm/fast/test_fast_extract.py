@@ -348,7 +348,7 @@ def test_roleplay_end_to_end_mocked(tmp_path):
 
 def test_pipeline_selector(monkeypatch):
     monkeypatch.delenv("PROGRESS_DSM_PIPELINE", raising=False)
-    assert fast_cfg.dsm_pipeline() == "dsm-v1"  # the default stays dsm-v1 until plan §8 passes
+    assert fast_cfg.dsm_pipeline() == "dsm-fast"  # default since the plan §8 (amended) conditions passed
     monkeypatch.setenv("PROGRESS_DSM_PIPELINE", "dsm-fast")
     assert fast_cfg.dsm_pipeline() == "dsm-fast"
     monkeypatch.setenv("PROGRESS_DSM_PIPELINE", "fast")
@@ -405,3 +405,17 @@ def test_flagged_answer_also_cites_the_risk_question_that_drew_it_out():
     assert out[0]["segment_ids"] == ["s-t2", "s-t3", "s-t4"]  # both clinician risk questions before the answer, in order
     assert out[1]["segment_ids"] == ["s-t5"]  # the turn before is a client turn: nothing added
     assert attach_questions([{"categories": [], "note_kind": "flag", "segment_ids": ["s-t4"], "basis": ""}], segs, set())[0]["segment_ids"] == ["s-t4"]
+
+
+def test_triage_gates_groups_only_in_sessions_long_enough_for_keyword_scores():
+    from services.progress.dsm.fast.triage import triage
+
+    def session(texts):
+        return [{"id": f"g-t{i}", "speaker_role": "CLIENT" if i % 2 else "CLINICIAN", "text": t, "start_ms": i * 1000, "end_ms": i * 1000 + 900} for i, t in enumerate(texts)]
+    filler = ["We talked about the bus timetable.", "The weather was mild this week.", "I cooked rice and lentils.", "My cousin visited on Sunday."]
+    long = session(["I feel sad, low and empty most of the day."] + [filler[i % 4] for i in range(39)])
+    groups = triage(long, "g")["groups"]
+    assert groups["depressive"]["call"] and not groups["elevated"]["call"]
+    assert groups["elevated"]["reason"] == "not discussed (no candidate turns found)"
+    short = triage(session(["I feel sad, low and empty most of the day.", "Okay."]), "g")["groups"]
+    assert all(g["call"] for g in short.values()) and short["elevated"]["reason"] == "short session: not gated"

@@ -175,6 +175,7 @@ def main(argv=None) -> int:
     parser.add_argument("--settings", default="tuned")
     parser.add_argument("--minutes", default="15,30,45")
     parser.add_argument("--fresh", action="store_true")
+    parser.add_argument("--max-turn-tokens", type=int, default=None, help="experiment only: override window.max_turn_tokens for this run")
     parser.add_argument("--v1", type=Path, default=ROOT / "data/research/progress-runs/dsm-roleplay")
     args = parser.parse_args(argv)
     try:
@@ -184,6 +185,9 @@ def main(argv=None) -> int:
         pass
     from .bench import setting
     settings = TUNED if args.settings == "tuned" else setting(args.settings)
+    if args.max_turn_tokens:
+        from .config import fast_config
+        fast_config()["window"]["max_turn_tokens"] = args.max_turn_tokens  # this process only; recorded in summary.json
     if args.command == "roleplay":
         from services.progress.dsm.fixture_run import load_fixture
         summary = run_sessions(load_fixture(ROOT / "tests/fixtures/roleplay_dsm"), args.out, settings, fresh=args.fresh)
@@ -198,6 +202,7 @@ def main(argv=None) -> int:
     else:
         sessions = [synthetic_long(float(m)) for m in args.minutes.split(",")]
         summary = run_sessions(sessions, args.out, settings, fresh=args.fresh, patients="each")
+    summary["window_max_turn_tokens"] = args.max_turn_tokens or None
     (args.out / "summary.json").write_text(json.dumps(summary, indent=1, ensure_ascii=False))
     for s in summary["sessions"]:
         print(f"{s['session_id']:40s} {s['audio_minutes']:5.1f} min  A {s['stage_a_s']:6.1f} s  B {s['stage_b_s']:5.2f} s  calls {s['calls']:3d}  "

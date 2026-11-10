@@ -26,13 +26,14 @@ import time
 from dataclasses import replace
 from pathlib import Path
 
-from .runtime import CURRENT, CallLog, FastRuntime, ServerSettings
+from .runtime import CURRENT, TUNED, CallLog, FastRuntime, ServerSettings
 
 ROOT = Path(__file__).resolve().parents[4]
 FIXTURE = ROOT / "tests/fixtures/roleplay_dsm"
 
 SETTINGS = {
     "current": CURRENT,
+    "tuned": TUNED,
     "b512": replace(CURRENT, batch=512, ubatch=512, name="b512"),
     "b1024u512": replace(CURRENT, batch=1024, ubatch=512, name="b1024u512"),
     "b1024": replace(CURRENT, batch=1024, ubatch=1024, name="b1024"),
@@ -53,7 +54,7 @@ def setting(name: str) -> ServerSettings:
         elif m.startswith("ctx"):
             s = replace(s, context=int(m[3:]))
         elif m.startswith("ngram"):
-            s = replace(s, spec_type=m[len("ngram"):].lstrip("-") or "ngram-simple")
+            s = replace(s, spec_type=m if m.startswith("ngram-") else "ngram-simple")
         elif m.startswith("t") and m[1:].isdigit():
             s = replace(s, threads=int(m[1:]))
         else:

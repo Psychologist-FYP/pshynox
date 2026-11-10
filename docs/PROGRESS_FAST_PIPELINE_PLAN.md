@@ -717,3 +717,47 @@ re-run and reported alongside, never instead.
   mapping and guards, merge, risk coverage and recheck, `attach_questions`, derived questionnaires, job dispatch).
   Frontend build passes.
 - **Next:** Phase 4 (n-gram speculation, context size) and Phase 5 (timed runs), both on mains power.
+
+
+### Phases 4 and 5: 10 November 2026 (server experiments, timed runs, default switch)
+- **Fixes before the runs:** `bench.setting` now knows `tuned` and builds `ngram-*` spec types correctly (test added);
+  `run.py --max-turn-tokens` (experiment only, recorded in `summary.json`). Triage never gates sessions under 30 turns
+  (`min_turns_to_gate`): in a one-turn session BM25 scores are near zero, so a clearly depressive statement had its
+  group skipped. Found by a new `dsm-fast` reanalysis test.
+- **Phase 4 (role-play, mains power, cold server, `--fresh`):**
+
+  | Setting | Wall (both sessions) | Generation | Outputs |
+  |---|---|---|---|
+  | `tuned` (4k, flash attention on) | 175 s | 35.3 tok/s | 5/10 labels, 5/5 risk |
+  | `tuned+ngram-mod` | 193 s | 30.9 tok/s | identical |
+  | `tuned+ngram-simple` | 195 s | 30.4 tok/s | identical |
+
+  Synthetic 45-minute transcript: `tuned` 459 s Stage A (6 windows, 74 calls, 3,056 MiB peak) vs `tuned+ctx8192` with
+  5,000-token windows 332 s (2 windows, 26 calls, 3,632 MiB). **Kept: `tuned` at 4k.** N-gram speculation is slower.
+  8k is faster but its quality is not checked, and 4k already meets the target.
+- **Phase 5 results (`tuned`; `calls.jsonl` in each run folder under `data/research/progress-runs/`):**
+
+  | §8 criterion 6 (amended) | Target | Result | |
+  |---|---|---|---|
+  | Role-play session 1 (5.5 min), Stage A + B | ≤ 4 min | 138.5 s + 0.01 s = **2.3 min** | pass |
+  | Each reference session (6.7 min) | ≤ 4 min | **1.4–2.1 min** (A 73–112 s, B 4–16 s) | pass |
+  | Synthetic 45-minute transcript (46.6 min) | ≤ 15 min | **7.9 min** (A 459 s, B 12 s) | pass |
+  | Stage B after a new session | ≤ 30 s | 0.01 s (role-play), ≤ 16 s (reference) | pass |
+
+  Also: synthetic 20 and 33-minute transcripts take 4.8 and 6.0 min. The whole role-play (both sessions, model load)
+  takes **3.1 min**, against ≈ 43 min for `dsm-v1` (§1).
+  The speed runs were single runs, not the median of 2.
+- **Risk (role-play):** 5/5 `dsm-v1` flags found (`dsm-fast-roleplay`, final code). For review (Q6): `dsm-v1` adds
+  harm-to-others at t83–84; `dsm-fast` marks t87 active ideation + recent self-harm, where `dsm-v1` has the same.
+  The reference sessions have no `dsm-v1` run, so they are not scored; `dsm-fast` flagged 0–2 statements per session.
+- **For information (amended §8):** derived PHQ-8 on the 10 reference sessions has current-score MAE **6.4** and item
+  coverage **15%** (12 of 80 items). The `dsm-v1` item prompt had 62% coverage in its 6-session pilot
+  (`docs/PROGRESS_PROMPT_V2_PILOT.md`, a different set). MDE is "insufficient evidence" on 9 of 10, "possible" on 1.
+  Derived items are much sparser, because a feature must be discussed explicitly to be rated. If AI questionnaire
+  series matter, the v2 item calls could be added back to `dsm-fast` (about +1 to 1.5 min per session, still under the
+  target): open question for you.
+- **Default switched to `dsm-fast`** (the amended §8 conditions: speed targets met, all role-play risk flags found,
+  tests pass). `PROGRESS_DSM_PIPELINE=dsm-v1` brings back the previous pipeline. The `dsm-v1` job tests now pin
+  `dsm-v1`.
+- **Not done:** the 6 dev sessions (only needed for tuning; the prompt is frozen); median-of-2 timing runs.
+- **Tests:** 513 backend tests passed. Frontend build passes.
