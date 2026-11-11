@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { bidiProps } from '../../lib/bidi';
 import type { NoteDraft } from '../../lib/api';
 import './notes.css';
 
@@ -64,7 +65,7 @@ export function LocalDraftPanel({sessionId,patientId=null,dataset,transcriptRevi
       <div className="note-citations">{item.source_ids.map(id=><button className="text-button" key={id} onClick={()=>{setSource(id);onSource?.(id);}}>{id}</button>)}</div></div>)}
       {!!f.limitations.length&&<details><summary>Evidence limitations</summary>{f.limitations.map((l,i)=><p key={i}>{l}</p>)}</details>}
     </fieldset>)}
-    {source&&<aside role="region" aria-label="Original exchange" className="note-source"><h4>Original exchange</h4>{(()=>{const rows=job?.snapshot.segments||[];const i=rows.findIndex(s=>s.id===source);return i<0?null:rows.slice(Math.max(0,i-2),i+3).map(s=><p key={s.id}><strong>{s.id} · {s.speaker_role}</strong> {s.text}</p>);})()}</aside>}
+    {source&&<aside role="region" aria-label="Original exchange" className="note-source"><h4>Original exchange</h4>{(()=>{const rows=job?.snapshot.segments||[];const i=rows.findIndex(s=>s.id===source);return i<0?null:rows.slice(Math.max(0,i-2),i+3).map(s=><p key={s.id} {...bidiProps(s.text)}><strong>{s.id} · {s.speaker_role}</strong> {s.text}</p>);})()}</aside>}
     {job?.draft&&<><details><summary>Generation details and coverage</summary><p>{job.draft.validation}</p>{job.draft.packet.coverage_limits.map((l,i)=><p key={i}>{l}</p>)}<pre>{JSON.stringify(job.draft.packet.trace,null,2)}</pre><p>{job.metrics?.backend}</p></details>
     {dataset&&<div className="note-review"><input aria-label="Draft reviewer" placeholder="Reviewer name" value={actor} onChange={e=>setActor(e.target.value)}/><label className="confirm-line"><input type="checkbox" checked={semantic} onChange={e=>setSemantic(e.target.checked)}/> I checked citations, attribution, negation, timeframes, contradictions and omissions against the full transcript</label><div className="note-controls"><button disabled={!!locked||!actor.trim()} onClick={()=>action(async()=>{await call('/jobs/'+job.id+'/draft',{edits:fields,actor,expected_hash:job.edits_hash},'PUT');await open(job.id);})}>Save human edits</button><button disabled={!!locked||!actor.trim()||!semantic} onClick={()=>action(async()=>{await call('/jobs/'+job.id+'/draft',{edits:fields,actor,expected_hash:job.edits_hash,approve:true,semantic_reviewed:semantic},'PUT');await open(job.id);})}>Explicitly approve this version</button></div></div>}
     <button className="text-button" onClick={()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(job,null,2)],{type:'application/json'}));a.download='local-draft-review.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}}>Download saved evidence JSON</button></>}

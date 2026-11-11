@@ -6,7 +6,8 @@ Settings (all optional; defaults are the paths in docs/ASR_MODELS.md):
 * ``ASR_URDU_MODEL``: Urdu Sukhan ASR v1 whisper.cpp ggml file.
 * ``ASR_FALLBACK_MODEL``: multilingual Whisper base ggml file (``WHISPER_MODEL`` is still read for compatibility).
 * ``ASR_VAD_MODEL``: Silero VAD ggml file, used by whisper.cpp ``--vad`` and to cut long audio for Parakeet.
-* ``WHISPER_BINARY`` (CPU build) and ``ASR_WHISPER_GPU_BINARY`` (GPU build, used first when present).
+* ``WHISPER_BINARY`` (CPU build), ``ASR_WHISPER_CUDA_BINARY`` (CUDA build, tried first when present) and
+  ``ASR_WHISPER_GPU_BINARY`` (Vulkan build, tried next).
 * ``ASR_DEVICE``: ``auto`` (GPU first, CPU fallback; default) or ``cpu``.
 """
 from __future__ import annotations
@@ -27,6 +28,7 @@ DEFAULTS = {
     "ASR_VAD_MODEL": "models/asr/vad/ggml-silero-v5.1.2.bin",
     "WHISPER_BINARY": "data/tools/whisper.cpp/build/bin/whisper-cli",
     "ASR_WHISPER_GPU_BINARY": "data/tools/whisper.cpp/build-vulkan/bin/whisper-cli",
+    "ASR_WHISPER_CUDA_BINARY": "data/tools/whisper.cpp/build-cuda/bin/whisper-cli",
 }
 PARAKEET_FILES = ("config.json", "vocab.txt", "nemo128.onnx")
 ENGLISH_MISSING = "English model not installed — using fallback"
@@ -55,7 +57,7 @@ class Selection:
 
     def describe(self) -> dict:
         return {"mode": self.mode, "mode_label": LABELS[self.mode], "engine": self.engine, "model": self.model.name,
-                "language": self.language, "fallback": self.fallback, "notices": list(self.notices),
+                "model_label": manifest.label_for(self.model), "language": self.language, "fallback": self.fallback, "notices": list(self.notices),
                 "vad": self.vad_model.name if self.vad_model else None}
 
 
@@ -91,10 +93,22 @@ def select(mode: str | None = None) -> Selection:
     return Selection(mode, "whisper.cpp", fallback, "ur", True, tuple(notices), vad)
 
 
+def whisper_device() -> str:
+    """Which whisper.cpp build a job would try first: ``cuda``, ``vulkan`` or ``cpu`` (a failed GPU run still falls back)."""
+    if os.getenv("ASR_DEVICE", "auto").strip().lower() != "cpu":
+        for backend, name in (("cuda", "ASR_WHISPER_CUDA_BINARY"), ("vulkan", "ASR_WHISPER_GPU_BINARY")):
+            if setting(name).is_file():
+                return backend
+    return "cpu"
+
+
 def status() -> dict:
-    """For the UI: what each mode will use on this machine right now."""
+    """For the UI: what each mode will use on this machine right now (no model hashing)."""
     out = {}
     for mode in MODES:
         s = select(mode)
-        out[mode] = {**s.describe(), "installed": s.model.exists()}
+        entry, _ = manifest.entry_for(s.model)
+        out[mode] = {**s.describe(), "installed": s.model.exists(),
+                     "licence": entry["licence"] if entry else "unknown", "non_commercial": bool(entry and entry.get("non_commercial")),
+                     "device": whisper_device() if s.engine == "whisper.cpp" else "auto"}
     return {"default_mode": DEFAULT_MODE, "modes": out}

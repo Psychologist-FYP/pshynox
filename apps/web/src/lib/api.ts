@@ -16,7 +16,9 @@ export type Session = {
 };
 
 export type AsrMode = "english" | "urdu_mixed";
-export type AsrModeStatus = { mode: AsrMode; mode_label: string; engine: string; model: string; language: string; fallback: boolean; notices: string[]; vad: string | null; installed: boolean };
+export type AsrModeStatus = { mode: AsrMode; mode_label: string; engine: string; model: string; model_label?: string; language: string; fallback: boolean; notices: string[]; vad: string | null; installed: boolean; licence?: string; non_commercial?: boolean; device?: "cuda" | "vulkan" | "cpu" | "auto" };
+/** Which mode, model and device produced a recording's transcript (services/api/speech_routes.py produced_by). */
+export type AsrProducedBy = { asr_mode: AsrMode | null; asr_model: string | null; asr_model_label: string | null; asr_engine: string | null; model_sha256?: string | null; model_licence?: string | null; model_non_commercial?: boolean; language?: string | null; device?: "gpu" | "cpu" | null; gpu_backend?: "cuda" | "vulkan" | null; gpu_device?: string | null; vad?: boolean | null; asr_fallback: boolean; real_time_factor?: number | null };
 export type AsrStatus = { default_mode: AsrMode; modes: Record<AsrMode, AsrModeStatus> };
 
 export type TranscriptSegment = {
@@ -104,8 +106,8 @@ export type PatientInput = {
 };
 export type Patient = PatientInput & { id: string; created_at: string; updated_at: string };
 
-export type Recording = { id: string; session_id: string; duration_ms: number; channels: number; offset_ms?: number; speaker_role?: string; meeting_id?: string | null; source?: "clinician_local" | "patient_device" | "network_received" | "upload"; asr_mode?: AsrMode | null };
-export type SpeechJob = { id: string; recording_id: string; status: "QUEUED" | "RUNNING" | "SUCCEEDED" | "FAILED"; error_message: string | null; metrics: Record<string, unknown>; asr_mode?: AsrMode | null; asr_model?: string | null; asr_fallback?: boolean; asr_notices?: string[] };
+export type Recording = { id: string; session_id: string; duration_ms: number; channels: number; offset_ms?: number; speaker_role?: string; meeting_id?: string | null; source?: "clinician_local" | "patient_device" | "network_received" | "upload"; asr_mode?: AsrMode | null; transcribed_with?: AsrProducedBy | null };
+export type SpeechJob = { id: string; recording_id: string; status: "QUEUED" | "RUNNING" | "SUCCEEDED" | "FAILED"; error_message: string | null; metrics: Record<string, unknown>; asr_mode?: AsrMode | null; asr_model?: string | null; asr_model_label?: string | null; asr_fallback?: boolean; asr_notices?: string[]; produced_by?: AsrProducedBy | null };
 
 export const api = {
   patients: () => request<Patient[]>("/api/v1/patients"),

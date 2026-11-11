@@ -4,6 +4,7 @@
  "models": [
   {
    "id": "parakeet-tdt-0.6b-v2-onnx-int8",
+   "label": "Parakeet TDT 0.6B v2 (ONNX int8)",
    "role": "english",
    "engine": "parakeet-onnx",
    "licence": "CC-BY-4.0",
@@ -20,6 +21,7 @@
   },
   {
    "id": "parakeet-tdt-0.6b-v2-nemo",
+   "label": "Parakeet TDT 0.6B v2 (NeMo source)",
    "role": "source (not loaded by the app)",
    "engine": "nemo",
    "licence": "CC-BY-4.0",
@@ -31,18 +33,23 @@
   },
   {
    "id": "urdu-sukhan-asr-v1-q8_0",
+   "label": "Urdu Sukhan ASR v1 (q8_0)",
    "role": "urdu_mixed",
    "engine": "whisper.cpp",
    "licence": "CC-BY-NC-4.0",
-   "licence_note": "Non-commercial use only. Not installed yet (access pending); its sha256 and size are added when the file arrives.",
+   "licence_note": "CC BY-NC 4.0: non-commercial use only (models/asr/urdu-sukhan/LICENSE). Fine-tuned from OpenAI Whisper large-v3-turbo (MIT); training-data credits in models/asr/urdu-sukhan/NOTICE.md.",
    "non_commercial": true,
-   "source": "pending access",
+   "source": "Urdu Sukhan ASR v1 release, local copy in models/asr/urdu-sukhan/: whisper-lite fine-tuning run 6, step 2775, whisper.cpp q8_0 (released as ggml-r6c2775-q8_0.bin, renamed here)",
    "files": [
-    {"path": "models/asr/urdu-sukhan/ggml/ggml-urdu-sukhan-asr-v1-q8_0.bin", "size": null, "sha256": null}
-   ]
+    {"path": "models/asr/urdu-sukhan/ggml/ggml-urdu-sukhan-asr-v1-q8_0.bin", "size": 874188075, "sha256": "a3cff426de79e98ffe4525d3b011c38b6e5265d7b27c9ceea85680e28b71b355"}
+   ],
+   "base_model": "openai/whisper-large-v3-turbo",
+   "output": "Urdu in Urdu (Arabic) script, English words in Latin script, no punctuation",
+   "verification": "2026-11-12: sha256 matches the checksum of ggml-r6c2775-q8_0.bin in models/asr/urdu-sukhan/VERIFY.md. VERIFY.md lists it shortened (a3cff426…b71b355); the first 8 and last 7 hex digits match."
   },
   {
    "id": "whisper-base-ggml",
+   "label": "Whisper base (multilingual)",
    "role": "fallback",
    "engine": "whisper.cpp",
    "licence": "MIT",
@@ -54,6 +61,7 @@
   },
   {
    "id": "silero-vad-v5.1.2-ggml",
+   "label": "Silero VAD v5.1.2",
    "role": "vad",
    "engine": "whisper.cpp",
    "licence": "MIT",

@@ -53,6 +53,11 @@ def process_one(factory, transcriber=transcribe_with_metrics):
         # Validate the integration boundary independently of the selected adapter.
         from services.api.schemas import TranscriptSegment, SpeakerRole
         segments = [TranscriptSegment.model_validate(s) for s in segments]
+        # One stored form for Urdu, English and mixed lines (NFC, no bidi controls); see services/speech/text.py.
+        from services.speech.text import clean
+        for segment in segments:
+            segment.text = clean(segment.text)
+        segments = [s for s in segments if s.text]
         if any(s.session_id != session_id or s.end_ms > duration + 100 for s in segments):
             raise SpeechError("INVALID_ASR_OUTPUT", "Transcription returned invalid source references.")
         if speaker:

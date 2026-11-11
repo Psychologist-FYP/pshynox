@@ -55,11 +55,26 @@ def recording_view(r):
             "asr_mode": r.asr_mode}
 
 
+def produced_by(j) -> dict | None:
+    """Which mode, model and device produced a finished job's transcript (None until it succeeds)."""
+    if j is None or j.status != "SUCCEEDED":
+        return None
+    m = json.loads(j.metrics_json)
+    return {"asr_mode": j.asr_mode or m.get("asr_mode"), "asr_model": j.asr_model, "asr_model_label": m.get("asr_model_label") or j.asr_model,
+            "asr_engine": m.get("asr_engine") or m.get("runtime"), "model_sha256": m.get("model_sha256"),
+            "model_licence": m.get("model_licence"), "model_non_commercial": bool(m.get("model_non_commercial")),
+            "language": m.get("language"), "device": m.get("device"), "gpu_backend": m.get("gpu_backend"),
+            "gpu_device": m.get("gpu_device"), "vad": m.get("vad"), "asr_fallback": bool(m.get("asr_fallback")),
+            "real_time_factor": m.get("real_time_factor")}
+
+
 def job_view(j):
     metrics = json.loads(j.metrics_json)
     return {**{k: getattr(j, k) for k in ("id", "session_id", "recording_id", "status", "error_code", "error_message", "attempt")},
             "metrics": metrics, "asr_mode": j.asr_mode, "asr_model": j.asr_model,
-            "asr_fallback": bool(metrics.get("asr_fallback")), "asr_notices": metrics.get("asr_notices", [])}
+            "asr_model_label": metrics.get("asr_model_label") or j.asr_model,
+            "asr_fallback": bool(metrics.get("asr_fallback")), "asr_notices": metrics.get("asr_notices", []),
+            "produced_by": produced_by(j)}
 
 
 def recording_mode(db, recording) -> str:
@@ -101,7 +116,10 @@ def build_router(db_dependency):
         result = []
         for r in db.scalars(select(RecordingRecord).where(RecordingRecord.session_id == sid).order_by(RecordingRecord.created_at)):
             chunk = db.scalar(select(MeetingChunkRecord).where(MeetingChunkRecord.recording_id == r.id))
+            job = db.scalar(select(TranscriptionJobRecord).where(TranscriptionJobRecord.recording_id == r.id))
             result.append({**recording_view(r), "asr_mode": recording_mode(db, r), "offset_ms": chunk.offset_ms if chunk else 0,
+                           # The mode, model and device that produced this recording's transcript (None until transcribed).
+                           "transcribed_with": produced_by(job),
                            "speaker_role": chunk.speaker_role if chunk else "UNKNOWN",
                            "meeting_id": chunk.meeting_id if chunk else None,
                            # clinician_local | patient_device | network_received; legacy meeting chunks have no source.

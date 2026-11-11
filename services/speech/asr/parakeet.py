@@ -85,7 +85,8 @@ class Parakeet:
         checked = {f.name: manifest.verify(f) for f in files}
         enc = checked[files[0].name]
         out = {"runtime": "onnx-asr", "model": f"parakeet-tdt-0.6b-v2 ({quant or 'fp32'})", "model_id": enc["model_id"],
-               "model_sha256": enc["sha256"], "model_licence": enc["licence"], "model_manifest": enc["manifest"],
+               "model_label": f"Parakeet TDT 0.6B v2 (ONNX {quant or 'fp32'})", "model_sha256": enc["sha256"],
+               "model_licence": enc["licence"], "model_non_commercial": enc["non_commercial"], "model_manifest": enc["manifest"],
                "model_files_sha256": {k: v["sha256"] for k, v in checked.items()}, "language": "en", "vad": bool(self.vad_model)}
         return out
 

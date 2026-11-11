@@ -99,3 +99,9 @@
   .new-session-actions>* { flex:1; }
 }
 .asr-mode-picker{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:10px 0;font-size:.78rem;color:var(--ink)}.asr-mode-picker select{border:1px solid #cbd8cf;background:var(--white);border-radius:5px;padding:6px 8px;color:var(--ink)}.asr-notice{color:#5f736f;font-size:.72rem}.asr-notice-fallback{padding:3px 8px;border-radius:4px;background:#f4ead7;color:#8a6532;font-weight:700}.asr-track-modes{border:1px solid var(--line);border-radius:6px;padding:8px 12px;margin:6px 0}.asr-track-modes legend{font-size:.72rem;color:var(--muted);padding:0 4px}
+/* Urdu / mixed Urdu–English transcript text: lib/bidi.ts sets dir (majority script) and lang="ur" per line; English
+   runs inside an Urdu line are laid out by the browser's bidi algorithm. Local fonts only (no web fonts). */
+p[dir="rtl"],td[dir="rtl"],textarea[dir="rtl"]{text-align:start}
+[lang="ur"]{font-family:"Noto Nastaliq Urdu","Jameel Noori Nastaleeq","Noto Naskh Arabic","PakType Naskh Basic","Noto Sans Arabic",Inter,ui-sans-serif,system-ui,sans-serif;line-height:1.9}
+.recording-asr{display:block}.recording-asr .asr-licence{color:#8c6f48}
+.transcript-provenance{margin-top:8px}

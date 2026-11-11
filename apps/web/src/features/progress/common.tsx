@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { formatTimestamp } from "../../lib/api";
+import { bidiProps } from "../../lib/bidi";
 import { audioUrl, playCitation, rememberReviewer, savedReviewer, type Cited, type ReviewInfo, type ReviewPayload } from "./api";
 
 /** One badge for every AI or reviewed value: chart tooltips, grid cells, cards and print. */
@@ -32,7 +33,7 @@ export function CitationRow({ c, sessionLabel }: { c: Cited; sessionLabel?: stri
       <a className="text-link" href={transcriptHref(c)}>Open in transcript</a>
     </div>
     {c.basis && <p className="citation-basis">{c.basis}</p>}
-    {c.text && <p className="citation-text">“{c.text}”</p>}
+    {c.text && <p className="citation-text" {...bidiProps(c.text)}>“{c.text}”</p>}
   </li>;
 }
 

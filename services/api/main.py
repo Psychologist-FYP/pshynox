@@ -392,7 +392,8 @@ def update_transcript_segment(
     from services.progress.store import mark_stale
     mark_stale(db, segment_id)
     if payload.text is not None:
-        record.text = payload.text
+        from services.speech.text import clean
+        record.text = clean(payload.text)  # NFC, no bidi controls (Urdu/English mixed lines)
     if payload.speaker_role is not None:
         record.speaker_role = payload.speaker_role.value
     record.revision += 1

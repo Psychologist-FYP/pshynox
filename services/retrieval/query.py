@@ -8,15 +8,51 @@ def normalize(text: str) -> str:
     return unicodedata.normalize("NFKC", text).casefold()
 
 
+# Urdu / mixed Urdu–English text (Urdu Sukhan: Urdu script, English words in Latin, no punctuation). Arabic-script
+# letter variants that ASR output, keyboards and pasted text mix are folded to the Urdu letter, and Arabic-Indic /
+# Urdu digits to ASCII, so a query matches however the word was typed. Only the search tokens change; stored text
+# keeps the letters it was written with.
+FOLD = str.maketrans({
+    "\u064a": "\u06cc",   # ي Arabic yeh       → ی Urdu (Farsi) yeh
+    "\u0649": "\u06cc",   # ى alef maksura     → ی
+    "\u0643": "\u06a9",   # ك Arabic kaf       → ک keheh
+    "\u0647": "\u06c1",   # ه Arabic heh       → ہ heh goal (ھ do-chashmi stays distinct)
+    **{chr(0x0660 + i): str(i) for i in range(10)},   # ٠–٩
+    **{chr(0x06F0 + i): str(i) for i in range(10)},   # ۰–۹
+})
+# Inside a word but not part of its spelling for matching: zero-width non-joiner / joiner and tatweel (kashida).
+JOINERS = {"\u200c", "\u200d", "\u0640"}
+
+
+def _script(char: str) -> str | None:
+    """'arabic' or 'latin' for letters of those scripts; None for digits, marks and other scripts."""
+    code = ord(char)
+    if 0x0600 <= code <= 0x06FF or 0x0750 <= code <= 0x077F or 0x08A0 <= code <= 0x08FF:
+        return "arabic" if unicodedata.category(char)[0] == "L" else None
+    if code < 0x0250 and char.isalpha():
+        return "latin"
+    return None
+
+
 def tokenize(text: str) -> list[str]:
-    # Combining marks are retained, including Urdu vowel marks. No stopwords.
-    words, current = [], []
-    for char in normalize(text):
+    # Combining marks are retained, including Urdu vowel marks. No stopwords. A change of script between letters
+    # ("depressionکی") also ends a word, since ASR output can omit the space between an English and an Urdu word.
+    words, current, script = [], [], None
+    for char in normalize(text).translate(FOLD):
+        if char in JOINERS:
+            continue
         if unicodedata.category(char)[0] in "LNM" or char == "_":
+            kind = _script(char)
+            if kind and script and kind != script and current:
+                words.append("".join(current))
+                current = []
+            script = kind or script
             current.append(char)
         elif current:
             words.append("".join(current))
-            current = []
+            current, script = [], None
+        else:
+            script = None
     if current:
         words.append("".join(current))
     return words

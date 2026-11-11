@@ -118,6 +118,72 @@ def test_failed_gpu_run_retries_on_cpu_and_says_so(tmp_path, monkeypatch):
     assert w.notices == ["GPU transcription failed — used CPU"] and segments[0].text == "hello"
 
 
+def fake_whisper(tmp_path, monkeypatch, fail=(), stderr=b""):
+    """Fake whisper.cpp builds named cuda-cli / vulkan-cli / cpu-cli; those in ``fail`` exit 1. Returns the call log."""
+    import subprocess
+    for name in ("m.bin", "cpu-cli", "vulkan-cli", "cuda-cli"):
+        (tmp_path / name).write_bytes(b"x")
+    monkeypatch.setenv("GGML_VK_VISIBLE_DEVICES", "1")   # no Vulkan device probe
+    calls = []
+
+    def run(args, **kw):
+        calls.append(Path(args[0]).name)
+        if Path(args[0]).name.split("-")[0] in fail:
+            return subprocess.CompletedProcess(args, 1, b"", stderr)
+        Path(args[args.index("-of") + 1]).with_suffix(".json").write_text(json.dumps({"transcription": [{"text": "ٹھیک ہے okay", "offsets": {"from": 0, "to": 500}}]}))
+        return subprocess.CompletedProcess(args, 0, b"", stderr)
+    monkeypatch.setattr(subprocess, "run", run)
+    return calls
+
+
+def whisper(tmp_path, device="auto"):
+    return WhisperCpp(tmp_path / "m.bin", "ur", tmp_path / "cpu-cli", tmp_path / "vulkan-cli", None, 4, 60, device, tmp_path / "cuda-cli")
+
+
+def test_cuda_build_is_tried_first_and_records_the_gpu(tmp_path, monkeypatch):
+    calls = fake_whisper(tmp_path, monkeypatch, stderr=b"ggml_cuda_init: found 1 CUDA devices:\n  Device 0: NVIDIA GeForce GTX 1650, compute capability 7.5, VMM: yes\n")
+    w = whisper(tmp_path)
+    segments, run_info = w.transcribe(Path("in.wav"), {"duration_ms": 1000}, "s", tmp_path)
+    assert calls == ["cuda-cli"] and w.notices == [] and segments[0].text == "ٹھیک ہے okay"
+    assert run_info == {"device": "gpu", "gpu_backend": "cuda", "gpu_device": "NVIDIA GeForce GTX 1650"}
+    assert "-ng" not in w.command(w.cuda_binary, Path("in.wav"), Path("out"), gpu=True)
+
+
+def test_failed_cuda_run_falls_back_to_vulkan_then_cpu_with_notices(tmp_path, monkeypatch):
+    calls = fake_whisper(tmp_path, monkeypatch, fail={"cuda"})
+    w = whisper(tmp_path)
+    _, run_info = w.transcribe(Path("in.wav"), {"duration_ms": 1000}, "s", tmp_path)
+    assert calls == ["cuda-cli", "vulkan-cli"] and run_info["gpu_backend"] == "vulkan"
+    assert w.notices == ["CUDA transcription failed — used the Vulkan build"]
+    calls = fake_whisper(tmp_path, monkeypatch, fail={"cuda", "vulkan"})
+    w = whisper(tmp_path)
+    _, run_info = w.transcribe(Path("in.wav"), {"duration_ms": 1000}, "s", tmp_path)
+    assert calls == ["cuda-cli", "vulkan-cli", "cpu-cli"] and run_info == {"device": "cpu"}
+    assert w.notices == ["GPU transcription failed — used CPU"]
+
+
+def test_missing_gpu_builds_are_skipped_and_asr_device_cpu_forces_cpu(tmp_path, monkeypatch):
+    calls = fake_whisper(tmp_path, monkeypatch)
+    (tmp_path / "cuda-cli").unlink()
+    assert [b for b, _ in whisper(tmp_path).attempts()] == ["vulkan", "cpu"]
+    assert [b for b, _ in whisper(tmp_path, device="cpu").attempts()] == ["cpu"]
+    whisper(tmp_path, device="cpu").transcribe(Path("in.wav"), {"duration_ms": 1000}, "s", tmp_path)
+    assert calls == ["cpu-cli"]
+
+
+def test_status_reports_which_whisper_build_runs_first(models, tmp_path, monkeypatch):
+    for name in ("ASR_WHISPER_CUDA_BINARY", "ASR_WHISPER_GPU_BINARY"):
+        monkeypatch.setenv(name, str(tmp_path / f"{name}.cli"))
+    monkeypatch.delenv("ASR_DEVICE", raising=False)
+    assert sel.whisper_device() == "cpu"
+    (tmp_path / "ASR_WHISPER_GPU_BINARY.cli").write_bytes(b"x")
+    assert sel.whisper_device() == "vulkan"
+    (tmp_path / "ASR_WHISPER_CUDA_BINARY.cli").write_bytes(b"x")
+    assert sel.whisper_device() == "cuda" and sel.status()["modes"]["urdu_mixed"]["device"] == "cuda"
+    monkeypatch.setenv("ASR_DEVICE", "cpu")
+    assert sel.whisper_device() == "cpu"
+
+
 # ---------------------------------------------------------------- manifest
 
 def test_manifest_refuses_a_changed_or_partial_model(tmp_path, monkeypatch):
@@ -142,7 +208,41 @@ def test_repository_manifest_lists_every_model_with_a_licence():
     assert {"parakeet-tdt-0.6b-v2-onnx-int8", "urdu-sukhan-asr-v1-q8_0", "whisper-base-ggml", "silero-vad-v5.1.2-ggml"} <= set(ids)
     assert ids["urdu-sukhan-asr-v1-q8_0"]["licence"] == "CC-BY-NC-4.0" and ids["urdu-sukhan-asr-v1-q8_0"]["non_commercial"]
     assert all(m["licence"] for m in ids.values())
-    assert all(len(f["sha256"]) == 64 for m in ids.values() if m["id"] != "urdu-sukhan-asr-v1-q8_0" for f in m["files"])
+    assert all(len(f["sha256"]) == 64 and f["size"] > 0 for m in ids.values() for f in m["files"])
+    assert all(m["label"] for m in ids.values())
+
+
+def test_urdu_sukhan_is_pinned_with_hash_size_licence_and_source():
+    m = manifest.by_id("urdu-sukhan-asr-v1-q8_0")
+    (f,) = m["files"]
+    assert f["path"] == "models/asr/urdu-sukhan/ggml/ggml-urdu-sukhan-asr-v1-q8_0.bin"
+    assert f["sha256"] == "a3cff426de79e98ffe4525d3b011c38b6e5265d7b27c9ceea85680e28b71b355" and f["size"] == 874188075
+    assert (m["role"], m["engine"], m["licence"], m["non_commercial"]) == ("urdu_mixed", "whisper.cpp", "CC-BY-NC-4.0", True)
+    assert "whisper-large-v3-turbo" in m["base_model"] and m["source"] and "VERIFY.md" in m["verification"]
+    assert sel.DEFAULTS["ASR_URDU_MODEL"] == f["path"]
+
+
+def test_model_files_are_never_tracked_by_git():
+    import subprocess
+    root = manifest.ROOT
+    assert subprocess.run(["git", "check-ignore", "-q", "models/asr/urdu-sukhan/ggml/ggml-urdu-sukhan-asr-v1-q8_0.bin"], cwd=root).returncode == 0
+    tracked = subprocess.run(["git", "ls-files", "models", "*.bin", "*.gguf", "*.onnx"], cwd=root, capture_output=True, text=True).stdout.split()
+    assert tracked == []
+
+
+INSTALLED_URDU = manifest.ROOT / "models/asr/urdu-sukhan/ggml/ggml-urdu-sukhan-asr-v1-q8_0.bin"
+
+
+@pytest.mark.skipif(not INSTALLED_URDU.is_file(), reason="Urdu Sukhan is not installed on this machine")
+def test_installed_urdu_sukhan_matches_the_manifest_and_is_selected(monkeypatch):
+    for key in ("ASR_URDU_MODEL", "ASR_FALLBACK_MODEL", "WHISPER_MODEL"):
+        monkeypatch.delenv(key, raising=False)
+    checked = manifest.verify(INSTALLED_URDU)
+    assert (checked["model_id"], checked["manifest"], checked["label"], checked["non_commercial"]) == (
+        "urdu-sukhan-asr-v1-q8_0", "verified", "Urdu Sukhan ASR v1 (q8_0)", True)
+    s = sel.select("urdu_mixed")
+    assert (s.engine, s.model, s.language, s.fallback) == ("whisper.cpp", INSTALLED_URDU, "ur", False)
+    assert sel.status()["modes"]["urdu_mixed"]["model_label"] == "Urdu Sukhan ASR v1 (q8_0)"
 
 
 # ---------------------------------------------------------------- Parakeet chunking and timestamp mapping

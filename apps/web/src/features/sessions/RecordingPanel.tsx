@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { api, formatTimestamp, type AsrMode, type Recording, type Session, type SpeechJob } from "../../lib/api";
-import { ASR_MODE_LABELS, AsrModePicker, useAsrStatus } from "./AsrModePicker";
+import { ASR_MODE_LABELS, AsrModePicker, ProducedBy, useAsrStatus } from "./AsrModePicker";
 
 
 const MAX_RECORDING_MINUTES = 45;
@@ -114,6 +114,7 @@ export function RecordingPanel({ session, onTranscribed, asrMode, onAsrMode }: {
     {files.map((file, index) => {
       const job = jobs.find(j => j.recording_id === file.id);
       const pending = job?.status === "QUEUED" || job?.status === "RUNNING";
+      const producedBy = job?.produced_by ?? file.transcribed_with;
       return <div className="saved-recording" key={file.id}>
         <span>{file.meeting_id ? `${file.speaker_role === "CLIENT" ? "Patient" : "Clinician"} · meeting ${formatTimestamp(file.offset_ms ?? 0)}${file.source === "patient_device" ? " · recorded on the patient’s device" : file.source === "network_received" && file.speaker_role === "CLIENT" ? " · network-received audio (fallback)" : ""}` : `Recording ${index + 1}`} · {formatTimestamp(file.duration_ms)} · {file.channels} channel(s)</span>
         <audio id={`audio-${file.id}`} data-offset-ms={file.offset_ms ?? 0} controls preload="none" src={`/api/v1/sessions/${session.id}/recordings/${file.id}/audio`} />
@@ -126,7 +127,7 @@ export function RecordingPanel({ session, onTranscribed, asrMode, onAsrMode }: {
           finally { setBusy(false); }
         }}>{job?.status === "SUCCEEDED" ? "Transcribed" : pending ? job.status === "QUEUED" ? "Queued" : "Transcribing…" : job?.status === "FAILED" ? "Retry transcription" : "Transcribe locally"}</button>
         {file.channels === 2 && <span className="small-note">Stereo will be mixed for transcription. Original audio is preserved; assign speaker roles manually.</span>}
-        {file.asr_mode && <span className="small-note">{ASR_MODE_LABELS[file.asr_mode]}{job?.asr_model ? ` · ${job.asr_model}` : ""}</span>}
+        {producedBy ? <ProducedBy value={producedBy} /> : file.asr_mode && <span className="small-note">{ASR_MODE_LABELS[file.asr_mode]}{job?.asr_model_label || job?.asr_model ? ` · ${job.asr_model_label || job.asr_model}` : ""}</span>}
         {job?.asr_notices?.length ? <span className="asr-notice asr-notice-fallback" role="alert">{job.asr_notices.join(" · ")}</span> : null}
         {job && <p role="status">Recording {index + 1}: {job.status.toLowerCase()}{job.error_message ? ` — ${job.error_message}` : ""}</p>}
       </div>;

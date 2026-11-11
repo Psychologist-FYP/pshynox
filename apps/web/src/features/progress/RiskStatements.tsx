@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { api, formatTimestamp, type TranscriptSegment } from "../../lib/api";
+import { bidiProps } from "../../lib/bidi";
 import { RISK_LABEL, audioUrl, playCitation, type Cited, type ReviewPayload, type RiskStatement } from "./api";
 import { ReviewActions, badgeText, transcriptHref } from "./common";
 
@@ -49,7 +50,7 @@ function Excerpt({ lines }: { lines: (Line | "gap")[] }) {
       : <tr key={l.id} className={l.flagged ? "is-flagged" : undefined}>
           <td className="risk-time">{formatTimestamp(l.start_ms)}</td>
           <th scope="row" className="risk-speaker">{SPEAKER[l.speaker_role] ?? l.speaker_role}</th>
-          <td className="risk-text">{l.flagged ? <mark>{l.text || "(text unavailable)"}</mark> : l.text}
+          <td className="risk-text" {...bidiProps(l.text)}>{l.flagged ? <mark>{l.text || "(text unavailable)"}</mark> : l.text}
             {l.flagged && l.cited && <span className="risk-links">
               {audioUrl(l.cited) && <button type="button" className="risk-link" onClick={() => playCitation(l.cited!)}>Play audio</button>}
               <a className="risk-link" href={transcriptHref(l.cited)}>Open in transcript</a></span>}

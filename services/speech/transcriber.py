@@ -94,7 +94,7 @@ def build_adapter(selection):
     if selection.engine == "parakeet-onnx":
         return Parakeet(selection.model, selection.vad_model, asr_select.setting("WHISPER_BINARY").with_name("whisper-vad-speech-segments"), device)
     return WhisperCpp(selection.model, selection.language, asr_select.setting("WHISPER_BINARY"), asr_select.setting("ASR_WHISPER_GPU_BINARY"),
-                      selection.vad_model, threads(), timeout(), device)
+                      selection.vad_model, threads(), timeout(), device, asr_select.setting("ASR_WHISPER_CUDA_BINARY"))
 
 
 def transcribe_mode(audio_path, *, session_id: str, mode: str | None = None):
@@ -105,6 +105,7 @@ def transcribe_mode(audio_path, *, session_id: str, mode: str | None = None):
     identity = adapter.identity()
     started = time.monotonic()
     chosen = {"asr_mode": selection.mode, "asr_engine": selection.engine, "asr_model": identity.get("model", selection.model.name),
+              "asr_model_label": identity.get("model_label", selection.model.name),
               "asr_fallback": selection.fallback, "language": selection.language}
     with tempfile.TemporaryDirectory(prefix="pshynox-asr-") as temp:
         wav = Path(temp) / "input.wav"

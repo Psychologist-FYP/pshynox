@@ -73,7 +73,9 @@ def sha256(path: str | Path) -> str:
 
 
 def verify(path: str | Path) -> dict:
-    """Hash ``path`` and check it against the manifest. Returns {"model_id", "licence", "sha256", "file"}.
+    """Hash ``path`` and check it against the manifest.
+
+    Returns {"model_id", "label", "licence", "non_commercial", "sha256", "file", "manifest"}.
 
     A file listed with a SHA-256 must match it (MODEL_CHANGED otherwise). A file not in the manifest, or listed
     without a hash yet (pending download), is used and reported with ``manifest: "unlisted"`` / ``"unpinned"``."""
@@ -83,9 +85,17 @@ def verify(path: str | Path) -> dict:
     digest = sha256(p)
     model, file = entry_for(p)
     if model is None:
-        return {"model_id": p.name, "licence": "unknown", "sha256": digest, "file": p.name, "manifest": "unlisted"}
+        return {"model_id": p.name, "label": p.name, "licence": "unknown", "non_commercial": False, "sha256": digest,
+                "file": p.name, "manifest": "unlisted"}
     if file.get("sha256") and file["sha256"] != digest:
         raise SpeechError("MODEL_CHANGED", f"{p.name} does not match its SHA-256 in services/speech/asr/models.json. "
                                            "Re-download it or update the manifest deliberately.")
-    return {"model_id": model["id"], "licence": model["licence"], "sha256": digest, "file": p.name,
+    return {"model_id": model["id"], "label": model.get("label", model["id"]), "licence": model["licence"],
+            "non_commercial": bool(model.get("non_commercial")), "sha256": digest, "file": p.name,
             "manifest": "verified" if file.get("sha256") else "unpinned"}
+
+
+def label_for(path: str | Path) -> str:
+    """The display name of the model at ``path`` ("Urdu Sukhan ASR v1 (q8_0)"), else its file name. No hashing."""
+    model, _ = entry_for(path)
+    return model.get("label", model["id"]) if model else Path(path).name

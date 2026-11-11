@@ -1,8 +1,9 @@
 """whisper.cpp adapter: Urdu Sukhan or the multilingual base model, explicit language, VAD on by default.
 
-The GPU build (``ASR_WHISPER_GPU_BINARY``, e.g. a Vulkan build) is tried first unless ``ASR_DEVICE=cpu``; if it is
-missing or fails, the CPU build runs with ``-ng`` and the run records a notice. ``auto`` language detection is never
-used in ``urdu_mixed`` mode (the selection always sets ``ur`` there).
+Unless ``ASR_DEVICE=cpu``, GPU builds are tried first, in this order: the CUDA build (``ASR_WHISPER_CUDA_BINARY``),
+then the Vulkan build (``ASR_WHISPER_GPU_BINARY``). A build that is missing is skipped; one that fails is followed by
+the next, and finally by the CPU build with ``-ng``. Every step down records a notice. ``auto`` language detection is
+never used in ``urdu_mixed`` mode (the selection always sets ``ur`` there).
 """
 from __future__ import annotations
 
@@ -22,6 +23,13 @@ from services.speech.audio import SpeechError
 
 
 VK_DEVICE = re.compile(r"ggml_vulkan:\s*(\d+)\s*=\s*(.+?)\s*\|\s*uma:\s*(\d)")
+CUDA_DEVICE = re.compile(r"Device\s+\d+:\s*(.+?),\s*compute capability")
+
+
+def cuda_device_name(log: str) -> str | None:
+    """The GPU name from a CUDA build's start-up log (``Device 0: NVIDIA GeForce GTX 1650, compute capability 7.5``)."""
+    found = CUDA_DEVICE.search(log)
+    return found.group(1).strip() if found else None
 
 
 def pick_vulkan_device(probe_output: str) -> tuple[str, str] | None:
@@ -109,6 +117,7 @@ class WhisperCpp:
     threads: int = 4
     timeout: int = 1800
     device: str = "auto"                     # auto | cpu
+    cuda_binary: Path | None = None          # CUDA build, tried before the Vulkan ``gpu_binary``
     notices: list[str] = field(default_factory=list)
     name: str = "whisper.cpp"
 
@@ -123,7 +132,8 @@ class WhisperCpp:
             raise SpeechError("MODEL_MISSING", f"ASR model {self.model.name} is missing; see docs/ASR_MODELS.md.")
         model = manifest.verify(self.model)
         out = {"runtime": "whisper.cpp", "binary_sha256": manifest.sha256(self.cpu_binary), "model": self.model.name,
-               "model_id": model["model_id"], "model_sha256": model["sha256"], "model_licence": model["licence"],
+               "model_id": model["model_id"], "model_label": model["label"], "model_sha256": model["sha256"],
+               "model_licence": model["licence"], "model_non_commercial": model["non_commercial"],
                "model_manifest": model["manifest"], "language": self.language, "threads": self.threads,
                "vad": bool(self.vad_model)}
         if self.vad_model:
@@ -144,32 +154,42 @@ class WhisperCpp:
         except (OSError, subprocess.TimeoutExpired) as exc:
             raise SpeechError("ASR_UNAVAILABLE", "Local transcription could not finish. Check the runtime and timeout settings.") from exc
 
+    def attempts(self) -> list[tuple[str, Path]]:
+        """(backend, binary) in the order they are tried: cuda, vulkan, cpu. Missing GPU builds are skipped."""
+        out = []
+        if self.device != "cpu":
+            out += [(name, b) for name, b in (("cuda", self.cuda_binary), ("vulkan", self.gpu_binary)) if b and b.is_file()]
+        return out + [("cpu", self.cpu_binary)]
+
     def transcribe(self, wav: Path, info: dict, session_id: str, workdir: Path) -> tuple[list[TranscriptSegment], dict]:
         output = workdir / "result"
-        attempts = []
-        if self.device != "cpu" and self.gpu_binary and self.gpu_binary.is_file():
-            attempts.append((self.gpu_binary, True))
-        attempts.append((self.cpu_binary, False))
-        device_name = None
-        for binary, gpu in attempts:
-            env = None
-            if gpu and "GGML_VK_VISIBLE_DEVICES" not in os.environ:
+        failed: list[str] = []
+        for backend, binary in self.attempts():
+            gpu, env, device_name = backend != "cpu", None, None
+            if backend == "vulkan" and "GGML_VK_VISIBLE_DEVICES" not in os.environ:
                 chosen = vulkan_device(str(binary), str(self.vad_model) if self.vad_model else None)
                 if chosen:
                     env, device_name = {**os.environ, "GGML_VK_VISIBLE_DEVICES": chosen[0]}, chosen[1]
             result = self._run(self.command(binary, wav, output, gpu), env)
+            if backend == "cuda":
+                device_name = cuda_device_name((result.stderr or b"").decode("utf-8", "replace"))
             if result.returncode == 0:
                 break
             if gpu:
-                self.notices.append("GPU transcription failed — used CPU")
+                failed.append(backend)
         else:
             raise SpeechError("ASR_FAILED", "Local transcription failed. Check model/runtime compatibility and available memory.")
+        if failed:
+            names = {"cuda": "CUDA", "vulkan": "Vulkan"}
+            self.notices.append("GPU transcription failed — used CPU" if backend == "cpu" else
+                                f"{' and '.join(names[b] for b in failed)} transcription failed — used the {names[backend]} build")
         try:
             payload, dropped = load_output(output.with_suffix(".json"))
             segments = parse_segments(payload, session_id=session_id, duration_ms=info["duration_ms"])
         except (OSError, KeyError, ValueError, TypeError) as exc:
             raise SpeechError("INVALID_ASR_OUTPUT", "The runtime returned invalid transcript data.") from exc
-        return segments, {"device": "gpu" if gpu else "cpu", **({"gpu_device": device_name} if gpu and device_name else {}),
+        return segments, {"device": "gpu" if gpu else "cpu", **({"gpu_backend": backend} if gpu else {}),
+                          **({"gpu_device": device_name} if gpu and device_name else {}),
                           **({"text_bytes_dropped": dropped} if dropped else {})}
 
 

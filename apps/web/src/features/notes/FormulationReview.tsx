@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { bidiProps } from '../../lib/bidi';
 import { request, type GeneratedNoteItem, type NoteDraft, type TranscriptSegment } from '../../lib/api';
 
 export function FormulationReview({note,transcript,disabled,onReviewed}:{note:NoteDraft;transcript:TranscriptSegment[];disabled:boolean;onReviewed:(note:NoteDraft)=>void}) {
@@ -27,6 +28,6 @@ function Proposal({item,transcript,disabled,onReview}:{item:GeneratedNoteItem;tr
  <p><strong>Basis:</strong> {item.basis}</p>{!!item.missing_information.length&&<p><strong>Missing information:</strong> {item.missing_information.join('; ')}</p>}
  <details><summary>Supporting evidence and original interpretation</summary><p>Original AI proposal: {item.text}</p>
  <p>{item.attribution} · {item.timeframe} · {item.uncertainty}</p>
- {item.source_ids.map(id=>{const index=transcript.findIndex(s=>s.id===id);return <div key={id}><strong>{id}</strong>{index<0?<p>Source unavailable in the current transcript.</p>:transcript.slice(Math.max(0,index-1),index+2).map(s=><p key={s.id}><strong>{s.id===id?'Evidence':'Context'} · {s.speaker_role}</strong> {s.text}</p>)}</div>;})}
+ {item.source_ids.map(id=>{const index=transcript.findIndex(s=>s.id===id);return <div key={id}><strong>{id}</strong>{index<0?<p>Source unavailable in the current transcript.</p>:transcript.slice(Math.max(0,index-1),index+2).map(s=><p key={s.id} {...bidiProps(s.text)}><strong>{s.id===id?'Evidence':'Context'} · {s.speaker_role}</strong> {s.text}</p>)}</div>;})}
  {item.review_history.map((h,i)=><p key={i}>{h.action} by {h.actor} · {new Date(h.at).toLocaleString()}</p>)}</details></article>;
 }
