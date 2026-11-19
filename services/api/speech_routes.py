@@ -7,6 +7,8 @@ from pathlib import Path
 
 from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.responses import FileResponse
+from typing import Literal
+
 from pydantic import BaseModel, Field
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
@@ -24,6 +26,10 @@ class TranscribeRequest(BaseModel):
 
 class ConsentRequest(BaseModel):
     recording_consent: bool
+
+
+class AsrModeRequest(BaseModel):
+    asr_mode: Literal["english", "urdu_mixed"]
 
 
 def fail(code, message, status=409):
@@ -45,12 +51,36 @@ def writable(db, sid):
 
 
 def recording_view(r):
-    return {k: getattr(r, k) for k in ("id", "session_id", "duration_ms", "sample_rate", "channels", "created_at")}
+    return {**{k: getattr(r, k) for k in ("id", "session_id", "duration_ms", "sample_rate", "channels", "created_at")},
+            "asr_mode": r.asr_mode}
+
+
+def produced_by(j) -> dict | None:
+    """Which mode, model and device produced a finished job's transcript (None until it succeeds)."""
+    if j is None or j.status != "SUCCEEDED":
+        return None
+    m = json.loads(j.metrics_json)
+    return {"asr_mode": j.asr_mode or m.get("asr_mode"), "asr_model": j.asr_model, "asr_model_label": m.get("asr_model_label") or j.asr_model,
+            "asr_engine": m.get("asr_engine") or m.get("runtime"), "model_sha256": m.get("model_sha256"),
+            "model_licence": m.get("model_licence"), "model_non_commercial": bool(m.get("model_non_commercial")),
+            "language": m.get("language"), "device": m.get("device"), "gpu_backend": m.get("gpu_backend"),
+            "gpu_device": m.get("gpu_device"), "vad": m.get("vad"), "asr_fallback": bool(m.get("asr_fallback")),
+            "real_time_factor": m.get("real_time_factor")}
 
 
 def job_view(j):
+    metrics = json.loads(j.metrics_json)
     return {**{k: getattr(j, k) for k in ("id", "session_id", "recording_id", "status", "error_code", "error_message", "attempt")},
-            "metrics": json.loads(j.metrics_json)}
+            "metrics": metrics, "asr_mode": j.asr_mode, "asr_model": j.asr_model,
+            "asr_model_label": metrics.get("asr_model_label") or j.asr_model,
+            "asr_fallback": bool(metrics.get("asr_fallback")), "asr_notices": metrics.get("asr_notices", []),
+            "produced_by": produced_by(j)}
+
+
+def recording_mode(db, recording) -> str:
+    """The mode a recording is transcribed with: chosen when it was saved, else (older recordings) the session's."""
+    from services.speech.asr import resolve_mode
+    return resolve_mode(db.get(SessionRecord, recording.session_id).asr_mode, recording.asr_mode)
 
 
 def build_router(db_dependency):
@@ -66,13 +96,30 @@ def build_router(db_dependency):
         db.commit()
         return data
 
+    @router.get("/asr/status")
+    def asr_status():
+        """What each language mode will use on this machine now, including fallback notices for the UI."""
+        from services.speech.asr import status
+        return status()
+
+    @router.patch("/sessions/{sid}/asr-mode")
+    def set_asr_mode(sid: str, payload: AsrModeRequest, db=Depends(db_dependency)):
+        writable(db, sid)
+        session = session_record(db, sid)
+        session.asr_mode = payload.asr_mode
+        db.commit()
+        return {"asr_mode": session.asr_mode}
+
     @router.get("/sessions/{sid}/recordings")
     def recordings(sid: str, db=Depends(db_dependency)):
         session_record(db, sid)
         result = []
         for r in db.scalars(select(RecordingRecord).where(RecordingRecord.session_id == sid).order_by(RecordingRecord.created_at)):
             chunk = db.scalar(select(MeetingChunkRecord).where(MeetingChunkRecord.recording_id == r.id))
-            result.append({**recording_view(r), "offset_ms": chunk.offset_ms if chunk else 0,
+            job = db.scalar(select(TranscriptionJobRecord).where(TranscriptionJobRecord.recording_id == r.id))
+            result.append({**recording_view(r), "asr_mode": recording_mode(db, r), "offset_ms": chunk.offset_ms if chunk else 0,
+                           # The mode, model and device that produced this recording's transcript (None until transcribed).
+                           "transcribed_with": produced_by(job),
                            "speaker_role": chunk.speaker_role if chunk else "UNKNOWN",
                            "meeting_id": chunk.meeting_id if chunk else None,
                            # clinician_local | patient_device | network_received; legacy meeting chunks have no source.
@@ -80,7 +127,7 @@ def build_router(db_dependency):
         return result
 
     @router.post("/sessions/{sid}/recordings", status_code=201)
-    async def upload(sid: str, request: Request, db=Depends(db_dependency)):
+    async def upload(sid: str, request: Request, asr_mode: Literal["english", "urdu_mixed"] | None = None, db=Depends(db_dependency)):
         writable(db, sid)
         if json.loads(session_record(db, sid).consent_json).get("recording_consent") is not True:
             fail("CONSENT_REQUIRED", "Confirm recording consent before importing or recording audio.", 403)
@@ -107,7 +154,8 @@ def build_router(db_dependency):
             with tempfile.TemporaryDirectory(prefix="pshynox-validate-") as temp:
                 info = await run_in_threadpool(decode_audio, path, Path(temp) / "check.wav")
             row = RecordingRecord(id=rid, session_id=sid, path=str(path), sha256=digest.hexdigest(),
-                mime=content_type, duration_ms=info["duration_ms"], sample_rate=info["sample_rate"], channels=info["channels"], created_at=utc_now())
+                mime=content_type, duration_ms=info["duration_ms"], sample_rate=info["sample_rate"], channels=info["channels"], created_at=utc_now(),
+                asr_mode=asr_mode or session_record(db, sid).asr_mode or "urdu_mixed")
             db.add(row)
             db.commit()
             committed = True

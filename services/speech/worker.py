@@ -1,6 +1,7 @@
 """Single local worker. One process per SQLite database; ASR runs in a subprocess."""
 import fcntl
 import hashlib
+import inspect
 import json
 import os
 import time
@@ -36,17 +37,27 @@ def process_one(factory, transcriber=transcribe_with_metrics):
         path, recording_id, duration, expected_hash = recording.path, recording.id, recording.duration_ms, recording.sha256
         chunk = db.scalar(select(MeetingChunkRecord).where(MeetingChunkRecord.recording_id == recording_id))
         offset, speaker = (chunk.offset_ms, chunk.speaker_role) if chunk else (0, None)
+        from services.speech.asr import resolve_mode
+        mode = resolve_mode(db.get(SessionRecord, session_id).asr_mode, recording.asr_mode)
+        job.asr_mode = mode
         db.commit()
     try:
         with open(path, "rb") as source:
             if hashlib.file_digest(source, "sha256").hexdigest() != expected_hash:
                 raise SpeechError("AUDIO_CHANGED", "The stored recording has changed; create a new session.")
         from services.note_generation.storage import memory_slot
+        # The mode goes to adapters that take it; test doubles with the old signature still work.
+        extra = {"mode": mode} if "mode" in inspect.signature(transcriber).parameters else {}
         with memory_slot():
-            segments, metrics = transcriber(path, session_id=session_id)
+            segments, metrics = transcriber(path, session_id=session_id, **extra)
         # Validate the integration boundary independently of the selected adapter.
         from services.api.schemas import TranscriptSegment, SpeakerRole
         segments = [TranscriptSegment.model_validate(s) for s in segments]
+        # One stored form for Urdu, English and mixed lines (NFC, no bidi controls); see services/speech/text.py.
+        from services.speech.text import clean
+        for segment in segments:
+            segment.text = clean(segment.text)
+        segments = [s for s in segments if s.text]
         if any(s.session_id != session_id or s.end_ms > duration + 100 for s in segments):
             raise SpeechError("INVALID_ASR_OUTPUT", "Transcription returned invalid source references.")
         if speaker:
@@ -77,6 +88,7 @@ def process_one(factory, transcriber=transcribe_with_metrics):
                 db.add(SegmentSourceRecord(segment_id=s.id, recording_id=recording_id, job_id=job_id, channel=-1 if metrics.get("channel_mode") == "stereo_mix" else 0))
             job = db.get(TranscriptionJobRecord, job_id)
             job.status = "SUCCEEDED"
+            job.asr_model = str(metrics.get("asr_model") or metrics.get("model") or "")[:200] or None
             job.metrics_json = json.dumps(metrics)
             job.updated_at = utc_now()
             db.commit()

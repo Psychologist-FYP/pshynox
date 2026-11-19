@@ -45,12 +45,16 @@ class Config:
                 "language": self.language, "threads": self.threads, "device": "cpu"}
 
 
-def transcribe(audio_path, *, session_id: str, config: Config | None = None) -> list[TranscriptSegment]:
-    return transcribe_with_metrics(audio_path, session_id=session_id, config=config)[0]
+def transcribe(audio_path, *, session_id: str, config: Config | None = None, mode: str | None = None) -> list[TranscriptSegment]:
+    return transcribe_with_metrics(audio_path, session_id=session_id, config=config, mode=mode)[0]
 
 
-def transcribe_with_metrics(audio_path, *, session_id: str, config: Config | None = None):
-    config = config or Config.from_env()
+def transcribe_with_metrics(audio_path, *, session_id: str, config: Config | None = None, mode: str | None = None):
+    """Transcribe with the engine for ``mode`` (english | urdu_mixed; default urdu_mixed), see services/speech/asr.
+
+    An explicit ``config`` runs one whisper.cpp model exactly as configured (kept for tools and tests)."""
+    if config is None:
+        return transcribe_mode(audio_path, session_id=session_id, mode=mode)
     identity = config.identity()
     started = time.monotonic()
     with tempfile.TemporaryDirectory(prefix="pshynox-asr-") as temp:
@@ -72,13 +76,48 @@ def transcribe_with_metrics(audio_path, *, session_id: str, config: Config | Non
         if result.returncode:
             raise SpeechError("ASR_FAILED", "Local transcription failed. Check model/runtime compatibility and available memory.")
         try:
-            payload = json.loads(output.with_suffix(".json").read_text())
+            from services.speech.asr.whisper_cpp import load_output
+            payload, _ = load_output(output.with_suffix(".json"))
             segments = parse_segments(payload, session_id=session_id, duration_ms=info["duration_ms"])
         except (OSError, KeyError, ValueError, TypeError) as exc:
             raise SpeechError("INVALID_ASR_OUTPUT", "The runtime returned invalid transcript data.") from exc
         elapsed = time.monotonic() - started
         return segments, {**identity, **info, "elapsed_seconds": elapsed,
                           "real_time_factor": elapsed / (info["duration_ms"] / 1000)}
+
+
+def build_adapter(selection):
+    from services.speech.asr import selection as asr_select
+    from services.speech.asr.parakeet import Parakeet
+    from services.speech.asr.whisper_cpp import WhisperCpp, threads, timeout
+    device = os.getenv("ASR_DEVICE", "auto").strip().lower()
+    if selection.engine == "parakeet-onnx":
+        return Parakeet(selection.model, selection.vad_model, asr_select.setting("WHISPER_BINARY").with_name("whisper-vad-speech-segments"), device)
+    return WhisperCpp(selection.model, selection.language, asr_select.setting("WHISPER_BINARY"), asr_select.setting("ASR_WHISPER_GPU_BINARY"),
+                      selection.vad_model, threads(), timeout(), device, asr_select.setting("ASR_WHISPER_CUDA_BINARY"))
+
+
+def transcribe_mode(audio_path, *, session_id: str, mode: str | None = None):
+    """Decode once, run the selected adapter, and report the mode, model, fallback and notices in the metrics."""
+    from services.speech.asr import selection as asr_select
+    selection = asr_select.select(mode)
+    adapter = build_adapter(selection)
+    identity = adapter.identity()
+    started = time.monotonic()
+    chosen = {"asr_mode": selection.mode, "asr_engine": selection.engine, "asr_model": identity.get("model", selection.model.name),
+              "asr_model_label": identity.get("model_label", selection.model.name),
+              "asr_fallback": selection.fallback, "language": selection.language}
+    with tempfile.TemporaryDirectory(prefix="pshynox-asr-") as temp:
+        wav = Path(temp) / "input.wav"
+        info = decode_audio(Path(audio_path), wav)
+        info["channel_mode"] = "stereo_mix" if info["channels"] == 2 else "mono"
+        if info["silent"]:
+            return [], {**identity, **chosen, **info, "asr_notices": list(selection.notices), "elapsed_seconds": time.monotonic() - started}
+        segments, run = adapter.transcribe(wav, info, session_id, Path(temp))
+    elapsed = time.monotonic() - started
+    notices = list(dict.fromkeys([*selection.notices, *getattr(adapter, "notices", [])]))
+    return segments, {**identity, **chosen, **info, **run, "asr_notices": notices, "elapsed_seconds": elapsed,
+                      "real_time_factor": elapsed / (info["duration_ms"] / 1000)}
 
 
 def parse_segments(payload: dict, *, session_id: str, duration_ms: int) -> list[TranscriptSegment]:

@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import { api, formatTimestamp, type Recording, type Session, type SpeechJob } from "../../lib/api";
+import { api, formatTimestamp, type AsrMode, type Recording, type Session, type SpeechJob } from "../../lib/api";
+import { ASR_MODE_LABELS, AsrModePicker, ProducedBy, useAsrStatus } from "./AsrModePicker";
 
 
 const MAX_RECORDING_MINUTES = 45;
 const MAX_RECORDING_SECONDS = MAX_RECORDING_MINUTES * 60;
-export function RecordingPanel({ session, onTranscribed }: { session: Session; onTranscribed: () => void }) {
+export function RecordingPanel({ session, onTranscribed, asrMode, onAsrMode }: { session: Session; onTranscribed: () => void; asrMode: AsrMode; onAsrMode: (mode: AsrMode) => void }) {
   const [consent, setConsent] = useState(session.consent.recording_consent === true);
+  const asrStatus = useAsrStatus();
+  const modeAtStart = useRef<AsrMode>(asrMode);
   const [devices, setDevices] = useState<MediaDeviceInfo[]>([]);
   const [device, setDevice] = useState("");
   const [recording, setRecording] = useState(false);
@@ -52,11 +55,11 @@ export function RecordingPanel({ session, onTranscribed }: { session: Session; o
       setDevices((await navigator.mediaDevices.enumerateDevices()).filter(d => d.kind === "audioinput"));
     } catch { setError("Microphone access was denied or no input was found. Check permissions or import a WAV."); }
   }
-  async function upload(blob: Blob) {
+  async function upload(blob: Blob, mode: AsrMode) {
     setBusy(true); setError("");
     try {
       if (!blob.size) throw new Error("The recording is empty.");
-      const r = await api.upload(session.id, blob);
+      const r = await api.upload(session.id, blob, mode);
       if (mounted.current) setFiles(current => [...current, r]);
     } catch (e) { if (mounted.current) setError(e instanceof Error ? e.message : "Upload failed. Please try again."); }
     finally { if (mounted.current) setBusy(false); }
@@ -78,7 +81,7 @@ export function RecordingPanel({ session, onTranscribed }: { session: Session; o
       media.onstop = () => {
         input.getTracks().forEach(t => t.stop());
         void context.current?.close(); context.current = null;
-        if (mounted.current) { setRecording(false); setLevel(0); void upload(new Blob(chunks, { type: mime })); }
+        if (mounted.current) { setRecording(false); setLevel(0); void upload(new Blob(chunks, { type: mime }), modeAtStart.current); }
       };
       const ac = new AudioContext(); context.current = ac;
       const analyser = ac.createAnalyser(); analyser.fftSize = 256;
@@ -90,6 +93,7 @@ export function RecordingPanel({ session, onTranscribed }: { session: Session; o
         setLevel(Math.min(100, Math.max(...data.map(v => Math.abs(v - 128))) * 3));
         requestAnimationFrame(meter);
       }
+      modeAtStart.current = asrMode;
       media.start(1000); setRecording(true); setSeconds(0); meter();
     } catch (e) {
       stream.current?.getTracks().forEach(t => t.stop());
@@ -99,9 +103,10 @@ export function RecordingPanel({ session, onTranscribed }: { session: Session; o
   }
   return <section className="panel recording-panel"><div className="panel-heading"><div><p className="eyebrow">Local audio · up to {MAX_RECORDING_MINUTES} minutes</p><h3>Record or import a conversation</h3></div></div>
     <label className="confirm-line"><input type="checkbox" checked={consent} disabled={busy || recording || processing} onChange={async e => { const value = e.target.checked; try { await api.recordingConsent(session.id, value); setConsent(value); } catch (reason) { setError(reason instanceof Error ? reason.message : "Could not save consent."); } }} /> I have consent to record and process this fictional conversation locally.</label>
+    <AsrModePicker value={asrMode} status={asrStatus} disabled={recording || busy} onChange={async mode => { setError(""); try { await api.setAsrMode(session.id, mode); onAsrMode(mode); } catch (e) { setError(e instanceof Error ? e.message : "Could not save the language mode."); } }} />
     <div className="recording-actions"><button className="button button-secondary small-button" disabled={!consent || recording || busy} onClick={chooseDevices}>Find microphones</button><select aria-label="Microphone" disabled={recording} value={device} onChange={e => setDevice(e.target.value)}><option value="">Default microphone</option>{devices.map(d => <option key={d.deviceId} value={d.deviceId}>{d.label || "Microphone"}</option>)}</select>
       <button className="button button-primary small-button" disabled={!consent || busy || processing} onClick={() => recording ? recorder.current?.stop() : void start()}>{recording ? "Stop and save" : "Start recording"}</button>
-      <label>Import WAV <input aria-label="Import WAV" type="file" accept=".wav,audio/wav" disabled={!consent || busy || recording || processing} onChange={e => { const file = e.target.files?.[0]; if (file) void upload(new Blob([file], { type: "audio/wav" })); e.target.value = ""; }} /></label>
+      <label>Import WAV <input aria-label="Import WAV" type="file" accept=".wav,audio/wav" disabled={!consent || busy || recording || processing} onChange={e => { const file = e.target.files?.[0]; if (file) void upload(new Blob([file], { type: "audio/wav" }), asrMode); e.target.value = ""; }} /></label>
     </div>
     {recording && <p role="status">Recording {formatTimestamp(seconds * 1000)} of {MAX_RECORDING_MINUTES}:00{seconds >= MAX_RECORDING_SECONDS - 120 ? " · stops and saves automatically at the limit" : ""} <meter aria-label="Input level" min={0} max={100} value={level} /> Check that both voices register.</p>}
     {busy && <p role="status">Saving and validating recording…</p>}
@@ -109,6 +114,7 @@ export function RecordingPanel({ session, onTranscribed }: { session: Session; o
     {files.map((file, index) => {
       const job = jobs.find(j => j.recording_id === file.id);
       const pending = job?.status === "QUEUED" || job?.status === "RUNNING";
+      const producedBy = job?.produced_by ?? file.transcribed_with;
       return <div className="saved-recording" key={file.id}>
         <span>{file.meeting_id ? `${file.speaker_role === "CLIENT" ? "Patient" : "Clinician"} · meeting ${formatTimestamp(file.offset_ms ?? 0)}${file.source === "patient_device" ? " · recorded on the patient’s device" : file.source === "network_received" && file.speaker_role === "CLIENT" ? " · network-received audio (fallback)" : ""}` : `Recording ${index + 1}`} · {formatTimestamp(file.duration_ms)} · {file.channels} channel(s)</span>
         <audio id={`audio-${file.id}`} data-offset-ms={file.offset_ms ?? 0} controls preload="none" src={`/api/v1/sessions/${session.id}/recordings/${file.id}/audio`} />
@@ -121,6 +127,8 @@ export function RecordingPanel({ session, onTranscribed }: { session: Session; o
           finally { setBusy(false); }
         }}>{job?.status === "SUCCEEDED" ? "Transcribed" : pending ? job.status === "QUEUED" ? "Queued" : "Transcribing…" : job?.status === "FAILED" ? "Retry transcription" : "Transcribe locally"}</button>
         {file.channels === 2 && <span className="small-note">Stereo will be mixed for transcription. Original audio is preserved; assign speaker roles manually.</span>}
+        {producedBy ? <ProducedBy value={producedBy} /> : file.asr_mode && <span className="small-note">{ASR_MODE_LABELS[file.asr_mode]}{job?.asr_model_label || job?.asr_model ? ` · ${job.asr_model_label || job.asr_model}` : ""}</span>}
+        {job?.asr_notices?.length ? <span className="asr-notice asr-notice-fallback" role="alert">{job.asr_notices.join(" · ")}</span> : null}
         {job && <p role="status">Recording {index + 1}: {job.status.toLowerCase()}{job.error_message ? ` — ${job.error_message}` : ""}</p>}
       </div>;
     })}

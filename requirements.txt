@@ -1,7 +1,7 @@
 # Run from the repository root:
 #   python -m pip install -r requirements.txt
 # Installs this project and ALL Python runtime/test dependencies from pyproject.toml:
-# FastAPI, SQLAlchemy, Alembic, Pydantic, uvicorn[standard], httpx and pytest.
+# FastAPI, SQLAlchemy, Alembic, Pydantic, uvicorn[standard], httpx, onnxruntime, onnx-asr and pytest.
 # Keep version constraints in pyproject.toml as the single source of truth.
 -e .[dev]
 
@@ -13,5 +13,6 @@
 # - Local multilingual model: models/ggml-base.bin (download separately).
 #   https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.bin
 #   SHA-256: 60ed5bc3dd14eea856493d334349b405782ddcaf0028d4b5df4088345fba2efe
+# - Speech models per language mode (Parakeet ONNX, Silero VAD, Urdu Sukhan): docs/ASR_MODELS.md.
 # Model files are deliberately excluded from Git. A fresh clone needs this download.
 # See README.md for exact system install, runtime build, model and run commands.

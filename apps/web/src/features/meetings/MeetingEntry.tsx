@@ -1,9 +1,16 @@
 import { useEffect, useState } from "react";
 import { meetingRequest } from "./api";
+import type { AsrMode } from "../../lib/api";
+import { ASR_MODE_LABELS, AsrModeNotice, useAsrStatus } from "../sessions/AsrModePicker";
 
 type Usage = { month: string; meetings: number; relayed_meetings: number; relayed_bytes: number; estimated_cost_usd: number; turn_provider: string | null; audio_only_default: boolean; mode: string };
 
-export function MeetingEntry({ sessionId }: { sessionId: string }) {
+type Track = "CLINICIAN" | "CLIENT";
+const TRACKS: [Track, string][] = [["CLINICIAN", "Clinician track"], ["CLIENT", "Patient track"]];
+
+export function MeetingEntry({ sessionId, asrMode }: { sessionId: string; asrMode: AsrMode }) {
+  const asrStatus = useAsrStatus();
+  const [trackModes, setTrackModes] = useState<Partial<Record<Track, AsrMode>>>({});
   const [consent, setConsent] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -14,7 +21,7 @@ export function MeetingEntry({ sessionId }: { sessionId: string }) {
   async function create() {
     setBusy(true); setError("");
     try {
-      const room = await meetingRequest<{ id: string; host_token: string; guest_token: string; public_origin: string }>(`sessions/${sessionId}/meetings`, "", { method: "POST", body: JSON.stringify({ recording_consent: consent, ...(audioOnly === null ? {} : { audio_only: audioOnly }) }) });
+      const room = await meetingRequest<{ id: string; host_token: string; guest_token: string; public_origin: string }>(`sessions/${sessionId}/meetings`, "", { method: "POST", body: JSON.stringify({ recording_consent: consent, ...(audioOnly === null ? {} : { audio_only: audioOnly }), asr_modes: trackModes }) });
       sessionStorage.setItem(`meeting-token-${room.id}`, room.host_token);
       sessionStorage.setItem(`meeting-invite-${room.id}`, `${room.public_origin || location.origin}/meeting/${room.id}#token=${room.guest_token}`);
       sessionStorage.setItem(`session-meeting-${sessionId}`, room.id);
@@ -24,6 +31,12 @@ export function MeetingEntry({ sessionId }: { sessionId: string }) {
   return <section className="panel meeting-entry"><div><p className="eyebrow">Same conversation. Different chairs.</p><h3>Meet online</h3><p>Invite your patient to a private two-person call. Each voice is saved separately and transcribed locally while you talk.</p></div>
     <div className="meeting-entry-actions"><label className="confirm-line"><input type="checkbox" checked={consent} disabled={busy} onChange={e => setConsent(e.target.checked)} /> I consent to recording and local transcription of this fictional session. The patient will be asked separately.</label>
     <label className="confirm-line"><input type="checkbox" checked={audioOnly ?? false} disabled={busy} onChange={e => setAudioOnly(e.target.checked)} /> Audio only (no video; keeps relayed internet traffic small)</label>
+    <fieldset className="asr-track-modes" disabled={busy}><legend>Speech recognition language per voice</legend>
+      {TRACKS.map(([track, label]) => { const effective = trackModes[track] ?? asrMode; return <div key={track} className="asr-mode-picker"><label>{label} <select aria-label={`${label} language`} value={trackModes[track] ?? ""} onChange={e => setTrackModes(m => ({ ...m, [track]: (e.target.value || undefined) as AsrMode | undefined }))}>
+        <option value="">Same as session ({ASR_MODE_LABELS[asrMode]})</option>
+        {(Object.keys(ASR_MODE_LABELS) as AsrMode[]).map(m => <option key={m} value={m}>{ASR_MODE_LABELS[m]}</option>)}
+      </select></label> <AsrModeNotice mode={effective} status={asrStatus} /></div>; })}
+    </fieldset>
     <button className="button button-primary" disabled={!consent || busy} onClick={() => void create()}>{busy ? "Opening the office…" : "Start online meeting"}</button>
     {saved && <a className="text-link" href={`/meeting/${saved}`}>Resume existing meeting</a>}
     <button className="text-button" disabled={busy} onClick={async () => { if (!confirm("Close any existing invitation for this session? Do not do this while audio is still uploading.")) return; try { await meetingRequest(`sessions/${sessionId}/meetings/close`, "", { method: "POST" }); sessionStorage.removeItem(`session-meeting-${sessionId}`); setError("Previous meeting closed. You can create a new invitation."); } catch (e) { setError((e as Error).message); } }}>Close previous invitation</button>

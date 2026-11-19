@@ -12,7 +12,14 @@ export type Session = {
   consent: Record<string, string | boolean>;
   workflow_status: "DRAFT" | "IN_PROGRESS" | "READY_FOR_REVIEW" | "APPROVED" | "REJECTED";
   created_at: string;
+  asr_mode?: AsrMode;
 };
+
+export type AsrMode = "english" | "urdu_mixed";
+export type AsrModeStatus = { mode: AsrMode; mode_label: string; engine: string; model: string; model_label?: string; language: string; fallback: boolean; notices: string[]; vad: string | null; installed: boolean; licence?: string; non_commercial?: boolean; device?: "cuda" | "vulkan" | "cpu" | "auto" };
+/** Which mode, model and device produced a recording's transcript (services/api/speech_routes.py produced_by). */
+export type AsrProducedBy = { asr_mode: AsrMode | null; asr_model: string | null; asr_model_label: string | null; asr_engine: string | null; model_sha256?: string | null; model_licence?: string | null; model_non_commercial?: boolean; language?: string | null; device?: "gpu" | "cpu" | null; gpu_backend?: "cuda" | "vulkan" | null; gpu_device?: string | null; vad?: boolean | null; asr_fallback: boolean; real_time_factor?: number | null };
+export type AsrStatus = { default_mode: AsrMode; modes: Record<AsrMode, AsrModeStatus> };
 
 export type TranscriptSegment = {
   id: string;
@@ -99,8 +106,8 @@ export type PatientInput = {
 };
 export type Patient = PatientInput & { id: string; created_at: string; updated_at: string };
 
-export type Recording = { id: string; session_id: string; duration_ms: number; channels: number; offset_ms?: number; speaker_role?: string; meeting_id?: string | null; source?: "clinician_local" | "patient_device" | "network_received" | "upload"; };
-export type SpeechJob = { id: string; recording_id: string; status: "QUEUED" | "RUNNING" | "SUCCEEDED" | "FAILED"; error_message: string | null; metrics: Record<string, unknown> };
+export type Recording = { id: string; session_id: string; duration_ms: number; channels: number; offset_ms?: number; speaker_role?: string; meeting_id?: string | null; source?: "clinician_local" | "patient_device" | "network_received" | "upload"; asr_mode?: AsrMode | null; transcribed_with?: AsrProducedBy | null };
+export type SpeechJob = { id: string; recording_id: string; status: "QUEUED" | "RUNNING" | "SUCCEEDED" | "FAILED"; error_message: string | null; metrics: Record<string, unknown>; asr_mode?: AsrMode | null; asr_model?: string | null; asr_model_label?: string | null; asr_fallback?: boolean; asr_notices?: string[]; produced_by?: AsrProducedBy | null };
 
 export const api = {
   patients: () => request<Patient[]>("/api/v1/patients"),
@@ -111,7 +118,9 @@ export const api = {
   assignPatient: (sid: string, patient_id: string) => request<Session>(`/api/v1/sessions/${sid}/patient`, undefined, { method: "PATCH", body: JSON.stringify({ patient_id }) }),
   recordingConsent: (sid: string, value: boolean) => request(`/api/v1/sessions/${sid}/recording-consent`, undefined, { method: "PATCH", body: JSON.stringify({ recording_consent: value }) }),
   recordings: (sid: string) => request<Recording[]>(`/api/v1/sessions/${sid}/recordings`),
-  upload: (sid: string, blob: Blob) => request<Recording>(`/api/v1/sessions/${sid}/recordings`, undefined, { method: "POST", headers: { "Content-Type": blob.type || "audio/wav" }, body: blob }),
+  upload: (sid: string, blob: Blob, mode?: AsrMode) => request<Recording>(`/api/v1/sessions/${sid}/recordings${mode ? `?asr_mode=${mode}` : ""}`, undefined, { method: "POST", headers: { "Content-Type": blob.type || "audio/wav" }, body: blob }),
+  asrStatus: () => request<AsrStatus>("/api/v1/asr/status"),
+  setAsrMode: (sid: string, asr_mode: AsrMode) => request<{ asr_mode: AsrMode }>(`/api/v1/sessions/${sid}/asr-mode`, undefined, { method: "PATCH", body: JSON.stringify({ asr_mode }) }),
   transcribe: (sid: string, rid: string, key: string) => request<SpeechJob>(`/api/v1/sessions/${sid}/transcribe`, undefined, { method: "POST", body: JSON.stringify({ recording_id: rid, idempotency_key: key }) }),
   speechJobs: (sid: string) => request<SpeechJob[]>(`/api/v1/sessions/${sid}/transcription-jobs`),
   transcriptSources: (sid: string) => request<Record<string, string>>(`/api/v1/sessions/${sid}/transcript-sources`),

@@ -224,6 +224,9 @@ class AuditEvent(BaseModel):
     patient_id: str | None = None
 
 
+AsrMode = Literal["english", "urdu_mixed"]
+
+
 class Session(BaseModel):
     patient_id: str | None = None
     model_config = ConfigDict(extra="forbid")
@@ -234,6 +237,7 @@ class Session(BaseModel):
     consent: dict[str, str | bool]
     workflow_status: WorkflowStatus
     created_at: datetime
+    asr_mode: AsrMode = "urdu_mixed"   # speech recognition language mode (docs/ASR_MODELS.md)
 
 
 class SessionCreate(BaseModel):
@@ -243,6 +247,7 @@ class SessionCreate(BaseModel):
     pseudonym_id: str | None = Field(default=None, min_length=1, max_length=100)
     session_type: SessionType
     consent: dict[str, str | bool]
+    asr_mode: AsrMode | None = None
 
 
 class TranscriptSegmentUpdate(BaseModel):
